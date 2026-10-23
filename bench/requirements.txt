@@ -1,0 +1,4 @@
+torch==2.14.1
+torchvision==0.29.1
+playwright==1.64.1
+pillow==13.0.0

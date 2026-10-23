@@ -1,3 +1,6 @@
+// Three.js (browser): the five houses. Each builder gives its doorbell
+// position, its delivery route, and its drop spot.
+
 import * as THREE from "three";
 import {
   M,

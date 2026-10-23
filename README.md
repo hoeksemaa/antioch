@@ -4,15 +4,32 @@ A doorbell camera on a simulated front porch, in many environments. It benchmark
 
 Unofficial demo by [John Hoeksema](https://johnhoeksema.com) for the Member of Technical Staff, Core Platform role at Antioch. Not affiliated with Antioch. All scenes and results are simulated and uncalibrated.
 
-Live: https://antioch-demo-hoeksema.vercel.app (doorbell view of one house: https://antioch-demo-hoeksema.vercel.app/?house=stoop&view=doorbell)
+Live: https://antioch-demo-hoeksema.vercel.app (doorbell view of one house: https://antioch-demo-hoeksema.vercel.app/?house=stoop&view=doorbell). Results: https://antioch-demo-hoeksema.vercel.app/results.html
 
-## Stack
+## Stack: which parts are Three.js and which are Python
 
-- **3D scene: Three.js**, in `scene/` (Vite + TypeScript). It runs in the browser, so the same scene is the public demo and the replay viewer.
-- **Detection: Python**, in `bench/` (not started). Plan: Python opens the scene in headless Chromium (Playwright), captures doorbell frames from `?view=doorbell`, and runs a torchvision COCO person detector on them. Thus one renderer makes both the benchmark frames and the replay.
-- **Hosting: Vercel** serves `scene/` as a static site. The Python benchmark runs outside Vercel and writes its results as JSON for the site to read.
+| Part | Language | Folder | What it does |
+|---|---|---|---|
+| 3D scene | **Three.js** (TypeScript, in the browser) | `scene/` | Houses, the delivery person and package, the doorbell camera, the page you see |
+| Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
+| Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots |
+| Detectors | **Python** | `bench/detector.py` | Registry of detectors; add one entry to add a detector |
+| Scoring and results | **Python** | `bench/run.py` | Matches detections to the ground truth; writes `scene/public/results/` |
+| Results page | TypeScript (browser, no Three.js) | `scene/results.html`, `scene/src/results.ts` | Detectors × scenarios matrix; replays any frame in the Three.js scene (in an iframe) with the boxes on top |
+| Hosting | Vercel | `scene/` | Serves the Three.js scene as a static site. Python does not run on Vercel |
 
-Why this split: Three.js is fast to build and runs in any browser. Python does the detection, the scoring, and the runs, which is where the Core Platform post puts its weight.
+```
+Python (bench/)                                   Three.js (scene/, in headless Chromium)
+run.py  -- window.bench.render(t) -------------->  renders the doorbell frame at time t
+        <-- ground truth: person box, distance ---  projects the person onto the camera image
+capture.py  -- screenshot ----------------------->  (the frame)
+detector.py  finds "person" boxes in the frame
+run.py  scores each frame: hit, miss, false alarm
+```
+
+Each source file starts with a comment that says "Three.js (browser)" or "Python".
+
+Why this split: Three.js is fast to build and runs in any browser, so the same scene is the public demo and the replay viewer. Python does the detection, the scoring, and the runs, which is where the Core Platform post puts its weight.
 
 ## Run the scene
 
@@ -28,6 +45,7 @@ URL parameters:
 - `?house=<id>` picks the house (ids below).
 - `?view=doorbell` shows the doorbell camera alone, with no overlays. Frame capture will use this view, for example `?house=stoop&view=doorbell`.
 - `?t=<seconds>` freezes the delivery at that time, for example `?house=porch&view=doorbell&t=16`.
+- `?seed=<n>` seeds every random choice in the scene (default 0). Nothing in the scene is random yet; all future variation must use `rng()` from `scene/src/random.ts`.
 
 ## Houses
 
@@ -54,10 +72,55 @@ In each house, one person carries one package along that house's route: from the
 - The motion is a pure function of time (`scene/src/delivery.ts`), so the frame at time t is the same on every run.
 - Each house gives its `route` (a polyline; y is the floor height under the feet) and its `drop` spot in `houses.ts`. Stairs are ramps in the route, so the feet do not land on each step.
 
+## Run the benchmark (Python)
+
+One-time setup, from the repo root:
+
+```sh
+uv venv --python 3.12 bench/.venv
+uv pip install --python bench/.venv/bin/python -r bench/requirements.txt
+bench/.venv/bin/python -m playwright install chromium
+```
+
+Start the scene (`cd scene && npm run dev`), then:
+
+```sh
+bench/.venv/bin/python bench/run.py                       # all detectors, all scenarios, 2 frames per second
+bench/.venv/bin/python bench/run.py --scenarios porch stoop --detectors ssdlite
+bench/.venv/bin/python bench/run.py --images              # also write marked-up frames to bench/out/
+bench/.venv/bin/python bench/run.py --seed random         # a new seed (saved with the results)
+bench/.venv/bin/python bench/run.py --url https://antioch-demo-hoeksema.vercel.app
+```
+
+How it scores (v1):
+- **Detectors:** pretrained on COCO (real photos), from torchvision: `frcnn-mobilenet` (`fasterrcnn_mobilenet_v3_large_fpn`) and `ssdlite` (`ssdlite320_mobilenet_v3_large`). Only "person" boxes with a score of at least 0.5 count.
+- **Ground truth:** the scene projects every vertex of the person onto the doorbell image and takes the box around them. The box covers the whole body, also the parts behind walls or rails.
+- **Hit:** a person box overlaps the true box with IoU ≥ 0.3. The usual value is 0.5; 0.3 allows for the hidden body parts.
+- **Miss:** the person is in view, but no person box matches.
+- **False alarm:** a person box that does not match the person.
+- **Detection rate:** hits ÷ frames with the person in view, overall and by distance (0–3, 3–6, 6–9, 9–12, 12+ m, on the ground from the doorbell).
+- **First seen:** the distance at the first hit while the person walks up.
+- **Seed:** every run uses seed 0 unless you pass `--seed`. The seed goes to Python, torch, and the scene (`&seed=`), and it is saved with the results, so the same seed gives the same results and the results page replays the same frames.
+
+Output (in git, so the deployed results page shows it):
+- `scene/public/results/index.json`: one summary for each detector and scenario. The results page matrix reads only this file.
+- `scene/public/results/<detector>/<scenario>.json`: every frame, with the true box and every detection. The page loads it when you click a cell.
+
+A run replaces the results for the detectors and scenarios it runs and keeps the others. With `--images`, marked-up frames also go to `bench/out/<detector>/<scenario>/` (not in git).
+
+## Results page
+
+http://localhost:5173/results.html (live: `/results.html`)
+
+- **Matrix:** rows are scenarios, columns are detectors, and each cell is the detection rate. The last row is all scenarios together.
+- **Replay:** click a cell to see that scenario and detector. The page loads the Three.js scene in an iframe at the frame's time and draws the true box (white, dashed) and the detections (yellow) on top. The scene is deterministic, so the replay is the same frame that the detector saw.
+- **Frame strips:** one strip for each detector (green: hit, red: miss, gray: person out of view). Click a frame, or use ← and →.
+- **Distance table:** detection rate by distance for each detector.
+
 ## Deploy
 
 Vercel project `antioch-demo-hoeksema`, with Root Directory `scene`. Vercel detects Vite; the output is `dist/`. GitHub is connected, so each merge to `main` deploys to production. A manual deploy is `vercel deploy --prod --yes` from the repo root.
 
 ## Status
 
-v2: five houses, each with a package delivery. No detection yet.
+v3: five houses, each with a package delivery; a Python person-detection benchmark with two detectors; a results page.

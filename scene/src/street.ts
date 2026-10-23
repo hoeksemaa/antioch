@@ -1,3 +1,5 @@
+// Three.js (browser): the street, the far side, and the neighbors.
+
 import * as THREE from "three";
 import { M, box, mat, simpleHouse, tree, windowUnit } from "./parts";
 

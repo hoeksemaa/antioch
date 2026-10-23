@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <title>Detector Results</title>
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">Doorbell benchmark <span>unofficial demo</span></div>
+      <nav>
+        <a href="./">3D scene</a>
+        <a class="active" href="./results.html">Results</a>
+      </nav>
+    </header>
+
+    <main>
+      <p class="eyebrow"><span>//</span> Results</p>
+      <h1>Person detection</h1>
+      <p class="lede">
+        Detection rate is the share of frames with the person in view in which the detector found the person.
+        All scenes are simulated and uncalibrated.
+      </p>
+
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Detectors × scenarios</div>
+            <div class="mono muted" id="settings"></div>
+          </div>
+          <div class="stats" id="stats"></div>
+        </div>
+        <div class="table-wrap"><table id="matrix"></table></div>
+      </section>
+
+      <section class="card" id="detail" hidden>
+        <div class="card-head">
+          <div>
+            <div class="card-title" id="detail-title"></div>
+            <div class="mono muted" id="detail-sub"></div>
+          </div>
+          <div class="stats" id="detail-stats"></div>
+        </div>
+        <div class="replay">
+          <iframe id="replay" title="Doorbell camera replay"></iframe>
+          <div id="boxes"></div>
+        </div>
+        <div class="frame-info mono" id="frame-info"></div>
+        <div id="strips"></div>
+        <div class="legend mono">
+          <span><i class="hit"></i>hit</span>
+          <span><i class="miss"></i>miss</span>
+          <span><i class="out"></i>person out of view</span>
+          <span><i class="truth"></i>true box</span>
+          <span><i class="det"></i>detection</span>
+          <span class="muted">Click a frame · ← → step</span>
+        </div>
+        <div class="table-wrap"><table id="bands"></table></div>
+      </section>
+    </main>
+
+    <footer>Simulated scenes. Unofficial demo by John Hoeksema. Not affiliated with Antioch.</footer>
+    <script type="module" src="/src/results.ts"></script>
+  </body>
+</html>

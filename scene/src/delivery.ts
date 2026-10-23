@@ -1,3 +1,6 @@
+// Three.js (browser): the delivery person and package, and the ground truth
+// that the Python benchmark reads (phase, person box, distance).
+
 import * as THREE from "three";
 import { mat } from "./parts";
 
@@ -166,10 +169,13 @@ class Route {
   }
 }
 
+export type Phase = "approach" | "drop" | "leave" | "gone";
+
 // A person carries the package along the route, sets it down at drop, turns
 // around, and walks back. The scene is a pure function of time, so a frame
 // at time t is the same on every run.
 export class Delivery {
+  phase: Phase = "approach";
   readonly root = new THREE.Group();
   private readonly rig = buildPerson();
   private readonly box = buildPackage();
@@ -178,6 +184,7 @@ export class Delivery {
   private readonly arrive: number; // heading at the end of the route
   private readonly place: number; // heading toward the drop spot
   private readonly dropCenter: THREE.Vector3;
+  private readonly times: number[]; // end of each step: approach, pause, place, turn, leave, gone
 
   constructor(points: THREE.Vector3[], drop: THREE.Vector3) {
     this.route = new Route(points);
@@ -186,17 +193,20 @@ export class Delivery {
     this.place = Math.atan2(drop.x - this.end.x, drop.z - this.end.z);
     this.dropCenter = drop.clone().setY(drop.y + BOX.y / 2);
     this.root.add(this.rig.root, this.box);
+    const walkTime = this.route.length / SPEED;
+    let end = 0;
+    this.times = [walkTime, PAUSE, PLACE, TURN, walkTime, GONE].map((step) => (end += step));
+  }
+
+  // Length of one loop, s.
+  get loop() {
+    return this.times[this.times.length - 1];
   }
 
   update(time: number) {
-    const walkTime = this.route.length / SPEED;
-    const t1 = walkTime;
-    const t2 = t1 + PAUSE;
-    const t3 = t2 + PLACE;
-    const t4 = t3 + TURN;
-    const t5 = t4 + walkTime;
-    const loop = t5 + GONE;
+    const [t1, t2, t3, t4, t5, loop] = this.times;
     const t = ((time % loop) + loop) % loop;
+    this.phase = t < t1 ? "approach" : t < t4 ? "drop" : t < t5 ? "leave" : "gone";
 
     let position = this.end;
     let heading = this.place;
@@ -243,5 +253,37 @@ export class Delivery {
     const held = CARRY.clone().applyAxisAngle(THREE.Object3D.DEFAULT_UP, heading).add(position);
     this.box.position.lerpVectors(held, this.dropCenter, toDrop);
     this.box.rotation.y = toDrop < 1 ? heading : this.place;
+  }
+
+  // Distance on the ground from a point (the camera) to the person's feet, m.
+  distanceFrom(point: THREE.Vector3) {
+    const feet = this.rig.root.position;
+    return Math.hypot(feet.x - point.x, feet.z - point.z);
+  }
+
+  // The person's box in the camera image as [x0, y0, x1, y1], in fractions of
+  // the image width and height from the top left. Null when the person is out
+  // of view. The box covers the whole body, also parts behind walls or rails.
+  screenBox(camera: THREE.Camera): [number, number, number, number] | null {
+    if (!this.rig.root.visible) return null;
+    this.rig.root.updateMatrixWorld(true);
+    const v = new THREE.Vector3();
+    let [x0, y0, x1, y1] = [Infinity, Infinity, -Infinity, -Infinity];
+    this.rig.root.traverse((object) => {
+      if (!(object instanceof THREE.Mesh)) return;
+      const position = object.geometry.attributes.position;
+      for (let i = 0; i < position.count; i++) {
+        v.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld).project(camera);
+        if (v.z < -1 || v.z > 1) continue; // behind the camera or past the far plane
+        x0 = Math.min(x0, v.x);
+        x1 = Math.max(x1, v.x);
+        y0 = Math.min(y0, v.y);
+        y1 = Math.max(y1, v.y);
+      }
+    });
+    // From -1..1 with y up to 0..1 with y down, clipped to the image.
+    const clip = (u: number) => Math.min(Math.max(u, 0), 1);
+    const box: [number, number, number, number] = [clip((x0 + 1) / 2), clip((1 - y1) / 2), clip((x1 + 1) / 2), clip((1 - y0) / 2)];
+    return box[2] > box[0] && box[3] > box[1] ? box : null;
   }
 }

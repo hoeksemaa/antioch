@@ -1,3 +1,5 @@
+// Three.js (browser): lights, the world for one house, and the doorbell camera.
+
 import * as THREE from "three";
 import { Delivery } from "./delivery";
 import type { House, HouseView } from "./houses";
