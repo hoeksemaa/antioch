@@ -4,18 +4,18 @@ A doorbell camera on a simulated front porch, in many environments. It benchmark
 
 Unofficial demo by [John Hoeksema](https://johnhoeksema.com) for the Member of Technical Staff, Core Platform role at Antioch. Not affiliated with Antioch. All scenes and results are simulated and uncalibrated.
 
-Live: https://antioch-demo-hoeksema.vercel.app (doorbell view of one house: https://antioch-demo-hoeksema.vercel.app/?house=stoop&view=doorbell). Results: https://antioch-demo-hoeksema.vercel.app/results.html
+Live: https://antioch-demo-hoeksema.vercel.app (one page: the 3D viewer and the detector results together).
 
 ## Stack: which parts are Three.js and which are Python
 
 | Part | Language | Folder | What it does |
 |---|---|---|---|
-| 3D scene | **Three.js** (TypeScript, in the browser) | `scene/` | Houses, the delivery person and package, the doorbell camera, the page you see |
+| 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots |
 | Detectors | **Python** | `bench/detector.py` | Registry of detectors; add one entry to add a detector |
 | Scoring and results | **Python** | `bench/run.py` | Matches detections to the ground truth; writes `scene/public/results/` |
-| Results page | TypeScript (browser, no Three.js) | `scene/results.html`, `scene/src/results.ts` | Detectors × scenarios matrix; replays any frame in the Three.js scene (in an iframe) with the boxes on top |
+| Page and results UI | TypeScript (browser, no Three.js) | `scene/index.html`, `scene/src/ui.ts`, `style.css` | The one page: detectors × scenarios matrix, the viewer's timeline, and the boxes on the doorbell camera |
 | Hosting | Vercel | `scene/` | Serves the Three.js scene as a static site. Python does not run on Vercel |
 
 ```
@@ -39,11 +39,12 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173. Drag to orbit and scroll to zoom. Press `V` to switch between the overview and the doorbell camera. Press `1`–`5` (or click a button) to switch houses.
+Open http://localhost:5173. The page has two modes:
+- **Console (default):** the page, with the workspace (results matrix and the 3D viewer). Keys: space plays or pauses, ← and → step one frame, `V` switches between the doorbell camera and the overview (drag to orbit).
+- **Capture (`?view=doorbell`):** the doorbell camera alone, in the full window, with no page around it. The Python benchmark uses this mode, for example `?house=stoop&view=doorbell`.
 
 URL parameters:
-- `?house=<id>` picks the house (ids below).
-- `?view=doorbell` shows the doorbell camera alone, with no overlays. Frame capture will use this view, for example `?house=stoop&view=doorbell`.
+- `?house=<id>` picks the house (ids below). `?detector=<id>` picks the detector in the workspace.
 - `?t=<seconds>` freezes the delivery at that time, for example `?house=porch&view=doorbell&t=16`.
 - `?seed=<n>` seeds every random choice in the scene (default 0). Nothing in the scene is random yet; all future variation must use `rng()` from `scene/src/random.ts`.
 
@@ -100,22 +101,23 @@ How it scores (v1):
 - **False alarm:** a person box that does not match the person.
 - **Detection rate:** hits ÷ frames with the person in view, overall and by distance (0–3, 3–6, 6–9, 9–12, 12+ m, on the ground from the doorbell).
 - **First seen:** the distance at the first hit while the person walks up.
-- **Seed:** every run uses seed 0 unless you pass `--seed`. The seed goes to Python, torch, and the scene (`&seed=`), and it is saved with the results, so the same seed gives the same results and the results page replays the same frames.
+- **Seed:** every run uses seed 0 unless you pass `--seed`. The seed goes to Python, torch, and the scene (`&seed=`), and it is saved with the results, so the same seed gives the same results and the workspace replays the same frames.
 
-Output (in git, so the deployed results page shows it):
-- `scene/public/results/index.json`: one summary for each detector and scenario. The results page matrix reads only this file.
+Output (in git, so the deployed page shows it):
+- `scene/public/results/index.json`: one summary for each detector and scenario. The workspace matrix reads only this file.
 - `scene/public/results/<detector>/<scenario>.json`: every frame, with the true box and every detection. The page loads it when you click a cell.
 
 A run replaces the results for the detectors and scenarios it runs and keeps the others. With `--images`, marked-up frames also go to `bench/out/<detector>/<scenario>/` (not in git).
 
-## Results page
+## Workspace
 
-http://localhost:5173/results.html (live: `/results.html`)
-
-- **Matrix:** rows are scenarios, columns are detectors, and each cell is the detection rate. The last row is all scenarios together.
-- **Replay:** click a cell to see that scenario and detector. The page loads the Three.js scene in an iframe at the frame's time and draws the true box (white, dashed) and the detections (yellow) on top. The scene is deterministic, so the replay is the same frame that the detector saw.
-- **Frame strips:** one strip for each detector (green: hit, red: miss, gray: person out of view). Click a frame, or use ← and →.
+The page's workspace card (styled after antioch.com):
+- **Matrix (left):** rows are scenarios, columns are detectors, and each cell is the detection rate. The best rate in each row is green, and the ring shows it as an arc. The last row is all scenarios together. Click a cell to pick that scenario and detector.
+- **Viewer (right):** the Three.js scene itself, with the true box (white, dashed) and the detector's boxes (yellow) on the doorbell camera. The scene is deterministic, so each frame is the same frame that the detector saw.
+- **Timeline:** play, pause, and step; one strip for each detector (green: hit, red: miss, gray: person out of view). Click a frame to go to it.
 - **Distance table:** detection rate by distance for each detector.
+
+`/results.html` (the old results page) redirects to `/#workspace` (`scene/vercel.json`).
 
 ## Deploy
 
@@ -123,4 +125,4 @@ Vercel project `antioch-demo-hoeksema`, with Root Directory `scene`. Vercel dete
 
 ## Status
 
-v3: five houses, each with a package delivery; a Python person-detection benchmark with two detectors; a results page.
+v4: one page (viewer and results together), five houses with a package delivery, and a Python person-detection benchmark with two detectors.
