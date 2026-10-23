@@ -1,42 +1,67 @@
-// Simulations page (Three.js viewer plus a few buttons). The original scene
-// browser: the overview with the doorbell camera inset, the delivery playing,
-// keys 1–5 to switch houses, and V to switch the view.
+// Simulations page (Three.js viewer plus a few controls): the overview with
+// the doorbell camera inset and the delivery playing. One row of buttons for
+// each axis in settings.ts, and a seed. Keys 1–5 switch houses, and V
+// switches the view.
 
-import { HOUSES, type House } from "./houses";
+import { HOUSES } from "./houses";
+import { AXES, writeSettings, type AxisId, type Settings } from "./settings";
 import type { Viewer } from "./viewer";
 
 export function startSimulations(viewer: Viewer) {
   const stage = document.getElementById("stage")!;
   const inset = document.getElementById("inset")!;
-  const buttons = document.getElementById("houses")!;
+  const rows = document.getElementById("axes")!;
   stage.prepend(viewer.canvas);
   new ResizeObserver(([entry]) => viewer.setSize(entry.contentRect.width, entry.contentRect.height)).observe(stage);
 
-  function load(house: House) {
-    if (house !== viewer.house) viewer.load(house);
+  function load(settings: Settings) {
+    viewer.load(settings);
     viewer.play();
-    for (const b of buttons.querySelectorAll<HTMLButtonElement>("button")) b.classList.toggle("on", b.dataset.house === house.id);
+    for (const b of rows.querySelectorAll<HTMLButtonElement>("button[data-axis]")) {
+      b.classList.toggle("on", settings[b.dataset.axis as AxisId] === b.dataset.value);
+    }
+    seed.value = String(settings.seed);
     const p = new URLSearchParams(location.search);
-    p.set("house", house.id);
+    p.delete("t");
+    writeSettings(settings, p);
     history.replaceState(null, "", `?${p}`);
   }
+
+  const set = (change: Partial<Settings>) => load({ ...viewer.settings, ...change });
 
   function setView(view: "overview" | "doorbell") {
     viewer.setView(view);
     document.body.classList.toggle("doorbell", view === "doorbell");
   }
 
-  HOUSES.forEach((house, i) => {
-    const b = document.createElement("button");
-    b.dataset.house = house.id;
-    b.textContent = `${i + 1} ${house.name}`;
-    b.addEventListener("click", () => load(house));
-    buttons.append(b);
-  });
+  for (const axis of AXES) {
+    const row = document.createElement("div");
+    row.className = "axis";
+    row.innerHTML = `<span>${axis.label}</span>`;
+    axis.values.forEach((value, i) => {
+      const b = document.createElement("button");
+      b.dataset.axis = axis.id;
+      b.dataset.value = value.id;
+      b.textContent = axis.id === "house" ? `${i + 1} ${value.label}` : value.label;
+      b.addEventListener("click", () => set({ [axis.id]: value.id }));
+      row.append(b);
+    });
+    rows.append(row);
+  }
+
+  // Seed 0 is the canonical scene. The new-seed button picks one at random.
+  const row = document.createElement("div");
+  row.className = "axis";
+  row.innerHTML = `<span>Seed</span><input id="seed" type="number" min="0" step="1" /><button id="reseed" title="New seed">↻</button>`;
+  rows.append(row);
+  const seed = row.querySelector<HTMLInputElement>("#seed")!;
+  seed.addEventListener("change", () => set({ seed: Math.max(0, Math.floor(Number(seed.value)) || 0) }));
+  row.querySelector("#reseed")!.addEventListener("click", () => set({ seed: 1 + Math.floor(Math.random() * 9999) }));
 
   window.addEventListener("keydown", (event) => {
+    if (event.target instanceof HTMLInputElement) return;
     const house = HOUSES[Number(event.key) - 1];
-    if (house) load(house);
+    if (house) set({ house: house.id });
     else if (event.key.toLowerCase() === "v") setView(viewer.view === "overview" ? "doorbell" : "overview");
   });
 
@@ -48,5 +73,5 @@ export function startSimulations(viewer: Viewer) {
 
   viewer.inset = true;
   setView("overview");
-  load(viewer.house);
+  load(viewer.settings);
 }

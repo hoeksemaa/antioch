@@ -692,14 +692,27 @@ kbd {
   font: inherit;
 }
 
-#houses {
-  display: flex;
-  flex-wrap: wrap;
+#axes {
+  display: grid;
   gap: 4px;
   margin-top: 6px;
 }
 
-#houses button {
+#axes .axis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+#axes .axis > span {
+  width: 64px;
+  color: #c9c9c2;
+  font-size: 12px;
+}
+
+#axes button,
+#axes input {
   padding: 2px 8px;
   border: 1px solid rgb(255 255 255 / 0.25);
   border-radius: 4px;
@@ -710,7 +723,12 @@ kbd {
   cursor: pointer;
 }
 
-#houses button.on {
+#axes input {
+  width: 64px;
+  cursor: text;
+}
+
+#axes button.on {
   border-color: #ffcc33;
   background: #ffcc33;
   color: #111;

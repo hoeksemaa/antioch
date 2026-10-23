@@ -11,7 +11,8 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations) and https://antioch
 | Part | Language | Folder | What it does |
 |---|---|---|---|
 | 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
-| Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, keys 1–5 and V. Also capture mode for Python |
+| Scenario axes | TypeScript (browser) | `scene/src/settings.ts` | The axes (house, and more to come), with a v1 baseline value and a showcase value for each |
+| Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, one row of buttons per axis, a seed, keys 1–5 and V. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots |
 | Detectors | **Python** | `bench/detector.py` | Registry of detectors; add one entry to add a detector |
@@ -41,15 +42,17 @@ npm run dev
 ```
 
 Two pages, with the same header (Simulations, Benchmarks, View source, View creator):
-- **Simulations** (http://localhost:5173): the 3D scene. Drag to orbit and scroll to zoom. Press `1`–`5` (or click a button) to switch houses, and `V` to switch between the overview (with the doorbell camera inset) and the doorbell camera.
+- **Simulations** (http://localhost:5173): the 3D scene. Drag to orbit and scroll to zoom. Click a button in each axis row to change the scenario. Press `1`–`5` to switch houses, and `V` to switch between the overview (with the doorbell camera inset) and the doorbell camera.
 - **Benchmarks** (http://localhost:5173/benchmarks.html; live: `/benchmarks`): the detector results (see below).
 
 Capture mode (`/?view=doorbell`) shows the doorbell camera alone, in the full window, with no page around it. The Python benchmark uses this mode, for example `?house=stoop&view=doorbell`.
 
 URL parameters:
-- `?house=<id>` picks the house (ids below). On Benchmarks, `?detector=<id>` picks the detector.
+- One parameter per axis in `scene/src/settings.ts`, for example `?house=<id>` (ids below). On Benchmarks, `?detector=<id>` picks the detector.
+- A missing axis takes a default. On Simulations, it is the axis's showcase value. In capture mode and in the Benchmarks replay, it is the v1 baseline value, so old results still match the scene.
 - `?t=<seconds>` freezes the delivery at that time, for example `?house=porch&view=doorbell&t=16`.
-- `?seed=<n>` seeds every random choice in the scene (default 0). Nothing in the scene is random yet; all future variation must use `rng()` from `scene/src/random.ts`.
+- `?seed=<n>` seeds every random choice in the scene. Seed 0 (the default) is the canonical scene, with no jitter. Another seed moves the delivery's start point (±2 m) and speed (±10%). Each module takes its own named stream from `scene/src/random.ts`, so a change on one axis does not change the random values of another module.
+- `window.sim.stats()` gives the draw calls and triangles of the last frame (all passes), for the browser budget checks. Static meshes that share a material are merged into one mesh, so a frame costs about 90–110 draw calls.
 
 ## Houses
 

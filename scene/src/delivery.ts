@@ -185,15 +185,22 @@ export class Delivery {
   private readonly place: number; // heading toward the drop spot
   private readonly dropCenter: THREE.Vector3;
   private readonly times: number[]; // end of each step: approach, pause, place, turn, leave, gone
+  private readonly speed: number; // m/s
 
-  constructor(points: THREE.Vector3[], drop: THREE.Vector3) {
+  // jitter gives values in [-1, 1) (all 0 for seed 0). They move the start
+  // point up to 2 m along the first leg and change the speed by up to 10%.
+  constructor(points: THREE.Vector3[], drop: THREE.Vector3, jitter: () => number) {
+    const [first, second] = points;
+    const start = first.clone().addScaledVector(second.clone().sub(first).normalize(), 2 * jitter());
+    points = [start, ...points.slice(1)];
+    this.speed = SPEED * (1 + 0.1 * jitter());
     this.route = new Route(points);
     this.end = points[points.length - 1];
     this.arrive = this.route.heading(this.route.length);
     this.place = Math.atan2(drop.x - this.end.x, drop.z - this.end.z);
     this.dropCenter = drop.clone().setY(drop.y + BOX.y / 2);
     this.root.add(this.rig.root, this.box);
-    const walkTime = this.route.length / SPEED;
+    const walkTime = this.route.length / this.speed;
     let end = 0;
     this.times = [walkTime, PAUSE, PLACE, TURN, walkTime, GONE].map((step) => (end += step));
   }
@@ -218,7 +225,7 @@ export class Delivery {
     let toDrop = 1; // 0: in the hands, 1: on the floor at the drop spot
 
     if (t < t1) {
-      const s = t * SPEED;
+      const s = t * this.speed;
       position = this.route.position(s);
       heading = this.route.heading(s);
       phase = (2 * Math.PI * s) / STRIDE;
@@ -238,10 +245,10 @@ export class Delivery {
     } else if (t < t4) {
       heading = lerpAngle(this.place, this.arrive + Math.PI, smooth((t - t3) / TURN));
     } else if (t < t5) {
-      const s = this.route.length - (t - t4) * SPEED;
+      const s = this.route.length - (t - t4) * this.speed;
       position = this.route.position(s);
       heading = this.route.heading(s) + Math.PI;
-      phase = (2 * Math.PI * (t - t4) * SPEED) / STRIDE;
+      phase = (2 * Math.PI * (t - t4) * this.speed) / STRIDE;
       walk = 1;
     }
 
