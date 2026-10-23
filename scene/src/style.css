@@ -25,6 +25,32 @@ canvas {
 #hud {
   top: 16px;
   left: 16px;
+  max-width: calc(100% - 52px);
+}
+
+#houses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+#houses button {
+  padding: 2px 8px;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-radius: 4px;
+  background: rgb(255 255 255 / 0.1);
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+#houses button.active {
+  border-color: #ffcc33;
+  background: #ffcc33;
+  color: #111;
 }
 
 #hud .title {
@@ -77,9 +103,9 @@ body.clean #footer {
   display: none;
 }
 
+/* On narrow screens, keep the footer above the doorbell inset. */
 @media (max-width: 600px) {
   #footer {
-    bottom: auto;
-    top: 76px;
+    bottom: 132px;
   }
 }

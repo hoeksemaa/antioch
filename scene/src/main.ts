@@ -1,10 +1,13 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { buildScene, doorbellCamera } from "./porch";
+import { HOUSES, type House } from "./houses";
+import { addLights, buildWorld, doorbellCamera } from "./scene";
 import "./style.css";
 
-// ?view=doorbell shows only the doorbell camera, with no overlays.
-const clean = new URLSearchParams(location.search).get("view") === "doorbell";
+// ?house=<id> picks the house. ?view=doorbell shows only the doorbell camera,
+// with no overlays.
+const params = new URLSearchParams(location.search);
+const clean = params.get("view") === "doorbell";
 let mode: "overview" | "doorbell" = clean ? "doorbell" : "overview";
 document.body.classList.toggle("clean", clean);
 document.body.classList.toggle("doorbell", mode === "doorbell");
@@ -19,32 +22,63 @@ renderer.setScissorTest(true);
 document.body.prepend(renderer.domElement);
 
 const scene = new THREE.Scene();
-buildScene(scene);
-
-const doorbell = doorbellCamera();
-
-// Shows the doorbell's field of view in the overview. A short copy of the
-// camera keeps the drawn frustum near the porch.
-const frustumCamera = doorbell.clone();
-frustumCamera.far = 3;
-frustumCamera.updateProjectionMatrix();
-const frustum = new THREE.CameraHelper(frustumCamera);
-frustum.setColors(
-  new THREE.Color(0xffcc33),
-  new THREE.Color(0xffcc33),
-  new THREE.Color(0xffcc33),
-  new THREE.Color(0xffcc33),
-  new THREE.Color(0xffcc33),
-);
-scene.add(frustum);
+addLights(scene);
 
 const overview = new THREE.PerspectiveCamera(45, 1, 0.1, 300);
-overview.position.set(6, 5.5, 16);
 const controls = new OrbitControls(overview, renderer.domElement);
-controls.target.set(0, 1.2, 3);
 controls.enableDamping = true;
 controls.maxPolarAngle = Math.PI / 2 - 0.05;
-controls.update();
+
+let world: THREE.Group | undefined;
+let doorbell!: THREE.PerspectiveCamera;
+let frustum!: THREE.CameraHelper;
+
+const houseButtons = document.getElementById("houses")!;
+
+function load(house: House) {
+  if (world) {
+    scene.remove(world);
+    world.traverse((object) => {
+      if (object instanceof THREE.Mesh) object.geometry.dispose();
+    });
+    scene.remove(frustum);
+    frustum.dispose();
+  }
+  const built = buildWorld(house);
+  world = built.world;
+  scene.add(world);
+  doorbell = doorbellCamera(built.view);
+
+  // Shows the doorbell's field of view in the overview. A short copy of the
+  // camera keeps the drawn frustum near the house.
+  const short = doorbell.clone();
+  short.far = 3;
+  short.updateProjectionMatrix();
+  frustum = new THREE.CameraHelper(short);
+  const yellow = new THREE.Color(0xffcc33);
+  frustum.setColors(yellow, yellow, yellow, yellow, yellow);
+  scene.add(frustum);
+
+  overview.position.copy(built.view.eye);
+  controls.target.copy(built.view.focus);
+  controls.update();
+
+  for (const button of houseButtons.querySelectorAll("button")) {
+    button.classList.toggle("active", button.dataset.house === house.id);
+  }
+  params.set("house", house.id);
+  history.replaceState(null, "", `?${params}`);
+}
+
+HOUSES.forEach((house, i) => {
+  const button = document.createElement("button");
+  button.dataset.house = house.id;
+  button.textContent = `${i + 1} ${house.name}`;
+  button.addEventListener("click", () => load(house));
+  houseButtons.append(button);
+});
+
+load(HOUSES.find((house) => house.id === params.get("house")) ?? HOUSES[0]);
 
 const inset = document.getElementById("inset")!;
 
@@ -96,6 +130,8 @@ function render() {
 
 window.addEventListener("resize", () => renderer.setSize(window.innerWidth, window.innerHeight));
 window.addEventListener("keydown", (event) => {
+  const house = HOUSES[Number(event.key) - 1];
+  if (house) load(house);
   if (clean || event.key.toLowerCase() !== "v") return;
   mode = mode === "overview" ? "doorbell" : "overview";
   document.body.classList.toggle("doorbell", mode === "doorbell");

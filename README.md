@@ -22,15 +22,27 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173. Drag to orbit and scroll to zoom. Press `V` to switch between the overview and the doorbell camera.
+Open http://localhost:5173. Drag to orbit and scroll to zoom. Press `V` to switch between the overview and the doorbell camera. Press `1`–`5` (or click a button) to switch houses.
 
-http://localhost:5173/?view=doorbell shows the doorbell camera alone, with no overlays. Frame capture will use this view.
+URL parameters:
+- `?house=<id>` picks the house (ids below).
+- `?view=doorbell` shows the doorbell camera alone, with no overlays. Frame capture will use this view, for example `?house=stoop&view=doorbell`.
 
-## Scene (v0)
+## Houses (v1)
 
-- Static and daytime: a house with a small porch, a front walk, a street, and houses across the street.
-- Doorbell camera: right of the door, 1.22 m above the porch floor, 16:9, 70° vertical field of view. It is a plain perspective camera; real doorbells use a fisheye lens.
-- Units are meters. The front wall is the plane z = 0, and the street is in the +z direction.
+Five static, daytime houses. Each has its own entry, approach path, and doorbell position, so the same scenario runs against different geometry.
+
+| id | House | Entry | Visitor approach | Doorbell (as seen from the street) |
+|---|---|---|---|---|
+| `porch` | One story | Raised porch, 3 front steps, railings | Straight walk from the sidewalk | Right of the door, 1.22 m above the porch floor |
+| `stoop` | Attached row houses | Tall stoop, 10 risers, iron rails | Straight up the stoop from a close sidewalk | Left door trim, about 2.9 m above the yard |
+| `side` | Bungalow | Porch behind a 0.75 m knee wall, steps on the left end | Up the side walk, then onto the porch from the side | Left of the door, turned toward the side steps |
+| `flush` | Modern, with garage | No porch: a pad at ground level, a canopy | Up the driveway, then along a walk across the front | Right of the door, low, turned toward the driveway |
+| `portico` | Two story, set far back | Small portico on two columns, 1 step | Through a gate in a picket fence, on a walk that bends | Left of the door, a bit higher |
+
+- Doorbell camera: 16:9, 70° vertical field of view. It is a plain perspective camera; real doorbells use a fisheye lens.
+- Units are meters. The front wall of each house is the plane z = 0, and the street is in the +z direction.
+- Code: `scene/src/houses.ts` (one function for each house), `parts.ts` (shared building parts), `street.ts` (street and neighbors).
 
 ## Deploy (later)
 
@@ -38,4 +50,4 @@ A Vercel project with Root Directory `scene`. Vercel detects Vite; the output is
 
 ## Status
 
-v0: a static porch scene. No person and no detection yet.
+v1: five static houses. No person and no detection yet.
