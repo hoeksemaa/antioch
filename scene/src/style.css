@@ -47,6 +47,13 @@ canvas {
   pointer-events: auto;
 }
 
+#hud .link {
+  display: inline-block;
+  margin-top: 6px;
+  color: #ffcc33;
+  pointer-events: auto;
+}
+
 #houses button.active {
   border-color: #ffcc33;
   background: #ffcc33;

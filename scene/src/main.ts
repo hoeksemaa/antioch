@@ -1,15 +1,22 @@
+// Three.js (browser): the page. Loads a house, draws the overview and the
+// doorbell camera, and handles keys, buttons, and URL parameters.
+
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { installBench } from "./bench";
 import type { Delivery } from "./delivery";
 import { HOUSES, type House } from "./houses";
+import { reseed } from "./random";
 import { addLights, buildWorld, doorbellCamera } from "./scene";
 import "./style.css";
 
 // ?house=<id> picks the house. ?view=doorbell shows only the doorbell camera,
 // with no overlays. ?t=<seconds> freezes the delivery at that time.
+// ?seed=<n> seeds every random choice in the scene (default 0).
 const params = new URLSearchParams(location.search);
 const clean = params.get("view") === "doorbell";
-const frozen = params.has("t") ? Number(params.get("t")) : undefined;
+let frozen = params.has("t") ? Number(params.get("t")) : undefined;
+const seed = Number(params.get("seed") ?? 0);
 let mode: "overview" | "doorbell" = clean ? "doorbell" : "overview";
 document.body.classList.toggle("clean", clean);
 document.body.classList.toggle("doorbell", mode === "doorbell");
@@ -36,6 +43,7 @@ let doorbell!: THREE.PerspectiveCamera;
 let frustum!: THREE.CameraHelper;
 let delivery!: Delivery;
 let start = 0;
+let houseId = "";
 
 const houseButtons = document.getElementById("houses")!;
 
@@ -48,6 +56,7 @@ function load(house: House) {
     scene.remove(frustum);
     frustum.dispose();
   }
+  reseed(seed);
   const built = buildWorld(house);
   world = built.world;
   scene.add(world);
@@ -72,6 +81,7 @@ function load(house: House) {
   for (const button of houseButtons.querySelectorAll("button")) {
     button.classList.toggle("active", button.dataset.house === house.id);
   }
+  houseId = house.id;
   params.set("house", house.id);
   history.replaceState(null, "", `?${params}`);
 }
@@ -142,6 +152,19 @@ window.addEventListener("keydown", (event) => {
   if (clean || event.key.toLowerCase() !== "v") return;
   mode = mode === "overview" ? "doorbell" : "overview";
   document.body.classList.toggle("doorbell", mode === "doorbell");
+});
+
+// The Python benchmark sets the time through this hook (see bench.ts).
+installBench({
+  scenarios: () => HOUSES.map((h) => ({ id: h.id, name: h.name, query: `house=${h.id}` })),
+  house: () => houseId,
+  seed: () => seed,
+  delivery: () => delivery,
+  camera: () => doorbell,
+  renderAt: (t) => {
+    frozen = t;
+    render();
+  },
 });
 
 renderer.setAnimationLoop(render);

@@ -1,0 +1,408 @@
+{
+ "scenarios": [
+  {
+   "id": "porch",
+   "name": "Raised porch",
+   "query": "house=porch"
+  },
+  {
+   "id": "stoop",
+   "name": "Stoop",
+   "query": "house=stoop"
+  },
+  {
+   "id": "side",
+   "name": "Side-entry porch",
+   "query": "house=side"
+  },
+  {
+   "id": "flush",
+   "name": "No porch",
+   "query": "house=flush"
+  },
+  {
+   "id": "portico",
+   "name": "Portico",
+   "query": "house=portico"
+  }
+ ],
+ "detectors": [
+  {
+   "id": "frcnn-mobilenet",
+   "name": "Faster R-CNN MobileNetV3",
+   "source": "torchvision fasterrcnn_mobilenet_v3_large_fpn (FasterRCNN_MobileNet_V3_Large_FPN_Weights.COCO_V1)",
+   "settings": {
+    "min_score": 0.5,
+    "min_iou": 0.3,
+    "fps": 2,
+    "seed": 0
+   },
+   "run": "2026-10-23T21:50:38+00:00",
+   "results": {
+    "porch": {
+     "frames": 68,
+     "in_view": 65,
+     "detected": 53,
+     "first_seen_m": 16.7,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       2,
+       8
+      ],
+      "3-6 m": [
+       8,
+       8
+      ],
+      "6-9 m": [
+       10,
+       10
+      ],
+      "9-12 m": [
+       15,
+       18
+      ],
+      "12+ m": [
+       18,
+       21
+      ]
+     }
+    },
+    "stoop": {
+     "frames": 62,
+     "in_view": 46,
+     "detected": 21,
+     "first_seen_m": 9.2,
+     "false_alarms": 2,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       12
+      ],
+      "3-6 m": [
+       9,
+       9
+      ],
+      "6-9 m": [
+       11,
+       21
+      ],
+      "9-12 m": [
+       1,
+       4
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "side": {
+     "frames": 72,
+     "in_view": 69,
+     "detected": 54,
+     "first_seen_m": 18.1,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       5,
+       8
+      ],
+      "3-6 m": [
+       6,
+       9
+      ],
+      "6-9 m": [
+       7,
+       16
+      ],
+      "9-12 m": [
+       12,
+       12
+      ],
+      "12+ m": [
+       24,
+       24
+      ]
+     }
+    },
+    "flush": {
+     "frames": 81,
+     "in_view": 76,
+     "detected": 64,
+     "first_seen_m": 20.2,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       8,
+       13
+      ],
+      "3-6 m": [
+       3,
+       8
+      ],
+      "6-9 m": [
+       12,
+       14
+      ],
+      "9-12 m": [
+       12,
+       12
+      ],
+      "12+ m": [
+       29,
+       29
+      ]
+     }
+    },
+    "portico": {
+     "frames": 82,
+     "in_view": 79,
+     "detected": 42,
+     "first_seen_m": 18.8,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       1,
+       10
+      ],
+      "3-6 m": [
+       5,
+       8
+      ],
+      "6-9 m": [
+       10,
+       10
+      ],
+      "9-12 m": [
+       7,
+       8
+      ],
+      "12+ m": [
+       19,
+       43
+      ]
+     }
+    },
+    "all": {
+     "frames": 365,
+     "in_view": 335,
+     "detected": 234,
+     "false_alarms": 2,
+     "first_seen_m": null,
+     "by_distance": {
+      "0-3 m": [
+       16,
+       51
+      ],
+      "3-6 m": [
+       31,
+       42
+      ],
+      "6-9 m": [
+       50,
+       71
+      ],
+      "9-12 m": [
+       47,
+       54
+      ],
+      "12+ m": [
+       90,
+       117
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "ssdlite",
+   "name": "SSDlite320 MobileNetV3",
+   "source": "torchvision ssdlite320_mobilenet_v3_large (SSDLite320_MobileNet_V3_Large_Weights.COCO_V1)",
+   "settings": {
+    "min_score": 0.5,
+    "min_iou": 0.3,
+    "fps": 2,
+    "seed": 0
+   },
+   "run": "2026-10-23T21:50:38+00:00",
+   "results": {
+    "porch": {
+     "frames": 68,
+     "in_view": 65,
+     "detected": 6,
+     "first_seen_m": 3.3,
+     "false_alarms": 1,
+     "by_distance": {
+      "0-3 m": [
+       4,
+       8
+      ],
+      "3-6 m": [
+       2,
+       8
+      ],
+      "6-9 m": [
+       0,
+       10
+      ],
+      "9-12 m": [
+       0,
+       18
+      ],
+      "12+ m": [
+       0,
+       21
+      ]
+     }
+    },
+    "stoop": {
+     "frames": 62,
+     "in_view": 46,
+     "detected": 5,
+     "first_seen_m": 2.7,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       5,
+       12
+      ],
+      "3-6 m": [
+       0,
+       9
+      ],
+      "6-9 m": [
+       0,
+       21
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "side": {
+     "frames": 72,
+     "in_view": 69,
+     "detected": 13,
+     "first_seen_m": 5.6,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       4,
+       8
+      ],
+      "3-6 m": [
+       9,
+       9
+      ],
+      "6-9 m": [
+       0,
+       16
+      ],
+      "9-12 m": [
+       0,
+       12
+      ],
+      "12+ m": [
+       0,
+       24
+      ]
+     }
+    },
+    "flush": {
+     "frames": 81,
+     "in_view": 76,
+     "detected": 20,
+     "first_seen_m": 7.4,
+     "false_alarms": 1,
+     "by_distance": {
+      "0-3 m": [
+       10,
+       13
+      ],
+      "3-6 m": [
+       5,
+       8
+      ],
+      "6-9 m": [
+       5,
+       14
+      ],
+      "9-12 m": [
+       0,
+       12
+      ],
+      "12+ m": [
+       0,
+       29
+      ]
+     }
+    },
+    "portico": {
+     "frames": 82,
+     "in_view": 79,
+     "detected": 8,
+     "first_seen_m": 4.0,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       5,
+       10
+      ],
+      "3-6 m": [
+       3,
+       8
+      ],
+      "6-9 m": [
+       0,
+       10
+      ],
+      "9-12 m": [
+       0,
+       8
+      ],
+      "12+ m": [
+       0,
+       43
+      ]
+     }
+    },
+    "all": {
+     "frames": 365,
+     "in_view": 335,
+     "detected": 52,
+     "false_alarms": 2,
+     "first_seen_m": null,
+     "by_distance": {
+      "0-3 m": [
+       28,
+       51
+      ],
+      "3-6 m": [
+       19,
+       42
+      ],
+      "6-9 m": [
+       5,
+       71
+      ],
+      "9-12 m": [
+       0,
+       54
+      ],
+      "12+ m": [
+       0,
+       117
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "updated": "2026-10-23T21:50:38+00:00"
+}

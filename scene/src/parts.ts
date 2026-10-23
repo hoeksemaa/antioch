@@ -1,3 +1,5 @@
+// Three.js (browser): shared building parts and materials.
+
 import * as THREE from "three";
 
 // Units are meters. +y is up. The front wall of each house is the plane
