@@ -17,7 +17,7 @@ import "./style.css";
 const params = new URLSearchParams(location.search);
 const capture = params.get("view") === "doorbell";
 const viewer = new Viewer();
-viewer.load(readSettings(params, capture ? "baseline" : "showcase"));
+const settings = readSettings(params, capture ? "baseline" : "showcase");
 
 if (capture) {
   document.body.className = "capture";
@@ -25,9 +25,12 @@ if (capture) {
   const fill = () => viewer.setSize(window.innerWidth, window.innerHeight);
   fill();
   window.addEventListener("resize", fill);
-  if (params.has("t")) viewer.setTime(Number(params.get("t")));
-  else viewer.play();
+  viewer.load(settings).then(() => {
+    if (params.has("t")) viewer.setTime(Number(params.get("t")));
+    else viewer.play();
+  });
 } else {
-  startSimulations(viewer);
-  if (params.has("t")) viewer.setTime(Number(params.get("t")));
+  startSimulations(viewer, settings).then(() => {
+    if (params.has("t")) viewer.setTime(Number(params.get("t")));
+  });
 }

@@ -63,7 +63,7 @@ async function start() {
   const seed = detectors[0]?.settings.seed ?? 0;
   const load = (house: string) => viewer.load({ ...baseline(), house, seed });
   const viewer = new Viewer();
-  load(HOUSES.find((h) => h.id === params.get("house"))?.id ?? HOUSES[0].id);
+  await load(HOUSES.find((h) => h.id === params.get("house"))?.id ?? HOUSES[0].id);
   const viewport = $("viewport");
   viewport.prepend(viewer.canvas);
   new ResizeObserver(([entry]) => viewer.setSize(entry.contentRect.width, entry.contentRect.height)).observe(viewport);
@@ -206,7 +206,7 @@ async function start() {
   // detector sees the person walk up, so the boxes show at once.
   async function select(scenario: string, det = detector) {
     detector = det;
-    if (scenario !== viewer.house.id) load(scenario);
+    if (scenario !== viewer.house.id) await load(scenario);
     await loadFrames(scenario);
     renderMatrix();
     renderCell();
