@@ -1,118 +1,756 @@
-html,
+:root {
+  color-scheme: light;
+  --page: #f7f7f6;
+  --card: #ffffff;
+  --ink: #1c1c1c;
+  --muted: #74736e;
+  --line: #e5e5e2;
+  --hatch: #d4d4d0;
+  --tick: #1c1c1c;
+  --accent: #3e6a93;
+  --accent-hover: #335a7e;
+  --accent-soft: #dfe8f1;
+  --slash: #7992aa;
+  --good: #0f9488;
+  --bad: #e11d48;
+  --none: #d9d9d5;
+  /* the viewer panel is dark in both themes */
+  --v-bg: #1b1b1b;
+  --v-bar: #232323;
+  --v-line: #333333;
+  --v-ink: #e9e9e6;
+  --v-muted: #9b9a95;
+  --v-none: #3e3e3b;
+  --sans: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #121211;
+    --card: #1a1a19;
+    --ink: #f0efec;
+    --muted: #a3a29a;
+    --line: #2d2d2b;
+    --hatch: #3a3a37;
+    --tick: #f0efec;
+    --accent: #7fa6cc;
+    --accent-hover: #93b5d6;
+    --accent-soft: #22303d;
+    --none: #3a3a37;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #121211;
+  --card: #1a1a19;
+  --ink: #f0efec;
+  --muted: #a3a29a;
+  --line: #2d2d2b;
+  --hatch: #3a3a37;
+  --tick: #f0efec;
+  --accent: #7fa6cc;
+  --accent-hover: #93b5d6;
+  --accent-soft: #22303d;
+  --none: #3a3a37;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  height: 100%;
+  overflow-x: clip; /* the corner ticks stick out 4 px past the rail */
+  background: var(--page);
+  color: var(--ink);
+  font: 14px/1.55 var(--sans);
+}
+
+/* Capture mode (?view=doorbell): the canvas alone, for the Python benchmark. */
+body.capture {
   overflow: hidden;
   background: #000;
-  color: #f4f4f0;
-  font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 canvas {
   display: block;
 }
 
-#hud,
-#footer,
-#inset span {
-  position: fixed;
-  padding: 6px 10px;
+a {
+  color: inherit;
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Layout: a centered rail with thin side lines, as on antioch.com. */
+.rail {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  border-inline: 1px solid var(--line);
+}
+
+.notice {
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, var(--accent-soft), var(--page) 70%);
+  color: var(--accent);
+  font-size: 13px;
+  text-align: center;
+}
+
+.chip {
+  margin-right: 8px;
+  padding: 1px 7px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #f5f5f5;
+  font-size: 12px;
+}
+
+.top {
+  border-bottom: 1px solid var(--line);
+  background: var(--card);
+}
+
+.top-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  border-inline: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+/* A small hatched square: this demo's own mark. */
+.mark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--ink);
+  background: repeating-linear-gradient(135deg, var(--ink) 0 2px, transparent 2px 5px);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+nav a {
+  padding: 6px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+nav a:not(.button):hover {
+  background: var(--accent-soft);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #f5f5f5;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--accent-hover);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: end;
+  gap: 48px;
+  padding-top: 88px;
+  padding-bottom: 56px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 54px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.hero-side p {
+  margin: 0 0 20px;
+  font-size: 19px;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+
+/* Hatched band between sections, with tick squares where the rail lines cross it. */
+.hatch {
+  height: 56px;
+  border-block: 1px solid var(--line);
+  background: repeating-linear-gradient(135deg, transparent 0 7px, var(--hatch) 7px 8px);
+}
+
+.hatch .rail {
+  height: 100%;
+}
+
+.hatch .rail::before,
+.hatch .rail::after {
+  position: absolute;
+  top: -4px;
+  width: 7px;
+  height: calc(100% + 8px);
+  background:
+    linear-gradient(var(--tick), var(--tick)) top / 7px 7px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) bottom / 7px 7px no-repeat;
+  content: "";
+}
+
+.hatch .rail::before {
+  left: -4px;
+}
+
+.hatch .rail::after {
+  right: -4px;
+}
+
+.section {
+  padding-top: 56px;
+  padding-bottom: 64px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.eyebrow span {
+  margin-right: 6px;
+  color: var(--slash);
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.lede {
+  max-width: 680px;
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.03);
+}
+
+/* In-card tab bar, as in the product shots on antioch.com. */
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tab {
+  padding: 5px 12px;
+  border: 0;
   border-radius: 6px;
-  background: rgb(0 0 0 / 0.55);
-  pointer-events: none;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
 }
 
-#hud {
-  top: 16px;
-  left: 16px;
-  max-width: calc(100% - 52px);
+.tab.on {
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
-#houses {
+.card-head {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 6px;
+  justify-content: space-between;
+  gap: 16px 32px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
 }
 
-#houses button {
-  padding: 2px 8px;
-  border: 1px solid rgb(255 255 255 / 0.25);
-  border-radius: 4px;
-  background: rgb(255 255 255 / 0.1);
-  color: inherit;
-  font: inherit;
+.card-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+}
+
+.stats div {
+  display: flex;
+  flex-direction: column;
+}
+
+.stats span {
+  color: var(--muted);
   font-size: 12px;
+}
+
+.stats b {
+  font-size: 16px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(300px, 380px) 1fr;
+}
+
+.panel {
+  min-width: 0;
+  border-right: 1px solid var(--line);
+}
+
+.viewer-col {
+  min-width: 0;
+  padding: 16px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 12px 14px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+th small {
+  display: block;
+  font-family: var(--mono);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+td {
+  padding: 11px 14px;
+  border-top: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.matrix th[data-detector] {
   cursor: pointer;
-  pointer-events: auto;
 }
 
-#hud .link {
-  display: inline-block;
-  margin-top: 6px;
-  color: #ffcc33;
-  pointer-events: auto;
+.matrix th.on {
+  color: var(--accent);
 }
 
-#houses button.active {
-  border-color: #ffcc33;
-  background: #ffcc33;
-  color: #111;
+.matrix tr[data-scenario]:not(.total) {
+  cursor: pointer;
 }
 
-#hud .title {
+.matrix tr.on td {
+  background: color-mix(in srgb, var(--accent-soft) 45%, transparent);
+}
+
+.matrix td.name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.matrix td.name small {
+  display: block;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.matrix td.best {
+  color: var(--good);
   font-weight: 600;
 }
 
-#hud .title span,
-#hud .hint {
-  color: #c9c9c2;
-  font-weight: 400;
+.matrix td.cell:hover {
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 
-kbd {
-  padding: 0 4px;
-  border: 1px solid #888;
-  border-radius: 3px;
-  font: inherit;
+.matrix td.on {
+  box-shadow: inset 2px 0 0 var(--accent);
+  background: var(--accent-soft) !important;
 }
 
-#footer {
-  bottom: 16px;
-  left: 16px;
-  max-width: calc(100% - 64px);
-  color: #c9c9c2;
+.matrix tr.total td {
+  border-top: 2px solid var(--line);
+}
+
+/* Ring: the best detection rate in that row, as an arc. */
+.ring {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: conic-gradient(var(--good) calc(var(--p) * 1%), var(--line) 0);
+  -webkit-mask: radial-gradient(circle, transparent 4.5px, #000 5px);
+  mask: radial-gradient(circle, transparent 4.5px, #000 5px);
+}
+
+/* The viewer: a dark panel like a robotics log viewer. */
+.viewer {
+  overflow: hidden;
+  border: 1px solid var(--v-line);
+  border-radius: 8px;
+  background: var(--v-bg);
+  color: var(--v-ink);
+}
+
+.viewer-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--v-line);
+  background: var(--v-bar);
+  color: var(--v-muted);
   font-size: 12px;
 }
 
-#inset {
-  position: fixed;
-  border: 1px solid rgb(255 255 255 / 0.7);
+.viewer-bar .label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--v-ink);
+}
+
+.viewer-bar .label i {
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid var(--v-ink);
+  border-radius: 2px;
+}
+
+.viewport {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.viewport canvas {
+  position: absolute;
+  inset: 0;
+}
+
+#boxes div {
+  position: absolute;
   pointer-events: none;
 }
 
-#inset span {
+#boxes .truth {
+  border: 2px dashed #ffffff;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.45);
+}
+
+#boxes .det {
+  border: 2px solid #ffcc33;
+}
+
+#boxes .det span {
   position: absolute;
-  top: 6px;
-  left: 6px;
-  padding: 2px 6px;
+  bottom: 100%;
+  left: -2px;
+  padding: 0 4px;
+  background: #ffcc33;
+  color: #111;
+  font: 11px/1.5 var(--mono);
+  white-space: nowrap;
+}
+
+.timeline {
+  padding: 8px 10px 10px;
+  border-top: 1px solid var(--v-line);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.controls button {
+  min-width: 28px;
+  height: 24px;
+  border: 1px solid var(--v-line);
+  border-radius: 4px;
+  background: var(--v-bar);
+  color: var(--v-ink);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  border-color: var(--v-muted);
+}
+
+#frame-info {
+  margin-left: 8px;
+  overflow: hidden;
+  color: var(--v-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.strips-wrap {
+  position: relative;
+  margin-left: 120px;
+}
+
+.strip-row {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.strip-row > span {
+  position: absolute;
+  top: 0;
+  right: calc(100% + 10px);
+  width: 110px;
+  overflow: hidden;
+  color: var(--v-muted);
+  font: 11px/14px var(--mono);
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.strip-row.on > span {
+  color: var(--v-ink);
+}
+
+.strip {
+  display: flex;
+  gap: 1px;
+  height: 14px;
+}
+
+.strip button {
+  flex: 1;
+  min-width: 2px;
+  padding: 0;
+  border: 0;
+  border-radius: 1px;
+  cursor: pointer;
+}
+
+.strip button.current {
+  outline: 2px solid #ffffff;
+  outline-offset: 1px;
+}
+
+.playhead {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  margin-left: -1px;
+  background: #ffcc33;
+  pointer-events: none;
+}
+
+.hit {
+  background: var(--good);
+}
+
+.miss {
+  background: var(--bad);
+}
+
+.out {
+  background: var(--v-none);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 8px;
+  color: var(--v-muted);
+}
+
+.legend i {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 6px;
+  border-radius: 2px;
+  vertical-align: -1px;
+}
+
+.legend i.truth {
+  border: 1.5px dashed #ffffff;
+}
+
+.legend i.det {
+  border: 1.5px solid #ffcc33;
+}
+
+.cell-stats {
+  padding: 16px 4px 8px;
+}
+
+.bands td,
+.bands th {
+  padding: 8px 10px;
+}
+
+.bands tr.on td {
+  background: var(--accent-soft);
+}
+
+.cards3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.feature {
+  padding: 20px;
+}
+
+.feature .tag {
+  color: var(--accent);
+}
+
+.feature h3 {
+  margin: 8px 0 6px;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.feature p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 24px;
+  padding-bottom: 32px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
   font-size: 12px;
 }
 
-/* Doorbell mode shows the camera alone, without the inset. */
-body.doorbell #inset {
-  display: none;
+@media (max-width: 900px) {
+  .hero,
+  .workspace,
+  .cards3 {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  h1 {
+    font-size: 40px;
+  }
 }
 
-/* ?view=doorbell: clean frames only, for automated capture. */
-body.clean #hud,
-body.clean #footer {
-  display: none;
-}
-
-/* On narrow screens, keep the footer above the doorbell inset. */
 @media (max-width: 600px) {
-  #footer {
-    bottom: 132px;
+  .rail {
+    padding: 0 16px;
+  }
+
+  .top-inner nav a:not(.button) {
+    display: none;
+  }
+
+  .hero {
+    padding-top: 48px;
+    padding-bottom: 36px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  .viewer-col {
+    padding: 12px;
+  }
+
+  .strips-wrap {
+    margin-left: 0;
+  }
+
+  .strip-row > span {
+    position: static;
+    display: block;
+    width: auto;
+    text-align: left;
   }
 }
