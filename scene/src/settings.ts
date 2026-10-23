@@ -12,10 +12,12 @@ import type { CameraModel } from "./camera";
 import { HOUSES } from "./houses";
 import type { Light } from "./lights";
 import type { Person } from "./people";
+import type { Weather } from "./weather";
 
 export interface Settings {
   house: string;
   light: Light;
+  weather: Weather;
   camera: CameraModel;
   person: Person;
   speed: "walk" | "run";
@@ -51,6 +53,19 @@ export const AXES: Axis[] = [
     ],
     baseline: "v1", // the v1 lights; not a button
     showcase: "day",
+  },
+  {
+    id: "weather",
+    label: "Weather",
+    values: [
+      { id: "clear", label: "Clear" },
+      { id: "rain", label: "Rain" },
+      { id: "snow", label: "Snow" },
+      { id: "fog", label: "Fog" },
+      { id: "wind", label: "Wind" },
+    ],
+    baseline: "clear",
+    showcase: "clear",
   },
   {
     id: "camera",

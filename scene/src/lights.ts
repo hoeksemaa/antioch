@@ -23,6 +23,8 @@ interface Preset {
   windows: number; // glow of lit windows
   ir: boolean; // IR light at the doorbell, and a monochrome doorbell image
   exposure: number;
+  level: number; // how bright unlit things (rain, leaves) look, 1 in daylight
+  haze: number; // fog color
 }
 
 const PRESETS: Record<Exclude<Light, "v1">, Preset> = {
@@ -35,6 +37,8 @@ const PRESETS: Record<Exclude<Light, "v1">, Preset> = {
     windows: 0,
     ir: false,
     exposure: 1,
+    level: 1,
+    haze: 0xb9c0c6,
   },
   dusk: {
     sun: { elevation: 9, azimuth: 32, color: 0xff9a4d, intensity: 1.8 },
@@ -45,6 +49,8 @@ const PRESETS: Record<Exclude<Light, "v1">, Preset> = {
     windows: 0.35,
     ir: false,
     exposure: 1.1,
+    level: 0.45,
+    haze: 0x7d6f69,
   },
   night: {
     sky: { elevation: -8, azimuth: 25, turbidity: 2, rayleigh: 0.6, mie: 0.004, clouds: 0, ground: 0.002, brightness: 1.5 },
@@ -55,6 +61,8 @@ const PRESETS: Record<Exclude<Light, "v1">, Preset> = {
     windows: 1.2,
     ir: false,
     exposure: 1.3,
+    level: 0.08,
+    haze: 0x0b0d12,
   },
   ir: {
     sky: { elevation: -8, azimuth: 25, turbidity: 2, rayleigh: 0.6, mie: 0.004, clouds: 0, ground: 0.002, brightness: 1.5 },
@@ -65,6 +73,8 @@ const PRESETS: Record<Exclude<Light, "v1">, Preset> = {
     windows: 1.2,
     ir: true,
     exposure: 1.0,
+    level: 0.08,
+    haze: 0x0b0d12,
   },
 };
 
@@ -77,6 +87,8 @@ export interface Lighting {
   exposure: number;
   ir: THREE.SpotLight | null; // drawn only into the doorbell image
   flares: THREE.Vector3[]; // bright lights that can flare in the camera lens: the sun, lit street lamps
+  level: number; // how bright unlit things (rain, leaves) look, 1 in daylight
+  haze: THREE.Color; // fog color
 }
 
 const lampHead = mat(0x2a2a2a, 0.5);
@@ -146,17 +158,19 @@ function v1(world: THREE.Group): Lighting {
   Object.assign(sun.shadow.camera, { left: -25, right: 25, top: 25, bottom: -25, near: 1, far: 70 });
   world.add(sun);
   M.glassLit.emissive.set(0x000000);
-  return { background: new THREE.Color(0xa9c9e8), backgroundIntensity: 1, environment: null, environmentIntensity: 1, exposure: 1, ir: null, flares: [] };
+  return { background: new THREE.Color(0xa9c9e8), backgroundIntensity: 1, environment: null, environmentIntensity: 1, exposure: 1, ir: null, flares: [], level: 1, haze: new THREE.Color(0xb9c0c6) };
 }
 
-// Adds the lights and light fixtures for one preset to the world.
-export function buildLights(renderer: THREE.WebGLRenderer, world: THREE.Group, view: HouseView, light: Light): Lighting {
+// Adds the lights and light fixtures for one preset to the world. overcast
+// (0 to 1, from the weather) dims the sun and adds clouds.
+export function buildLights(renderer: THREE.WebGLRenderer, world: THREE.Group, view: HouseView, light: Light, overcast: number): Lighting {
   if (light === "v1") return v1(world);
-  const preset = PRESETS[light];
+  const base = PRESETS[light];
+  const preset: Preset = { ...base, sky: { ...base.sky, clouds: Math.max(base.sky.clouds, overcast) } };
   const flares: THREE.Vector3[] = [];
 
   if (preset.sun) {
-    const sun = new THREE.DirectionalLight(preset.sun.color, preset.sun.intensity);
+    const sun = new THREE.DirectionalLight(preset.sun.color, preset.sun.intensity * (1 - 0.8 * overcast));
     sun.position.copy(direction(preset.sun.elevation, preset.sun.azimuth).multiplyScalar(40));
     flares.push(direction(preset.sun.elevation, preset.sun.azimuth).multiplyScalar(1000));
     sun.castShadow = true;
@@ -228,8 +242,18 @@ export function buildLights(renderer: THREE.WebGLRenderer, world: THREE.Group, v
     world.add(ir, ir.target);
   }
 
-  const { background, environment } = sky(renderer, light, preset);
-  return { background, backgroundIntensity: preset.sky.brightness, environment, environmentIntensity: preset.ambient, exposure: preset.exposure, ir, flares };
+  const { background, environment } = sky(renderer, `${light}/${overcast}`, preset);
+  return {
+    background,
+    backgroundIntensity: preset.sky.brightness,
+    environment,
+    environmentIntensity: preset.ambient * (1 + 0.5 * overcast),
+    exposure: preset.exposure,
+    ir,
+    flares: overcast > 0.5 ? flares.slice(preset.sun ? 1 : 0) : flares, // no sun flare under clouds
+    level: preset.level * (1 - 0.4 * overcast),
+    haze: new THREE.Color(preset.haze),
+  };
 }
 
 // IR light intensity while the doorbell image is drawn, cd.

@@ -11,7 +11,7 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations) and https://antioch
 | Part | Language | Folder | What it does |
 |---|---|---|---|
 | 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
-| Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `camera.ts`, `sensor.ts`, `people.ts` | The axes (house, light, camera, person, speed, and more to come), with a v1 baseline value and a showcase value for each |
+| Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `weather.ts`, `camera.ts`, `sensor.ts`, `people.ts` | The axes (house, light, weather, camera, person, speed, and more to come), with a v1 baseline value and a showcase value for each |
 | Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, one row of buttons per axis, a seed, keys 1–5 and V. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots |
@@ -83,6 +83,20 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 - `v1` (not a button) is the v1 light: a flat blue background, a hemisphere light, and the sun. Capture mode and Benchmarks use it when `?light=` is missing.
 - The doorbell image goes through a sensor pass (`scene/src/sensor.ts`) when an effect is on; for now the only effect is IR monochrome.
 - Code: `scene/src/lights.ts`.
+
+## Weather (`?weather=`)
+
+| id | Weather | What changes |
+|---|---|---|
+| `clear` | Clear | Nothing (the baseline) |
+| `rain` | Rain | Gray overcast sky, dimmer sun; 16k streaks; wet, glossy ground (lamps reflect at night); drops glow near the doorbell in IR; drops on the ring camera's lens |
+| `snow` | Snow | Overcast; 7k flakes; white lawn, roofs, and bushes; dark shoveled paths |
+| `fog` | Fog | Exponential fog in the light's haze color |
+| `wind` | Windy fall day | Trees and bushes sway (and their shadows move), fall colors, 300 blowing leaves |
+
+- Rain, snow, and leaves are one particle draw each, moved in the vertex shader from the time t and the seed. Far drops fade, so they do not flicker.
+- The weather swaps materials on its own copies (wet, snowy, windy) before the static meshes merge.
+- Code: `scene/src/weather.ts`; lens drops in `scene/src/sensor.ts`.
 
 ## Camera (`?camera=`)
 
