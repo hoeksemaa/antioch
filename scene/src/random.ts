@@ -1,6 +1,9 @@
-// Three.js (browser): the scene's one source of randomness. Every random
-// choice in the scene must use rng(), so the same seed (?seed=, default 0)
-// gives the same scene on every run. Nothing is random yet.
+// Three.js (browser): the scene's randomness. Every random choice in the scene
+// must come from a stream here, so the same seed (?seed=, default 0) gives the
+// same scene on every run.
+//
+// Each module takes its own named stream. Thus a change on one axis does not
+// change the random values of another module.
 
 // mulberry32: a small, fast, seedable generator. Returns numbers in [0, 1).
 function mulberry32(seed: number) {
@@ -14,10 +17,21 @@ function mulberry32(seed: number) {
   };
 }
 
-export let rng = mulberry32(0);
+// FNV-1a hash of a module name.
+function hash(name: string) {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < name.length; i++) h = Math.imul(h ^ name.charCodeAt(i), 0x01000193);
+  return h >>> 0;
+}
 
-// Called before each house is built, so a house and a seed always give the
-// same choices, in any order.
-export function reseed(seed: number) {
-  rng = mulberry32(seed);
+// A stream of numbers in [0, 1) for one module.
+export function stream(seed: number, name: string) {
+  return mulberry32(Math.imul(seed, 0x9e3779b1) ^ hash(name));
+}
+
+// A stream of jitter values in [-1, 1) for one module. Seed 0 is the
+// canonical scene, so it always gives 0.
+export function jitter(seed: number, name: string) {
+  const next = stream(seed, name);
+  return () => (seed === 0 ? 0 : 2 * next() - 1);
 }

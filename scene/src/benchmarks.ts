@@ -4,6 +4,7 @@
 // on the doorbell camera.
 
 import { HOUSES } from "./houses";
+import { baseline } from "./settings";
 import { Viewer } from "./viewer";
 import "./style.css";
 
@@ -58,9 +59,11 @@ async function start() {
   }
   const detectors = index?.detectors ?? [];
 
-  // Replays use the seed that the results were made with.
-  const viewer = new Viewer(detectors[0]?.settings.seed ?? 0);
-  viewer.load(HOUSES.find((h) => h.id === params.get("house")) ?? HOUSES[0]);
+  // Replays use the v1 scene and the seed that the results were made with.
+  const seed = detectors[0]?.settings.seed ?? 0;
+  const load = (house: string) => viewer.load({ ...baseline(), house, seed });
+  const viewer = new Viewer();
+  load(HOUSES.find((h) => h.id === params.get("house"))?.id ?? HOUSES[0].id);
   const viewport = $("viewport");
   viewport.prepend(viewer.canvas);
   new ResizeObserver(([entry]) => viewer.setSize(entry.contentRect.width, entry.contentRect.height)).observe(viewport);
@@ -203,7 +206,7 @@ async function start() {
   // detector sees the person walk up, so the boxes show at once.
   async function select(scenario: string, det = detector) {
     detector = det;
-    if (scenario !== viewer.house.id) viewer.load(HOUSES.find((h) => h.id === scenario)!);
+    if (scenario !== viewer.house.id) load(scenario);
     await loadFrames(scenario);
     renderMatrix();
     renderCell();

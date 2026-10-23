@@ -7,10 +7,16 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { installBench } from "./bench";
 import type { Delivery } from "./delivery";
 import { HOUSES, type House } from "./houses";
-import { reseed } from "./random";
 import { addLights, buildWorld, doorbellCamera } from "./scene";
+import type { Settings } from "./settings";
 
 export type View = "doorbell" | "overview";
+
+declare global {
+  interface Window {
+    sim?: { stats: () => Record<string, number> };
+  }
+}
 
 // The largest 16:9 rectangle that fits in w × h, centered.
 function fit16x9(w: number, h: number) {
@@ -24,6 +30,7 @@ export class Viewer {
   inset = false; // in the overview, also draw the doorbell camera in the bottom-right corner
   time = 0; // s into the delivery loop
   playing = false;
+  settings!: Settings;
   house!: House;
   delivery!: Delivery;
   onDraw?: () => void; // after each drawn frame
@@ -37,11 +44,13 @@ export class Viewer {
   private frustum!: THREE.CameraHelper;
   private last = performance.now();
 
-  constructor(private readonly seed: number) {
+  constructor() {
     const r = this.renderer;
+    r.info.autoReset = false; // count every pass of a frame; draw() resets it
     r.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     r.shadowMap.enabled = true;
     r.shadowMap.type = THREE.PCFShadowMap;
+    r.shadowMap.autoUpdate = false; // draw() updates it once per frame, not once per view
     r.toneMapping = THREE.ACESFilmicToneMapping;
     r.setScissorTest(true);
     addLights(this.scene);
@@ -54,12 +63,20 @@ export class Viewer {
     installBench({
       scenarios: () => HOUSES.map((h) => ({ id: h.id, name: h.name, query: `house=${h.id}` })),
       house: () => this.house.id,
-      seed: () => this.seed,
+      seed: () => this.settings.seed,
       delivery: () => this.delivery,
       camera: () => this.doorbell,
       renderAt: (t) => this.setTime(t),
     });
     r.setAnimationLoop(() => this.tick());
+
+    // For the browser budget checks: the cost of the last frame.
+    window.sim = {
+      stats: () => {
+        const { render, memory, programs } = this.renderer.info;
+        return { calls: render.calls, triangles: render.triangles, points: render.points, lines: render.lines, geometries: memory.geometries, textures: memory.textures, programs: programs?.length ?? 0 };
+      },
+    };
   }
 
   get canvas() {
@@ -81,7 +98,7 @@ export class Viewer {
     return { width, height: Math.round((width * 9) / 16), margin: 16 };
   }
 
-  load(house: House) {
+  load(settings: Settings) {
     if (this.world) {
       this.scene.remove(this.world, this.frustum);
       this.world.traverse((object) => {
@@ -89,11 +106,11 @@ export class Viewer {
       });
       this.frustum.dispose();
     }
-    reseed(this.seed);
-    const built = buildWorld(house);
+    const built = buildWorld(settings);
     this.world = built.world;
     this.scene.add(this.world);
-    this.house = house;
+    this.settings = settings;
+    this.house = built.house;
     this.delivery = built.delivery;
     this.doorbell = doorbellCamera(built.view);
 
@@ -144,6 +161,8 @@ export class Viewer {
   private draw() {
     this.delivery.update(this.time);
     const r = this.renderer;
+    r.info.reset();
+    r.shadowMap.needsUpdate = true;
     const size = r.getSize(new THREE.Vector2());
     r.setScissor(0, 0, size.x, size.y);
     r.clear();
