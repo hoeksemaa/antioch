@@ -3,129 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="data:," />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <title>Doorbell Bench</title>
+    <title>Doorbell Bench: Simulations</title>
   </head>
-  <body>
+  <body class="sim">
     <div class="notice">
       <span class="chip">Unofficial</span>
       An unofficial demo by John Hoeksema. Not affiliated with Antioch.
     </div>
-
     <header class="top">
-      <div class="rail top-inner">
-        <a class="brand" href="#"><span class="mark"></span>Doorbell Bench</a>
+      <div class="top-inner">
+        <a class="brand" href="./"><span class="mark"></span>Doorbell Bench</a>
         <nav>
-          <a href="#workspace">Workspace</a>
-          <a href="#how">How it works</a>
-          <a class="button" href="https://github.com/hoeksemaa/antioch">View source</a>
+          <a class="on" href="./">Simulations</a>
+          <a href="./benchmarks.html">Benchmarks</a>
         </nav>
+        <div class="actions">
+          <a class="button soft" href="https://github.com/hoeksemaa/antioch">View source</a>
+          <a class="button" href="https://johnhoeksema.com">View creator</a>
+        </div>
       </div>
     </header>
-
-    <section class="rail hero">
-      <h1>Find the person at the front door, frame by frame</h1>
-      <div class="hero-side">
-        <p>
-          A simulated doorbell camera at five houses. Python captures each frame from the Three.js scene and scores
-          off-the-shelf person detectors against the true position of the person.
-        </p>
-        <a class="button" href="#workspace">Open the workspace <span>→</span></a>
+    <main class="stage" id="stage">
+      <div id="hud">
+        <div class="hud-title">Porch scenes</div>
+        <div class="hint">Drag to orbit · scroll to zoom · <kbd>V</kbd> switches view · <kbd>1</kbd>–<kbd>5</kbd> switch house</div>
+        <div id="houses"></div>
       </div>
-    </section>
-
-    <div class="hatch"><div class="rail"></div></div>
-
-    <section class="rail section" id="workspace">
-      <p class="eyebrow"><span>//</span> Workspace</p>
-      <h2>Every detector against every scenario</h2>
-      <p class="lede">
-        Detection rate is the share of frames with the person in view in which the detector found the person. Pick a
-        cell to replay that scenario with the detector's boxes on the camera. All scenes are simulated and uncalibrated.
-      </p>
-
-      <div class="card">
-        <div class="tabs">
-          <button class="tab on" data-view="doorbell">Doorbell camera</button>
-          <button class="tab" data-view="overview">Overview</button>
-        </div>
-        <div class="card-head">
-          <div>
-            <div class="card-title">Person detection</div>
-            <div class="mono muted" id="settings"></div>
-          </div>
-          <div class="stats" id="stats"></div>
-        </div>
-        <div class="workspace">
-          <div class="panel">
-            <div class="table-wrap"><table class="matrix" id="matrix"></table></div>
-          </div>
-          <div class="viewer-col">
-            <div class="viewer">
-              <div class="viewer-bar">
-                <span class="label"><i></i><span id="viewer-label">Doorbell camera</span></span>
-                <span class="mono" id="viewer-scenario"></span>
-              </div>
-              <div class="viewport" id="viewport"><div id="boxes"></div></div>
-              <div class="timeline">
-                <div class="controls">
-                  <button id="prev" title="Previous frame (←)">‹</button>
-                  <button id="play" title="Play or pause (space)">▶</button>
-                  <button id="next" title="Next frame (→)">›</button>
-                  <span class="mono" id="frame-info"></span>
-                </div>
-                <div class="strips-wrap">
-                  <div id="strips"></div>
-                  <div class="playhead" id="playhead"></div>
-                </div>
-                <div class="legend mono">
-                  <span><i class="hit"></i>hit</span>
-                  <span><i class="miss"></i>miss</span>
-                  <span><i class="out"></i>out of view</span>
-                  <span><i class="truth"></i>true box</span>
-                  <span><i class="det"></i>detection</span>
-                </div>
-              </div>
-            </div>
-            <div class="stats cell-stats" id="cell-stats"></div>
-            <div class="table-wrap"><table class="bands" id="bands"></table></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="hatch"><div class="rail"></div></div>
-
-    <section class="rail section" id="how">
-      <p class="eyebrow"><span>//</span> How it works</p>
-      <h2>One scene, one harness, any detector</h2>
-      <div class="cards3">
-        <div class="card feature">
-          <span class="tag mono">Three.js · scene/</span>
-          <h3>Scene</h3>
-          <p>Five houses with different entries, one person, one package. The scene is a pure function of time and seed, so every frame replays exactly.</p>
-        </div>
-        <div class="card feature">
-          <span class="tag mono">Python · bench/capture.py</span>
-          <h3>Capture</h3>
-          <p>Playwright opens the scene in headless Chromium, sets the time, and takes the doorbell frame and the true box around the person.</p>
-        </div>
-        <div class="card feature">
-          <span class="tag mono">Python · bench/detector.py, run.py</span>
-          <h3>Score</h3>
-          <p>Pretrained COCO detectors look for people in each frame. A hit overlaps the true box with IoU ≥ 0.3. Results go to this page.</p>
-        </div>
-      </div>
-    </section>
-
-    <footer class="rail foot">
-      <span>Doorbell Bench · unofficial demo by <a href="https://johnhoeksema.com">John Hoeksema</a></span>
-      <span>Not affiliated with Antioch. All scenes and results are simulated and uncalibrated.</span>
-    </footer>
-
+      <div id="inset"><span>Doorbell camera</span></div>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

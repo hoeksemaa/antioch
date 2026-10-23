@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <title>Doorbell Bench: Benchmarks</title>
+  </head>
+  <body>
+    <div class="notice">
+      <span class="chip">Unofficial</span>
+      An unofficial demo by John Hoeksema. Not affiliated with Antioch.
+    </div>
+    <header class="top">
+      <div class="top-inner">
+        <a class="brand" href="./"><span class="mark"></span>Doorbell Bench</a>
+        <nav>
+          <a href="./">Simulations</a>
+          <a class="on" href="./benchmarks.html">Benchmarks</a>
+        </nav>
+        <div class="actions">
+          <a class="button soft" href="https://github.com/hoeksemaa/antioch">View source</a>
+          <a class="button" href="https://johnhoeksema.com">View creator</a>
+        </div>
+      </div>
+    </header>
+    <div class="hatch"><div class="rail"></div></div>
+    <main class="rail section">
+      <p class="eyebrow"><span>//</span> Benchmarks</p>
+      <h1>Person detection</h1>
+      <p class="lede">
+        Detection rate is the share of frames with the person in view in which the detector found the person. Pick a
+        cell to replay it. All scenes are simulated and uncalibrated.
+      </p>
+
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Detectors × scenarios</div>
+            <div class="mono muted" id="settings"></div>
+          </div>
+          <div class="stats" id="stats"></div>
+        </div>
+        <div class="table-wrap"><table class="matrix" id="matrix"></table></div>
+      </section>
+
+      <section class="card detail">
+        <div class="card-head">
+          <div>
+            <div class="card-title" id="detail-title"></div>
+            <div class="mono muted" id="detail-sub"></div>
+          </div>
+          <div class="stats" id="cell-stats"></div>
+        </div>
+        <div class="detail-body">
+          <div class="viewer">
+            <div class="viewer-bar">
+              <span class="label"><i></i>Doorbell camera</span>
+              <span class="mono">← → step · space play</span>
+            </div>
+            <div class="viewport" id="viewport"><div id="boxes"></div></div>
+            <div class="timeline">
+              <div class="controls">
+                <button id="prev" title="Previous frame (←)">‹</button>
+                <button id="play" title="Play or pause (space)">▶</button>
+                <button id="next" title="Next frame (→)">›</button>
+                <span class="mono" id="frame-info"></span>
+              </div>
+              <div class="strips-wrap">
+                <div id="strips"></div>
+                <div class="playhead" id="playhead"></div>
+              </div>
+              <div class="legend mono">
+                <span><i class="hit"></i>hit</span>
+                <span><i class="miss"></i>miss</span>
+                <span><i class="out"></i>out of view</span>
+                <span><i class="truth"></i>true box</span>
+                <span><i class="det"></i>detection</span>
+              </div>
+            </div>
+          </div>
+          <div class="table-wrap"><table class="bands" id="bands"></table></div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/benchmarks.ts"></script>
+  </body>
+</html>

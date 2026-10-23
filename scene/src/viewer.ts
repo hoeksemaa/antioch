@@ -21,6 +21,7 @@ function fit16x9(w: number, h: number) {
 
 export class Viewer {
   view: View = "doorbell";
+  inset = false; // in the overview, also draw the doorbell camera in the bottom-right corner
   time = 0; // s into the delivery loop
   playing = false;
   house!: House;
@@ -71,6 +72,13 @@ export class Viewer {
 
   setSize(width: number, height: number) {
     this.renderer.setSize(width, height);
+  }
+
+  // Size of the doorbell inset, in CSS px, and its margin from the
+  // bottom-right corner of the canvas.
+  insetSize() {
+    const width = Math.round(Math.min(480, Math.max(180, this.renderer.getSize(new THREE.Vector2()).x * 0.32)));
+    return { width, height: Math.round((width * 9) / 16), margin: 16 };
   }
 
   load(house: House) {
@@ -152,6 +160,14 @@ export class Viewer {
     r.setViewport(rect.x, rect.y, rect.width, rect.height);
     r.setScissor(rect.x, rect.y, rect.width, rect.height);
     r.render(this.scene, camera);
+    if (this.view === "overview" && this.inset) {
+      // WebGL counts y from the bottom.
+      const { width, height, margin } = this.insetSize();
+      this.frustum.visible = false;
+      r.setViewport(size.x - width - margin, margin, width, height);
+      r.setScissor(size.x - width - margin, margin, width, height);
+      r.render(this.scene, this.doorbell);
+    }
     this.onDraw?.();
   }
 }
