@@ -11,7 +11,7 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations) and https://antioch
 | Part | Language | Folder | What it does |
 |---|---|---|---|
 | 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
-| Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `sensor.ts` | The axes (house, light, and more to come), with a v1 baseline value and a showcase value for each |
+| Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `camera.ts`, `sensor.ts` | The axes (house, light, camera, and more to come), with a v1 baseline value and a showcase value for each |
 | Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, one row of buttons per axis, a seed, keys 1–5 and V. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots |
@@ -66,7 +66,7 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 | `flush` | Modern, with garage | No porch: a pad at ground level, a canopy | Up the driveway, then along a walk across the front | Right of the door, low, turned toward the driveway |
 | `portico` | Two story, set far back | Small portico on two columns, 1 step | Through a gate in a picket fence, on a walk that bends | Left of the door, a bit higher |
 
-- Doorbell camera: 16:9, 70° vertical field of view. It is a plain perspective camera; real doorbells use a fisheye lens.
+- Doorbell camera: see Camera below.
 - Units are meters. The front wall of each house is the plane z = 0, and the street is in the +z direction.
 - Code: `scene/src/houses.ts` (one function for each house), `parts.ts` (shared building parts), `street.ts` (street and neighbors).
 
@@ -83,6 +83,18 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 - `v1` (not a button) is the v1 light: a flat blue background, a hemisphere light, and the sun. Capture mode and Benchmarks use it when `?light=` is missing.
 - The doorbell image goes through a sensor pass (`scene/src/sensor.ts`) when an effect is on; for now the only effect is IR monochrome.
 - Code: `scene/src/lights.ts`.
+
+## Camera (`?camera=`)
+
+| id | Camera | Image |
+|---|---|---|
+| `basic` | The v1 camera: a plain perspective camera | 16:9, 70° vertical; no sensor effects |
+| `ring` | A square fisheye, like a Ring doorbell | About 150° corner to corner, 115° side to side (stereographic); auto exposure, noise, vignette, lens softness, compression blocks, bloom, lens flare |
+
+- The ring camera renders the scene through a 140° perspective camera into an HDR target at 1.5× the output size, then the sensor pass (`scene/src/sensor.ts`) maps it to the fisheye and adds the effects. The real lens is 150° × 150°; one perspective render cannot reach that, because the corners would need rays more than 90° off the axis.
+- Auto exposure reads a center-weighted mean from a small mip of the target, so it needs no state from earlier frames. The noise depends on the pixel and the time t. Thus a frame at time t is the same on every run.
+- In low light, the gain goes up: more noise, and 8 × 8 compression blocks. The sun and lit street lamps flare when they are in view and not behind something.
+- `window.bench` boxes go through the same fisheye mapping (`scene/src/camera.ts`).
 
 ## Delivery (v2)
 

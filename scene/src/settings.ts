@@ -8,12 +8,14 @@
 //   old results still match the scene.
 // - showcase: what the Simulations page opens with.
 
+import type { CameraModel } from "./camera";
 import { HOUSES } from "./houses";
 import type { Light } from "./lights";
 
 export interface Settings {
   house: string;
   light: Light;
+  camera: CameraModel;
   seed: number; // 0 is the canonical scene: no random jitter
 }
 
@@ -46,6 +48,16 @@ export const AXES: Axis[] = [
     ],
     baseline: "v1", // the v1 lights; not a button
     showcase: "day",
+  },
+  {
+    id: "camera",
+    label: "Camera",
+    values: [
+      { id: "basic", label: "Basic" },
+      { id: "ring", label: "Ring fisheye" },
+    ],
+    baseline: "basic",
+    showcase: "ring",
   },
 ];
 

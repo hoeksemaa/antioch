@@ -271,7 +271,8 @@ export class Delivery {
   // The person's box in the camera image as [x0, y0, x1, y1], in fractions of
   // the image width and height from the top left. Null when the person is out
   // of view. The box covers the whole body, also parts behind walls or rails.
-  screenBox(camera: THREE.Camera): [number, number, number, number] | null {
+  // project gives a world point in the image (-1 to 1, y up), or null.
+  screenBox(project: (point: THREE.Vector3) => THREE.Vector2 | null): [number, number, number, number] | null {
     if (!this.rig.root.visible) return null;
     this.rig.root.updateMatrixWorld(true);
     const v = new THREE.Vector3();
@@ -280,12 +281,12 @@ export class Delivery {
       if (!(object instanceof THREE.Mesh)) return;
       const position = object.geometry.attributes.position;
       for (let i = 0; i < position.count; i++) {
-        v.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld).project(camera);
-        if (v.z < -1 || v.z > 1) continue; // behind the camera or past the far plane
-        x0 = Math.min(x0, v.x);
-        x1 = Math.max(x1, v.x);
-        y0 = Math.min(y0, v.y);
-        y1 = Math.max(y1, v.y);
+        const p = project(v.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld));
+        if (!p) continue; // behind the camera, past the far plane, or outside the lens
+        x0 = Math.min(x0, p.x);
+        x1 = Math.max(x1, p.x);
+        y0 = Math.min(y0, p.y);
+        y1 = Math.max(y1, p.y);
       }
     });
     // From -1..1 with y up to 0..1 with y down, clipped to the image.

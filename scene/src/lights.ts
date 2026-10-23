@@ -76,6 +76,7 @@ export interface Lighting {
   environmentIntensity: number;
   exposure: number;
   ir: THREE.SpotLight | null; // drawn only into the doorbell image
+  flares: THREE.Vector3[]; // bright lights that can flare in the camera lens: the sun, lit street lamps
 }
 
 const lampHead = mat(0x2a2a2a, 0.5);
@@ -145,17 +146,19 @@ function v1(world: THREE.Group): Lighting {
   Object.assign(sun.shadow.camera, { left: -25, right: 25, top: 25, bottom: -25, near: 1, far: 70 });
   world.add(sun);
   M.glassLit.emissive.set(0x000000);
-  return { background: new THREE.Color(0xa9c9e8), backgroundIntensity: 1, environment: null, environmentIntensity: 1, exposure: 1, ir: null };
+  return { background: new THREE.Color(0xa9c9e8), backgroundIntensity: 1, environment: null, environmentIntensity: 1, exposure: 1, ir: null, flares: [] };
 }
 
 // Adds the lights and light fixtures for one preset to the world.
 export function buildLights(renderer: THREE.WebGLRenderer, world: THREE.Group, view: HouseView, light: Light): Lighting {
   if (light === "v1") return v1(world);
   const preset = PRESETS[light];
+  const flares: THREE.Vector3[] = [];
 
   if (preset.sun) {
     const sun = new THREE.DirectionalLight(preset.sun.color, preset.sun.intensity);
     sun.position.copy(direction(preset.sun.elevation, preset.sun.azimuth).multiplyScalar(40));
+    flares.push(direction(preset.sun.elevation, preset.sun.azimuth).multiplyScalar(1000));
     sun.castShadow = true;
     sun.shadow.mapSize.set(2048, 2048);
     sun.shadow.bias = -0.0005;
@@ -207,6 +210,7 @@ export function buildLights(renderer: THREE.WebGLRenderer, world: THREE.Group, v
     if (preset.street) {
       const lamp = new THREE.PointLight(0xffd9a8, preset.street, 30, 2);
       lamp.position.copy(head).add(new THREE.Vector3(0, -0.3, 0));
+      flares.push(head.clone().add(new THREE.Vector3(0, -0.09, 0)));
       world.add(lamp);
     }
   }
@@ -225,7 +229,7 @@ export function buildLights(renderer: THREE.WebGLRenderer, world: THREE.Group, v
   }
 
   const { background, environment } = sky(renderer, light, preset);
-  return { background, backgroundIntensity: preset.sky.brightness, environment, environmentIntensity: preset.ambient, exposure: preset.exposure, ir };
+  return { background, backgroundIntensity: preset.sky.brightness, environment, environmentIntensity: preset.ambient, exposure: preset.exposure, ir, flares };
 }
 
 // IR light intensity while the doorbell image is drawn, cd.
