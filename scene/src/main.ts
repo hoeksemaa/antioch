@@ -1,13 +1,15 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import type { Delivery } from "./delivery";
 import { HOUSES, type House } from "./houses";
 import { addLights, buildWorld, doorbellCamera } from "./scene";
 import "./style.css";
 
 // ?house=<id> picks the house. ?view=doorbell shows only the doorbell camera,
-// with no overlays.
+// with no overlays. ?t=<seconds> freezes the delivery at that time.
 const params = new URLSearchParams(location.search);
 const clean = params.get("view") === "doorbell";
+const frozen = params.has("t") ? Number(params.get("t")) : undefined;
 let mode: "overview" | "doorbell" = clean ? "doorbell" : "overview";
 document.body.classList.toggle("clean", clean);
 document.body.classList.toggle("doorbell", mode === "doorbell");
@@ -32,6 +34,8 @@ controls.maxPolarAngle = Math.PI / 2 - 0.05;
 let world: THREE.Group | undefined;
 let doorbell!: THREE.PerspectiveCamera;
 let frustum!: THREE.CameraHelper;
+let delivery!: Delivery;
+let start = 0;
 
 const houseButtons = document.getElementById("houses")!;
 
@@ -48,6 +52,8 @@ function load(house: House) {
   world = built.world;
   scene.add(world);
   doorbell = doorbellCamera(built.view);
+  delivery = built.delivery;
+  start = performance.now();
 
   // Shows the doorbell's field of view in the overview. A short copy of the
   // camera keeps the drawn frustum near the house.
@@ -98,6 +104,7 @@ function draw(camera: THREE.Camera, x: number, y: number, width: number, height:
 function render() {
   const w = window.innerWidth;
   const h = window.innerHeight;
+  delivery.update(frozen ?? (performance.now() - start) / 1000);
   renderer.setScissor(0, 0, w, h);
   renderer.clear();
 

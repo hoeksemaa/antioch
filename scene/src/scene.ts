@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { Delivery } from "./delivery";
 import type { House, HouseView } from "./houses";
 
 export function addLights(scene: THREE.Scene) {
@@ -17,13 +18,15 @@ export function addLights(scene: THREE.Scene) {
 export function buildWorld(house: House) {
   const world = new THREE.Group();
   const view = house.build(world);
+  const delivery = new Delivery(view.route, view.drop);
+  world.add(delivery.root);
   world.traverse((object) => {
     if (object instanceof THREE.Mesh) {
       object.castShadow = true;
       object.receiveShadow = true;
     }
   });
-  return { world, view };
+  return { world, view, delivery };
 }
 
 // A wide 16:9 camera on the front face of the doorbell. Real doorbells use a
