@@ -6,7 +6,8 @@
 // Effects:
 // - IR monochrome (light axis).
 // - Ring camera (camera axis): fisheye lens, auto exposure, noise, vignette,
-//   lens softness, compression, bloom, and lens flare.
+//   lens softness, compression, bloom, lens flare, and rain drops on the lens
+//   (weather axis).
 // Every effect is a function of the frame and the time t only (no state from
 // earlier frames), so a frame at time t is the same on every run.
 
@@ -18,6 +19,8 @@ export interface SensorOptions {
   ring: boolean; // the ring camera's lens and sensor effects
   time: number; // s; the noise changes on each video frame
   flares: THREE.Vector2[]; // up to 4 bright lights in the image, -1 to 1 with y up
+  drops: boolean; // rain drops on the lens
+  seed: number; // places the drops
 }
 
 const FLARES = 4;
@@ -41,6 +44,8 @@ const fragmentShader = /* glsl */ `
   uniform vec2 outSize; // output image, px
   uniform float frame; // video frame number, for the noise
   uniform vec3 flares[${FLARES}]; // xy: position (0..1), z: 1 if present
+  uniform float drops;
+  uniform float dropSeed;
   varying vec2 vUv;
 
   // Output image (0..1) to the source render (0..1): stereographic fisheye.
@@ -72,10 +77,34 @@ const fragmentShader = /* glsl */ `
     return mix(c, vec3(dot(c, vec3(0.3, 0.45, 0.25))), mono);
   }
 
+  // Rain drops on the lens: each drop shows a small, flipped, blurred image
+  // of what is behind it. Returns the image point to sample, and the drop
+  // mask in z.
+  vec3 lensDrops(vec2 uv) {
+    vec3 hit = vec3(uv, 0.0);
+    if (drops < 0.5) return hit;
+    float cells = 6.0;
+    vec2 cell = floor(uv * cells);
+    for (int i = -1; i <= 1; i++) {
+      for (int j = -1; j <= 1; j++) {
+        vec2 c = cell + vec2(i, j);
+        if (hash(vec3(c, dropSeed)) > 0.3) continue;
+        vec2 center = (c + vec2(hash(vec3(c, dropSeed + 1.0)), hash(vec3(c, dropSeed + 2.0)))) / cells;
+        float radius = 0.02 + 0.035 * hash(vec3(c, dropSeed + 3.0));
+        vec2 d = uv - center;
+        float r = length(d) / radius;
+        float m = 1.0 - r * r;
+        if (r < 1.0 && m > hit.z) hit = vec3(mix(uv, center - d * 0.4, smoothstep(0.0, 0.7, m)), m);
+      }
+    }
+    return hit;
+  }
+
   void main() {
     vec2 p = vUv * 2.0 - 1.0;
     float r2 = dot(p, p);
-    vec2 uv = lens(vUv);
+    vec3 drop = lensDrops(vUv);
+    vec2 uv = lens(drop.xy);
 
     if (ring < 0.5) {
       gl_FragColor = linearToOutputTexel(vec4(toneMapping(sampleScene(uv, 0.0)), 1.0));
@@ -98,10 +127,10 @@ const fragmentShader = /* glsl */ `
     float dark = smoothstep(1.5, 8.0, gain); // 0 in good light, 1 in very low light
 
     // Lens softness grows toward the edges. Chroma at half resolution.
-    float soft = 0.35 + 0.9 * r2;
+    float soft = 0.35 + 0.9 * r2 + 3.0 * smoothstep(0.0, 0.3, drop.z);
     vec3 sharp = sampleScene(uv, soft) * gain;
     vec2 half2 = (floor(vUv * outSize / 2.0) + 0.5) * 2.0 / outSize;
-    vec3 coarse = sampleScene(lens(half2), soft + 1.0) * gain;
+    vec3 coarse = sampleScene(lens(lensDrops(half2).xy), soft + 1.0) * gain;
 
     // Bloom: bright parts spread light.
     vec3 bloom = vec3(0.0);
@@ -149,6 +178,7 @@ const fragmentShader = /* glsl */ `
     color = pow(max(color, 0.0), vec3(1.0 / 2.2));
     color += grain * sigma;
     color *= 1.0 - 0.16 * r2; // vignette
+    color *= 1.0 - 0.12 * smoothstep(0.0, 0.2, drop.z) * (1.0 - smoothstep(0.2, 0.5, drop.z)); // drop rims
     color = pow(max(color, 0.0), vec3(2.2));
     gl_FragColor = linearToOutputTexel(vec4(color, 1.0));
   }
@@ -172,6 +202,8 @@ export class Sensor {
       outSize: { value: new THREE.Vector2() },
       frame: { value: 0 },
       flares: { value: Array.from({ length: FLARES }, () => new THREE.Vector3()) },
+      drops: { value: 0 },
+      dropSeed: { value: 0 },
     },
     vertexShader,
     fragmentShader,
@@ -204,6 +236,8 @@ export class Sensor {
     u.maxLod.value = Math.floor(Math.log2(Math.max(width, height)));
     u.outSize.value.set(outWidth, outHeight);
     u.frame.value = Math.floor(options.time * 30);
+    u.drops.value = options.drops ? 1 : 0;
+    u.dropSeed.value = options.seed % 1000;
     u.flares.value.forEach((f: THREE.Vector3, i: number) => {
       const p = options.flares[i];
       f.set(p ? (p.x + 1) / 2 : 0, p ? (p.y + 1) / 2 : 0, p ? 1 : 0);

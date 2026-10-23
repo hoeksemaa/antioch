@@ -12,6 +12,7 @@ import { IR_INTENSITY, type Lighting } from "./lights";
 import { preparePerson } from "./people";
 import { buildWorld } from "./scene";
 import { Sensor } from "./sensor";
+import type { WeatherState } from "./weather";
 import type { Settings } from "./settings";
 
 export type View = "doorbell" | "overview";
@@ -46,6 +47,7 @@ export class Viewer {
   private world?: THREE.Group;
   private doorbell!: DoorbellCamera;
   private lighting!: Lighting;
+  private weather!: WeatherState;
   private readonly sensor = new Sensor();
   private frustum!: THREE.CameraHelper;
   private last = performance.now();
@@ -115,7 +117,9 @@ export class Viewer {
     this.world = built.world;
     this.scene.add(this.world);
     this.lighting = built.lighting;
-    this.scene.background = built.lighting.background;
+    this.weather = built.weather;
+    this.scene.fog = built.weather.fog;
+    this.scene.background = built.weather.overcastSky ? built.lighting.haze : built.lighting.background;
     this.scene.backgroundIntensity = built.lighting.backgroundIntensity;
     this.scene.environment = built.lighting.environment;
     this.scene.environmentIntensity = built.lighting.environmentIntensity;
@@ -182,6 +186,7 @@ export class Viewer {
   private draw() {
     if (!this.world) return; // the first load is not done
     this.delivery.update(this.time);
+    this.weather.update(this.time);
     const r = this.renderer;
     r.info.reset();
     r.shadowMap.needsUpdate = true;
@@ -219,7 +224,8 @@ export class Viewer {
     if (ir || ring) {
       const inImage = (f: THREE.Vector2 | null): f is THREE.Vector2 => f !== null && Math.abs(f.x) <= 1 && Math.abs(f.y) <= 1;
       const flares = ring ? this.lighting.flares.map((f) => this.doorbell.project(f)).filter(inImage) : [];
-      this.sensor.render(r, this.scene, this.doorbell.camera, rect, { mono: !!ir, ring, time: this.time, flares });
+      const drops = ring && this.weather.lensDrops;
+      this.sensor.render(r, this.scene, this.doorbell.camera, rect, { mono: !!ir, ring, time: this.time, flares, drops, seed: this.settings.seed });
     } else {
       r.setViewport(rect.x, rect.y, rect.width, rect.height);
       r.setScissor(rect.x, rect.y, rect.width, rect.height);
