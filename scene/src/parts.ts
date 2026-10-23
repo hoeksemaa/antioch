@@ -19,6 +19,7 @@ export const M = {
   roof: mat(0x55565c),
   brass: mat(0xc9a23a, 0.3, 0.8),
   glass: mat(0x2f3e4f, 0.15, 0.3),
+  glassLit: mat(0x2f3e4f, 0.15, 0.3), // the same as glass; the light module lights it at night
   deck: mat(0x8a6a4a, 0.8),
   rug: mat(0x4a3b2a, 1),
   pot: mat(0xb5653d, 0.9),
@@ -158,9 +159,13 @@ export function doorUnit(parent: THREE.Object3D, x: number, floorY: number, colo
   parent.add(knob);
 }
 
+// About 40% of windows have a light on inside at night. The choice comes from
+// the window's position, so it is the same on every run.
 export function windowUnit(parent: THREE.Object3D, x: number, y: number, width: number, height: number) {
+  const h = Math.sin(x * 12.9898 + y * 78.233 + parent.position.x * 3.17) * 43758.5453;
+  const lit = h - Math.floor(h) < 0.4;
   box(parent, [width + 0.2, height + 0.2, 0.04], [x, y, 0.02], M.trim);
-  box(parent, [width, height, 0.05], [x, y, 0.03], M.glass);
+  box(parent, [width, height, 0.05], [x, y, 0.03], lit ? M.glassLit : M.glass);
 }
 
 export function doorbellDevice(parent: THREE.Object3D, pos: THREE.Vector3) {

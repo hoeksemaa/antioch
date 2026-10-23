@@ -11,7 +11,7 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations) and https://antioch
 | Part | Language | Folder | What it does |
 |---|---|---|---|
 | 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
-| Scenario axes | TypeScript (browser) | `scene/src/settings.ts` | The axes (house, and more to come), with a v1 baseline value and a showcase value for each |
+| Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `sensor.ts` | The axes (house, light, and more to come), with a v1 baseline value and a showcase value for each |
 | Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, one row of buttons per axis, a seed, keys 1–5 and V. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots |
@@ -69,6 +69,20 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 - Doorbell camera: 16:9, 70° vertical field of view. It is a plain perspective camera; real doorbells use a fisheye lens.
 - Units are meters. The front wall of each house is the plane z = 0, and the street is in the +z direction.
 - Code: `scene/src/houses.ts` (one function for each house), `parts.ts` (shared building parts), `street.ts` (street and neighbors).
+
+## Light (`?light=`)
+
+| id | Light | Shadow light | Other lights |
+|---|---|---|---|
+| `day` | Sun at 44°, sky with light clouds | Sun | Sky ambient light |
+| `dusk` | Low warm sun toward the street, into the doorbell camera | Sun | Porch light, street lamps, some lit windows |
+| `night` | Dark sky, dim moonlight | Porch light | Street lamps, some lit windows |
+| `ir` | Night with the porch light off | None | IR light at the doorbell (falls off with distance); the doorbell image is monochrome. The overview does not show the IR light |
+
+- The sky is the three.js Sky shader, drawn once per load into a cube map: the background, and (through PMREM) the ambient light. It has no download.
+- `v1` (not a button) is the v1 light: a flat blue background, a hemisphere light, and the sun. Capture mode and Benchmarks use it when `?light=` is missing.
+- The doorbell image goes through a sensor pass (`scene/src/sensor.ts`) when an effect is on; for now the only effect is IR monochrome.
+- Code: `scene/src/lights.ts`.
 
 ## Delivery (v2)
 

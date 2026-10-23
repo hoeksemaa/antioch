@@ -7,7 +7,9 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { installBench } from "./bench";
 import type { Delivery } from "./delivery";
 import { HOUSES, type House } from "./houses";
-import { addLights, buildWorld, doorbellCamera } from "./scene";
+import { IR_INTENSITY, type Lighting } from "./lights";
+import { buildWorld, doorbellCamera } from "./scene";
+import { Sensor } from "./sensor";
 import type { Settings } from "./settings";
 
 export type View = "doorbell" | "overview";
@@ -41,6 +43,8 @@ export class Viewer {
   private readonly controls: OrbitControls;
   private world?: THREE.Group;
   private doorbell!: THREE.PerspectiveCamera;
+  private lighting!: Lighting;
+  private readonly sensor = new Sensor();
   private frustum!: THREE.CameraHelper;
   private last = performance.now();
 
@@ -53,7 +57,6 @@ export class Viewer {
     r.shadowMap.autoUpdate = false; // draw() updates it once per frame, not once per view
     r.toneMapping = THREE.ACESFilmicToneMapping;
     r.setScissorTest(true);
-    addLights(this.scene);
 
     this.controls = new OrbitControls(this.overview, r.domElement);
     this.controls.enableDamping = true;
@@ -106,9 +109,14 @@ export class Viewer {
       });
       this.frustum.dispose();
     }
-    const built = buildWorld(settings);
+    const built = buildWorld(settings, this.renderer);
     this.world = built.world;
     this.scene.add(this.world);
+    this.lighting = built.lighting;
+    this.scene.background = built.lighting.background;
+    this.scene.backgroundIntensity = built.lighting.backgroundIntensity;
+    this.scene.environment = built.lighting.environment;
+    this.scene.environmentIntensity = built.lighting.environmentIntensity;
     this.settings = settings;
     this.house = built.house;
     this.delivery = built.delivery;
@@ -163,30 +171,43 @@ export class Viewer {
     const r = this.renderer;
     r.info.reset();
     r.shadowMap.needsUpdate = true;
+    r.toneMappingExposure = this.lighting.exposure;
     const size = r.getSize(new THREE.Vector2());
     r.setScissor(0, 0, size.x, size.y);
     r.clear();
-    let camera: THREE.Camera = this.doorbell;
-    let rect = fit16x9(size.x, size.y);
     if (this.view === "overview") {
       this.controls.update();
       this.overview.aspect = size.x / size.y;
       this.overview.updateProjectionMatrix();
-      camera = this.overview;
-      rect = { x: 0, y: 0, width: size.x, height: size.y };
-    }
-    this.frustum.visible = this.view === "overview";
-    r.setViewport(rect.x, rect.y, rect.width, rect.height);
-    r.setScissor(rect.x, rect.y, rect.width, rect.height);
-    r.render(this.scene, camera);
-    if (this.view === "overview" && this.inset) {
-      // WebGL counts y from the bottom.
-      const { width, height, margin } = this.insetSize();
-      this.frustum.visible = false;
-      r.setViewport(size.x - width - margin, margin, width, height);
-      r.setScissor(size.x - width - margin, margin, width, height);
-      r.render(this.scene, this.doorbell);
+      this.frustum.visible = true;
+      r.setViewport(0, 0, size.x, size.y);
+      r.setScissor(0, 0, size.x, size.y);
+      r.render(this.scene, this.overview);
+      if (this.inset) {
+        // WebGL counts y from the bottom.
+        const { width, height, margin } = this.insetSize();
+        this.drawDoorbell({ x: size.x - width - margin, y: margin, width, height });
+      }
+    } else {
+      this.drawDoorbell(fit16x9(size.x, size.y));
     }
     this.onDraw?.();
+  }
+
+  // The doorbell image in rect (CSS px, from the bottom left). The IR light is
+  // on only here, so the overview shows the scene as a person sees it.
+  private drawDoorbell(rect: { x: number; y: number; width: number; height: number }) {
+    const r = this.renderer;
+    const ir = this.lighting.ir;
+    this.frustum.visible = false;
+    if (ir) ir.intensity = IR_INTENSITY;
+    if (ir) {
+      this.sensor.render(r, this.scene, this.doorbell, rect, { mono: true });
+    } else {
+      r.setViewport(rect.x, rect.y, rect.width, rect.height);
+      r.setScissor(rect.x, rect.y, rect.width, rect.height);
+      r.render(this.scene, this.doorbell);
+    }
+    if (ir) ir.intensity = 0;
   }
 }
