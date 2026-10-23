@@ -4,7 +4,7 @@ A doorbell camera on a simulated front porch, in many environments. It benchmark
 
 Unofficial demo by [John Hoeksema](https://johnhoeksema.com) for the Member of Technical Staff, Core Platform role at Antioch. Not affiliated with Antioch. All scenes and results are simulated and uncalibrated.
 
-Live: not deployed yet.
+Live: https://antioch-demo-hoeksema.vercel.app (doorbell view of one house: https://antioch-demo-hoeksema.vercel.app/?house=stoop&view=doorbell)
 
 ## Stack
 
@@ -44,9 +44,9 @@ Five static, daytime houses. Each has its own entry, approach path, and doorbell
 - Units are meters. The front wall of each house is the plane z = 0, and the street is in the +z direction.
 - Code: `scene/src/houses.ts` (one function for each house), `parts.ts` (shared building parts), `street.ts` (street and neighbors).
 
-## Deploy (later)
+## Deploy
 
-A Vercel project with Root Directory `scene`. Vercel detects Vite; the output is `dist/`.
+Vercel project `antioch-demo-hoeksema`, with Root Directory `scene`. Vercel detects Vite; the output is `dist/`. GitHub is connected, so each merge to `main` deploys to production. A manual deploy is `vercel deploy --prod --yes` from the repo root.
 
 ## Status
 
