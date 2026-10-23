@@ -5,10 +5,11 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { installBench } from "./bench";
+import { DoorbellCamera } from "./camera";
 import type { Delivery } from "./delivery";
 import { HOUSES, type House } from "./houses";
 import { IR_INTENSITY, type Lighting } from "./lights";
-import { buildWorld, doorbellCamera } from "./scene";
+import { buildWorld } from "./scene";
 import { Sensor } from "./sensor";
 import type { Settings } from "./settings";
 
@@ -20,10 +21,10 @@ declare global {
   }
 }
 
-// The largest 16:9 rectangle that fits in w × h, centered.
-function fit16x9(w: number, h: number) {
-  const width = Math.min(w, (h * 16) / 9);
-  const height = (width * 9) / 16;
+// The largest rectangle with this aspect that fits in w × h, centered.
+function fit(w: number, h: number, aspect: number) {
+  const width = Math.min(w, h * aspect);
+  const height = width / aspect;
   return { x: (w - width) / 2, y: (h - height) / 2, width, height };
 }
 
@@ -42,7 +43,7 @@ export class Viewer {
   private readonly overview = new THREE.PerspectiveCamera(45, 16 / 9, 0.1, 300);
   private readonly controls: OrbitControls;
   private world?: THREE.Group;
-  private doorbell!: THREE.PerspectiveCamera;
+  private doorbell!: DoorbellCamera;
   private lighting!: Lighting;
   private readonly sensor = new Sensor();
   private frustum!: THREE.CameraHelper;
@@ -95,10 +96,12 @@ export class Viewer {
   }
 
   // Size of the doorbell inset, in CSS px, and its margin from the
-  // bottom-right corner of the canvas.
+  // bottom-right corner of the canvas. A square inset has about the same area
+  // as a 16:9 one.
   insetSize() {
-    const width = Math.round(Math.min(480, Math.max(180, this.renderer.getSize(new THREE.Vector2()).x * 0.32)));
-    return { width, height: Math.round((width * 9) / 16), margin: 16 };
+    const wide = Math.min(480, Math.max(180, this.renderer.getSize(new THREE.Vector2()).x * 0.32));
+    const width = Math.round(this.doorbell.aspect === 1 ? wide * 0.75 : wide);
+    return { width, height: Math.round(width / this.doorbell.aspect), margin: 16 };
   }
 
   load(settings: Settings) {
@@ -120,12 +123,12 @@ export class Viewer {
     this.settings = settings;
     this.house = built.house;
     this.delivery = built.delivery;
-    this.doorbell = doorbellCamera(built.view);
+    this.doorbell = new DoorbellCamera(built.view, settings.camera);
 
     // Shows the doorbell's field of view in the overview. A short copy of the
     // camera keeps the drawn frustum near the house.
-    const short = this.doorbell.clone();
-    short.far = 3;
+    const short = this.doorbell.camera.clone();
+    short.far = this.doorbell.fisheye ? 1 : 3;
     short.updateProjectionMatrix();
     this.frustum = new THREE.CameraHelper(short);
     const yellow = new THREE.Color(0xffcc33);
@@ -189,7 +192,7 @@ export class Viewer {
         this.drawDoorbell({ x: size.x - width - margin, y: margin, width, height });
       }
     } else {
-      this.drawDoorbell(fit16x9(size.x, size.y));
+      this.drawDoorbell(fit(size.x, size.y, this.doorbell.aspect));
     }
     this.onDraw?.();
   }
@@ -200,13 +203,16 @@ export class Viewer {
     const r = this.renderer;
     const ir = this.lighting.ir;
     this.frustum.visible = false;
+    const ring = this.doorbell.fisheye;
     if (ir) ir.intensity = IR_INTENSITY;
-    if (ir) {
-      this.sensor.render(r, this.scene, this.doorbell, rect, { mono: true });
+    if (ir || ring) {
+      const inImage = (f: THREE.Vector2 | null): f is THREE.Vector2 => f !== null && Math.abs(f.x) <= 1 && Math.abs(f.y) <= 1;
+      const flares = ring ? this.lighting.flares.map((f) => this.doorbell.project(f)).filter(inImage) : [];
+      this.sensor.render(r, this.scene, this.doorbell.camera, rect, { mono: !!ir, ring, time: this.time, flares });
     } else {
       r.setViewport(rect.x, rect.y, rect.width, rect.height);
       r.setScissor(rect.x, rect.y, rect.width, rect.height);
-      r.render(this.scene, this.doorbell);
+      r.render(this.scene, this.doorbell.camera);
     }
     if (ir) ir.intensity = 0;
   }

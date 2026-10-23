@@ -2,7 +2,7 @@
 // through Playwright. Python picks a time t; this renders that doorbell frame
 // and returns the ground truth for it.
 
-import type * as THREE from "three";
+import type { DoorbellCamera } from "./camera";
 import type { Delivery, Phase } from "./delivery";
 
 // One test case. For now each house is one scenario; later a scenario can
@@ -37,7 +37,7 @@ export function installBench(o: {
   house: () => string;
   seed: () => number;
   delivery: () => Delivery;
-  camera: () => THREE.PerspectiveCamera;
+  camera: () => DoorbellCamera;
   renderAt: (t: number) => void;
 }) {
   window.bench = {
@@ -49,7 +49,7 @@ export function installBench(o: {
       o.renderAt(t);
       const delivery = o.delivery();
       const camera = o.camera();
-      return { t, phase: delivery.phase, box: delivery.screenBox(camera), distance: delivery.distanceFrom(camera.position) };
+      return { t, phase: delivery.phase, box: delivery.screenBox((p) => camera.project(p)), distance: delivery.distanceFrom(camera.camera.position) };
     },
   };
 }

@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { Delivery } from "./delivery";
-import { HOUSES, type HouseView } from "./houses";
+import { HOUSES } from "./houses";
 import { buildLights } from "./lights";
 import { jitter } from "./random";
 import type { Settings } from "./settings";
@@ -51,14 +51,4 @@ function mergeStatic(world: THREE.Group) {
     world.add(new THREE.Mesh(mergeGeometries(geometries), material));
     for (const geometry of geometries) geometry.dispose();
   }
-}
-
-// A wide 16:9 camera on the front face of the doorbell. Real doorbells use a
-// fisheye lens; this is a plain perspective camera for now.
-export function doorbellCamera(view: HouseView) {
-  const camera = new THREE.PerspectiveCamera(70, 16 / 9, 0.05, 150);
-  camera.position.set(view.doorbell.x, view.doorbell.y, view.doorbell.z + 0.02);
-  camera.lookAt(view.target);
-  camera.updateMatrixWorld();
-  return camera;
 }
