@@ -23,6 +23,8 @@ export interface HouseView {
   target: THREE.Vector3; // the point the doorbell camera looks at
   eye: THREE.Vector3; // overview camera start position
   focus: THREE.Vector3; // overview orbit target
+  route: THREE.Vector3[]; // delivery walk from the sidewalk; y is the floor height
+  drop: THREE.Vector3; // where the package is set down (bottom center)
 }
 
 export interface House {
@@ -65,7 +67,14 @@ function raisedPorch(parent: THREE.Object3D): HouseView {
   // Right of the door (as seen from the street).
   const doorbell = v(0.72, floor + 1.22, 0.015);
   doorbellDevice(parent, doorbell);
-  return { doorbell, target: v(0, 1.0, 10), eye: v(6, 5.5, 16), focus: v(0, 1.2, 3) };
+  return {
+    doorbell,
+    target: v(0, 1.0, 10),
+    eye: v(6, 5.5, 16),
+    focus: v(0, 1.2, 3),
+    route: [v(-12, 0, 10.8), v(0, 0, 10.8), v(0, 0, 3.4), v(0, floor, 2.6), v(0, floor, 2.2)],
+    drop: v(0.25, floor, 1.65),
+  };
 }
 
 // One row house, 6 m wide, with a tall stoop on the right side of its front.
@@ -124,7 +133,14 @@ function stoop(parent: THREE.Object3D): HouseView {
   // about 2.9 m above the yard.
   const doorbell = v(0.62, 1.7 + 1.2, 0.055);
   doorbellDevice(parent, doorbell);
-  return { doorbell, target: v(1.0, 0.6, 9), eye: v(8, 6.5, 17), focus: v(1, 2, 2) };
+  return {
+    doorbell,
+    target: v(1.0, 0.6, 9),
+    eye: v(8, 6.5, 17),
+    focus: v(1, 2, 2),
+    route: [v(-12, 0, 6.1), v(1.2, 0, 6.1), v(1.2, 0, 4.1), v(1.2, 1.7, 1.45), v(1.2, 1.7, 1.3)],
+    drop: v(1.35, 1.7, 0.9),
+  };
 }
 
 // 3. A bungalow with a porch behind a solid knee wall. The steps are on the
@@ -174,7 +190,14 @@ function sideEntry(parent: THREE.Object3D): HouseView {
   // Left of the door (as seen from the street), turned toward the side steps.
   const doorbell = v(0.18, floor + 1.4, 0.015);
   doorbellDevice(parent, doorbell);
-  return { doorbell, target: v(-4.5, 0.9, 7.5), eye: v(-10, 5.5, 14), focus: v(-2, 1.2, 2.5) };
+  return {
+    doorbell,
+    target: v(-4.5, 0.9, 7.5),
+    eye: v(-10, 5.5, 14),
+    focus: v(-2, 1.2, 2.5),
+    route: [v(-15, 0, 9.8), v(-6.7, 0, 9.8), v(-6.7, 0, 1.5), v(-6.25, 0, 1.5), v(left, floor, 1.5), v(-1.6, floor, 1.5)],
+    drop: v(-1.0, floor, 1.5),
+  };
 }
 
 // 4. A modern house with no porch: the door is at ground level, under a small
@@ -211,7 +234,14 @@ function noPorch(parent: THREE.Object3D): HouseView {
   // toward the driveway.
   const doorbell = v(-0.2, floor + 1.3, 0.015);
   doorbellDevice(parent, doorbell);
-  return { doorbell, target: v(4, -1.0, 8), eye: v(9, 6, 15), focus: v(1, 1, 2) };
+  return {
+    doorbell,
+    target: v(2.5, -1.0, 8),
+    eye: v(9, 6, 15),
+    focus: v(1, 1, 2),
+    route: [v(18, 0, 8.8), v(6, 0, 8.8), v(6, 0, 1.7), v(-0.1, 0, 1.7)],
+    drop: v(-0.6, 0.02, 1.7),
+  };
 }
 
 // 5. A two-story house set far back, with a small portico on two columns, a
@@ -255,7 +285,14 @@ function portico(parent: THREE.Object3D): HouseView {
   // Left of the door (as seen from the street), mounted a bit higher.
   const doorbell = v(-0.75, floor + 1.35, 0.015);
   doorbellDevice(parent, doorbell);
-  return { doorbell, target: v(gateX, 0.9, sidewalk), eye: v(9, 7.5, 21), focus: v(0.5, 1.5, 5) };
+  return {
+    doorbell,
+    target: v(gateX, -0.5, sidewalk),
+    eye: v(9, 7.5, 21),
+    focus: v(0.5, 1.5, 5),
+    route: [v(15, 0, 14.8), v(gateX, 0, 14.8), v(gateX, 0, 13.4), v(0, 0, 6), v(0, 0, 2.05), v(0, floor, 1.6)],
+    drop: v(0.45, floor, 1.15),
+  };
 }
 
 export const HOUSES: House[] = [
