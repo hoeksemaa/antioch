@@ -1,29 +1,18 @@
-// Three.js (browser): lights, the world for one house, and the doorbell camera.
+// Three.js (browser): the world for one scenario, and the doorbell camera.
 
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { Delivery } from "./delivery";
 import { HOUSES, type HouseView } from "./houses";
+import { buildLights } from "./lights";
 import { jitter } from "./random";
 import type { Settings } from "./settings";
 
-export function addLights(scene: THREE.Scene) {
-  scene.background = new THREE.Color(0xa9c9e8);
-  scene.add(new THREE.HemisphereLight(0xdfeaff, 0x7a7466, 1.4));
-
-  const sun = new THREE.DirectionalLight(0xfff4e0, 2.8);
-  sun.position.set(-12, 18, 14);
-  sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
-  sun.shadow.bias = -0.0005;
-  Object.assign(sun.shadow.camera, { left: -25, right: 25, top: 25, bottom: -25, near: 1, far: 70 });
-  scene.add(sun);
-}
-
-export function buildWorld(settings: Settings) {
+export function buildWorld(settings: Settings, renderer: THREE.WebGLRenderer) {
   const world = new THREE.Group();
   const house = HOUSES.find((h) => h.id === settings.house)!;
   const view = house.build(world);
+  const lighting = buildLights(renderer, world, view, settings.light);
   mergeStatic(world);
   const delivery = new Delivery(view.route, view.drop, jitter(settings.seed, "delivery"));
   world.add(delivery.root);
@@ -33,7 +22,7 @@ export function buildWorld(settings: Settings) {
       object.receiveShadow = true;
     }
   });
-  return { world, house, view, delivery };
+  return { world, house, view, delivery, lighting };
 }
 
 // Merges the static meshes that share a material into one mesh. A house has

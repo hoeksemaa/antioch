@@ -19,7 +19,7 @@ import {
   tree,
   windowUnit,
 } from "./parts";
-import { buildStreet } from "./street";
+import { buildStreet, type StreetLamp } from "./street";
 
 export interface HouseView {
   doorbell: THREE.Vector3; // center of the doorbell device
@@ -28,6 +28,8 @@ export interface HouseView {
   focus: THREE.Vector3; // overview orbit target
   route: THREE.Vector3[]; // delivery walk from the sidewalk; y is the floor height
   drop: THREE.Vector3; // where the package is set down (bottom center)
+  lamp: THREE.Vector3; // porch lantern beside the door, on the wall
+  streetLamps: StreetLamp[];
 }
 
 export interface House {
@@ -65,7 +67,7 @@ function raisedPorch(parent: THREE.Object3D): HouseView {
   tree(parent, -7, 7);
   tree(parent, 8, 8.5);
   mailbox(parent, 1.6, 9.7);
-  buildStreet(parent, sidewalk, "suburb");
+  const streetLamps = buildStreet(parent, sidewalk, "suburb");
 
   // Right of the door (as seen from the street).
   const doorbell = v(0.72, floor + 1.22, 0.015);
@@ -77,6 +79,8 @@ function raisedPorch(parent: THREE.Object3D): HouseView {
     focus: v(0, 1.2, 3),
     route: [v(-12, 0, 10.8), v(0, 0, 10.8), v(0, 0, 3.4), v(0, floor, 2.6), v(0, floor, 2.2)],
     drop: v(0.25, floor, 1.65),
+    lamp: v(-0.75, 0.45 + 1.95, 0.1),
+    streetLamps,
   };
 }
 
@@ -130,7 +134,7 @@ function stoop(parent: THREE.Object3D): HouseView {
     [12, 11.8, 0x7a5444],
   ];
   for (const [x, height, color] of row) rowHouse(parent, x, height, color, setback);
-  buildStreet(parent, setback, "row");
+  const streetLamps = buildStreet(parent, setback, "row");
 
   // On the left door trim (as seen from the street), at the top of the stoop:
   // about 2.9 m above the yard.
@@ -143,6 +147,8 @@ function stoop(parent: THREE.Object3D): HouseView {
     focus: v(1, 2, 2),
     route: [v(-12, 0, 6.1), v(1.2, 0, 6.1), v(1.2, 0, 4.1), v(1.2, 1.7, 1.45), v(1.2, 1.7, 1.3)],
     drop: v(1.35, 1.7, 0.9),
+    lamp: v(2.05, 1.7 + 2.1, 0.1),
+    streetLamps,
   };
 }
 
@@ -188,7 +194,7 @@ function sideEntry(parent: THREE.Object3D): HouseView {
   path(parent, [-6.7, 1.4], [-6.7, sidewalk - 0.6], 1.2);
   for (const x of [-4.2, -2.8, -0.2, 1.4]) blob(parent, 0.45, [x, 0.35, depth + 0.45]);
   tree(parent, 5, 6.5);
-  buildStreet(parent, sidewalk, "suburb");
+  const streetLamps = buildStreet(parent, sidewalk, "suburb");
 
   // Left of the door (as seen from the street), turned toward the side steps.
   const doorbell = v(0.18, floor + 1.4, 0.015);
@@ -200,6 +206,8 @@ function sideEntry(parent: THREE.Object3D): HouseView {
     focus: v(-2, 1.2, 2.5),
     route: [v(-15, 0, 9.8), v(-6.7, 0, 9.8), v(-6.7, 0, 1.5), v(-6.25, 0, 1.5), v(left, floor, 1.5), v(-1.6, floor, 1.5)],
     drop: v(-1.0, floor, 1.5),
+    lamp: v(1.7, 0.6 + 1.95, 0.1),
+    streetLamps,
   };
 }
 
@@ -231,7 +239,7 @@ function noPorch(parent: THREE.Object3D): HouseView {
   path(parent, [-1.4, 1.7], [3.4, 1.7], 1.0);
   for (const x of [-5.5, -5.0, -4.5, -4.0, -3.5]) blob(parent, 0.3, [x, 0.25, 0.5]);
   tree(parent, -7, 5.5);
-  buildStreet(parent, sidewalk, "suburb");
+  const streetLamps = buildStreet(parent, sidewalk, "suburb");
 
   // Right of the door (as seen from the street), lower than the others, turned
   // toward the driveway.
@@ -244,6 +252,8 @@ function noPorch(parent: THREE.Object3D): HouseView {
     focus: v(1, 1, 2),
     route: [v(18, 0, 8.8), v(6, 0, 8.8), v(6, 0, 1.7), v(-0.1, 0, 1.7)],
     drop: v(-0.6, 0.02, 1.7),
+    lamp: v(-1.95, 0.15 + 2.0, 0.1),
+    streetLamps,
   };
 }
 
@@ -283,7 +293,7 @@ function portico(parent: THREE.Object3D): HouseView {
   for (const x of [-3.6, 3.6]) box(parent, [3.2, 0.9, 0.9], [x, 0.45, 0.8], M.leaf);
   tree(parent, -6, 8);
   tree(parent, 7.5, 6);
-  buildStreet(parent, sidewalk, "suburb");
+  const streetLamps = buildStreet(parent, sidewalk, "suburb");
 
   // Left of the door (as seen from the street), mounted a bit higher.
   const doorbell = v(-0.75, floor + 1.35, 0.015);
@@ -295,6 +305,8 @@ function portico(parent: THREE.Object3D): HouseView {
     focus: v(0.5, 1.5, 5),
     route: [v(15, 0, 14.8), v(gateX, 0, 14.8), v(gateX, 0, 13.4), v(0, 0, 6), v(0, 0, 2.05), v(0, floor, 1.6)],
     drop: v(0.45, floor, 1.15),
+    lamp: v(0.85, 0.35 + 1.95, 0.1),
+    streetLamps,
   };
 }
 

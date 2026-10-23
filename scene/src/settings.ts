@@ -9,9 +9,11 @@
 // - showcase: what the Simulations page opens with.
 
 import { HOUSES } from "./houses";
+import type { Light } from "./lights";
 
 export interface Settings {
   house: string;
+  light: Light;
   seed: number; // 0 is the canonical scene: no random jitter
 }
 
@@ -33,6 +35,18 @@ export const AXES: Axis[] = [
     baseline: "porch",
     showcase: "porch",
   },
+  {
+    id: "light",
+    label: "Light",
+    values: [
+      { id: "day", label: "Day" },
+      { id: "dusk", label: "Dusk" },
+      { id: "night", label: "Night" },
+      { id: "ir", label: "IR" },
+    ],
+    baseline: "v1", // the v1 lights; not a button
+    showcase: "day",
+  },
 ];
 
 // Reads the settings from URL parameters. A missing or unknown value takes
@@ -41,7 +55,7 @@ export function readSettings(params: URLSearchParams, fill: "baseline" | "showca
   const settings = { seed: Math.max(0, Math.floor(Number(params.get("seed")) || 0)) } as Settings;
   for (const axis of AXES) {
     const value = params.get(axis.id);
-    settings[axis.id] = axis.values.some((v) => v.id === value) ? value! : axis[fill];
+    (settings as unknown as Record<AxisId, string>)[axis.id] = axis.values.some((v) => v.id === value) || value === axis.baseline ? value! : axis[fill];
   }
   return settings;
 }

@@ -7,9 +7,16 @@ import { M, box, mat, simpleHouse, tree, windowUnit } from "./parts";
 // "row": attached row houses, a wide sidewalk with street trees.
 export type StreetStyle = "suburb" | "row";
 
+// A street lamp: the foot of the pole, and the lamp head over the street.
+export interface StreetLamp {
+  foot: THREE.Vector3;
+  head: THREE.Vector3;
+}
+
 // The near edge of the near sidewalk is at z = sidewalk. The street and the
-// far side follow from it.
-export function buildStreet(parent: THREE.Object3D, sidewalk: number, style: StreetStyle) {
+// far side follow from it. Returns the street lamp spots; the light module
+// builds the lamps (they are not in the v1 scene).
+export function buildStreet(parent: THREE.Object3D, sidewalk: number, style: StreetStyle): StreetLamp[] {
   const lawn = new THREE.Mesh(new THREE.PlaneGeometry(140, 110), M.lawn);
   lawn.rotation.x = -Math.PI / 2;
   lawn.position.set(0, 0, sidewalk);
@@ -32,6 +39,15 @@ export function buildStreet(parent: THREE.Object3D, sidewalk: number, style: Str
   box(parent, [140, 0.15, 0.15], [0, 0.075, farCurb + 0.075], M.concrete);
   box(parent, [140, 0.03, walkWidth], [0, 0.015, farWalk + walkWidth / 2], M.concrete);
 
+  // Near lamps lean out over the street (+z); far lamps lean back (-z).
+  const lamp = (x: number, z: number, lean: number) => ({
+    foot: new THREE.Vector3(x, 0, z),
+    head: new THREE.Vector3(x, 5.6, z + lean),
+  });
+  const nearZ = style === "row" ? curb - 0.4 : sidewalk + walkWidth + strip / 2;
+  const farZ = style === "row" ? farWalk + 0.4 : farCurb + 0.15 + strip / 2;
+  const lamps = style === "row" ? [lamp(-3.5, nearZ, 1), lamp(6, farZ, -1)] : [lamp(-13, nearZ, 1), lamp(14, nearZ, 1), lamp(1, farZ, -1)];
+
   if (style === "row") {
     for (const x of [-7.5, 9]) tree(parent, x, sidewalk + walkWidth - 0.7);
     for (const x of [-12, 0, 12]) tree(parent, x, farWalk + 0.7);
@@ -43,6 +59,7 @@ export function buildStreet(parent: THREE.Object3D, sidewalk: number, style: Str
     simpleHouse(parent, 9, 4.6, 8, 0, lots + 9, 0xe0d7c3);
     simpleHouse(parent, 9, 4.6, 8, 14, lots + 9, 0xc4b3a6);
   }
+  return lamps;
 }
 
 // Row house fronts across the street, facing -z, with the front at z = face.
