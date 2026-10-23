@@ -4,18 +4,19 @@ A doorbell camera on a simulated front porch, in many environments. It benchmark
 
 Unofficial demo by [John Hoeksema](https://johnhoeksema.com) for the Member of Technical Staff, Core Platform role at Antioch. Not affiliated with Antioch. All scenes and results are simulated and uncalibrated.
 
-Live: https://antioch-demo-hoeksema.vercel.app (one page: the 3D viewer and the detector results together).
+Live: https://antioch-demo-hoeksema.vercel.app (Simulations) and https://antioch-demo-hoeksema.vercel.app/benchmarks (Benchmarks).
 
 ## Stack: which parts are Three.js and which are Python
 
 | Part | Language | Folder | What it does |
 |---|---|---|---|
 | 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
+| Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, keys 1–5 and V. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots |
 | Detectors | **Python** | `bench/detector.py` | Registry of detectors; add one entry to add a detector |
 | Scoring and results | **Python** | `bench/run.py` | Matches detections to the ground truth; writes `scene/public/results/` |
-| Page and results UI | TypeScript (browser, no Three.js) | `scene/index.html`, `scene/src/ui.ts`, `style.css` | The one page: detectors × scenarios matrix, the viewer's timeline, and the boxes on the doorbell camera |
+| Benchmarks page | TypeScript (browser) with the Three.js viewer | `scene/benchmarks.html`, `scene/src/benchmarks.ts` | Detectors × scenarios matrix, and a replay of the selected cell with the boxes on the doorbell camera |
 | Hosting | Vercel | `scene/` | Serves the Three.js scene as a static site. Python does not run on Vercel |
 
 ```
@@ -39,12 +40,14 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173. The page has two modes:
-- **Console (default):** the page, with the workspace (results matrix and the 3D viewer). Keys: space plays or pauses, ← and → step one frame, `V` switches between the doorbell camera and the overview (drag to orbit).
-- **Capture (`?view=doorbell`):** the doorbell camera alone, in the full window, with no page around it. The Python benchmark uses this mode, for example `?house=stoop&view=doorbell`.
+Two pages, with the same header (Simulations, Benchmarks, View source, View creator):
+- **Simulations** (http://localhost:5173): the 3D scene. Drag to orbit and scroll to zoom. Press `1`–`5` (or click a button) to switch houses, and `V` to switch between the overview (with the doorbell camera inset) and the doorbell camera.
+- **Benchmarks** (http://localhost:5173/benchmarks.html; live: `/benchmarks`): the detector results (see below).
+
+Capture mode (`/?view=doorbell`) shows the doorbell camera alone, in the full window, with no page around it. The Python benchmark uses this mode, for example `?house=stoop&view=doorbell`.
 
 URL parameters:
-- `?house=<id>` picks the house (ids below). `?detector=<id>` picks the detector in the workspace.
+- `?house=<id>` picks the house (ids below). On Benchmarks, `?detector=<id>` picks the detector.
 - `?t=<seconds>` freezes the delivery at that time, for example `?house=porch&view=doorbell&t=16`.
 - `?seed=<n>` seeds every random choice in the scene (default 0). Nothing in the scene is random yet; all future variation must use `rng()` from `scene/src/random.ts`.
 
@@ -101,23 +104,23 @@ How it scores (v1):
 - **False alarm:** a person box that does not match the person.
 - **Detection rate:** hits ÷ frames with the person in view, overall and by distance (0–3, 3–6, 6–9, 9–12, 12+ m, on the ground from the doorbell).
 - **First seen:** the distance at the first hit while the person walks up.
-- **Seed:** every run uses seed 0 unless you pass `--seed`. The seed goes to Python, torch, and the scene (`&seed=`), and it is saved with the results, so the same seed gives the same results and the workspace replays the same frames.
+- **Seed:** every run uses seed 0 unless you pass `--seed`. The seed goes to Python, torch, and the scene (`&seed=`), and it is saved with the results, so the same seed gives the same results and the Benchmarks page replays the same frames.
 
 Output (in git, so the deployed page shows it):
-- `scene/public/results/index.json`: one summary for each detector and scenario. The workspace matrix reads only this file.
+- `scene/public/results/index.json`: one summary for each detector and scenario. The Benchmarks matrix reads only this file.
 - `scene/public/results/<detector>/<scenario>.json`: every frame, with the true box and every detection. The page loads it when you click a cell.
 
 A run replaces the results for the detectors and scenarios it runs and keeps the others. With `--images`, marked-up frames also go to `bench/out/<detector>/<scenario>/` (not in git).
 
-## Workspace
+## Benchmarks page
 
-The page's workspace card (styled after antioch.com):
-- **Matrix (left):** rows are scenarios, columns are detectors, and each cell is the detection rate. The best rate in each row is green, and the ring shows it as an arc. The last row is all scenarios together. Click a cell to pick that scenario and detector.
-- **Viewer (right):** the Three.js scene itself, with the true box (white, dashed) and the detector's boxes (yellow) on the doorbell camera. The scene is deterministic, so each frame is the same frame that the detector saw.
-- **Timeline:** play, pause, and step; one strip for each detector (green: hit, red: miss, gray: person out of view). Click a frame to go to it.
+Styled after antioch.com:
+- **Matrix:** rows are scenarios, columns are detectors, and each cell is the detection rate. The best rate in each row is green, and the ring shows it as an arc. The last row is all scenarios together. Click a cell to pick that scenario and detector.
+- **Replay:** the Three.js scene itself, with the true box (white, dashed) and the detector's boxes (yellow) on the doorbell camera. The scene is deterministic, so each frame is the same frame that the detector saw.
+- **Timeline:** play, pause, and step (space, ← →); one strip for each detector (green: hit, red: miss, gray: person out of view). Click a frame to go to it.
 - **Distance table:** detection rate by distance for each detector.
 
-`/results.html` (the old results page) redirects to `/#workspace` (`scene/vercel.json`).
+`/results` and `/results.html` (the old results page) redirect to `/benchmarks` (`scene/vercel.json`).
 
 ## Deploy
 
@@ -125,4 +128,4 @@ Vercel project `antioch-demo-hoeksema`, with Root Directory `scene`. Vercel dete
 
 ## Status
 
-v4: one page (viewer and results together), five houses with a package delivery, and a Python person-detection benchmark with two detectors.
+v5: two pages (Simulations and Benchmarks), five houses with a package delivery, and a Python person-detection benchmark with two detectors.

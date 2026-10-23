@@ -1,3 +1,4 @@
 {
-  "redirects": [{ "source": "/results.html", "destination": "/#workspace", "permanent": false }]
+  "cleanUrls": true,
+  "redirects": [{ "source": "/results", "destination": "/benchmarks", "permanent": false }]
 }

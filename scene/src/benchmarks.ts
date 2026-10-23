@@ -1,11 +1,11 @@
-// Console page (TypeScript in the browser; no Three.js in this file). Shows
-// the Python benchmark's results next to the 3D viewer and keeps them in
-// step: the matrix picks the scenario and detector, the timeline picks the
-// frame, and the overlay draws the true box and the detections on the
-// doorbell camera.
+// Benchmarks page entry (TypeScript in the browser). Shows the Python
+// benchmark's results: the detectors × scenarios matrix, and a replay of the
+// selected cell in the Three.js viewer with the true box and the detections
+// on the doorbell camera.
 
 import { HOUSES } from "./houses";
-import type { View, Viewer } from "./viewer";
+import { Viewer } from "./viewer";
+import "./style.css";
 
 type Pair = [number, number]; // [detected, in view]
 
@@ -47,19 +47,23 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 const pct = (n: number, d: number) => (d ? `${Math.round((100 * n) / d)}%` : "–");
 const status = (hit: boolean | null) => (hit === null ? "out" : hit ? "hit" : "miss");
 
-export async function startConsole(viewer: Viewer, params: URLSearchParams) {
-  const viewport = $("viewport");
-  viewport.prepend(viewer.canvas);
-  new ResizeObserver(([entry]) => viewer.setSize(entry.contentRect.width, entry.contentRect.height)).observe(viewport);
-
+async function start() {
+  const params = new URLSearchParams(location.search);
   let index: Index | null = null;
   try {
     const res = await fetch(`${base}results/index.json`);
     if (res.ok) index = await res.json();
   } catch {
-    // No results: the viewer still works.
+    // No results yet: the page says so.
   }
   const detectors = index?.detectors ?? [];
+
+  // Replays use the seed that the results were made with.
+  const viewer = new Viewer(detectors[0]?.settings.seed ?? 0);
+  viewer.load(HOUSES.find((h) => h.id === params.get("house")) ?? HOUSES[0]);
+  const viewport = $("viewport");
+  viewport.prepend(viewer.canvas);
+  new ResizeObserver(([entry]) => viewer.setSize(entry.contentRect.width, entry.contentRect.height)).observe(viewport);
   let detector = detectors.find((d) => d.id === params.get("detector"))?.id ?? detectors[0]?.id ?? "";
   const frames = new Map<string, Frame[]>(); // "detector/scenario" -> frames
   let drawn = -2; // frame index of the overlay now on screen
@@ -122,12 +126,12 @@ export async function startConsole(viewer: Viewer, params: URLSearchParams) {
 
   function renderCell() {
     const scenario = viewer.house.id;
-    $("viewer-scenario").textContent = `${viewer.house.name} · ${scenario}`;
     const d = detectors.find((x) => x.id === detector);
     const r = d?.results[scenario];
+    $("detail-title").textContent = d ? `${viewer.house.name} × ${d.name}` : viewer.house.name;
+    $("detail-sub").textContent = d ? `${scenario} × ${d.id} · ${d.source}` : scenario;
     $("cell-stats").innerHTML = r
       ? [
-          ["Detector", esc(d!.name)],
           ["Detection rate", pct(r.detected, r.in_view)],
           ["First seen", r.first_seen_m !== null ? `${r.first_seen_m} m` : "–"],
           ["False alarms", r.false_alarms],
@@ -174,7 +178,7 @@ export async function startConsole(viewer: Viewer, params: URLSearchParams) {
     const box = (b: number[], cls: string, label = "") =>
       `<div class="${cls}" style="left:${b[0] * 100}%;top:${b[1] * 100}%;width:${(b[2] - b[0]) * 100}%;height:${(b[3] - b[1]) * 100}%">${label}</div>`;
     $("boxes").innerHTML =
-      f && viewer.view === "doorbell"
+      f
         ? (f.truth ? box(f.truth, "truth") : "") + f.dets.map((b) => box(b, "det", `<span>person ${b[4].toFixed(2)}</span>`)).join("")
         : "";
     $("frame-info").textContent = f
@@ -208,13 +212,6 @@ export async function startConsole(viewer: Viewer, params: URLSearchParams) {
     saveUrl();
   }
 
-  function setView(view: View) {
-    viewer.setView(view);
-    for (const tab of document.querySelectorAll<HTMLElement>("[data-view]")) tab.classList.toggle("on", tab.dataset.view === view);
-    $("viewer-label").textContent = view === "doorbell" ? "Doorbell camera" : "Overview · drag to orbit";
-    drawn = -2;
-  }
-
   function step(by: number) {
     const n = current().length;
     if (!n) return;
@@ -241,9 +238,6 @@ export async function startConsole(viewer: Viewer, params: URLSearchParams) {
     }
     viewer.setTime(Number(b.dataset.frame) / fps());
   });
-  for (const tab of document.querySelectorAll<HTMLElement>("[data-view]")) {
-    tab.addEventListener("click", () => setView(tab.dataset.view as View));
-  }
   $("play").addEventListener("click", () => (viewer.playing ? viewer.pause() : viewer.play()));
   $("prev").addEventListener("click", () => step(-1));
   $("next").addEventListener("click", () => step(1));
@@ -252,17 +246,14 @@ export async function startConsole(viewer: Viewer, params: URLSearchParams) {
     if (event.key === " ") viewer.playing ? viewer.pause() : viewer.play();
     else if (event.key === "ArrowLeft") step(-1);
     else if (event.key === "ArrowRight") step(1);
-    else if (event.key.toLowerCase() === "v") setView(viewer.view === "doorbell" ? "overview" : "doorbell");
     else return;
     event.preventDefault();
   });
 
   viewer.onDraw = updateOverlay;
   renderHead();
-  await loadFrames(viewer.house.id);
-  renderMatrix();
-  renderCell();
-  setView("doorbell");
-  if (params.has("t")) viewer.setTime(Number(params.get("t")));
-  else if (!matchMedia("(prefers-reduced-motion: reduce)").matches) viewer.play();
+  if (!detectors.length) return;
+  await select(viewer.house.id, detector);
 }
+
+start();
