@@ -7,19 +7,24 @@ import { HOUSES } from "./houses";
 import { AXES, writeSettings, type AxisId, type Settings } from "./settings";
 import type { Viewer } from "./viewer";
 
-export function startSimulations(viewer: Viewer) {
+export async function startSimulations(viewer: Viewer, first: Settings) {
   const stage = document.getElementById("stage")!;
   const inset = document.getElementById("inset")!;
   const rows = document.getElementById("axes")!;
   stage.prepend(viewer.canvas);
   new ResizeObserver(([entry]) => viewer.setSize(entry.contentRect.width, entry.contentRect.height)).observe(stage);
 
-  function load(settings: Settings) {
-    viewer.load(settings);
-    viewer.play();
+  // The newest choice, also while its files load.
+  let wanted = first;
+
+  async function load(settings: Settings) {
+    wanted = settings;
     for (const b of rows.querySelectorAll<HTMLButtonElement>("button[data-axis]")) {
       b.classList.toggle("on", settings[b.dataset.axis as AxisId] === b.dataset.value);
     }
+    await viewer.load(settings);
+    if (viewer.settings !== settings) return; // a newer choice replaced this one
+    viewer.play();
     seed.value = String(settings.seed);
     const p = new URLSearchParams(location.search);
     p.delete("t");
@@ -27,7 +32,7 @@ export function startSimulations(viewer: Viewer) {
     history.replaceState(null, "", `?${p}`);
   }
 
-  const set = (change: Partial<Settings>) => load({ ...viewer.settings, ...change });
+  const set = (change: Partial<Settings>) => load({ ...wanted, ...change });
 
   function setView(view: "overview" | "doorbell") {
     viewer.setView(view);
@@ -73,5 +78,5 @@ export function startSimulations(viewer: Viewer) {
 
   viewer.inset = true;
   setView("overview");
-  load(viewer.settings);
+  await load(first);
 }

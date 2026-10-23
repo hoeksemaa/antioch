@@ -9,6 +9,7 @@ import { DoorbellCamera } from "./camera";
 import type { Delivery } from "./delivery";
 import { HOUSES, type House } from "./houses";
 import { IR_INTENSITY, type Lighting } from "./lights";
+import { preparePerson } from "./people";
 import { buildWorld } from "./scene";
 import { Sensor } from "./sensor";
 import type { Settings } from "./settings";
@@ -48,6 +49,7 @@ export class Viewer {
   private readonly sensor = new Sensor();
   private frustum!: THREE.CameraHelper;
   private last = performance.now();
+  private loads = 0; // the newest load wins when loads overlap
 
   constructor() {
     const r = this.renderer;
@@ -64,14 +66,6 @@ export class Viewer {
     this.controls.maxPolarAngle = Math.PI / 2 - 0.05;
     this.controls.enabled = false;
 
-    installBench({
-      scenarios: () => HOUSES.map((h) => ({ id: h.id, name: h.name, query: `house=${h.id}` })),
-      house: () => this.house.id,
-      seed: () => this.settings.seed,
-      delivery: () => this.delivery,
-      camera: () => this.doorbell,
-      renderAt: (t) => this.setTime(t),
-    });
     r.setAnimationLoop(() => this.tick());
 
     // For the browser budget checks: the cost of the last frame.
@@ -104,7 +98,12 @@ export class Viewer {
     return { width, height: Math.round(width / this.doorbell.aspect), margin: 16 };
   }
 
-  load(settings: Settings) {
+  // Loads the files that the settings need (people), then builds the world.
+  // window.bench is ready after the first load.
+  async load(settings: Settings) {
+    const load = ++this.loads;
+    await preparePerson(settings.person);
+    if (load !== this.loads) return;
     if (this.world) {
       this.scene.remove(this.world, this.frustum);
       this.world.traverse((object) => {
@@ -139,6 +138,17 @@ export class Viewer {
     this.controls.target.copy(built.view.focus);
     this.controls.update();
     this.time = 0;
+
+    if (!window.bench) {
+      installBench({
+        scenarios: () => HOUSES.map((h) => ({ id: h.id, name: h.name, query: `house=${h.id}` })),
+        house: () => this.house.id,
+        seed: () => this.settings.seed,
+        delivery: () => this.delivery,
+        camera: () => this.doorbell,
+        renderAt: (t) => this.setTime(t),
+      });
+    }
   }
 
   setView(view: View) {
@@ -164,12 +174,13 @@ export class Viewer {
 
   private tick() {
     const now = performance.now();
-    if (this.playing) this.time = (this.time + (now - this.last) / 1000) % this.duration;
+    if (this.playing && this.world) this.time = (this.time + (now - this.last) / 1000) % this.duration;
     this.last = now;
     this.draw();
   }
 
   private draw() {
+    if (!this.world) return; // the first load is not done
     this.delivery.update(this.time);
     const r = this.renderer;
     r.info.reset();

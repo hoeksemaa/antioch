@@ -1,0 +1,16 @@
+The people in this folder are built from CC0 1.0 (public domain) assets by
+Quaternius (https://quaternius.com):
+
+- Universal Base Characters [Standard]: heads, eyes, hair
+  https://quaternius.itch.io/universal-base-characters
+- Modular Character Outfits - Fantasy [Standard]: Peasant and Ranger outfits
+  https://quaternius.itch.io/modular-character-outfits-fantasy
+- Universal Animation Library [Standard]: Walk_Loop, Jog_Fwd_Loop, Idle_Loop,
+  Crouch_Idle_Loop (moves.glb)
+  https://quaternius.itch.io/universal-animation-library
+
+License: CC0 1.0 Universal, https://creativecommons.org/publicdomain/zero/1.0/
+
+Each person GLB is an outfit plus the head and hair of a base character, all
+bound to the outfit's skeleton, with textures cut to 512 px WebP
+(gltf-transform). The body under the clothes is removed.

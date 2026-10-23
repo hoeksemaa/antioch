@@ -5,6 +5,7 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { Delivery } from "./delivery";
 import { HOUSES } from "./houses";
 import { buildLights } from "./lights";
+import { makeBody } from "./people";
 import { jitter } from "./random";
 import type { Settings } from "./settings";
 
@@ -14,7 +15,8 @@ export function buildWorld(settings: Settings, renderer: THREE.WebGLRenderer) {
   const view = house.build(world);
   const lighting = buildLights(renderer, world, view, settings.light);
   mergeStatic(world);
-  const delivery = new Delivery(view.route, view.drop, jitter(settings.seed, "delivery"));
+  const body = makeBody(settings.person, settings.speed === "run", jitter(settings.seed, "person"));
+  const delivery = new Delivery(view.route, view.drop, body, settings.speed, jitter(settings.seed, "delivery"));
   world.add(delivery.root);
   world.traverse((object) => {
     if (object instanceof THREE.Mesh) {

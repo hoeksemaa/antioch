@@ -11,11 +11,14 @@
 import type { CameraModel } from "./camera";
 import { HOUSES } from "./houses";
 import type { Light } from "./lights";
+import type { Person } from "./people";
 
 export interface Settings {
   house: string;
   light: Light;
   camera: CameraModel;
+  person: Person;
+  speed: "walk" | "run";
   seed: number; // 0 is the canonical scene: no random jitter
 }
 
@@ -58,6 +61,30 @@ export const AXES: Axis[] = [
     ],
     baseline: "basic",
     showcase: "ring",
+  },
+  {
+    id: "person",
+    label: "Person",
+    values: [
+      { id: "mannequin", label: "Mannequin" },
+      { id: "man", label: "Man" },
+      { id: "woman", label: "Woman" },
+      { id: "dark", label: "Dark clothes" },
+      { id: "hooded", label: "Hooded" },
+      { id: "child", label: "Child height" },
+    ],
+    baseline: "mannequin",
+    showcase: "man",
+  },
+  {
+    id: "speed",
+    label: "Speed",
+    values: [
+      { id: "walk", label: "Walk" },
+      { id: "run", label: "Run" },
+    ],
+    baseline: "walk",
+    showcase: "walk",
   },
 ];
 

@@ -11,7 +11,7 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations) and https://antioch
 | Part | Language | Folder | What it does |
 |---|---|---|---|
 | 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
-| Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `camera.ts`, `sensor.ts` | The axes (house, light, camera, and more to come), with a v1 baseline value and a showcase value for each |
+| Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `camera.ts`, `sensor.ts`, `people.ts` | The axes (house, light, camera, person, speed, and more to come), with a v1 baseline value and a showcase value for each |
 | Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, one row of buttons per axis, a seed, keys 1–5 and V. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots |
@@ -95,6 +95,23 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 - Auto exposure reads a center-weighted mean from a small mip of the target, so it needs no state from earlier frames. The noise depends on the pixel and the time t. Thus a frame at time t is the same on every run.
 - In low light, the gain goes up: more noise, and 8 × 8 compression blocks. The sun and lit street lamps flare when they are in view and not behind something.
 - `window.bench` boxes go through the same fisheye mapping (`scene/src/camera.ts`).
+
+## Person and speed (`?person=`, `?speed=`)
+
+| id | Person | Height |
+|---|---|---|
+| `mannequin` | The v1 capsule figure | 1.78 m |
+| `man` | Shirt and trousers | 1.80 m |
+| `woman` | Shirt and trousers | 1.66 m |
+| `dark` | The man in dark clothes (a hard case at night) | 1.80 m |
+| `hooded` | Outfit with the hood up | 1.80 m |
+| `child` | The woman scaled to child height (the free pack has no child body) | 1.20 m |
+
+- Speed: `walk` 1.4 m/s, `run` 4.5 m/s. The run speed matches the stride of the free jog clip, so the feet stay planted.
+- The rigged people are CC0 Quaternius assets, assembled offline into `scene/public/people/` (see `LICENSE.txt` there). The page loads a person's file (1.4–2.3 MB) only when it is on screen.
+- Animation: walk or jog clips matched to the speed, idle at the pauses, and a crouch for the drop. Two-bone IK puts the hands on the package. All of it comes from the delivery time t, so frames repeat.
+- Another seed changes the height (±4%) and tints the clothes.
+- Code: `scene/src/people.ts`. `window.bench` boxes come from the skinned vertices.
 
 ## Delivery (v2)
 

@@ -1,0 +1,12 @@
+{
+  "name": "doorbell-bench-people",
+  "private": true,
+  "type": "module",
+  "description": "Builds scene/public/people/ from the CC0 Quaternius packs (offline; not part of the site build).",
+  "dependencies": {
+    "@gltf-transform/core": "4.5.1",
+    "@gltf-transform/extensions": "4.5.1",
+    "@gltf-transform/functions": "4.5.1",
+    "sharp": "0.34.5"
+  }
+}
