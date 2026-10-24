@@ -5,9 +5,9 @@
 //
 // Effects:
 // - IR monochrome (light axis).
-// - Ring camera (camera axis): fisheye lens, auto exposure, noise, vignette,
-//   lens softness, compression, bloom, lens flare, and rain drops on the lens
-//   (weather axis).
+// - Fisheye camera (camera axis, ring): fisheye lens, auto exposure, noise,
+//   vignette, lens softness, compression, bloom, lens flare, and rain drops on
+//   the lens (weather axis).
 // Every effect is a function of the frame and the time t only (no state from
 // earlier frames), so a frame at time t is the same on every run.
 

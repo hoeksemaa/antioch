@@ -1,10 +1,10 @@
 // Three.js (browser): the camera axis. Two doorbell cameras on the same mount:
 // - basic: the v1 camera. A plain perspective camera, 16:9, 70° vertical.
-// - ring: a square fisheye like a Ring doorbell. The scene renders through a
-//   140° perspective camera, and the sensor pass (sensor.ts) maps that image
-//   to a stereographic fisheye: about 150° corner to corner, about 115° side
-//   to side. One perspective render cannot see the 150° × 150° of the real
-//   lens: the corners would need rays more than 90° off the axis.
+// - ring: a square fisheye, like a wide-angle video doorbell. The scene
+//   renders through a 140° perspective camera, and the sensor pass (sensor.ts)
+//   maps that image to a stereographic fisheye: about 150° corner to corner,
+//   about 115° side to side. One perspective render cannot see the 150° × 150°
+//   of a real lens: the corners would need rays more than 90° off the axis.
 
 import * as THREE from "three";
 import type { HouseView } from "./houses";

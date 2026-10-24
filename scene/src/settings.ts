@@ -90,7 +90,7 @@ export const AXES: Axis[] = [
     label: "Camera",
     values: [
       { id: "basic", label: "Basic" },
-      { id: "ring", label: "Ring fisheye" },
+      { id: "ring", label: "Fisheye" },
     ],
     baseline: "basic",
     showcase: "ring",
