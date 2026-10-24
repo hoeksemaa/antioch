@@ -11,7 +11,7 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations) and https://antioch
 | Part | Language | Folder | What it does |
 |---|---|---|---|
 | 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
-| Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `weather.ts`, `camera.ts`, `sensor.ts`, `people.ts` | The axes (house, light, weather, camera, person, speed, and more to come), with a v1 baseline value and a showcase value for each |
+| Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `weather.ts`, `camera.ts`, `sensor.ts`, `people.ts`, `surfaces.ts`, `props.ts` | The axes (house, light, weather, camera, person, speed, surfaces, occlusion, and more to come), with a v1 baseline value and a showcase value for each |
 | Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, one row of buttons per axis, a seed, keys 1–5 and V. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots |
@@ -126,6 +126,14 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 - Animation: walk or jog clips matched to the speed, idle at the pauses, and a crouch for the drop. Two-bone IK puts the hands on the package. All of it comes from the delivery time t, so frames repeat.
 - Another seed changes the height (±4%) and tints the clothes.
 - Code: `scene/src/people.ts`. `window.bench` boxes come from the skinned vertices.
+
+## Surfaces and occlusion (`?surfaces=`, `?occlusion=`)
+
+- `surfaces=flat` is the v1 look (one color per material). `surfaces=textured` gives walls, roofs, decks, walks, foundations, the street, and the lawn CC0 Poly Haven textures (`scene/public/surfaces/`, about 3 MB): a 1K color map, and 512 px normal and AO/roughness maps. UVs are in meters, so a tile has the same size on every wall. Siding takes each house's paint color.
+- Each material carries its surface kind (`userData.surface`, set in `parts.ts`); the static merge keeps one draw call per material, so textures add no draw calls.
+- `occlusion=bins` puts two curbside wheelie bins between the doorbell and the walk. `occlusion=car` parks a sedan (Quaternius, CC0): in the no-porch house's driveway it hides the approach; at the other houses it is at the curb.
+- GPU-compressed (KTX2) textures were not possible here (no KTX encoder), so the color maps are WebP.
+- Code: `scene/src/surfaces.ts`, `scene/src/props.ts`.
 
 ## Delivery (v2)
 

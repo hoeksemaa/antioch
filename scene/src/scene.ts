@@ -6,6 +6,8 @@ import { Delivery } from "./delivery";
 import { HOUSES } from "./houses";
 import { buildLights } from "./lights";
 import { makeBody } from "./people";
+import { buildProps } from "./props";
+import { applySurfaces } from "./surfaces";
 import { OVERCAST, buildWeather, weatherMaterials } from "./weather";
 import { jitter } from "./random";
 import type { Settings } from "./settings";
@@ -17,6 +19,8 @@ export function buildWorld(settings: Settings, renderer: THREE.WebGLRenderer) {
   const lighting = buildLights(renderer, world, view, settings.light, OVERCAST[settings.weather]);
   const time = { value: 0 }; // the weather shaders read it
   weatherMaterials(world, settings.weather, time);
+  buildProps(world, view, settings.occlusion);
+  applySurfaces(world, settings.surfaces);
   mergeStatic(world);
   const weather = buildWeather(world, view, lighting, settings.weather, settings.seed, time);
   const body = makeBody(settings.person, settings.speed === "run", jitter(settings.seed, "person"));
@@ -38,7 +42,8 @@ function mergeStatic(world: THREE.Group) {
   world.updateMatrixWorld(true);
   const meshes: THREE.Mesh[] = [];
   world.traverse((object) => {
-    if (object instanceof THREE.Mesh) meshes.push(object);
+    // A mesh with several materials (the car) stays as it is.
+    if (object instanceof THREE.Mesh && !Array.isArray(object.material)) meshes.push(object);
   });
   const byMaterial = new Map<THREE.Material, THREE.BufferGeometry[]>();
   for (const mesh of meshes) {

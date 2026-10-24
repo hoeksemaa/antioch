@@ -10,6 +10,8 @@ import type { Delivery } from "./delivery";
 import { HOUSES, type House } from "./houses";
 import { IR_INTENSITY, type Lighting } from "./lights";
 import { preparePerson } from "./people";
+import { prepareProps } from "./props";
+import { prepareSurfaces } from "./surfaces";
 import { buildWorld } from "./scene";
 import { Sensor } from "./sensor";
 import type { WeatherState } from "./weather";
@@ -100,11 +102,12 @@ export class Viewer {
     return { width, height: Math.round(width / this.doorbell.aspect), margin: 16 };
   }
 
-  // Loads the files that the settings need (people), then builds the world.
+  // Loads the files that the settings need (people, textures, the car), then
+  // builds the world.
   // window.bench is ready after the first load.
   async load(settings: Settings) {
     const load = ++this.loads;
-    await preparePerson(settings.person);
+    await Promise.all([preparePerson(settings.person), prepareSurfaces(settings.surfaces, this.renderer), prepareProps(settings.occlusion)]);
     if (load !== this.loads) return;
     if (this.world) {
       this.scene.remove(this.world, this.frustum);

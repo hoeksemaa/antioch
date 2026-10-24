@@ -32,6 +32,25 @@ export const M = {
   iron: mat(0x1e1f22, 0.5, 0.6),
 };
 
+// Surface kinds that the textured surfaces (surfaces.ts) can show. A material
+// carries its kind in userData.surface; the flat (v1) look ignores it.
+export type SurfaceKind = "siding" | "brick" | "stone" | "roof" | "deck" | "walk" | "foundation" | "asphalt" | "lawn";
+
+const tag = <T extends THREE.Material>(material: T, surface: SurfaceKind) => {
+  material.userData.surface = surface;
+  return material;
+};
+
+// A wall material of one color, tagged with its surface kind.
+export const wall = (color: number, surface: SurfaceKind, roughness = 0.85) => tag(mat(color, roughness), surface);
+
+tag(M.lawn, "lawn");
+tag(M.foundation, "foundation");
+tag(M.roof, "roof");
+tag(M.deck, "deck");
+tag(M.concrete, "walk");
+tag(M.asphalt, "asphalt");
+
 export function box(parent: THREE.Object3D, size: Vec3, pos: Vec3, material: THREE.Material) {
   const mesh = new THREE.Mesh(new THREE.BoxGeometry(...size), material);
   mesh.position.set(...pos);
@@ -81,7 +100,7 @@ export function simpleHouse(
   z: number,
   color: number,
 ) {
-  box(parent, [width, height, depth], [x, height / 2, z], mat(color));
+  box(parent, [width, height, depth], [x, height / 2, z], wall(color, "siding"));
   gableRoof(parent, width, depth, 2.4, [x, height, z]);
 }
 

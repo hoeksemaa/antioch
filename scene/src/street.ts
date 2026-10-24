@@ -1,7 +1,7 @@
 // Three.js (browser): the street, the far side, and the neighbors.
 
 import * as THREE from "three";
-import { M, box, mat, simpleHouse, tree, windowUnit } from "./parts";
+import { M, box, simpleHouse, tree, wall, windowUnit } from "./parts";
 
 // "suburb": detached houses, a grass strip at the curb.
 // "row": attached row houses, a wide sidewalk with street trees.
@@ -68,7 +68,7 @@ function rowAcross(parent: THREE.Object3D, face: number) {
   const colors = [0x7a5444, 0x8e4b3a, 0xcbbfa8, 0x8a8580, 0x9b5a45];
   heights.forEach((height, i) => {
     const x = (i - 4) * 6;
-    box(parent, [6, height, 12], [x, height / 2, face + 6], mat(colors[i % colors.length], 0.9));
+    box(parent, [6, height, 12], [x, height / 2, face + 6], wall(colors[i % colors.length], "brick", 0.9));
     box(parent, [6.05, 0.4, 0.5], [x, height - 0.2, face - 0.2], M.trim);
     // The window helper builds on the z = 0 plane facing +z, so turn a
     // group around to face -z.

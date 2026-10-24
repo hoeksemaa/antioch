@@ -17,6 +17,7 @@ import {
   railing,
   stairs,
   tree,
+  wall,
   windowUnit,
 } from "./parts";
 import { buildStreet, type StreetLamp } from "./street";
@@ -30,6 +31,8 @@ export interface HouseView {
   drop: THREE.Vector3; // where the package is set down (bottom center)
   lamp: THREE.Vector3; // porch lantern beside the door, on the wall
   streetLamps: StreetLamp[];
+  bins: [number, number, number][]; // wheelie bin spots: x, z, turn (rad)
+  car: [number, number, number]; // parked car: x, z, heading (rad; 0 faces +z)
 }
 
 export interface House {
@@ -44,7 +47,7 @@ const v = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
 function raisedPorch(parent: THREE.Object3D): HouseView {
   const floor = 0.45;
   const wallTop = 3.85;
-  box(parent, [12, wallTop, 9], [0, wallTop / 2, -4.5], mat(0xd8d2c4));
+  box(parent, [12, wallTop, 9], [0, wallTop / 2, -4.5], wall(0xd8d2c4, "siding"));
   box(parent, [12.05, floor, 9.05], [0, floor / 2, -4.5], M.foundation);
   gableRoof(parent, 12, 9, 2.6, [0, wallTop, -4.5]);
   doorUnit(parent, 0, floor, 0x6b2d2d);
@@ -81,13 +84,16 @@ function raisedPorch(parent: THREE.Object3D): HouseView {
     drop: v(0.25, floor, 1.65),
     lamp: v(-0.75, 0.45 + 1.95, 0.1),
     streetLamps,
+    // At the curb, in front of the walk to the steps.
+    bins: [[-2.0, 9.75, 0], [-2.75, 9.75, 0]],
+    car: [-6, 13.65, Math.PI / 2],
   };
 }
 
 // One row house, 6 m wide, with a tall stoop on the right side of its front.
 function rowHouse(parent: THREE.Object3D, cx: number, height: number, color: number, setback: number) {
   const floor = 1.7; // parlor floor, above the garden level
-  const facade = mat(color, 0.9);
+  const facade = wall(color, "brick", 0.9);
   const doorX = cx + 1.2;
   box(parent, [6, height, 14], [cx, height / 2, -7], facade);
   box(parent, [6.1, 0.45, 0.5], [cx, height - 0.25, 0.2], M.trim);
@@ -149,6 +155,9 @@ function stoop(parent: THREE.Object3D): HouseView {
     drop: v(1.35, 1.7, 0.9),
     lamp: v(2.05, 1.7 + 2.1, 0.1),
     streetLamps,
+    // In the front yard, beside the stoop.
+    bins: [[-1.4, 3.6, 0], [-2.1, 3.6, 0]],
+    car: [-4, 8.95, Math.PI / 2],
   };
 }
 
@@ -157,8 +166,8 @@ function stoop(parent: THREE.Object3D): HouseView {
 function sideEntry(parent: THREE.Object3D): HouseView {
   const floor = 0.6;
   const wallTop = 3.4;
-  const stone = mat(0x8f8a80, 0.95);
-  box(parent, [11, wallTop, 10], [0, wallTop / 2, -5], mat(0x7d8f7a));
+  const stone = wall(0x8f8a80, "stone", 0.95);
+  box(parent, [11, wallTop, 10], [0, wallTop / 2, -5], wall(0x7d8f7a, "siding"));
   box(parent, [11.05, floor, 10.05], [0, floor / 2, -5], stone);
   gableRoof(parent, 11, 10, 3.0, [0, wallTop, -5], "z");
   doorUnit(parent, 0.9, floor, 0x8a5a2b);
@@ -172,19 +181,19 @@ function sideEntry(parent: THREE.Object3D): HouseView {
   box(parent, [right - left, floor, depth], [midX, floor / 2, depth / 2], M.deck);
 
   // Knee walls, 0.75 m high, with an opening on the left end for the steps.
-  const wall = 0.75;
+  const knee = 0.75;
   const t = 0.2;
-  const wallY = floor + wall / 2;
-  box(parent, [right - left, wall, t], [midX, wallY, depth - t / 2], stone);
-  box(parent, [t, wall, depth - t], [right - t / 2, wallY, (depth - t) / 2], stone);
-  box(parent, [t, wall, 0.8], [left + t / 2, wallY, 0.4], stone);
-  box(parent, [t, wall, 0.6], [left + t / 2, wallY, 2.5], stone);
+  const wallY = floor + knee / 2;
+  box(parent, [right - left, knee, t], [midX, wallY, depth - t / 2], stone);
+  box(parent, [t, knee, depth - t], [right - t / 2, wallY, (depth - t) / 2], stone);
+  box(parent, [t, knee, 0.8], [left + t / 2, wallY, 0.4], stone);
+  box(parent, [t, knee, 0.6], [left + t / 2, wallY, 2.5], stone);
 
   // Tapered square columns on the knee wall, and the porch roof.
   for (const x of [left + 0.15, -1.4, right - 0.15]) {
     const column = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.2, 1.85, 4), M.trim);
     column.rotation.y = Math.PI / 4;
-    column.position.set(x, floor + wall + 0.925, depth - t / 2);
+    column.position.set(x, floor + knee + 0.925, depth - t / 2);
     parent.add(column);
   }
   box(parent, [right - left + 0.6, 0.15, depth + 0.4], [midX, 3.275, depth / 2 + 0.05], M.trim);
@@ -208,6 +217,9 @@ function sideEntry(parent: THREE.Object3D): HouseView {
     drop: v(-1.0, floor, 1.5),
     lamp: v(1.7, 0.6 + 1.95, 0.1),
     streetLamps,
+    // Beside the side walk, between it and the doorbell.
+    bins: [[-5.7, 5.5, -Math.PI / 2], [-5.7, 6.2, -Math.PI / 2]],
+    car: [-9, 12.65, Math.PI / 2],
   };
 }
 
@@ -216,7 +228,7 @@ function sideEntry(parent: THREE.Object3D): HouseView {
 function noPorch(parent: THREE.Object3D): HouseView {
   const floor = 0.15;
   const height = 3.0;
-  const siding = mat(0x4a4f55, 0.8);
+  const siding = wall(0x4a4f55, "siding", 0.8);
   box(parent, [9, height, 9], [-1.5, height / 2, -4.5], siding);
   box(parent, [6, height, 7], [6, height / 2, -3.5], siding);
   box(parent, [9.8, 0.25, 9.8], [-1.5, height + 0.125, -4.4], M.roof);
@@ -254,6 +266,9 @@ function noPorch(parent: THREE.Object3D): HouseView {
     drop: v(-0.6, 0.02, 1.7),
     lamp: v(-1.95, 0.15 + 2.0, 0.1),
     streetLamps,
+    // Beside the driveway; the car is in the driveway and hides the approach.
+    bins: [[3.0, 3.0, Math.PI / 2], [3.0, 3.7, Math.PI / 2]],
+    car: [4.4, 5.2, 0],
   };
 }
 
@@ -262,8 +277,8 @@ function noPorch(parent: THREE.Object3D): HouseView {
 function portico(parent: THREE.Object3D): HouseView {
   const floor = 0.35;
   const wallTop = 6.2;
-  const brick = mat(0x8e4b3a, 0.9);
-  box(parent, [10, wallTop, 9], [0, wallTop / 2, -4.5], mat(0xe8dfb8));
+  const brick = wall(0x8e4b3a, "brick", 0.9);
+  box(parent, [10, wallTop, 9], [0, wallTop / 2, -4.5], wall(0xe8dfb8, "siding"));
   box(parent, [10.05, floor, 9.05], [0, floor / 2, -4.5], brick);
   gableRoof(parent, 10, 9, 2.4, [0, wallTop, -4.5]);
   doorUnit(parent, 0, floor, 0x1f3a5f);
@@ -307,6 +322,9 @@ function portico(parent: THREE.Object3D): HouseView {
     drop: v(0.45, floor, 1.15),
     lamp: v(0.85, 0.35 + 1.95, 0.1),
     streetLamps,
+    // Inside the fence, near the gate.
+    bins: [[5.0, 13.1, 0], [5.7, 13.1, 0]],
+    car: [6, 17.65, -Math.PI / 2],
   };
 }
 

@@ -12,6 +12,8 @@ import type { CameraModel } from "./camera";
 import { HOUSES } from "./houses";
 import type { Light } from "./lights";
 import type { Person } from "./people";
+import type { Occlusion } from "./props";
+import type { Surfaces } from "./surfaces";
 import type { Weather } from "./weather";
 
 export interface Settings {
@@ -21,6 +23,8 @@ export interface Settings {
   camera: CameraModel;
   person: Person;
   speed: "walk" | "run";
+  surfaces: Surfaces;
+  occlusion: Occlusion;
   seed: number; // 0 is the canonical scene: no random jitter
 }
 
@@ -100,6 +104,27 @@ export const AXES: Axis[] = [
     ],
     baseline: "walk",
     showcase: "walk",
+  },
+  {
+    id: "surfaces",
+    label: "Surfaces",
+    values: [
+      { id: "flat", label: "Flat" },
+      { id: "textured", label: "Textured" },
+    ],
+    baseline: "flat",
+    showcase: "textured",
+  },
+  {
+    id: "occlusion",
+    label: "Occlusion",
+    values: [
+      { id: "none", label: "None" },
+      { id: "bins", label: "Bins" },
+      { id: "car", label: "Parked car" },
+    ],
+    baseline: "none",
+    showcase: "none",
   },
 ];
 
