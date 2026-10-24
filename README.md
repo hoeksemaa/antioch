@@ -11,7 +11,7 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations) and https://antioch
 | Part | Language | Folder | What it does |
 |---|---|---|---|
 | 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
-| Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `weather.ts`, `camera.ts`, `sensor.ts`, `people.ts`, `surfaces.ts`, `props.ts` | The axes (house, light, weather, camera, person, speed, surfaces, occlusion, and more to come), with a v1 baseline value and a showcase value for each |
+| Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `weather.ts`, `camera.ts`, `sensor.ts`, `people.ts`, `surfaces.ts`, `props.ts`, `events.ts` | The axes: house, event, light, weather, camera, person, speed, surfaces, occlusion, with a v1 baseline value and a showcase value for each |
 | Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, one row of buttons per axis, a seed, keys 1–5 and V. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots |
@@ -126,6 +126,19 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 - Animation: walk or jog clips matched to the speed, idle at the pauses, and a crouch for the drop. Two-bone IK puts the hands on the package. All of it comes from the delivery time t, so frames repeat.
 - Another seed changes the height (±4%) and tints the clothes.
 - Code: `scene/src/people.ts`. `window.bench` boxes come from the skinned vertices.
+
+## Event (`?event=`)
+
+| id | Event | Person in view |
+|---|---|---|
+| `delivery` | The person carries the package to the door (the baseline) | Yes |
+| `dog` | A dog trots up the walk, sniffs near the steps, and trots back | No |
+| `car` | An SUV drives past; at dusk, night, and IR its headlights and taillights are on | No |
+| `empty` | Nothing moves but the weather (with `weather=wind`: swaying trees and moving shadows) | No |
+
+- For `dog`, `car`, and `empty`, `window.bench` reports phase `none`, no person box, and no distance, so every detection is a false alarm.
+- The dog (Quaternius Farm Animal Pack, CC0) has no walk clip; its legs trot in code, and its idle clip plays while it sniffs. The cars are from the Quaternius Realistic Car Pack (CC0); see `scene/public/props/LICENSE.txt`.
+- Code: `scene/src/events.ts`.
 
 ## Surfaces and occlusion (`?surfaces=`, `?occlusion=`)
 

@@ -42,8 +42,8 @@ export function loadCar(name: string) {
         object.material = Array.isArray(object.material) ? object.material.map(standard) : standard(object.material);
       }
     });
-    // The model is 1.18 m high; a sedan is about 1.45 m.
-    model.scale.set(1, 1.22, 1.05);
+    // The sedan model is 1.18 m high; a real sedan is about 1.45 m.
+    if (name === "NormalCar1") model.scale.set(1, 1.22, 1.05);
     return model;
   })();
 }

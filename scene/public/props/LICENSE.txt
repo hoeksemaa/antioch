@@ -1,2 +1,5 @@
-NormalCar1.obj / NormalCar1.mtl: Realistic Car Pack (Nov 2018) by Quaternius,
-CC0 1.0 (public domain), https://quaternius.itch.io/lowpoly-cars
+All CC0 1.0 (public domain) by Quaternius, https://creativecommons.org/publicdomain/zero/1.0/
+
+- NormalCar1.obj/.mtl (parked car) and SUV.obj/.mtl (passing car):
+  Realistic Car Pack (Nov 2018), https://quaternius.itch.io/lowpoly-cars
+- Pug.fbx (dog): Farm Animal Pack, https://quaternius.itch.io/lowpoly-animated-animals

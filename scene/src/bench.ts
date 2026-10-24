@@ -3,7 +3,8 @@
 // and returns the ground truth for it.
 
 import type { DoorbellCamera } from "./camera";
-import type { Delivery, Phase } from "./delivery";
+import type { Phase } from "./delivery";
+import type { Actor } from "./events";
 
 // One test case. For now each house is one scenario; later a scenario can
 // also set the light, weather, person, and so on, through more URL parameters.
@@ -17,7 +18,7 @@ export interface Truth {
   t: number;
   phase: Phase;
   box: [number, number, number, number] | null; // person box, fractions of the image
-  distance: number; // doorbell to person, on the ground, m
+  distance: number | null; // doorbell to person, on the ground, m; null with no person
 }
 
 declare global {
@@ -36,7 +37,7 @@ export function installBench(o: {
   scenarios: () => Scenario[];
   house: () => string;
   seed: () => number;
-  delivery: () => Delivery;
+  actor: () => Actor;
   camera: () => DoorbellCamera;
   renderAt: (t: number) => void;
 }) {
@@ -44,12 +45,12 @@ export function installBench(o: {
     scenarios: o.scenarios,
     house: o.house,
     seed: o.seed,
-    duration: () => o.delivery().loop,
+    duration: () => o.actor().loop,
     render(t) {
       o.renderAt(t);
-      const delivery = o.delivery();
+      const actor = o.actor();
       const camera = o.camera();
-      return { t, phase: delivery.phase, box: delivery.screenBox((p) => camera.project(p)), distance: delivery.distanceFrom(camera.camera.position) };
+      return { t, phase: actor.phase, box: actor.screenBox((p) => camera.project(p)), distance: actor.distanceFrom(camera.camera.position) };
     },
   };
 }

@@ -69,7 +69,8 @@ class Route {
   }
 }
 
-export type Phase = "approach" | "drop" | "leave" | "gone";
+// "none": an event with no person (events.ts).
+export type Phase = "approach" | "drop" | "leave" | "gone" | "none";
 
 // A person carries the package along the route, sets it down at drop, turns
 // around, and walks back. The scene is a pure function of time, so a frame
@@ -168,6 +169,11 @@ export class Delivery {
     this.box.position.lerpVectors(held, this.dropCenter, toDrop);
     this.box.rotation.y = toDrop < 1 ? heading : this.place;
     this.body.pose({ phase, stride: this.stride, walk, carry, reach, crouch, time: t, box: this.box.position });
+  }
+
+  // No moving lights.
+  flares(): THREE.Vector3[] {
+    return [];
   }
 
   // Distance on the ground from a point (the camera) to the person's feet, m.
