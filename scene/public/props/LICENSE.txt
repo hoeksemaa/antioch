@@ -1,0 +1,2 @@
+NormalCar1.obj / NormalCar1.mtl: Realistic Car Pack (Nov 2018) by Quaternius,
+CC0 1.0 (public domain), https://quaternius.itch.io/lowpoly-cars

@@ -26,10 +26,18 @@ export interface WeatherState {
 
 type Swap = Map<THREE.Material, THREE.Material>;
 
+// A changed copy. userData.darken tells the textured surfaces how much darker
+// the copy is; a snow-covered copy loses its surface tag (no texture).
 function variant(material: THREE.MeshStandardMaterial, change: { color?: number; mix?: number; roughness?: number; darken?: number }) {
   const m = material.clone();
-  if (change.darken) m.color.multiplyScalar(change.darken);
-  if (change.color !== undefined) m.color.lerp(new THREE.Color(change.color), change.mix ?? 1);
+  if (change.darken) {
+    m.color.multiplyScalar(change.darken);
+    m.userData.darken = change.darken;
+  }
+  if (change.color !== undefined) {
+    m.color.lerp(new THREE.Color(change.color), change.mix ?? 1);
+    delete m.userData.surface;
+  }
   if (change.roughness !== undefined) m.roughness = change.roughness;
   return m;
 }

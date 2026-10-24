@@ -1,0 +1,16 @@
+Textures from Poly Haven (https://polyhaven.com), CC0 1.0 (public domain):
+https://creativecommons.org/publicdomain/zero/1.0/
+
+  siding      exterior_wall_cladding_03
+  brick       brick_wall_09
+  stone       stone_wall
+  roof        roof_slates_02
+  deck        brown_planks_05
+  walk        concrete_pavement
+  foundation  concrete_floor_02
+  asphalt     asphalt_02
+  lawn        leafy_grass
+
+Each set: <name>_color.webp (Diffuse, 1024 px), <name>_normal.webp (nor_gl,
+512 px), <name>_arm.webp (AO/roughness/metal, 512 px), made from the 1K JPGs
+with sharp (tools/people/textures.mjs).
