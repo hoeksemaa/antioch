@@ -89,7 +89,7 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 | id | Weather | What changes |
 |---|---|---|
 | `clear` | Clear | Nothing (the baseline) |
-| `rain` | Rain | Gray overcast sky, dimmer sun; 16k streaks; wet, glossy ground (lamps reflect at night); drops glow near the doorbell in IR; drops on the ring camera's lens |
+| `rain` | Rain | Gray overcast sky, dimmer sun; 16k streaks; wet, glossy ground (lamps reflect at night); drops glow near the doorbell in IR; drops on the fisheye camera's lens |
 | `snow` | Snow | Overcast; 7k flakes; white lawn, roofs, and bushes; dark shoveled paths |
 | `fog` | Fog | Exponential fog in the light's haze color |
 | `wind` | Windy fall day | Trees and bushes sway (and their shadows move), fall colors, 300 blowing leaves |
@@ -103,9 +103,9 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 | id | Camera | Image |
 |---|---|---|
 | `basic` | The v1 camera: a plain perspective camera | 16:9, 70° vertical; no sensor effects |
-| `ring` | A square fisheye, like a Ring doorbell | About 150° corner to corner, 115° side to side (stereographic); auto exposure, noise, vignette, lens softness, compression blocks, bloom, lens flare |
+| `ring` | A square fisheye, like a wide-angle video doorbell | About 150° corner to corner, 115° side to side (stereographic); auto exposure, noise, vignette, lens softness, compression blocks, bloom, lens flare |
 
-- The ring camera renders the scene through a 140° perspective camera into an HDR target at 1.5× the output size, then the sensor pass (`scene/src/sensor.ts`) maps it to the fisheye and adds the effects. The real lens is 150° × 150°; one perspective render cannot reach that, because the corners would need rays more than 90° off the axis.
+- The fisheye camera renders the scene through a 140° perspective camera into an HDR target at 1.5× the output size, then the sensor pass (`scene/src/sensor.ts`) maps it to the fisheye and adds the effects. A real doorbell fisheye is 150° × 150°; one perspective render cannot reach that, because the corners would need rays more than 90° off the axis.
 - Auto exposure reads a center-weighted mean from a small mip of the target, so it needs no state from earlier frames. The noise depends on the pixel and the time t. Thus a frame at time t is the same on every run.
 - In low light, the gain goes up: more noise, and 8 × 8 compression blocks. The sun and lit street lamps flare when they are in view and not behind something.
 - `window.bench` boxes go through the same fisheye mapping (`scene/src/camera.ts`).
