@@ -6,7 +6,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { installBench } from "./bench";
 import { DoorbellCamera } from "./camera";
-import type { Delivery } from "./delivery";
+import { prepareEvent, type Actor } from "./events";
 import { HOUSES, type House } from "./houses";
 import { IR_INTENSITY, type Lighting } from "./lights";
 import { preparePerson } from "./people";
@@ -39,7 +39,7 @@ export class Viewer {
   playing = false;
   settings!: Settings;
   house!: House;
-  delivery!: Delivery;
+  actor!: Actor; // what moves: the delivery, or a no-person event
   onDraw?: () => void; // after each drawn frame
 
   private readonly renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -86,7 +86,7 @@ export class Viewer {
   }
 
   get duration() {
-    return this.delivery.loop;
+    return this.actor.loop;
   }
 
   setSize(width: number, height: number) {
@@ -107,7 +107,7 @@ export class Viewer {
   // window.bench is ready after the first load.
   async load(settings: Settings) {
     const load = ++this.loads;
-    await Promise.all([preparePerson(settings.person), prepareSurfaces(settings.surfaces, this.renderer), prepareProps(settings.occlusion)]);
+    await Promise.all([preparePerson(settings.person), prepareSurfaces(settings.surfaces, this.renderer), prepareProps(settings.occlusion), prepareEvent(settings.event)]);
     if (load !== this.loads) return;
     if (this.world) {
       this.scene.remove(this.world, this.frustum);
@@ -128,7 +128,7 @@ export class Viewer {
     this.scene.environmentIntensity = built.lighting.environmentIntensity;
     this.settings = settings;
     this.house = built.house;
-    this.delivery = built.delivery;
+    this.actor = built.actor;
     this.doorbell = new DoorbellCamera(built.view, settings.camera);
 
     // Shows the doorbell's field of view in the overview. A short copy of the
@@ -151,7 +151,7 @@ export class Viewer {
         scenarios: () => HOUSES.map((h) => ({ id: h.id, name: h.name, query: `house=${h.id}` })),
         house: () => this.house.id,
         seed: () => this.settings.seed,
-        delivery: () => this.delivery,
+        actor: () => this.actor,
         camera: () => this.doorbell,
         renderAt: (t) => this.setTime(t),
       });
@@ -188,7 +188,7 @@ export class Viewer {
 
   private draw() {
     if (!this.world) return; // the first load is not done
-    this.delivery.update(this.time);
+    this.actor.update(this.time);
     this.weather.update(this.time);
     const r = this.renderer;
     r.info.reset();
@@ -226,7 +226,7 @@ export class Viewer {
     if (ir) ir.intensity = IR_INTENSITY;
     if (ir || ring) {
       const inImage = (f: THREE.Vector2 | null): f is THREE.Vector2 => f !== null && Math.abs(f.x) <= 1 && Math.abs(f.y) <= 1;
-      const flares = ring ? this.lighting.flares.map((f) => this.doorbell.project(f)).filter(inImage) : [];
+      const flares = ring ? [...this.lighting.flares, ...this.actor.flares()].map((f) => this.doorbell.project(f)).filter(inImage) : [];
       const drops = ring && this.weather.lensDrops;
       this.sensor.render(r, this.scene, this.doorbell.camera, rect, { mono: !!ir, ring, time: this.time, flares, drops, seed: this.settings.seed });
     } else {

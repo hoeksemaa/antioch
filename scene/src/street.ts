@@ -14,9 +14,10 @@ export interface StreetLamp {
 }
 
 // The near edge of the near sidewalk is at z = sidewalk. The street and the
-// far side follow from it. Returns the street lamp spots; the light module
-// builds the lamps (they are not in the v1 scene).
-export function buildStreet(parent: THREE.Object3D, sidewalk: number, style: StreetStyle): StreetLamp[] {
+// far side follow from it. Returns the street lamp spots (the light module
+// builds the lamps; they are not in the v1 scene) and the z of the near
+// lane's center (for a passing car).
+export function buildStreet(parent: THREE.Object3D, sidewalk: number, style: StreetStyle): { lamps: StreetLamp[]; lane: number } {
   const lawn = new THREE.Mesh(new THREE.PlaneGeometry(140, 110), M.lawn);
   lawn.rotation.x = -Math.PI / 2;
   lawn.position.set(0, 0, sidewalk);
@@ -59,7 +60,7 @@ export function buildStreet(parent: THREE.Object3D, sidewalk: number, style: Str
     simpleHouse(parent, 9, 4.6, 8, 0, lots + 9, 0xe0d7c3);
     simpleHouse(parent, 9, 4.6, 8, 14, lots + 9, 0xc4b3a6);
   }
-  return lamps;
+  return { lamps, lane: street + 2 };
 }
 
 // Row house fronts across the street, facing -z, with the front at z = face.

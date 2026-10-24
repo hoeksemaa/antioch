@@ -10,6 +10,7 @@
 
 import type { CameraModel } from "./camera";
 import { HOUSES } from "./houses";
+import type { Event } from "./events";
 import type { Light } from "./lights";
 import type { Person } from "./people";
 import type { Occlusion } from "./props";
@@ -25,6 +26,7 @@ export interface Settings {
   speed: "walk" | "run";
   surfaces: Surfaces;
   occlusion: Occlusion;
+  event: Event;
   seed: number; // 0 is the canonical scene: no random jitter
 }
 
@@ -45,6 +47,18 @@ export const AXES: Axis[] = [
     values: HOUSES.map((h) => ({ id: h.id, label: h.name })),
     baseline: "porch",
     showcase: "porch",
+  },
+  {
+    id: "event",
+    label: "Event",
+    values: [
+      { id: "delivery", label: "Delivery" },
+      { id: "dog", label: "Dog" },
+      { id: "car", label: "Passing car" },
+      { id: "empty", label: "Empty" },
+    ],
+    baseline: "delivery",
+    showcase: "delivery",
   },
   {
     id: "light",

@@ -3,6 +3,7 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { Delivery } from "./delivery";
+import { makeEvent, type Actor } from "./events";
 import { HOUSES } from "./houses";
 import { buildLights } from "./lights";
 import { makeBody } from "./people";
@@ -23,16 +24,18 @@ export function buildWorld(settings: Settings, renderer: THREE.WebGLRenderer) {
   applySurfaces(world, settings.surfaces);
   mergeStatic(world);
   const weather = buildWeather(world, view, lighting, settings.weather, settings.seed, time);
-  const body = makeBody(settings.person, settings.speed === "run", jitter(settings.seed, "person"));
-  const delivery = new Delivery(view.route, view.drop, body, settings.speed, jitter(settings.seed, "delivery"));
-  world.add(delivery.root);
+  const actor: Actor =
+    settings.event === "delivery"
+      ? new Delivery(view.route, view.drop, makeBody(settings.person, settings.speed === "run", jitter(settings.seed, "person")), settings.speed, jitter(settings.seed, "delivery"))
+      : makeEvent(settings.event, view, lighting.level < 0.6, jitter(settings.seed, "event"));
+  world.add(actor.root);
   world.traverse((object) => {
     if (object instanceof THREE.Mesh && !(object.material instanceof THREE.ShaderMaterial)) {
       object.castShadow = true;
       object.receiveShadow = true;
     }
   });
-  return { world, house, view, delivery, lighting, weather };
+  return { world, house, view, actor, lighting, weather };
 }
 
 // Merges the static meshes that share a material into one mesh. A house has

@@ -31,6 +31,7 @@ export interface HouseView {
   drop: THREE.Vector3; // where the package is set down (bottom center)
   lamp: THREE.Vector3; // porch lantern beside the door, on the wall
   streetLamps: StreetLamp[];
+  lane: number; // z of the near street lane's center
   bins: [number, number, number][]; // wheelie bin spots: x, z, turn (rad)
   car: [number, number, number]; // parked car: x, z, heading (rad; 0 faces +z)
 }
@@ -70,7 +71,7 @@ function raisedPorch(parent: THREE.Object3D): HouseView {
   tree(parent, -7, 7);
   tree(parent, 8, 8.5);
   mailbox(parent, 1.6, 9.7);
-  const streetLamps = buildStreet(parent, sidewalk, "suburb");
+  const street = buildStreet(parent, sidewalk, "suburb");
 
   // Right of the door (as seen from the street).
   const doorbell = v(0.72, floor + 1.22, 0.015);
@@ -83,7 +84,8 @@ function raisedPorch(parent: THREE.Object3D): HouseView {
     route: [v(-12, 0, 10.8), v(0, 0, 10.8), v(0, 0, 3.4), v(0, floor, 2.6), v(0, floor, 2.2)],
     drop: v(0.25, floor, 1.65),
     lamp: v(-0.75, 0.45 + 1.95, 0.1),
-    streetLamps,
+    streetLamps: street.lamps,
+    lane: street.lane,
     // At the curb, in front of the walk to the steps.
     bins: [[-2.0, 9.75, 0], [-2.75, 9.75, 0]],
     car: [-6, 13.65, Math.PI / 2],
@@ -140,7 +142,7 @@ function stoop(parent: THREE.Object3D): HouseView {
     [12, 11.8, 0x7a5444],
   ];
   for (const [x, height, color] of row) rowHouse(parent, x, height, color, setback);
-  const streetLamps = buildStreet(parent, setback, "row");
+  const street = buildStreet(parent, setback, "row");
 
   // On the left door trim (as seen from the street), at the top of the stoop:
   // about 2.9 m above the yard.
@@ -154,7 +156,8 @@ function stoop(parent: THREE.Object3D): HouseView {
     route: [v(-12, 0, 6.1), v(1.2, 0, 6.1), v(1.2, 0, 4.1), v(1.2, 1.7, 1.45), v(1.2, 1.7, 1.3)],
     drop: v(1.35, 1.7, 0.9),
     lamp: v(2.05, 1.7 + 2.1, 0.1),
-    streetLamps,
+    streetLamps: street.lamps,
+    lane: street.lane,
     // In the front yard, beside the stoop.
     bins: [[-1.4, 3.6, 0], [-2.1, 3.6, 0]],
     car: [-4, 8.95, Math.PI / 2],
@@ -203,7 +206,7 @@ function sideEntry(parent: THREE.Object3D): HouseView {
   path(parent, [-6.7, 1.4], [-6.7, sidewalk - 0.6], 1.2);
   for (const x of [-4.2, -2.8, -0.2, 1.4]) blob(parent, 0.45, [x, 0.35, depth + 0.45]);
   tree(parent, 5, 6.5);
-  const streetLamps = buildStreet(parent, sidewalk, "suburb");
+  const street = buildStreet(parent, sidewalk, "suburb");
 
   // Left of the door (as seen from the street), turned toward the side steps.
   const doorbell = v(0.18, floor + 1.4, 0.015);
@@ -216,7 +219,8 @@ function sideEntry(parent: THREE.Object3D): HouseView {
     route: [v(-15, 0, 9.8), v(-6.7, 0, 9.8), v(-6.7, 0, 1.5), v(-6.25, 0, 1.5), v(left, floor, 1.5), v(-1.6, floor, 1.5)],
     drop: v(-1.0, floor, 1.5),
     lamp: v(1.7, 0.6 + 1.95, 0.1),
-    streetLamps,
+    streetLamps: street.lamps,
+    lane: street.lane,
     // Beside the side walk, between it and the doorbell.
     bins: [[-5.7, 5.5, -Math.PI / 2], [-5.7, 6.2, -Math.PI / 2]],
     car: [-9, 12.65, Math.PI / 2],
@@ -251,7 +255,7 @@ function noPorch(parent: THREE.Object3D): HouseView {
   path(parent, [-1.4, 1.7], [3.4, 1.7], 1.0);
   for (const x of [-5.5, -5.0, -4.5, -4.0, -3.5]) blob(parent, 0.3, [x, 0.25, 0.5]);
   tree(parent, -7, 5.5);
-  const streetLamps = buildStreet(parent, sidewalk, "suburb");
+  const street = buildStreet(parent, sidewalk, "suburb");
 
   // Right of the door (as seen from the street), lower than the others, turned
   // toward the driveway.
@@ -265,7 +269,8 @@ function noPorch(parent: THREE.Object3D): HouseView {
     route: [v(18, 0, 8.8), v(6, 0, 8.8), v(6, 0, 1.7), v(-0.1, 0, 1.7)],
     drop: v(-0.6, 0.02, 1.7),
     lamp: v(-1.95, 0.15 + 2.0, 0.1),
-    streetLamps,
+    streetLamps: street.lamps,
+    lane: street.lane,
     // Beside the driveway; the car is in the driveway and hides the approach.
     bins: [[3.0, 3.0, Math.PI / 2], [3.0, 3.7, Math.PI / 2]],
     car: [4.4, 5.2, 0],
@@ -308,7 +313,7 @@ function portico(parent: THREE.Object3D): HouseView {
   for (const x of [-3.6, 3.6]) box(parent, [3.2, 0.9, 0.9], [x, 0.45, 0.8], M.leaf);
   tree(parent, -6, 8);
   tree(parent, 7.5, 6);
-  const streetLamps = buildStreet(parent, sidewalk, "suburb");
+  const street = buildStreet(parent, sidewalk, "suburb");
 
   // Left of the door (as seen from the street), mounted a bit higher.
   const doorbell = v(-0.75, floor + 1.35, 0.015);
@@ -321,7 +326,8 @@ function portico(parent: THREE.Object3D): HouseView {
     route: [v(15, 0, 14.8), v(gateX, 0, 14.8), v(gateX, 0, 13.4), v(0, 0, 6), v(0, 0, 2.05), v(0, floor, 1.6)],
     drop: v(0.45, floor, 1.15),
     lamp: v(0.85, 0.35 + 1.95, 0.1),
-    streetLamps,
+    streetLamps: street.lamps,
+    lane: street.lane,
     // Inside the fence, near the gate.
     bins: [[5.0, 13.1, 0], [5.7, 13.1, 0]],
     car: [6, 17.65, -Math.PI / 2],
