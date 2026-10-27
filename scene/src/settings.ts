@@ -99,14 +99,13 @@ export const AXES: Axis[] = [
     id: "person",
     label: "Person",
     values: [
-      { id: "mannequin", label: "Mannequin" },
       { id: "man", label: "Man" },
       { id: "woman", label: "Woman" },
       { id: "dark", label: "Dark clothes" },
       { id: "hooded", label: "Hooded" },
       { id: "child", label: "Child height" },
     ],
-    baseline: "mannequin",
+    baseline: "mannequin", // the v1 capsule figure; not a button
     showcase: "man",
   },
   {
