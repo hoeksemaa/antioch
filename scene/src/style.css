@@ -671,88 +671,200 @@ body.sim {
   inset: 0;
 }
 
-#hud,
-#inset span {
+/* The controls: a frosted-glass panel at the top right, above the doorbell
+   inset. --inset-w and --inset-h (from simulations.ts) give it the inset's
+   width and keep it clear of the inset; a panel taller than the space
+   scrolls. */
+#hud {
   position: absolute;
-  padding: 6px 10px;
-  border-radius: 6px;
-  background: rgb(0 0 0 / 0.55);
+  top: 16px;
+  right: 16px;
+  display: grid;
+  gap: 10px;
+  width: max(340px, var(--inset-w, 0px));
+  max-height: calc(100% - var(--inset-h, 0px) - 44px);
+  overflow-y: auto;
+  padding: 12px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 12px;
+  background: rgb(22 22 24 / 0.58);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.28);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
   color: #f4f4f0;
   font-size: 13px;
+  scrollbar-width: thin;
 }
 
-#hud {
-  top: 16px;
-  left: 16px;
-  max-width: calc(100% - 32px);
+body.doorbell #hud {
+  max-height: calc(100% - 32px);
+}
+
+.hud-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
 }
 
 .hud-title {
+  font-size: 14px;
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 #hud .hint {
-  color: #c9c9c2;
+  color: rgb(255 255 255 / 0.55);
+  font-size: 11px;
 }
 
 kbd {
+  display: inline-block;
+  min-width: 16px;
   padding: 0 4px;
-  border: 1px solid #888;
-  border-radius: 3px;
-  font: inherit;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  font: 500 10px/14px var(--mono);
+  text-align: center;
 }
 
 #axes {
   display: grid;
-  gap: 4px;
-  margin-top: 6px;
+  gap: 5px;
 }
 
 #axes .axis {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: start;
 }
 
 #axes .axis > span {
-  width: 64px;
-  color: #c9c9c2;
-  font-size: 12px;
+  padding-top: 4px;
+  color: rgb(255 255 255 / 0.6);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+#axes .options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
 #axes button {
-  padding: 2px 8px;
-  border: 1px solid rgb(255 255 255 / 0.25);
-  border-radius: 4px;
-  background: rgb(255 255 255 / 0.1);
-  color: inherit;
+  height: 22px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 0.09);
+  color: rgb(255 255 255 / 0.88);
   font: inherit;
   font-size: 12px;
   cursor: pointer;
+  transition: background-color 0.12s, color 0.12s;
+}
+
+#axes button:hover {
+  background: rgb(255 255 255 / 0.18);
+}
+
+#axes button:focus-visible,
+#inset:focus-visible {
+  outline: 2px solid rgb(255 255 255 / 0.7);
+  outline-offset: 1px;
 }
 
 #axes button.on {
-  border-color: #ffcc33;
-  background: #ffcc33;
+  background: #f4f4f0;
   color: #111;
+  font-weight: 500;
 }
 
+/* WebGL draws the doorbell inset; this button adds its frame and label, and a
+   click on it opens the doorbell view. */
 #inset {
   position: absolute;
-  border: 1px solid rgb(255 255 255 / 0.7);
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.12s;
+}
+
+#inset:hover {
+  border-color: rgb(255 255 255 / 0.85);
+}
+
+#inset span,
+#view-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgb(22 22 24 / 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #f4f4f0;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+#inset em,
+#view-label em {
+  color: rgb(255 255 255 / 0.6);
+  font-style: normal;
+  font-weight: 400;
+}
+
+#inset em {
+  display: none;
+}
+
+#inset:hover em {
+  display: inline;
+}
+
+/* The doorbell view: no inset, and a click anywhere goes back. */
+#view-label {
+  display: none;
+  top: 16px;
+  left: 16px;
   pointer-events: none;
 }
 
-#inset span {
-  top: 6px;
-  left: 6px;
-  padding: 2px 6px;
-  font-size: 12px;
+body.doorbell #view-label {
+  display: block;
+}
+
+body.doorbell .stage canvas {
+  cursor: pointer;
 }
 
 body.doorbell #inset {
   display: none;
+}
+
+@media (max-width: 760px) {
+  #hud {
+    top: 8px;
+    right: 8px;
+    left: 8px;
+    width: auto;
+    max-height: calc(100% - var(--inset-h, 0px) - 32px);
+    padding: 12px;
+  }
+
+  #axes .axis {
+    grid-template-columns: 72px 1fr;
+  }
 }
 
 /* Benchmarks page: the replay under the matrix. */

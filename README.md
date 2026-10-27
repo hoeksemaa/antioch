@@ -12,7 +12,7 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations), https://antioch-de
 |---|---|---|---|
 | 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
 | Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `weather.ts`, `camera.ts`, `sensor.ts`, `people.ts`, `surfaces.ts`, `props.ts`, `events.ts` | The axes: house, event, light, weather, camera, person, speed, surfaces, occlusion, with a v1 baseline value and a showcase value for each |
-| Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, one row of buttons per axis, keys 1–5 and V. Also capture mode for Python |
+| Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset at the bottom right, and a panel above it with one row of buttons per axis. Click the inset (or press V) for the doorbell view; click again to go back. Keys 1–5 switch houses. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Scenario list | **Python** | `bench/scenarios.py` → `bench/scenarios.json` | The fixed 100 scenarios that every detector runs on |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots, caches them in `bench/frames/` |
@@ -44,7 +44,7 @@ npm run dev
 ```
 
 Two pages, with the same header (Simulations, Benchmarks, View source, View creator):
-- **Simulations** (http://localhost:5173): the 3D scene. Drag to orbit and scroll to zoom. Click a button in each axis row to change the scenario. Press `1`–`5` to switch houses, and `V` to switch between the overview (with the doorbell camera inset) and the doorbell camera.
+- **Simulations** (http://localhost:5173): the 3D scene. Drag to orbit and scroll to zoom. Click a button in each axis row (the panel at the top right) to change the scenario. Press `1`–`5` to switch houses. Click the doorbell camera inset, or press `V`, for the doorbell camera view; click that view, or press `V` or `Esc`, to go back to the overview.
 - **Benchmarks** (http://localhost:5173/benchmarks.html; live: `/benchmarks`): the detector results (see below).
 
 Capture mode (`/?view=doorbell`) shows the doorbell camera alone, in the full window, with no page around it. The Python benchmark uses this mode, for example `?house=stoop&view=doorbell`.

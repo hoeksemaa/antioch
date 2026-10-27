@@ -26,11 +26,14 @@
     </header>
     <main class="stage" id="stage">
       <div id="hud">
-        <div class="hud-title">Porch scenes</div>
-        <div class="hint">Drag to orbit · scroll to zoom · <kbd>V</kbd> switches view · <kbd>1</kbd>–<kbd>5</kbd> switch house</div>
+        <div class="hud-head">
+          <span class="hud-title">Porch scenes</span>
+          <span class="hint"><kbd>V</kbd> switches view · <kbd>1</kbd>–<kbd>5</kbd> switch house</span>
+        </div>
         <div id="axes"></div>
       </div>
-      <div id="inset"><span>Doorbell camera</span></div>
+      <button id="inset" type="button" aria-label="Open the doorbell camera view"><span>Doorbell camera<em> · Click to enlarge</em></span></button>
+      <div id="view-label">Doorbell camera<em> · Click to go back</em></div>
     </main>
     <p class="credit">Unofficial demo by<br /><a href="https://johnhoeksema.com">John Hoeksema</a>,<br />not affiliated<br />with Antioch.</p>
     <script type="module" src="/src/main.ts"></script>
