@@ -1,0 +1,25 @@
+{
+ "picture": "hero.jpg",
+ "detector": "frcnn-resnet50",
+ "score": 0.999,
+ "scenario": {
+  "id": "s098",
+  "name": "porch \u00b7 delivery \u00b7 day \u00b7 clear \u00b7 basic \u00b7 dark \u00b7 walk \u00b7 flat \u00b7 bins",
+  "settings": {
+   "house": "porch",
+   "event": "delivery",
+   "light": "day",
+   "weather": "clear",
+   "camera": "basic",
+   "person": "dark",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "bins"
+  }
+ },
+ "frame": {
+  "index": 29,
+  "t": 14.5,
+  "distance_m": 3.01
+ }
+}

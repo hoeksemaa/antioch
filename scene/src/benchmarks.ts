@@ -6,8 +6,8 @@
 // process one frame. The best value in each row is green. The notes and the
 // replay are on the Analysis page.
 
-import { AXES } from "./settings";
-import { deliveries, esc, loadIndex, NO_PERSON_EVENTS, noPersonScenes, perMinute, SOURCES, type Detector, type Summary } from "./results";
+import { AXES, type AxisId } from "./settings";
+import { base, deliveries, esc, loadIndex, NO_PERSON_EVENTS, noPersonScenes, perMinute, SOURCES, type Detector, type Summary } from "./results";
 import "./style.css";
 import "./benchmarks.css";
 
@@ -144,12 +144,9 @@ function render(detectors: Detector[]) {
             return `<td class="${best ? "best" : ""}" title="${esc((r.tips?.[j] ?? "") + (best ? " · best" : ""))}">${r.show(v)}</td>`;
           })
           .join("");
-        // A group of one row with no label: its block covers the label column.
-        const alone = g.rows.length === 1 && !r.label;
         const name = `${esc(g.name)}${g.unit ? `<small>${esc(g.unit)}</small>` : ""}`;
-        const group = i === 0 ? `<th class="group" ${alone ? 'colspan="2"' : `rowspan="${g.rows.length}"`} title="${esc(g.tip)}">${name}</th>` : "";
-        const label = alone ? "" : `<th class="row" title="${esc(r.tip)}">${esc(r.label)}</th>`;
-        return `<tr>${group}${label}${cells}</tr>`;
+        const group = i === 0 ? `<th class="group" rowspan="${g.rows.length}" title="${esc(g.tip)}">${name}</th>` : "";
+        return `<tr>${group}<th class="row" title="${esc(r.tip)}">${esc(r.label)}</th>${cells}</tr>`;
       });
       return `<tbody style="--hue:${g.hue}">${rows.join("")}</tbody>`;
     })
@@ -160,8 +157,27 @@ function render(detectors: Detector[]) {
   document.getElementById("chart")!.innerHTML = `${cols}<thead><tr><th class="corner" colspan="2"></th>${head}</tr></thead>${body}`;
 }
 
+// The picture under the intro: one frame with the best detector's box
+// (notable/hero.json, from bench/gallery.py).
+async function showHero(detectors: Detector[]) {
+  const res = await fetch(`${base}notable/hero.json`).catch(() => null);
+  if (!res?.ok) return;
+  const hero: { picture: string; detector: string; score: number | null; scenario: { settings: Record<AxisId, string> }; frame: { distance_m: number | null } } = await res.json();
+  const name = detectors.find((d) => d.id === hero.detector)?.name ?? hero.detector;
+  const s = hero.scenario.settings;
+  const setting = (axis: AxisId) => AXES.find((a) => a.id === axis)?.values.find((v) => v.id === s[axis])?.label ?? s[axis];
+  const img = document.querySelector<HTMLImageElement>("#hero img")!;
+  img.src = `${base}notable/${hero.picture}`;
+  img.alt = `${name} finds the person on the path to the porch`;
+  const where = [setting("house"), setting("light"), setting("weather"), `${setting("camera")} camera`].join(" · ").toLowerCase();
+  document.getElementById("hero-caption")!.textContent =
+    `${name} finds the person` + (hero.score !== null ? ` (score ${hero.score.toFixed(2)})` : "") + (hero.frame.distance_m !== null ? `, ${hero.frame.distance_m.toFixed(1)} m away` : "") + ` · ${where}`;
+  document.getElementById("hero")!.hidden = false;
+}
+
 async function start() {
   const index = await loadIndex();
+  if (index?.detectors.length) showHero(index.detectors);
   if (index?.detectors.length) render(index.detectors);
   else document.getElementById("chart")!.innerHTML = `<tbody><tr><td class="muted">No results yet. Run bench/run.py (Python) to make them.</td></tr></tbody>`;
 }

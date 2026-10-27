@@ -14,6 +14,8 @@ it). Next to each picture, a JSON
 file has the same data, plus links that open the exact frame on the live site.
 thumbs/ has a 480 px copy of each picture for the page. gallery.json lists
 every picture (and the category titles); README.md shows them by category.
+hero.jpg and hero.json are the picture at the top of the Benchmark page: one
+clear frame (HERO) with the best detector's box.
 
 Categories (a frame appears once; a later category takes its next best frame):
 - all-missed-close: the person is in view and near (< 6 m), and every
@@ -65,6 +67,9 @@ COLORS = {  # one for each detector
     "rtdetr-x": (255, 205, 50),
 }
 FONT = "/System/Library/Fonts/Menlo.ttc"
+# The Benchmark page picture: a raised porch on a clear day, the person 3 m
+# away with the package; every detector finds them.
+HERO = ("s098", 29)
 
 
 def font(size: int):
@@ -253,6 +258,34 @@ def render(category, reason, scenario, i, per, detectors):
     return sheet
 
 
+def hero(scenarios, best, frames):
+    sid, i = HERO
+    folder = FRAMES / sid
+    cached = json.loads((folder / "frames.json").read_text())["frames"][i]
+    image = Image.open(folder / cached["file"]).convert("RGB")
+    w, h = image.size
+    draw = ImageDraw.Draw(image)
+    f = frames[(sid, best)][i]
+    big = font(18)
+    for b in f["dets"]:  # the site's detection style: a yellow box and a yellow tag
+        x0, y0, x1, y1 = b[0] * w, b[1] * h, b[2] * w, b[3] * h
+        draw.rectangle((x0, y0, x1, y1), outline=(255, 204, 51), width=3)
+        text = f"person {b[4]:.2f}"
+        tw = draw.textlength(text, font=big)
+        draw.rectangle((x0 - 1.5, y0 - 26, x0 + tw + 10, y0), fill=(255, 204, 51))
+        draw.text((x0 + 4, y0 - 24), text, fill=(17, 17, 17), font=big)
+    image.save(OUT / "hero.jpg", quality=88)
+    scenario = scenarios[sid]
+    item = {
+        "picture": "hero.jpg",
+        "detector": best,
+        "score": max((b[4] for b in f["dets"]), default=None),
+        "scenario": {k: scenario[k] for k in ("id", "name", "settings")},
+        "frame": {"index": i, "t": f["t"], "distance_m": f["d"]},
+    }
+    (OUT / "hero.json").write_text(json.dumps(item, indent=1))
+
+
 def main():
     index, scenarios, detectors, frames = load()
     chosen = pick(index, scenarios, detectors, frames)
@@ -298,6 +331,7 @@ def main():
         for item in (x for x in items if x["category"] == category):
             md += [f"**{item['reason']}**  ", f"`{item['scenario']['id']}` {item['scenario']['name']} · t {item['frame']['t']} s · [frame]({item['links']['frame']}) · [replay]({item['links']['replay']})", "", f"![{item['reason']}]({item['picture']})", ""]
     (OUT / "README.md").write_text("\n".join(md))
+    hero(scenarios, best, frames)
     counts = {}
     for item in items:
         counts[item["category"]] = counts.get(item["category"], 0) + 1

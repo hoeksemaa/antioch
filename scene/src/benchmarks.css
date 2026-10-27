@@ -2,6 +2,30 @@
    so a change here does not touch the capture scene, and the benchmark's
    frame cache (bench/capture.py) stays valid. */
 
+/* The intro and its picture, above the chart. */
+.intro {
+  margin-bottom: 20px;
+}
+
+.hero {
+  max-width: 720px;
+  margin: 0 0 32px;
+}
+
+.hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #000;
+}
+
+.hero figcaption {
+  margin-top: 8px;
+}
+
 /* The chart: one table, with one row group (tbody) for each category. Each
    group has its color (--hue, from benchmarks.ts): a block with its name at
    the left, and a light tint on its rows. The best value in a row is green
