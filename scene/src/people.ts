@@ -1,17 +1,15 @@
-// Three.js (browser): the person axis. Two kinds of body, with one interface:
-// - Mannequin: the v1 jointed capsule figure (the v1 baseline).
-// - Rigged: a skinned person from CC0 Quaternius parts (an outfit, a head, and
-//   hair; built offline into scene/public/people/), animated with walk, jog,
-//   idle, and crouch clips. Two-bone IK puts the hands on the package.
+// Three.js (browser): the person axis. Each person is a skinned body from CC0
+// Quaternius parts (an outfit, a head, and hair; built offline into
+// scene/public/people/), animated with walk, jog, idle, and crouch clips.
+// Two-bone IK puts the hands on the package.
 // A pose depends only on the delivery time t, so a frame is the same on
 // every run.
 
 import * as THREE from "three";
 import { GLTFLoader, type GLTF } from "three/addons/loaders/GLTFLoader.js";
 import * as SkeletonUtils from "three/addons/utils/SkeletonUtils.js";
-import { mat } from "./parts";
 
-export type Person = "mannequin" | "man" | "woman" | "dark" | "hooded" | "child";
+export type Person = "man" | "woman" | "dark" | "hooded" | "child";
 
 export interface Pose {
   phase: number; // gait phase, radians (2π for each stride)
@@ -32,119 +30,6 @@ export interface Body {
   vertices(fn: (p: THREE.Vector3) => void): void;
 }
 
-const lerp = (a: number, b: number, u: number) => a + (b - a) * u;
-
-// ---------------------------------------------------------------------------
-// Mannequin (v1)
-
-const HIP = 0.935; // hip height when standing, m
-
-const M = {
-  skin: mat(0xc68e6a, 0.7),
-  shirt: mat(0x4f6d7a, 0.9),
-  pants: mat(0x2e3440, 0.9),
-  cap: mat(0x2b2f36, 0.8),
-  shoes: mat(0x1b1b1b, 0.7),
-};
-
-function joint(parent: THREE.Object3D, x: number, y: number, z: number) {
-  const group = new THREE.Group();
-  group.position.set(x, y, z);
-  parent.add(group);
-  return group;
-}
-
-// A capsule that hangs down from its parent joint.
-function limb(parent: THREE.Object3D, length: number, radius: number, material: THREE.Material) {
-  const geometry = new THREE.CapsuleGeometry(radius, length - 2 * radius, 4, 12);
-  geometry.translate(0, -length / 2, 0);
-  parent.add(new THREE.Mesh(geometry, material));
-}
-
-// A simple jointed person, about 1.78 m tall, facing +z, feet at y = 0.
-class Mannequin implements Body {
-  readonly root = new THREE.Group();
-  readonly hold = new THREE.Vector3(0, 1.12, 0.36);
-  private readonly hips = joint(this.root, 0, HIP, 0);
-  private readonly torso = joint(this.hips, 0, 0, 0);
-  private readonly shoulders: THREE.Group[] = []; // [left, right]
-  private readonly elbows: THREE.Group[] = [];
-  private readonly thighs: THREE.Group[] = [];
-  private readonly knees: THREE.Group[] = [];
-
-  constructor() {
-    const chest = new THREE.Mesh(new THREE.CapsuleGeometry(0.16, 0.3, 4, 12), M.shirt);
-    chest.position.y = 0.33;
-    chest.scale.z = 0.7;
-    this.torso.add(chest);
-    const head = new THREE.Mesh(new THREE.SphereGeometry(0.105, 20, 14), M.skin);
-    head.position.y = 0.74;
-    this.torso.add(head);
-    const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.108, 0.108, 0.06, 20), M.cap);
-    cap.position.y = 0.81;
-    this.torso.add(cap);
-    const brim = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.015, 0.1), M.cap);
-    brim.position.set(0, 0.785, 0.1);
-    this.torso.add(brim);
-
-    for (const side of [1, -1]) {
-      const shoulder = joint(this.torso, 0.22 * side, 0.57, 0);
-      limb(shoulder, 0.3, 0.05, M.shirt);
-      const elbow = joint(shoulder, 0, -0.3, 0);
-      limb(elbow, 0.27, 0.045, M.skin);
-      const hand = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 10), M.skin);
-      hand.position.y = -0.29;
-      elbow.add(hand);
-
-      const thigh = joint(this.hips, 0.095 * side, 0, 0);
-      limb(thigh, 0.45, 0.075, M.pants);
-      const knee = joint(thigh, 0, -0.45, 0);
-      limb(knee, 0.44, 0.06, M.pants);
-      const foot = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.07, 0.26), M.shoes);
-      foot.position.set(0, -0.45, 0.06);
-      knee.add(foot);
-
-      this.shoulders.push(shoulder);
-      this.elbows.push(elbow);
-      this.thighs.push(thigh);
-      this.knees.push(knee);
-    }
-  }
-
-  // Joint angles. Rotation about +x moves a hanging limb backward, so a
-  // negative angle swings it forward.
-  pose(o: Pose) {
-    const swing = Math.sin(o.phase);
-    const crouch = 0.84 * o.crouch; // thigh angle at the lowest point: hips 0.3 m lower
-    for (let i = 0; i < 2; i++) {
-      const side = i === 0 ? 1 : -1; // left leg leads at phase 0
-      this.thighs[i].rotation.x = -0.45 * o.walk * swing * side - crouch;
-      this.knees[i].rotation.x = 0.8 * o.walk * Math.max(0, Math.cos(o.phase) * side) + 2 * crouch;
-
-      const walkArm = 0.35 * o.walk * swing * side;
-      const shoulder = lerp(lerp(walkArm, -0.3, o.carry), -0.9, o.reach);
-      const elbow = lerp(lerp(-0.25, -1.1, o.carry), -0.3, o.reach);
-      this.shoulders[i].rotation.x = shoulder;
-      this.elbows[i].rotation.x = elbow;
-    }
-    const bob = 0.02 * o.walk * Math.abs(swing);
-    this.hips.position.y = HIP - 0.9 * (1 - Math.cos(crouch)) + bob;
-    this.torso.rotation.x = 0.55 * o.crouch;
-  }
-
-  vertices(fn: (p: THREE.Vector3) => void) {
-    const v = new THREE.Vector3();
-    this.root.traverse((object) => {
-      if (!(object instanceof THREE.Mesh)) return;
-      const position = object.geometry.attributes.position;
-      for (let i = 0; i < position.count; i++) fn(v.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld));
-    });
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Rigged people
-
 interface Spec {
   file: string; // scene/public/people/<file>.glb
   height: number; // m
@@ -152,7 +37,7 @@ interface Spec {
   tint?: number; // multiplies the outfit colors
 }
 
-const PEOPLE: Record<Exclude<Person, "mannequin">, Spec> = {
+const PEOPLE: Record<Person, Spec> = {
   man: { file: "man", height: 1.8, model: 1.84 },
   woman: { file: "woman", height: 1.66, model: 1.78 },
   dark: { file: "man", height: 1.8, model: 1.84, tint: 0x34343a },
@@ -188,7 +73,7 @@ function file(name: string) {
 
 // Loads the files for a person. Call it before makeBody.
 export async function preparePerson(person: Person) {
-  if (person !== "mannequin") await Promise.all([file(PEOPLE[person].file), file("moves")]);
+  await Promise.all([file(PEOPLE[person].file), file("moves")]);
 }
 
 const _s = new THREE.Vector3();
@@ -321,5 +206,5 @@ class Rigged implements Body {
 
 // A body for a person. preparePerson must have finished for it.
 export function makeBody(person: Person, run: boolean, jitter: () => number): Body {
-  return person === "mannequin" ? new Mannequin() : new Rigged(PEOPLE[person], run, jitter);
+  return new Rigged(PEOPLE[person], run, jitter);
 }

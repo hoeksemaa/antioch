@@ -14,8 +14,9 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations) and https://antioch
 | Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `weather.ts`, `camera.ts`, `sensor.ts`, `people.ts`, `surfaces.ts`, `props.ts`, `events.ts` | The axes: house, event, light, weather, camera, person, speed, surfaces, occlusion, with a v1 baseline value and a showcase value for each |
 | Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, one row of buttons per axis, a seed, keys 1–5 and V. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
-| Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots |
-| Detectors | **Python** | `bench/detector.py` | Registry of detectors; add one entry to add a detector |
+| Scenario list | **Python** | `bench/scenarios.py` → `bench/scenarios.json` | The fixed 100 scenarios that every detector runs on |
+| Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots, caches them in `bench/frames/` |
+| Detectors | **Python** | `bench/detector.py` | 5 detectors (torchvision and Ultralytics); add one entry to add a detector |
 | Scoring and results | **Python** | `bench/run.py` | Matches detections to the ground truth; writes `scene/public/results/` |
 | Benchmarks page | TypeScript (browser) with the Three.js viewer | `scene/benchmarks.html`, `scene/src/benchmarks.ts` | Detectors × scenarios matrix, and a replay of the selected cell with the boxes on the doorbell camera |
 | Hosting | Vercel | `scene/` | Serves the Three.js scene as a static site. Python does not run on Vercel |
@@ -120,7 +121,7 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 | `hooded` | Outfit with the hood up | 1.80 m |
 | `child` | The woman scaled to child height (the free pack has no child body) | 1.20 m |
 
-- `mannequin` (not a button) is the v1 capsule figure, 1.78 m. Capture mode and Benchmarks use it when `?person=` is missing, because the v1 results were scored on it.
+- Capture mode and Benchmarks use `man` when `?person=` is missing. The v1 capsule figure (the mannequin) is gone.
 - Speed: `walk` 1.4 m/s, `run` 4.5 m/s. The run speed matches the stride of the free jog clip, so the feet stay planted.
 - The rigged people are CC0 Quaternius assets, assembled offline into `scene/public/people/` (see `LICENSE.txt` there). The page loads a person's file (1.4–2.3 MB) only when it is on screen.
 - Animation: walk or jog clips matched to the speed, idle at the pauses, and a crouch for the drop. Two-bone IK puts the hands on the package. All of it comes from the delivery time t, so frames repeat.
@@ -153,7 +154,7 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 In each house, one person carries one package along that house's route: from the sidewalk, up the approach, to a drop spot that the doorbell can see. The person sets the package down, turns around, and walks back. Then the loop starts again.
 
 - The person and the package are the same in every house for now. Both are future variation: body, clothing, skin tone, gait, and package size and color.
-- The person is a jointed figure made of capsules, about 1.78 m tall. Walking speed is 1.4 m/s.
+- The person is a rigged person (see Person and speed). Walking speed is 1.4 m/s.
 - The motion is a pure function of time (`scene/src/delivery.ts`), so the frame at time t is the same on every run.
 - Each house gives its `route` (a polyline; y is the floor height under the feet) and its `drop` spot in `houses.ts`. Stairs are ramps in the route, so the feet do not land on each step.
 
@@ -170,28 +171,59 @@ bench/.venv/bin/python -m playwright install chromium
 Start the scene (`cd scene && npm run dev`), then:
 
 ```sh
-bench/.venv/bin/python bench/run.py                       # all detectors, all scenarios, 2 frames per second
-bench/.venv/bin/python bench/run.py --scenarios porch stoop --detectors ssdlite
-bench/.venv/bin/python bench/run.py --images              # also write marked-up frames to bench/out/
-bench/.venv/bin/python bench/run.py --seed random         # a new seed (saved with the results)
+bench/.venv/bin/python bench/run.py                         # all 5 detectors, all 100 scenarios, 2 frames per second
+bench/.venv/bin/python bench/run.py --detectors ssdlite yolo11x
+bench/.venv/bin/python bench/run.py --limit 5               # the first 5 scenarios only
+bench/.venv/bin/python bench/run.py --scenarios s001 s007
+bench/.venv/bin/python bench/run.py --images                # also write marked-up frames to bench/out/
 bench/.venv/bin/python bench/run.py --url https://antioch-demo-hoeksema.vercel.app
 ```
 
-How it scores (v1):
-- **Detectors:** pretrained on COCO (real photos), from torchvision: `frcnn-mobilenet` (`fasterrcnn_mobilenet_v3_large_fpn`) and `ssdlite` (`ssdlite320_mobilenet_v3_large`). Only "person" boxes with a score of at least 0.5 count.
-- **Ground truth:** the scene projects every vertex of the person onto the doorbell image and takes the box around them. The box covers the whole body, also the parts behind walls or rails.
+Progress: one line for each scenario and detector, printed as soon as it is scored, then a table by setting at the end:
+
+```
+[ 12/100] s012 ssdlite  46% (21/46)  FA 0  | so far 58% | stoop · delivery · night · rain · fisheye · hooded · walk · textured · bins | 62 frames, 14 s, about 22 min left
+```
+
+Detectors (all trained on COCO, real photos; only "person" boxes with a score of at least 0.5 count):
+
+| id | Model | Library | Type |
+|---|---|---|---|
+| `frcnn-mobilenet` | Faster R-CNN MobileNetV3 (`fasterrcnn_mobilenet_v3_large_fpn`) | torchvision | Two-stage, small (v1) |
+| `ssdlite` | SSDlite320 MobileNetV3 (`ssdlite320_mobilenet_v3_large`) | torchvision | One-stage, mobile, fastest (v1) |
+| `frcnn-resnet50` | Faster R-CNN ResNet-50 v2 (`fasterrcnn_resnet50_fpn_v2`) | torchvision | Two-stage, strong |
+| `yolo11x` | YOLO11x | Ultralytics (AGPL-3.0) | One-stage CNN, the usual industry choice |
+| `rtdetr-x` | RT-DETR-x | Ultralytics (AGPL-3.0) | Transformer |
+
+- The Ultralytics weights (about 240 MB) download once into `bench/weights/` (not in git). The Ultralytics usage analytics are off.
+- The Ultralytics models run at the frame's own size (no downscale), so far people keep their pixels. The torchvision models use their own resize.
+- Device: MPS (the Mac GPU) when it is there, else the CPU (`--device`). MPS and the CPU gave the same boxes, and two MPS runs gave the same boxes.
+- Speed on an M1 Pro (MPS), for each frame: `ssdlite` 0.1 s, `yolo11x` 0.3 s, `frcnn-mobilenet` and `frcnn-resnet50` 0.33 s, `rtdetr-x` 0.4 s.
+
+Scenarios: the fixed list in `bench/scenarios.json`, made by `bench/scenarios.py`. Every detector runs on the same 100 scenarios:
+- 76 deliveries and 24 events with no person (8 dog, 8 passing car, 8 empty). The no-person events measure false alarms.
+- Each scenario sets every axis and its own seed. In the deliveries, every pair of axis values occurs together at least once. Each value occurs about equally often.
+- The run checks each scenario against the settings that the scene reports (`window.bench.settings()`), so a renamed value fails and does not fall back to a default.
+
+Frames:
+- The page is the size of the doorbell image: 1280 × 720 for `basic`, 960 × 960 for `ring` (the same number of pixels).
+- Chromium renders on the real GPU (Metal): about 0.2 s for each frame, against about 5 s without it (`--software`).
+- `bench/frames/<scenario>/` caches the PNG frames, so every detector reads the exact same pixels and a second detector does not render again. The cache key is the query, the frame rate, the URL, and the last git commit of `scene/`. The full list is about 8 GB. `--recapture` renders again.
+
+How it scores:
+- **Ground truth:** the scene projects every vertex of the person onto the doorbell image (through the fisheye mapping for `ring`) and takes the box around them. The box covers the whole body, also the parts behind walls or rails.
 - **Hit:** a person box overlaps the true box with IoU ≥ 0.3. The usual value is 0.5; 0.3 allows for the hidden body parts.
 - **Miss:** the person is in view, but no person box matches.
-- **False alarm:** a person box that does not match the person.
-- **Detection rate:** hits ÷ frames with the person in view, overall and by distance (0–3, 3–6, 6–9, 9–12, 12+ m, on the ground from the doorbell).
-- **First seen:** the distance at the first hit while the person walks up.
-- **Seed:** every run uses seed 0 unless you pass `--seed`. The seed goes to Python, torch, and the scene (`&seed=`), and it is saved with the results, so the same seed gives the same results and the Benchmarks page replays the same frames.
+- **False alarm (FA):** a person box that does not match the person. In the no-person events, every person box is a false alarm.
+- **Detection rate:** hits ÷ frames with the person in view, overall, by distance (0–3, 3–6, 6–9, 9–12, 12+ m, on the ground from the doorbell), and by setting.
+- **By setting:** for each value of each axis, the totals over the scenarios with that value. Person and speed count only the deliveries.
+- **First seen:** the distance at the first hit while the person walks up (by setting: the median).
 
 Output (in git, so the deployed page shows it):
-- `scene/public/results/index.json`: one summary for each detector and scenario. The Benchmarks matrix reads only this file.
-- `scene/public/results/<detector>/<scenario>.json`: every frame, with the true box and every detection. The page loads it when you click a cell.
+- `scene/public/results/index.json`: the scenario list, and for each detector a summary of each scenario, of all scenarios, and by setting.
+- `scene/public/results/<detector>/<scenario>.json`: every frame, with the true box and every detection.
 
-A run replaces the results for the detectors and scenarios it runs and keeps the others. With `--images`, marked-up frames also go to `bench/out/<detector>/<scenario>/` (not in git).
+A run replaces the results for the detectors and scenarios it runs and keeps the others. Results for scenarios that are not in the list are dropped. With `--images`, marked-up frames also go to `bench/out/<detector>/<scenario>/` (not in git).
 
 ## Benchmarks page
 

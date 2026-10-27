@@ -1,0 +1,5 @@
+# Python benchmark files that the site does not use (weights, frame cache, outputs)
+bench/weights/
+bench/frames/
+bench/out/
+bench/.venv/

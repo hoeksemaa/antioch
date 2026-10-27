@@ -1,0 +1,1705 @@
+{
+ "made_by": "bench/scenarios.py",
+ "scenarios": [
+  {
+   "id": "s001",
+   "name": "flush \u00b7 delivery \u00b7 day \u00b7 fog \u00b7 fisheye \u00b7 dark \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "day",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 605511,
+   "query": "house=flush&event=delivery&light=day&weather=fog&camera=ring&person=dark&speed=run&surfaces=flat&occlusion=car&seed=605511"
+  },
+  {
+   "id": "s002",
+   "name": "side \u00b7 dog \u00b7 IR \u00b7 rain \u00b7 fisheye \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "dog",
+    "light": "ir",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 698549,
+   "query": "house=side&event=dog&light=ir&weather=rain&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=bins&seed=698549"
+  },
+  {
+   "id": "s003",
+   "name": "flush \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 fisheye \u00b7 woman \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 839149,
+   "query": "house=flush&event=delivery&light=dusk&weather=clear&camera=ring&person=woman&speed=walk&surfaces=textured&occlusion=car&seed=839149"
+  },
+  {
+   "id": "s004",
+   "name": "stoop \u00b7 delivery \u00b7 night \u00b7 rain \u00b7 basic \u00b7 man \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "night",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 489428,
+   "query": "house=stoop&event=delivery&light=night&weather=rain&camera=basic&person=man&speed=run&surfaces=textured&occlusion=car&seed=489428"
+  },
+  {
+   "id": "s005",
+   "name": "porch \u00b7 dog \u00b7 night \u00b7 snow \u00b7 fisheye \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "dog",
+    "light": "night",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 536172,
+   "query": "house=porch&event=dog&light=night&weather=snow&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=car&seed=536172"
+  },
+  {
+   "id": "s006",
+   "name": "flush \u00b7 delivery \u00b7 day \u00b7 wind \u00b7 basic \u00b7 man \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "day",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 594935,
+   "query": "house=flush&event=delivery&light=day&weather=wind&camera=basic&person=man&speed=run&surfaces=textured&occlusion=none&seed=594935"
+  },
+  {
+   "id": "s007",
+   "name": "portico \u00b7 delivery \u00b7 dusk \u00b7 fog \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 838091,
+   "query": "house=portico&event=delivery&light=dusk&weather=fog&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=car&seed=838091"
+  },
+  {
+   "id": "s008",
+   "name": "portico \u00b7 delivery \u00b7 night \u00b7 wind \u00b7 basic \u00b7 child \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "night",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 486396,
+   "query": "house=portico&event=delivery&light=night&weather=wind&camera=basic&person=child&speed=run&surfaces=textured&occlusion=bins&seed=486396"
+  },
+  {
+   "id": "s009",
+   "name": "porch \u00b7 delivery \u00b7 night \u00b7 snow \u00b7 fisheye \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "night",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 774997,
+   "query": "house=porch&event=delivery&light=night&weather=snow&camera=ring&person=hooded&speed=walk&surfaces=flat&occlusion=bins&seed=774997"
+  },
+  {
+   "id": "s010",
+   "name": "stoop \u00b7 delivery \u00b7 day \u00b7 clear \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "day",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 178567,
+   "query": "house=stoop&event=delivery&light=day&weather=clear&camera=ring&person=dark&speed=walk&surfaces=textured&occlusion=car&seed=178567"
+  },
+  {
+   "id": "s011",
+   "name": "side \u00b7 delivery \u00b7 night \u00b7 wind \u00b7 fisheye \u00b7 woman \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "night",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 689085,
+   "query": "house=side&event=delivery&light=night&weather=wind&camera=ring&person=woman&speed=run&surfaces=flat&occlusion=car&seed=689085"
+  },
+  {
+   "id": "s012",
+   "name": "side \u00b7 delivery \u00b7 dusk \u00b7 rain \u00b7 basic \u00b7 hooded \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 442049,
+   "query": "house=side&event=delivery&light=dusk&weather=rain&camera=basic&person=hooded&speed=run&surfaces=textured&occlusion=bins&seed=442049"
+  },
+  {
+   "id": "s013",
+   "name": "porch \u00b7 delivery \u00b7 night \u00b7 wind \u00b7 fisheye \u00b7 child \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "night",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 396111,
+   "query": "house=porch&event=delivery&light=night&weather=wind&camera=ring&person=child&speed=run&surfaces=textured&occlusion=none&seed=396111"
+  },
+  {
+   "id": "s014",
+   "name": "side \u00b7 car \u00b7 day \u00b7 wind \u00b7 basic \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "car",
+    "light": "day",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 41574,
+   "query": "house=side&event=car&light=day&weather=wind&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=bins&seed=41574"
+  },
+  {
+   "id": "s015",
+   "name": "side \u00b7 empty \u00b7 dusk \u00b7 fog \u00b7 basic \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "empty",
+    "light": "dusk",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 609981,
+   "query": "house=side&event=empty&light=dusk&weather=fog&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=609981"
+  },
+  {
+   "id": "s016",
+   "name": "porch \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 basic \u00b7 child \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 518480,
+   "query": "house=porch&event=delivery&light=dusk&weather=clear&camera=basic&person=child&speed=run&surfaces=flat&occlusion=car&seed=518480"
+  },
+  {
+   "id": "s017",
+   "name": "portico \u00b7 delivery \u00b7 day \u00b7 fog \u00b7 basic \u00b7 child \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "day",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 200407,
+   "query": "house=portico&event=delivery&light=day&weather=fog&camera=basic&person=child&speed=run&surfaces=textured&occlusion=none&seed=200407"
+  },
+  {
+   "id": "s018",
+   "name": "flush \u00b7 delivery \u00b7 dusk \u00b7 fog \u00b7 basic \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 172307,
+   "query": "house=flush&event=delivery&light=dusk&weather=fog&camera=basic&person=hooded&speed=walk&surfaces=flat&occlusion=bins&seed=172307"
+  },
+  {
+   "id": "s019",
+   "name": "porch \u00b7 dog \u00b7 day \u00b7 rain \u00b7 basic \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "dog",
+    "light": "day",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 846353,
+   "query": "house=porch&event=dog&light=day&weather=rain&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=none&seed=846353"
+  },
+  {
+   "id": "s020",
+   "name": "stoop \u00b7 delivery \u00b7 night \u00b7 wind \u00b7 fisheye \u00b7 man \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "night",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 313168,
+   "query": "house=stoop&event=delivery&light=night&weather=wind&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=bins&seed=313168"
+  },
+  {
+   "id": "s021",
+   "name": "side \u00b7 delivery \u00b7 IR \u00b7 snow \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 93988,
+   "query": "house=side&event=delivery&light=ir&weather=snow&camera=ring&person=child&speed=walk&surfaces=textured&occlusion=car&seed=93988"
+  },
+  {
+   "id": "s022",
+   "name": "portico \u00b7 dog \u00b7 day \u00b7 clear \u00b7 fisheye \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "dog",
+    "light": "day",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 812286,
+   "query": "house=portico&event=dog&light=day&weather=clear&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=812286"
+  },
+  {
+   "id": "s023",
+   "name": "porch \u00b7 delivery \u00b7 IR \u00b7 rain \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 39387,
+   "query": "house=porch&event=delivery&light=ir&weather=rain&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=bins&seed=39387"
+  },
+  {
+   "id": "s024",
+   "name": "stoop \u00b7 delivery \u00b7 night \u00b7 fog \u00b7 fisheye \u00b7 hooded \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "night",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 97534,
+   "query": "house=stoop&event=delivery&light=night&weather=fog&camera=ring&person=hooded&speed=walk&surfaces=textured&occlusion=none&seed=97534"
+  },
+  {
+   "id": "s025",
+   "name": "flush \u00b7 car \u00b7 dusk \u00b7 rain \u00b7 fisheye \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "car",
+    "light": "dusk",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 431890,
+   "query": "house=flush&event=car&light=dusk&weather=rain&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=431890"
+  },
+  {
+   "id": "s026",
+   "name": "stoop \u00b7 delivery \u00b7 IR \u00b7 fog \u00b7 basic \u00b7 man \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 84806,
+   "query": "house=stoop&event=delivery&light=ir&weather=fog&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=car&seed=84806"
+  },
+  {
+   "id": "s027",
+   "name": "side \u00b7 delivery \u00b7 day \u00b7 rain \u00b7 basic \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "day",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 146616,
+   "query": "house=side&event=delivery&light=day&weather=rain&camera=basic&person=hooded&speed=walk&surfaces=flat&occlusion=car&seed=146616"
+  },
+  {
+   "id": "s028",
+   "name": "stoop \u00b7 delivery \u00b7 day \u00b7 rain \u00b7 fisheye \u00b7 woman \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "day",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 704507,
+   "query": "house=stoop&event=delivery&light=day&weather=rain&camera=ring&person=woman&speed=run&surfaces=flat&occlusion=car&seed=704507"
+  },
+  {
+   "id": "s029",
+   "name": "portico \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 fisheye \u00b7 dark \u00b7 run \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 321994,
+   "query": "house=portico&event=delivery&light=ir&weather=wind&camera=ring&person=dark&speed=run&surfaces=flat&occlusion=bins&seed=321994"
+  },
+  {
+   "id": "s030",
+   "name": "stoop \u00b7 delivery \u00b7 day \u00b7 rain \u00b7 basic \u00b7 child \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "day",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 254446,
+   "query": "house=stoop&event=delivery&light=day&weather=rain&camera=basic&person=child&speed=walk&surfaces=textured&occlusion=none&seed=254446"
+  },
+  {
+   "id": "s031",
+   "name": "side \u00b7 delivery \u00b7 night \u00b7 fog \u00b7 basic \u00b7 child \u00b7 run \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "night",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 277522,
+   "query": "house=side&event=delivery&light=night&weather=fog&camera=basic&person=child&speed=run&surfaces=flat&occlusion=bins&seed=277522"
+  },
+  {
+   "id": "s032",
+   "name": "portico \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "night",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 35605,
+   "query": "house=portico&event=delivery&light=night&weather=clear&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=35605"
+  },
+  {
+   "id": "s033",
+   "name": "stoop \u00b7 empty \u00b7 day \u00b7 snow \u00b7 fisheye \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "empty",
+    "light": "day",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 882504,
+   "query": "house=stoop&event=empty&light=day&weather=snow&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=bins&seed=882504"
+  },
+  {
+   "id": "s034",
+   "name": "portico \u00b7 delivery \u00b7 night \u00b7 rain \u00b7 fisheye \u00b7 woman \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "night",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 61946,
+   "query": "house=portico&event=delivery&light=night&weather=rain&camera=ring&person=woman&speed=run&surfaces=textured&occlusion=none&seed=61946"
+  },
+  {
+   "id": "s035",
+   "name": "stoop \u00b7 delivery \u00b7 dusk \u00b7 fog \u00b7 fisheye \u00b7 woman \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 609255,
+   "query": "house=stoop&event=delivery&light=dusk&weather=fog&camera=ring&person=woman&speed=run&surfaces=flat&occlusion=none&seed=609255"
+  },
+  {
+   "id": "s036",
+   "name": "porch \u00b7 delivery \u00b7 dusk \u00b7 snow \u00b7 basic \u00b7 child \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 783383,
+   "query": "house=porch&event=delivery&light=dusk&weather=snow&camera=basic&person=child&speed=run&surfaces=textured&occlusion=none&seed=783383"
+  },
+  {
+   "id": "s037",
+   "name": "flush \u00b7 delivery \u00b7 day \u00b7 snow \u00b7 fisheye \u00b7 hooded \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "day",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 376196,
+   "query": "house=flush&event=delivery&light=day&weather=snow&camera=ring&person=hooded&speed=run&surfaces=flat&occlusion=none&seed=376196"
+  },
+  {
+   "id": "s038",
+   "name": "porch \u00b7 delivery \u00b7 night \u00b7 fog \u00b7 basic \u00b7 hooded \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "night",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 155981,
+   "query": "house=porch&event=delivery&light=night&weather=fog&camera=basic&person=hooded&speed=run&surfaces=textured&occlusion=car&seed=155981"
+  },
+  {
+   "id": "s039",
+   "name": "stoop \u00b7 delivery \u00b7 IR \u00b7 snow \u00b7 basic \u00b7 dark \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 759419,
+   "query": "house=stoop&event=delivery&light=ir&weather=snow&camera=basic&person=dark&speed=run&surfaces=flat&occlusion=car&seed=759419"
+  },
+  {
+   "id": "s040",
+   "name": "flush \u00b7 delivery \u00b7 dusk \u00b7 rain \u00b7 basic \u00b7 dark \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 452974,
+   "query": "house=flush&event=delivery&light=dusk&weather=rain&camera=basic&person=dark&speed=run&surfaces=flat&occlusion=none&seed=452974"
+  },
+  {
+   "id": "s041",
+   "name": "stoop \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 fisheye \u00b7 child \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "night",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 846545,
+   "query": "house=stoop&event=delivery&light=night&weather=clear&camera=ring&person=child&speed=run&surfaces=textured&occlusion=bins&seed=846545"
+  },
+  {
+   "id": "s042",
+   "name": "side \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 basic \u00b7 hooded \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 965438,
+   "query": "house=side&event=delivery&light=ir&weather=wind&camera=basic&person=hooded&speed=run&surfaces=textured&occlusion=bins&seed=965438"
+  },
+  {
+   "id": "s043",
+   "name": "stoop \u00b7 delivery \u00b7 IR \u00b7 clear \u00b7 basic \u00b7 man \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 957201,
+   "query": "house=stoop&event=delivery&light=ir&weather=clear&camera=basic&person=man&speed=run&surfaces=flat&occlusion=none&seed=957201"
+  },
+  {
+   "id": "s044",
+   "name": "side \u00b7 empty \u00b7 night \u00b7 clear \u00b7 fisheye \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "empty",
+    "light": "night",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 739537,
+   "query": "house=side&event=empty&light=night&weather=clear&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=car&seed=739537"
+  },
+  {
+   "id": "s045",
+   "name": "flush \u00b7 car \u00b7 night \u00b7 fog \u00b7 fisheye \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "car",
+    "light": "night",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 17741,
+   "query": "house=flush&event=car&light=night&weather=fog&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=none&seed=17741"
+  },
+  {
+   "id": "s046",
+   "name": "flush \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 fisheye \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 778441,
+   "query": "house=flush&event=delivery&light=ir&weather=wind&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=778441"
+  },
+  {
+   "id": "s047",
+   "name": "side \u00b7 delivery \u00b7 dusk \u00b7 fog \u00b7 fisheye \u00b7 dark \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 443198,
+   "query": "house=side&event=delivery&light=dusk&weather=fog&camera=ring&person=dark&speed=run&surfaces=textured&occlusion=bins&seed=443198"
+  },
+  {
+   "id": "s048",
+   "name": "flush \u00b7 delivery \u00b7 night \u00b7 fog \u00b7 basic \u00b7 dark \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "night",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 820928,
+   "query": "house=flush&event=delivery&light=night&weather=fog&camera=basic&person=dark&speed=walk&surfaces=textured&occlusion=none&seed=820928"
+  },
+  {
+   "id": "s049",
+   "name": "porch \u00b7 empty \u00b7 dusk \u00b7 wind \u00b7 fisheye \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "empty",
+    "light": "dusk",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 822863,
+   "query": "house=porch&event=empty&light=dusk&weather=wind&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=bins&seed=822863"
+  },
+  {
+   "id": "s050",
+   "name": "flush \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 basic \u00b7 man \u00b7 run \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 692295,
+   "query": "house=flush&event=delivery&light=dusk&weather=clear&camera=basic&person=man&speed=run&surfaces=flat&occlusion=bins&seed=692295"
+  },
+  {
+   "id": "s051",
+   "name": "portico \u00b7 delivery \u00b7 dusk \u00b7 snow \u00b7 basic \u00b7 woman \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 839976,
+   "query": "house=portico&event=delivery&light=dusk&weather=snow&camera=basic&person=woman&speed=walk&surfaces=flat&occlusion=bins&seed=839976"
+  },
+  {
+   "id": "s052",
+   "name": "portico \u00b7 delivery \u00b7 night \u00b7 snow \u00b7 basic \u00b7 dark \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "night",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 877482,
+   "query": "house=portico&event=delivery&light=night&weather=snow&camera=basic&person=dark&speed=run&surfaces=textured&occlusion=car&seed=877482"
+  },
+  {
+   "id": "s053",
+   "name": "porch \u00b7 delivery \u00b7 night \u00b7 wind \u00b7 basic \u00b7 dark \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "night",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 582294,
+   "query": "house=porch&event=delivery&light=night&weather=wind&camera=basic&person=dark&speed=run&surfaces=textured&occlusion=car&seed=582294"
+  },
+  {
+   "id": "s054",
+   "name": "porch \u00b7 delivery \u00b7 dusk \u00b7 wind \u00b7 fisheye \u00b7 hooded \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 431203,
+   "query": "house=porch&event=delivery&light=dusk&weather=wind&camera=ring&person=hooded&speed=walk&surfaces=textured&occlusion=none&seed=431203"
+  },
+  {
+   "id": "s055",
+   "name": "stoop \u00b7 car \u00b7 dusk \u00b7 clear \u00b7 basic \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "stoop",
+    "event": "car",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 442116,
+   "query": "house=stoop&event=car&light=dusk&weather=clear&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=none&seed=442116"
+  },
+  {
+   "id": "s056",
+   "name": "side \u00b7 delivery \u00b7 day \u00b7 fog \u00b7 basic \u00b7 woman \u00b7 walk \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "day",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 772235,
+   "query": "house=side&event=delivery&light=day&weather=fog&camera=basic&person=woman&speed=walk&surfaces=textured&occlusion=bins&seed=772235"
+  },
+  {
+   "id": "s057",
+   "name": "porch \u00b7 delivery \u00b7 day \u00b7 clear \u00b7 fisheye \u00b7 man \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "day",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 152887,
+   "query": "house=porch&event=delivery&light=day&weather=clear&camera=ring&person=man&speed=run&surfaces=textured&occlusion=none&seed=152887"
+  },
+  {
+   "id": "s058",
+   "name": "portico \u00b7 delivery \u00b7 dusk \u00b7 snow \u00b7 fisheye \u00b7 man \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 235810,
+   "query": "house=portico&event=delivery&light=dusk&weather=snow&camera=ring&person=man&speed=run&surfaces=textured&occlusion=none&seed=235810"
+  },
+  {
+   "id": "s059",
+   "name": "porch \u00b7 delivery \u00b7 IR \u00b7 fog \u00b7 fisheye \u00b7 man \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 127091,
+   "query": "house=porch&event=delivery&light=ir&weather=fog&camera=ring&person=man&speed=run&surfaces=textured&occlusion=bins&seed=127091"
+  },
+  {
+   "id": "s060",
+   "name": "flush \u00b7 empty \u00b7 night \u00b7 wind \u00b7 basic \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "empty",
+    "light": "night",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 904645,
+   "query": "house=flush&event=empty&light=night&weather=wind&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=none&seed=904645"
+  },
+  {
+   "id": "s061",
+   "name": "side \u00b7 delivery \u00b7 night \u00b7 snow \u00b7 basic \u00b7 man \u00b7 walk \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "night",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 692526,
+   "query": "house=side&event=delivery&light=night&weather=snow&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=none&seed=692526"
+  },
+  {
+   "id": "s062",
+   "name": "flush \u00b7 delivery \u00b7 day \u00b7 wind \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "day",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 170936,
+   "query": "house=flush&event=delivery&light=day&weather=wind&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=bins&seed=170936"
+  },
+  {
+   "id": "s063",
+   "name": "stoop \u00b7 delivery \u00b7 IR \u00b7 snow \u00b7 fisheye \u00b7 woman \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 810468,
+   "query": "house=stoop&event=delivery&light=ir&weather=snow&camera=ring&person=woman&speed=walk&surfaces=flat&occlusion=bins&seed=810468"
+  },
+  {
+   "id": "s064",
+   "name": "portico \u00b7 delivery \u00b7 IR \u00b7 rain \u00b7 basic \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 862100,
+   "query": "house=portico&event=delivery&light=ir&weather=rain&camera=basic&person=hooded&speed=walk&surfaces=flat&occlusion=none&seed=862100"
+  },
+  {
+   "id": "s065",
+   "name": "stoop \u00b7 car \u00b7 IR \u00b7 wind \u00b7 fisheye \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "car",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 331168,
+   "query": "house=stoop&event=car&light=ir&weather=wind&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=car&seed=331168"
+  },
+  {
+   "id": "s066",
+   "name": "flush \u00b7 delivery \u00b7 IR \u00b7 snow \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 777851,
+   "query": "house=flush&event=delivery&light=ir&weather=snow&camera=ring&person=dark&speed=walk&surfaces=textured&occlusion=none&seed=777851"
+  },
+  {
+   "id": "s067",
+   "name": "side \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 dark \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "night",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 350551,
+   "query": "house=side&event=delivery&light=night&weather=clear&camera=basic&person=dark&speed=run&surfaces=textured&occlusion=none&seed=350551"
+  },
+  {
+   "id": "s068",
+   "name": "portico \u00b7 car \u00b7 dusk \u00b7 snow \u00b7 basic \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "car",
+    "light": "dusk",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 311246,
+   "query": "house=portico&event=car&light=dusk&weather=snow&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=bins&seed=311246"
+  },
+  {
+   "id": "s069",
+   "name": "porch \u00b7 delivery \u00b7 day \u00b7 snow \u00b7 fisheye \u00b7 woman \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "day",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 225993,
+   "query": "house=porch&event=delivery&light=day&weather=snow&camera=ring&person=woman&speed=run&surfaces=textured&occlusion=car&seed=225993"
+  },
+  {
+   "id": "s070",
+   "name": "porch \u00b7 car \u00b7 IR \u00b7 fog \u00b7 basic \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "car",
+    "light": "ir",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 354661,
+   "query": "house=porch&event=car&light=ir&weather=fog&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=bins&seed=354661"
+  },
+  {
+   "id": "s071",
+   "name": "flush \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 woman \u00b7 run \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "night",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 340563,
+   "query": "house=flush&event=delivery&light=night&weather=clear&camera=basic&person=woman&speed=run&surfaces=flat&occlusion=bins&seed=340563"
+  },
+  {
+   "id": "s072",
+   "name": "flush \u00b7 delivery \u00b7 IR \u00b7 clear \u00b7 basic \u00b7 child \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 501970,
+   "query": "house=flush&event=delivery&light=ir&weather=clear&camera=basic&person=child&speed=walk&surfaces=textured&occlusion=none&seed=501970"
+  },
+  {
+   "id": "s073",
+   "name": "stoop \u00b7 delivery \u00b7 day \u00b7 wind \u00b7 fisheye \u00b7 hooded \u00b7 run \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "day",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 302276,
+   "query": "house=stoop&event=delivery&light=day&weather=wind&camera=ring&person=hooded&speed=run&surfaces=flat&occlusion=bins&seed=302276"
+  },
+  {
+   "id": "s074",
+   "name": "flush \u00b7 dog \u00b7 day \u00b7 clear \u00b7 basic \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "dog",
+    "light": "day",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 744186,
+   "query": "house=flush&event=dog&light=day&weather=clear&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=bins&seed=744186"
+  },
+  {
+   "id": "s075",
+   "name": "flush \u00b7 delivery \u00b7 night \u00b7 rain \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "night",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 941301,
+   "query": "house=flush&event=delivery&light=night&weather=rain&camera=ring&person=dark&speed=walk&surfaces=textured&occlusion=bins&seed=941301"
+  },
+  {
+   "id": "s076",
+   "name": "portico \u00b7 dog \u00b7 dusk \u00b7 wind \u00b7 fisheye \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "dog",
+    "light": "dusk",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 172299,
+   "query": "house=portico&event=dog&light=dusk&weather=wind&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=none&seed=172299"
+  },
+  {
+   "id": "s077",
+   "name": "side \u00b7 delivery \u00b7 IR \u00b7 clear \u00b7 fisheye \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 936595,
+   "query": "house=side&event=delivery&light=ir&weather=clear&camera=ring&person=hooded&speed=walk&surfaces=flat&occlusion=none&seed=936595"
+  },
+  {
+   "id": "s078",
+   "name": "porch \u00b7 empty \u00b7 IR \u00b7 clear \u00b7 fisheye \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "empty",
+    "light": "ir",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 377711,
+   "query": "house=porch&event=empty&light=ir&weather=clear&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=none&seed=377711"
+  },
+  {
+   "id": "s079",
+   "name": "portico \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 528283,
+   "query": "house=portico&event=delivery&light=dusk&weather=clear&camera=ring&person=dark&speed=walk&surfaces=flat&occlusion=none&seed=528283"
+  },
+  {
+   "id": "s080",
+   "name": "portico \u00b7 delivery \u00b7 IR \u00b7 clear \u00b7 basic \u00b7 hooded \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 582812,
+   "query": "house=portico&event=delivery&light=ir&weather=clear&camera=basic&person=hooded&speed=run&surfaces=textured&occlusion=car&seed=582812"
+  },
+  {
+   "id": "s081",
+   "name": "stoop \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 fisheye \u00b7 child \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 576763,
+   "query": "house=stoop&event=delivery&light=ir&weather=wind&camera=ring&person=child&speed=run&surfaces=flat&occlusion=car&seed=576763"
+  },
+  {
+   "id": "s082",
+   "name": "porch \u00b7 delivery \u00b7 IR \u00b7 fog \u00b7 fisheye \u00b7 dark \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 447783,
+   "query": "house=porch&event=delivery&light=ir&weather=fog&camera=ring&person=dark&speed=run&surfaces=flat&occlusion=none&seed=447783"
+  },
+  {
+   "id": "s083",
+   "name": "side \u00b7 delivery \u00b7 day \u00b7 snow \u00b7 fisheye \u00b7 man \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "day",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 253457,
+   "query": "house=side&event=delivery&light=day&weather=snow&camera=ring&person=man&speed=run&surfaces=textured&occlusion=bins&seed=253457"
+  },
+  {
+   "id": "s084",
+   "name": "portico \u00b7 delivery \u00b7 day \u00b7 rain \u00b7 basic \u00b7 man \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "day",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 153851,
+   "query": "house=portico&event=delivery&light=day&weather=rain&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=bins&seed=153851"
+  },
+  {
+   "id": "s085",
+   "name": "side \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 388855,
+   "query": "house=side&event=delivery&light=dusk&weather=clear&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=none&seed=388855"
+  },
+  {
+   "id": "s086",
+   "name": "flush \u00b7 delivery \u00b7 night \u00b7 snow \u00b7 basic \u00b7 child \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "night",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 349509,
+   "query": "house=flush&event=delivery&light=night&weather=snow&camera=basic&person=child&speed=walk&surfaces=flat&occlusion=car&seed=349509"
+  },
+  {
+   "id": "s087",
+   "name": "flush \u00b7 delivery \u00b7 IR \u00b7 rain \u00b7 basic \u00b7 child \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 501438,
+   "query": "house=flush&event=delivery&light=ir&weather=rain&camera=basic&person=child&speed=run&surfaces=flat&occlusion=car&seed=501438"
+  },
+  {
+   "id": "s088",
+   "name": "portico \u00b7 empty \u00b7 night \u00b7 rain \u00b7 basic \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "empty",
+    "light": "night",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 519077,
+   "query": "house=portico&event=empty&light=night&weather=rain&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=bins&seed=519077"
+  },
+  {
+   "id": "s089",
+   "name": "portico \u00b7 empty \u00b7 day \u00b7 fog \u00b7 basic \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "empty",
+    "light": "day",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 175711,
+   "query": "house=portico&event=empty&light=day&weather=fog&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=none&seed=175711"
+  },
+  {
+   "id": "s090",
+   "name": "porch \u00b7 delivery \u00b7 dusk \u00b7 rain \u00b7 fisheye \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 548669,
+   "query": "house=porch&event=delivery&light=dusk&weather=rain&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=548669"
+  },
+  {
+   "id": "s091",
+   "name": "stoop \u00b7 delivery \u00b7 dusk \u00b7 snow \u00b7 basic \u00b7 hooded \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 724299,
+   "query": "house=stoop&event=delivery&light=dusk&weather=snow&camera=basic&person=hooded&speed=walk&surfaces=textured&occlusion=car&seed=724299"
+  },
+  {
+   "id": "s092",
+   "name": "side \u00b7 car \u00b7 night \u00b7 rain \u00b7 basic \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "car",
+    "light": "night",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 24802,
+   "query": "house=side&event=car&light=night&weather=rain&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=car&seed=24802"
+  },
+  {
+   "id": "s093",
+   "name": "stoop \u00b7 dog \u00b7 night \u00b7 fog \u00b7 basic \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "dog",
+    "light": "night",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 724248,
+   "query": "house=stoop&event=dog&light=night&weather=fog&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=724248"
+  },
+  {
+   "id": "s094",
+   "name": "side \u00b7 dog \u00b7 IR \u00b7 snow \u00b7 basic \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "side",
+    "event": "dog",
+    "light": "ir",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 667690,
+   "query": "house=side&event=dog&light=ir&weather=snow&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=none&seed=667690"
+  },
+  {
+   "id": "s095",
+   "name": "stoop \u00b7 delivery \u00b7 dusk \u00b7 wind \u00b7 basic \u00b7 woman \u00b7 walk \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 25388,
+   "query": "house=stoop&event=delivery&light=dusk&weather=wind&camera=basic&person=woman&speed=walk&surfaces=textured&occlusion=bins&seed=25388"
+  },
+  {
+   "id": "s096",
+   "name": "side \u00b7 delivery \u00b7 dusk \u00b7 wind \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 884080,
+   "query": "house=side&event=delivery&light=dusk&weather=wind&camera=ring&person=dark&speed=walk&surfaces=flat&occlusion=car&seed=884080"
+  },
+  {
+   "id": "s097",
+   "name": "porch \u00b7 delivery \u00b7 IR \u00b7 rain \u00b7 basic \u00b7 woman \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 459765,
+   "query": "house=porch&event=delivery&light=ir&weather=rain&camera=basic&person=woman&speed=walk&surfaces=textured&occlusion=none&seed=459765"
+  },
+  {
+   "id": "s098",
+   "name": "porch \u00b7 delivery \u00b7 day \u00b7 clear \u00b7 basic \u00b7 dark \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "day",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 910398,
+   "query": "house=porch&event=delivery&light=day&weather=clear&camera=basic&person=dark&speed=walk&surfaces=flat&occlusion=bins&seed=910398"
+  },
+  {
+   "id": "s099",
+   "name": "porch \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 basic \u00b7 woman \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 730727,
+   "query": "house=porch&event=delivery&light=ir&weather=wind&camera=basic&person=woman&speed=run&surfaces=flat&occlusion=none&seed=730727"
+  },
+  {
+   "id": "s100",
+   "name": "portico \u00b7 delivery \u00b7 day \u00b7 wind \u00b7 fisheye \u00b7 hooded \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "day",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 192936,
+   "query": "house=portico&event=delivery&light=day&weather=wind&camera=ring&person=hooded&speed=walk&surfaces=textured&occlusion=car&seed=192936"
+  }
+ ]
+}

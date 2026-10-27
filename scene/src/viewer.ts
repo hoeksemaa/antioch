@@ -7,7 +7,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { installBench } from "./bench";
 import { DoorbellCamera } from "./camera";
 import { prepareEvent, type Actor } from "./events";
-import { HOUSES, type House } from "./houses";
+import type { House } from "./houses";
 import { IR_INTENSITY, type Lighting } from "./lights";
 import { preparePerson } from "./people";
 import { prepareProps } from "./props";
@@ -148,7 +148,7 @@ export class Viewer {
 
     if (!window.bench) {
       installBench({
-        scenarios: () => HOUSES.map((h) => ({ id: h.id, name: h.name, query: `house=${h.id}` })),
+        settings: () => this.settings,
         house: () => this.house.id,
         seed: () => this.settings.seed,
         actor: () => this.actor,

@@ -5,14 +5,10 @@
 import type { DoorbellCamera } from "./camera";
 import type { Phase } from "./delivery";
 import type { Actor } from "./events";
+import type { Settings } from "./settings";
 
-// One test case. For now each house is one scenario; later a scenario can
-// also set the light, weather, person, and so on, through more URL parameters.
-export interface Scenario {
-  id: string;
-  name: string;
-  query: string; // URL parameters that load it, for example "house=porch"
-}
+// The test cases (scenarios) are a fixed list in Python (bench/scenarios.json).
+// Each one is a URL query that sets every axis and the seed.
 
 export interface Truth {
   t: number;
@@ -24,7 +20,7 @@ export interface Truth {
 declare global {
   interface Window {
     bench?: {
-      scenarios: () => Scenario[];
+      settings: () => Settings; // what the scene loaded, after defaults
       house: () => string;
       seed: () => number;
       duration: () => number;
@@ -34,7 +30,7 @@ declare global {
 }
 
 export function installBench(o: {
-  scenarios: () => Scenario[];
+  settings: () => Settings;
   house: () => string;
   seed: () => number;
   actor: () => Actor;
@@ -42,7 +38,7 @@ export function installBench(o: {
   renderAt: (t: number) => void;
 }) {
   window.bench = {
-    scenarios: o.scenarios,
+    settings: o.settings,
     house: o.house,
     seed: o.seed,
     duration: () => o.actor().loop,
