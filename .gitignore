@@ -31,3 +31,8 @@ pnpm-debug.log*
 
 # python benchmark output
 bench/out/
+
+# detector weights (Ultralytics downloads them)
+bench/weights/
+# captured frames (bench/run.py caches them)
+bench/frames/
