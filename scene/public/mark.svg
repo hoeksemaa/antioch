@@ -1,14 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- The header mark, used as a CSS mask (style.css .mark): the rounded square
-       of favicon.svg with the house cut out, so the page shows through it. -->
-  <mask id="house">
-    <rect width="32" height="32" fill="#fff"/>
-    <rect x="20.5" y="7.5" width="3.5" height="6" rx="1"/>
-    <rect x="8.5" y="15" width="15" height="11" rx="1.5"/>
-    <path d="M5 16.5 16 7l11 9.5Z" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
-    <rect x="14" y="19" width="4" height="7" rx="2" fill="#fff"/>
-    <rect x="10.5" y="18" width="2.5" height="2.5" rx="0.6" fill="#fff"/>
-    <rect x="19" y="18" width="2.5" height="2.5" rx="0.6" fill="#fff"/>
-  </mask>
-  <rect width="32" height="32" rx="8" mask="url(#house)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 3.5 24 24">
+  <!-- The header mark, used as a CSS mask (style.css .mark): the house outline
+       of favicon.svg, cropped to the house. -->
+  <path d="M7 14.5 16 6.5l9 8v11H7Z" fill="none" stroke="#000" stroke-width="2.4" stroke-linejoin="round"/>
 </svg>
