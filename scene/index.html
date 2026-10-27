@@ -26,9 +26,22 @@
       <div id="hud">
         <div class="hud-head">
           <span class="hud-title">Porch scenes</span>
-          <span class="hint"><kbd>V</kbd> switches view · <kbd>1</kbd>–<kbd>5</kbd> switch house</span>
+          <button id="help" type="button" aria-label="Controls" aria-expanded="false" aria-controls="help-panel">?</button>
         </div>
         <div id="axes"></div>
+      </div>
+      <div id="help-panel" role="dialog" aria-label="Controls" hidden>
+        <div class="help-title">Controls</div>
+        <dl>
+          <dt><kbd>V</kbd></dt>
+          <dd>Switch between the overview and the doorbell camera. A click on the doorbell camera does the same.</dd>
+          <dt><kbd>Esc</kbd></dt>
+          <dd>Go back to the overview.</dd>
+          <dt><kbd>1</kbd>–<kbd>5</kbd></dt>
+          <dd>Switch the house.</dd>
+        </dl>
+        <div class="help-title">Settings</div>
+        <ul id="help-icons"></ul>
       </div>
       <button id="inset" type="button" aria-label="Open the doorbell camera view"><span>Doorbell camera<em> · Click to enlarge</em></span></button>
       <div id="view-label">Doorbell camera<em> · Click to go back</em></div>

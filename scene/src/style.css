@@ -663,10 +663,9 @@ body.doorbell #hud {
 
 .hud-head {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: 4px 12px;
+  gap: 12px;
 }
 
 .hud-title {
@@ -675,9 +674,96 @@ body.doorbell #hud {
   letter-spacing: -0.01em;
 }
 
-#hud .hint {
-  color: rgb(255 255 255 / 0.55);
-  font-size: 11px;
+/* The ? button: opens the help panel. */
+#help {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: 50%;
+  background: none;
+  color: rgb(255 255 255 / 0.75);
+  font: 600 11px/1 var(--sans);
+  cursor: pointer;
+  transition: background-color 0.12s, color 0.12s;
+}
+
+#help:hover,
+#help[aria-expanded="true"] {
+  border-color: rgb(255 255 255 / 0.5);
+  background: rgb(255 255 255 / 0.16);
+  color: #fff;
+}
+
+/* The help panel: pops out under the ? button, over the controls. */
+#help-panel {
+  position: absolute;
+  top: 54px;
+  right: 22px;
+  z-index: 5;
+  width: 280px;
+  padding: 12px 14px;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 10px;
+  background: rgb(22 22 24 / 0.82);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.35);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  color: #f4f4f0;
+  font-size: 12px;
+}
+
+#help-panel[hidden] {
+  display: none;
+}
+
+.help-title {
+  margin-bottom: 8px;
+  color: rgb(255 255 255 / 0.6);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+#help-panel dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 10px;
+  margin: 0 0 14px;
+}
+
+#help-panel dt {
+  white-space: nowrap;
+}
+
+#help-panel dd {
+  margin: 0;
+  color: rgb(255 255 255 / 0.85);
+}
+
+#help-icons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#help-icons li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#help-icons svg,
+#axes .icon {
+  flex: none;
+  color: rgb(255 255 255 / 0.6);
 }
 
 kbd {
@@ -696,19 +782,17 @@ kbd {
   gap: 5px;
 }
 
+/* Each row: its symbol, centered in a fixed column, then its buttons. */
 #axes .axis {
   display: grid;
-  grid-template-columns: 80px 1fr;
-  align-items: start;
+  grid-template-columns: 24px 1fr;
+  align-items: center;
+  gap: 8px;
 }
 
-#axes .axis > span {
-  padding-top: 4px;
-  color: rgb(255 255 255 / 0.6);
-  font-size: 10.5px;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+#axes .icon {
+  display: grid;
+  place-items: center;
 }
 
 #axes .options {
@@ -823,8 +907,9 @@ body.doorbell #inset {
     padding: 12px;
   }
 
-  #axes .axis {
-    grid-template-columns: 72px 1fr;
+  #help-panel {
+    top: 46px;
+    right: 14px;
   }
 }
 
