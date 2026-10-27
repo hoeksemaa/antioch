@@ -3,13 +3,27 @@
    frame cache (bench/capture.py) stays valid. */
 
 /* The intro and its picture, above the chart. */
+/* The intro: centered, in a large size, with the picture under it. */
 .intro {
-  margin-bottom: 20px;
+  max-width: 900px;
+  margin: 0 auto 28px;
+  color: var(--ink);
+  font-size: 30px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  text-align: center;
 }
 
 .hero {
   max-width: 720px;
-  margin: 0 0 32px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .intro {
+    font-size: 22px;
+  }
 }
 
 .hero img {
@@ -52,9 +66,32 @@
 }
 
 .chart thead th {
-  padding: 16px 12px 12px;
-  vertical-align: bottom;
+  padding: 0 12px;
   white-space: normal;
+}
+
+.chart thead th.name {
+  padding-top: 16px;
+  vertical-align: bottom;
+}
+
+/* Under each model name: one sentence on the model, and its size. */
+.chart thead th.about {
+  padding-top: 6px;
+  color: var(--muted);
+  font: 400 11.5px/1.4 var(--sans);
+  letter-spacing: 0;
+  text-transform: none;
+  vertical-align: top;
+}
+
+.chart thead th.params {
+  padding-top: 6px;
+  padding-bottom: 14px;
+  color: var(--muted);
+  font: 400 10.5px/1.4 var(--mono);
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .chart thead a {

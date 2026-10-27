@@ -1,13 +1,14 @@
 // Benchmark page entry (TypeScript in the browser): one chart of the scores of
 // the Python benchmark (scene/public/results/index.json, made by bench/run.py).
-// One column for each detector (its name links to the model's page), and one
+// One column for each detector (its name links to the model's page, with one
+// sentence on the model and its parameter count under it), and one
 // colored row group for each category: the overall detection rate, by the
 // distance of the person, by each setting, the false alarms, and the time to
 // process one frame. The best value in each row is green. The notes and the
 // replay are on the Analysis page.
 
 import { AXES, type AxisId } from "./settings";
-import { base, deliveries, esc, loadIndex, NO_PERSON_EVENTS, noPersonScenes, perMinute, SOURCES, type Detector, type Summary } from "./results";
+import { base, deliveries, esc, loadIndex, MODELS, NO_PERSON_EVENTS, noPersonScenes, perMinute, type Detector, type Summary } from "./results";
 import "./style.css";
 import "./benchmarks.css";
 
@@ -124,14 +125,19 @@ function groups(detectors: Detector[]): Group[] {
 }
 
 function render(detectors: Detector[]) {
-  const head = detectors
+  // Three header rows, so each line up across the columns: the names, one
+  // sentence on each model, and the parameter counts.
+  const names = detectors
     .map((d) => {
       // Non-breaking hyphens, so a name wraps only at its spaces.
       const name = `${esc(d.name).replace(/-/g, "\u2011")}<span> ↗</span>`;
-      const link = SOURCES[d.id] ? `<a href="${SOURCES[d.id]}" target="_blank" rel="noopener">${name}</a>` : esc(d.name);
-      return `<th title="${esc(d.source)}">${link}</th>`;
+      const m = MODELS[d.id];
+      return `<th class="name" title="${esc(d.source)}">${m ? `<a href="${m.url}" target="_blank" rel="noopener">${name}</a>` : esc(d.name)}</th>`;
     })
     .join("");
+  const about = detectors.map((d) => `<th class="about">${esc(MODELS[d.id]?.about ?? "")}</th>`).join("");
+  const params = detectors.map((d) => `<th class="params">${MODELS[d.id] ? `${(MODELS[d.id].params / 1e6).toFixed(1)}M parameters` : ""}</th>`).join("");
+  const head = `<tr><th class="corner" colspan="2" rowspan="3"></th>${names}</tr><tr>${about}</tr><tr>${params}</tr>`;
   const body = groups(detectors)
     .map((g) => {
       const rows = g.rows.map((r, i) => {
@@ -154,7 +160,7 @@ function render(detectors: Detector[]) {
   // The group and row label columns, then one column of the same width for
   // each detector.
   const cols = `<colgroup><col class="c-group" /><col class="c-row" />${detectors.map(() => "<col />").join("")}</colgroup>`;
-  document.getElementById("chart")!.innerHTML = `${cols}<thead><tr><th class="corner" colspan="2"></th>${head}</tr></thead>${body}`;
+  document.getElementById("chart")!.innerHTML = `${cols}<thead>${head}</thead>${body}`;
 }
 
 // The picture under the intro: one frame with the best detector's box

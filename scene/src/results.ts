@@ -60,13 +60,34 @@ export const perMinute = (s: Summary) => (s.seconds ? (s.false_alarms / s.second
 export const noPerson = (s: Scenario) => s.settings.event !== "delivery";
 export const NO_PERSON_EVENTS = ["dog", "car", "empty"];
 
-// Where each open-source model lives: its page in the library docs.
-export const SOURCES: Record<string, string> = {
-  "frcnn-mobilenet": "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.detection.fasterrcnn_mobilenet_v3_large_fpn.html",
-  ssdlite: "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.detection.ssdlite320_mobilenet_v3_large.html",
-  "frcnn-resnet50": "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.detection.fasterrcnn_resnet50_fpn_v2.html",
-  yolo11x: "https://docs.ultralytics.com/models/yolo11/",
-  "rtdetr-x": "https://docs.ultralytics.com/models/rtdetr/",
+// Each open-source model: its page in the library docs, one sentence on how
+// it works, and its parameter count (counted from the weights in bench/).
+export const MODELS: Record<string, { url: string; about: string; params: number }> = {
+  "frcnn-mobilenet": {
+    url: "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.detection.fasterrcnn_mobilenet_v3_large_fpn.html",
+    about: "Finds likely regions first, then checks each one, on a small and fast backbone.",
+    params: 19_386_354,
+  },
+  ssdlite: {
+    url: "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.detection.ssdlite320_mobilenet_v3_large.html",
+    about: "Finds boxes in one pass over a 320 × 320 copy of the frame. Made for phones.",
+    params: 3_440_060,
+  },
+  "frcnn-resnet50": {
+    url: "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.detection.fasterrcnn_resnet50_fpn_v2.html",
+    about: "Finds likely regions first, then checks each one, on a large and accurate backbone.",
+    params: 43_712_278,
+  },
+  yolo11x: {
+    url: "https://docs.ultralytics.com/models/yolo11/",
+    about: "The largest YOLO11: finds boxes in one pass. YOLO is the usual choice in industry.",
+    params: 56_966_176,
+  },
+  "rtdetr-x": {
+    url: "https://docs.ultralytics.com/models/rtdetr/",
+    about: "A real-time transformer: it looks at the whole frame at once, with no box clean-up step.",
+    params: 67_467_852,
+  },
 };
 
 // All deliveries, and all scenes with no person, for one detector.
