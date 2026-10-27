@@ -32,19 +32,31 @@
       <p class="eyebrow"><span>//</span> Benchmarks</p>
       <h1>Person detection</h1>
       <p class="lede">
-        Detection rate is the share of frames with the person in view in which the detector found the person. Pick a
-        cell to replay it. All scenes are simulated and uncalibrated.
+        Every detector runs on the same 100 fixed scenarios, which mix every setting. Detection rate: the share of frames
+        with the person in view in which the detector found the person. False alarms: person boxes per minute in scenes
+        with no person (dog, passing car, empty). Click a setting to list its scenarios, and a cell to replay it. All
+        scenes are simulated and uncalibrated.
       </p>
 
       <section class="card">
         <div class="card-head">
           <div>
-            <div class="card-title">Detectors × scenarios</div>
+            <div class="card-title">By setting</div>
             <div class="mono muted" id="settings"></div>
           </div>
           <div class="stats" id="stats"></div>
         </div>
-        <div class="table-wrap"><table class="matrix" id="matrix"></table></div>
+        <div class="table-wrap"><table class="matrix" id="by-setting"></table></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Scenarios</div>
+            <div class="mono muted" id="filter"></div>
+          </div>
+        </div>
+        <div class="table-wrap scroll"><table class="matrix" id="matrix"></table></div>
       </section>
 
       <section class="card detail">
@@ -77,6 +89,7 @@
                 <span><i class="hit"></i>hit</span>
                 <span><i class="miss"></i>miss</span>
                 <span><i class="out"></i>out of view</span>
+                <span><i class="fa"></i>false alarm (no person)</span>
                 <span><i class="truth"></i>true box</span>
                 <span><i class="det"></i>detection</span>
               </div>

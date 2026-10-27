@@ -168,7 +168,7 @@ uv pip install --python bench/.venv/bin/python -r bench/requirements.txt
 bench/.venv/bin/python -m playwright install chromium
 ```
 
-Start the scene (`cd scene && npm run dev`), then:
+Start the scene (`cd scene && npm run dev`), or use the live site with `--url`. The dev server reloads the page when a file in `scene/` changes, and a reload stops the run; for a long run, use the live site or a build (`npm run build && npx vite preview`). Then:
 
 ```sh
 bench/.venv/bin/python bench/run.py                         # all 5 detectors, all 100 scenarios, 2 frames per second
@@ -208,7 +208,7 @@ Scenarios: the fixed list in `bench/scenarios.json`, made by `bench/scenarios.py
 Frames:
 - The page is the size of the doorbell image: 1280 × 720 for `basic`, 960 × 960 for `ring` (the same number of pixels).
 - Chromium renders on the real GPU (Metal): about 0.2 s for each frame, against about 5 s without it (`--software`).
-- `bench/frames/<scenario>/` caches the PNG frames, so every detector reads the exact same pixels and a second detector does not render again. The cache key is the query, the frame rate, the URL, and the last git commit of `scene/`. The full list is about 8 GB. `--recapture` renders again.
+- `bench/frames/<scenario>/` caches the PNG frames, so every detector reads the exact same pixels and a second detector does not render again. The cache key is the query, the frame rate, the URL, and the last git commit of `scene/` (not counting the results and the Benchmarks page files). The full list is about 4.3 GB. `--recapture` renders again.
 
 How it scores:
 - **Ground truth:** the scene projects every vertex of the person onto the doorbell image (through the fisheye mapping for `ring`) and takes the box around them. The box covers the whole body, also the parts behind walls or rails.
@@ -228,9 +228,10 @@ A run replaces the results for the detectors and scenarios it runs and keeps the
 ## Benchmarks page
 
 Styled after antioch.com:
-- **Matrix:** rows are scenarios, columns are detectors, and each cell is the detection rate. The best rate in each row is green, and the ring shows it as an arc. The last row is all scenarios together. Click a cell to pick that scenario and detector.
+- **By setting:** one row for each value of each axis (for example Light: Dusk), one column for each detector. A cell is the detection rate over the scenarios with that value; for the events with no person (dog, passing car, empty) it is false alarms per minute. The best detector in each row is green. Click a row to list only its scenarios.
+- **Scenarios:** the 100 scenarios (or those of the chosen setting) × the detectors. Click a cell to replay that scenario and detector.
 - **Replay:** the Three.js scene itself, with the true box (white, dashed) and the detector's boxes (yellow) on the doorbell camera. The scene is deterministic, so each frame is the same frame that the detector saw.
-- **Timeline:** play, pause, and step (space, ← →); one strip for each detector (green: hit, red: miss, gray: person out of view). Click a frame to go to it.
+- **Timeline:** play, pause, and step (space, ← →); one strip for each detector (green: hit, red: miss, gray: person out of view, orange: false alarm in a scene with no person). Click a frame to go to it.
 - **Distance table:** detection rate by distance for each detector.
 
 `/results` and `/results.html` (the old results page) redirect to `/benchmarks` (`scene/vercel.json`).
@@ -241,4 +242,4 @@ Vercel project `antioch-demo-hoeksema`, with Root Directory `scene`. Vercel dete
 
 ## Status
 
-v5: two pages (Simulations and Benchmarks), five houses with a package delivery, and a Python person-detection benchmark with two detectors.
+v8: two pages (Simulations and Benchmarks); nine scenario axes; a Python person-detection benchmark with five detectors on 100 fixed scenarios.

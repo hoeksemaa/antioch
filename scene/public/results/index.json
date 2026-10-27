@@ -1,220 +1,1707 @@
 {
  "scenarios": [
   {
-   "id": "porch",
-   "name": "Raised porch",
-   "query": "house=porch"
+   "id": "s001",
+   "name": "flush \u00b7 delivery \u00b7 day \u00b7 fog \u00b7 fisheye \u00b7 dark \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "day",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 605511,
+   "query": "house=flush&event=delivery&light=day&weather=fog&camera=ring&person=dark&speed=run&surfaces=flat&occlusion=car&seed=605511"
   },
   {
-   "id": "stoop",
-   "name": "Stoop",
-   "query": "house=stoop"
+   "id": "s002",
+   "name": "side \u00b7 dog \u00b7 IR \u00b7 rain \u00b7 fisheye \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "dog",
+    "light": "ir",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 698549,
+   "query": "house=side&event=dog&light=ir&weather=rain&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=bins&seed=698549"
   },
   {
-   "id": "side",
-   "name": "Side-entry porch",
-   "query": "house=side"
+   "id": "s003",
+   "name": "flush \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 fisheye \u00b7 woman \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 839149,
+   "query": "house=flush&event=delivery&light=dusk&weather=clear&camera=ring&person=woman&speed=walk&surfaces=textured&occlusion=car&seed=839149"
   },
   {
-   "id": "flush",
-   "name": "No porch",
-   "query": "house=flush"
+   "id": "s004",
+   "name": "stoop \u00b7 delivery \u00b7 night \u00b7 rain \u00b7 basic \u00b7 man \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "night",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 489428,
+   "query": "house=stoop&event=delivery&light=night&weather=rain&camera=basic&person=man&speed=run&surfaces=textured&occlusion=car&seed=489428"
   },
   {
-   "id": "portico",
-   "name": "Portico",
-   "query": "house=portico"
+   "id": "s005",
+   "name": "porch \u00b7 dog \u00b7 night \u00b7 snow \u00b7 fisheye \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "dog",
+    "light": "night",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 536172,
+   "query": "house=porch&event=dog&light=night&weather=snow&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=car&seed=536172"
+  },
+  {
+   "id": "s006",
+   "name": "flush \u00b7 delivery \u00b7 day \u00b7 wind \u00b7 basic \u00b7 man \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "day",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 594935,
+   "query": "house=flush&event=delivery&light=day&weather=wind&camera=basic&person=man&speed=run&surfaces=textured&occlusion=none&seed=594935"
+  },
+  {
+   "id": "s007",
+   "name": "portico \u00b7 delivery \u00b7 dusk \u00b7 fog \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 838091,
+   "query": "house=portico&event=delivery&light=dusk&weather=fog&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=car&seed=838091"
+  },
+  {
+   "id": "s008",
+   "name": "portico \u00b7 delivery \u00b7 night \u00b7 wind \u00b7 basic \u00b7 child \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "night",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 486396,
+   "query": "house=portico&event=delivery&light=night&weather=wind&camera=basic&person=child&speed=run&surfaces=textured&occlusion=bins&seed=486396"
+  },
+  {
+   "id": "s009",
+   "name": "porch \u00b7 delivery \u00b7 night \u00b7 snow \u00b7 fisheye \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "night",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 774997,
+   "query": "house=porch&event=delivery&light=night&weather=snow&camera=ring&person=hooded&speed=walk&surfaces=flat&occlusion=bins&seed=774997"
+  },
+  {
+   "id": "s010",
+   "name": "stoop \u00b7 delivery \u00b7 day \u00b7 clear \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "day",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 178567,
+   "query": "house=stoop&event=delivery&light=day&weather=clear&camera=ring&person=dark&speed=walk&surfaces=textured&occlusion=car&seed=178567"
+  },
+  {
+   "id": "s011",
+   "name": "side \u00b7 delivery \u00b7 night \u00b7 wind \u00b7 fisheye \u00b7 woman \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "night",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 689085,
+   "query": "house=side&event=delivery&light=night&weather=wind&camera=ring&person=woman&speed=run&surfaces=flat&occlusion=car&seed=689085"
+  },
+  {
+   "id": "s012",
+   "name": "side \u00b7 delivery \u00b7 dusk \u00b7 rain \u00b7 basic \u00b7 hooded \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 442049,
+   "query": "house=side&event=delivery&light=dusk&weather=rain&camera=basic&person=hooded&speed=run&surfaces=textured&occlusion=bins&seed=442049"
+  },
+  {
+   "id": "s013",
+   "name": "porch \u00b7 delivery \u00b7 night \u00b7 wind \u00b7 fisheye \u00b7 child \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "night",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 396111,
+   "query": "house=porch&event=delivery&light=night&weather=wind&camera=ring&person=child&speed=run&surfaces=textured&occlusion=none&seed=396111"
+  },
+  {
+   "id": "s014",
+   "name": "side \u00b7 car \u00b7 day \u00b7 wind \u00b7 basic \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "car",
+    "light": "day",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 41574,
+   "query": "house=side&event=car&light=day&weather=wind&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=bins&seed=41574"
+  },
+  {
+   "id": "s015",
+   "name": "side \u00b7 empty \u00b7 dusk \u00b7 fog \u00b7 basic \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "empty",
+    "light": "dusk",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 609981,
+   "query": "house=side&event=empty&light=dusk&weather=fog&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=609981"
+  },
+  {
+   "id": "s016",
+   "name": "porch \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 basic \u00b7 child \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 518480,
+   "query": "house=porch&event=delivery&light=dusk&weather=clear&camera=basic&person=child&speed=run&surfaces=flat&occlusion=car&seed=518480"
+  },
+  {
+   "id": "s017",
+   "name": "portico \u00b7 delivery \u00b7 day \u00b7 fog \u00b7 basic \u00b7 child \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "day",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 200407,
+   "query": "house=portico&event=delivery&light=day&weather=fog&camera=basic&person=child&speed=run&surfaces=textured&occlusion=none&seed=200407"
+  },
+  {
+   "id": "s018",
+   "name": "flush \u00b7 delivery \u00b7 dusk \u00b7 fog \u00b7 basic \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 172307,
+   "query": "house=flush&event=delivery&light=dusk&weather=fog&camera=basic&person=hooded&speed=walk&surfaces=flat&occlusion=bins&seed=172307"
+  },
+  {
+   "id": "s019",
+   "name": "porch \u00b7 dog \u00b7 day \u00b7 rain \u00b7 basic \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "dog",
+    "light": "day",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 846353,
+   "query": "house=porch&event=dog&light=day&weather=rain&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=none&seed=846353"
+  },
+  {
+   "id": "s020",
+   "name": "stoop \u00b7 delivery \u00b7 night \u00b7 wind \u00b7 fisheye \u00b7 man \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "night",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 313168,
+   "query": "house=stoop&event=delivery&light=night&weather=wind&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=bins&seed=313168"
+  },
+  {
+   "id": "s021",
+   "name": "side \u00b7 delivery \u00b7 IR \u00b7 snow \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 93988,
+   "query": "house=side&event=delivery&light=ir&weather=snow&camera=ring&person=child&speed=walk&surfaces=textured&occlusion=car&seed=93988"
+  },
+  {
+   "id": "s022",
+   "name": "portico \u00b7 dog \u00b7 day \u00b7 clear \u00b7 fisheye \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "dog",
+    "light": "day",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 812286,
+   "query": "house=portico&event=dog&light=day&weather=clear&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=812286"
+  },
+  {
+   "id": "s023",
+   "name": "porch \u00b7 delivery \u00b7 IR \u00b7 rain \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 39387,
+   "query": "house=porch&event=delivery&light=ir&weather=rain&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=bins&seed=39387"
+  },
+  {
+   "id": "s024",
+   "name": "stoop \u00b7 delivery \u00b7 night \u00b7 fog \u00b7 fisheye \u00b7 hooded \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "night",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 97534,
+   "query": "house=stoop&event=delivery&light=night&weather=fog&camera=ring&person=hooded&speed=walk&surfaces=textured&occlusion=none&seed=97534"
+  },
+  {
+   "id": "s025",
+   "name": "flush \u00b7 car \u00b7 dusk \u00b7 rain \u00b7 fisheye \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "car",
+    "light": "dusk",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 431890,
+   "query": "house=flush&event=car&light=dusk&weather=rain&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=431890"
+  },
+  {
+   "id": "s026",
+   "name": "stoop \u00b7 delivery \u00b7 IR \u00b7 fog \u00b7 basic \u00b7 man \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 84806,
+   "query": "house=stoop&event=delivery&light=ir&weather=fog&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=car&seed=84806"
+  },
+  {
+   "id": "s027",
+   "name": "side \u00b7 delivery \u00b7 day \u00b7 rain \u00b7 basic \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "day",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 146616,
+   "query": "house=side&event=delivery&light=day&weather=rain&camera=basic&person=hooded&speed=walk&surfaces=flat&occlusion=car&seed=146616"
+  },
+  {
+   "id": "s028",
+   "name": "stoop \u00b7 delivery \u00b7 day \u00b7 rain \u00b7 fisheye \u00b7 woman \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "day",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 704507,
+   "query": "house=stoop&event=delivery&light=day&weather=rain&camera=ring&person=woman&speed=run&surfaces=flat&occlusion=car&seed=704507"
+  },
+  {
+   "id": "s029",
+   "name": "portico \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 fisheye \u00b7 dark \u00b7 run \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 321994,
+   "query": "house=portico&event=delivery&light=ir&weather=wind&camera=ring&person=dark&speed=run&surfaces=flat&occlusion=bins&seed=321994"
+  },
+  {
+   "id": "s030",
+   "name": "stoop \u00b7 delivery \u00b7 day \u00b7 rain \u00b7 basic \u00b7 child \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "day",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 254446,
+   "query": "house=stoop&event=delivery&light=day&weather=rain&camera=basic&person=child&speed=walk&surfaces=textured&occlusion=none&seed=254446"
+  },
+  {
+   "id": "s031",
+   "name": "side \u00b7 delivery \u00b7 night \u00b7 fog \u00b7 basic \u00b7 child \u00b7 run \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "night",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 277522,
+   "query": "house=side&event=delivery&light=night&weather=fog&camera=basic&person=child&speed=run&surfaces=flat&occlusion=bins&seed=277522"
+  },
+  {
+   "id": "s032",
+   "name": "portico \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "night",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 35605,
+   "query": "house=portico&event=delivery&light=night&weather=clear&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=35605"
+  },
+  {
+   "id": "s033",
+   "name": "stoop \u00b7 empty \u00b7 day \u00b7 snow \u00b7 fisheye \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "empty",
+    "light": "day",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 882504,
+   "query": "house=stoop&event=empty&light=day&weather=snow&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=bins&seed=882504"
+  },
+  {
+   "id": "s034",
+   "name": "portico \u00b7 delivery \u00b7 night \u00b7 rain \u00b7 fisheye \u00b7 woman \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "night",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 61946,
+   "query": "house=portico&event=delivery&light=night&weather=rain&camera=ring&person=woman&speed=run&surfaces=textured&occlusion=none&seed=61946"
+  },
+  {
+   "id": "s035",
+   "name": "stoop \u00b7 delivery \u00b7 dusk \u00b7 fog \u00b7 fisheye \u00b7 woman \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 609255,
+   "query": "house=stoop&event=delivery&light=dusk&weather=fog&camera=ring&person=woman&speed=run&surfaces=flat&occlusion=none&seed=609255"
+  },
+  {
+   "id": "s036",
+   "name": "porch \u00b7 delivery \u00b7 dusk \u00b7 snow \u00b7 basic \u00b7 child \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 783383,
+   "query": "house=porch&event=delivery&light=dusk&weather=snow&camera=basic&person=child&speed=run&surfaces=textured&occlusion=none&seed=783383"
+  },
+  {
+   "id": "s037",
+   "name": "flush \u00b7 delivery \u00b7 day \u00b7 snow \u00b7 fisheye \u00b7 hooded \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "day",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 376196,
+   "query": "house=flush&event=delivery&light=day&weather=snow&camera=ring&person=hooded&speed=run&surfaces=flat&occlusion=none&seed=376196"
+  },
+  {
+   "id": "s038",
+   "name": "porch \u00b7 delivery \u00b7 night \u00b7 fog \u00b7 basic \u00b7 hooded \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "night",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 155981,
+   "query": "house=porch&event=delivery&light=night&weather=fog&camera=basic&person=hooded&speed=run&surfaces=textured&occlusion=car&seed=155981"
+  },
+  {
+   "id": "s039",
+   "name": "stoop \u00b7 delivery \u00b7 IR \u00b7 snow \u00b7 basic \u00b7 dark \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 759419,
+   "query": "house=stoop&event=delivery&light=ir&weather=snow&camera=basic&person=dark&speed=run&surfaces=flat&occlusion=car&seed=759419"
+  },
+  {
+   "id": "s040",
+   "name": "flush \u00b7 delivery \u00b7 dusk \u00b7 rain \u00b7 basic \u00b7 dark \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 452974,
+   "query": "house=flush&event=delivery&light=dusk&weather=rain&camera=basic&person=dark&speed=run&surfaces=flat&occlusion=none&seed=452974"
+  },
+  {
+   "id": "s041",
+   "name": "stoop \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 fisheye \u00b7 child \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "night",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 846545,
+   "query": "house=stoop&event=delivery&light=night&weather=clear&camera=ring&person=child&speed=run&surfaces=textured&occlusion=bins&seed=846545"
+  },
+  {
+   "id": "s042",
+   "name": "side \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 basic \u00b7 hooded \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 965438,
+   "query": "house=side&event=delivery&light=ir&weather=wind&camera=basic&person=hooded&speed=run&surfaces=textured&occlusion=bins&seed=965438"
+  },
+  {
+   "id": "s043",
+   "name": "stoop \u00b7 delivery \u00b7 IR \u00b7 clear \u00b7 basic \u00b7 man \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 957201,
+   "query": "house=stoop&event=delivery&light=ir&weather=clear&camera=basic&person=man&speed=run&surfaces=flat&occlusion=none&seed=957201"
+  },
+  {
+   "id": "s044",
+   "name": "side \u00b7 empty \u00b7 night \u00b7 clear \u00b7 fisheye \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "empty",
+    "light": "night",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 739537,
+   "query": "house=side&event=empty&light=night&weather=clear&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=car&seed=739537"
+  },
+  {
+   "id": "s045",
+   "name": "flush \u00b7 car \u00b7 night \u00b7 fog \u00b7 fisheye \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "car",
+    "light": "night",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 17741,
+   "query": "house=flush&event=car&light=night&weather=fog&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=none&seed=17741"
+  },
+  {
+   "id": "s046",
+   "name": "flush \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 fisheye \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 778441,
+   "query": "house=flush&event=delivery&light=ir&weather=wind&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=778441"
+  },
+  {
+   "id": "s047",
+   "name": "side \u00b7 delivery \u00b7 dusk \u00b7 fog \u00b7 fisheye \u00b7 dark \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 443198,
+   "query": "house=side&event=delivery&light=dusk&weather=fog&camera=ring&person=dark&speed=run&surfaces=textured&occlusion=bins&seed=443198"
+  },
+  {
+   "id": "s048",
+   "name": "flush \u00b7 delivery \u00b7 night \u00b7 fog \u00b7 basic \u00b7 dark \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "night",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 820928,
+   "query": "house=flush&event=delivery&light=night&weather=fog&camera=basic&person=dark&speed=walk&surfaces=textured&occlusion=none&seed=820928"
+  },
+  {
+   "id": "s049",
+   "name": "porch \u00b7 empty \u00b7 dusk \u00b7 wind \u00b7 fisheye \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "empty",
+    "light": "dusk",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 822863,
+   "query": "house=porch&event=empty&light=dusk&weather=wind&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=bins&seed=822863"
+  },
+  {
+   "id": "s050",
+   "name": "flush \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 basic \u00b7 man \u00b7 run \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 692295,
+   "query": "house=flush&event=delivery&light=dusk&weather=clear&camera=basic&person=man&speed=run&surfaces=flat&occlusion=bins&seed=692295"
+  },
+  {
+   "id": "s051",
+   "name": "portico \u00b7 delivery \u00b7 dusk \u00b7 snow \u00b7 basic \u00b7 woman \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 839976,
+   "query": "house=portico&event=delivery&light=dusk&weather=snow&camera=basic&person=woman&speed=walk&surfaces=flat&occlusion=bins&seed=839976"
+  },
+  {
+   "id": "s052",
+   "name": "portico \u00b7 delivery \u00b7 night \u00b7 snow \u00b7 basic \u00b7 dark \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "night",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 877482,
+   "query": "house=portico&event=delivery&light=night&weather=snow&camera=basic&person=dark&speed=run&surfaces=textured&occlusion=car&seed=877482"
+  },
+  {
+   "id": "s053",
+   "name": "porch \u00b7 delivery \u00b7 night \u00b7 wind \u00b7 basic \u00b7 dark \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "night",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 582294,
+   "query": "house=porch&event=delivery&light=night&weather=wind&camera=basic&person=dark&speed=run&surfaces=textured&occlusion=car&seed=582294"
+  },
+  {
+   "id": "s054",
+   "name": "porch \u00b7 delivery \u00b7 dusk \u00b7 wind \u00b7 fisheye \u00b7 hooded \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 431203,
+   "query": "house=porch&event=delivery&light=dusk&weather=wind&camera=ring&person=hooded&speed=walk&surfaces=textured&occlusion=none&seed=431203"
+  },
+  {
+   "id": "s055",
+   "name": "stoop \u00b7 car \u00b7 dusk \u00b7 clear \u00b7 basic \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "stoop",
+    "event": "car",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 442116,
+   "query": "house=stoop&event=car&light=dusk&weather=clear&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=none&seed=442116"
+  },
+  {
+   "id": "s056",
+   "name": "side \u00b7 delivery \u00b7 day \u00b7 fog \u00b7 basic \u00b7 woman \u00b7 walk \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "day",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 772235,
+   "query": "house=side&event=delivery&light=day&weather=fog&camera=basic&person=woman&speed=walk&surfaces=textured&occlusion=bins&seed=772235"
+  },
+  {
+   "id": "s057",
+   "name": "porch \u00b7 delivery \u00b7 day \u00b7 clear \u00b7 fisheye \u00b7 man \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "day",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 152887,
+   "query": "house=porch&event=delivery&light=day&weather=clear&camera=ring&person=man&speed=run&surfaces=textured&occlusion=none&seed=152887"
+  },
+  {
+   "id": "s058",
+   "name": "portico \u00b7 delivery \u00b7 dusk \u00b7 snow \u00b7 fisheye \u00b7 man \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 235810,
+   "query": "house=portico&event=delivery&light=dusk&weather=snow&camera=ring&person=man&speed=run&surfaces=textured&occlusion=none&seed=235810"
+  },
+  {
+   "id": "s059",
+   "name": "porch \u00b7 delivery \u00b7 IR \u00b7 fog \u00b7 fisheye \u00b7 man \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 127091,
+   "query": "house=porch&event=delivery&light=ir&weather=fog&camera=ring&person=man&speed=run&surfaces=textured&occlusion=bins&seed=127091"
+  },
+  {
+   "id": "s060",
+   "name": "flush \u00b7 empty \u00b7 night \u00b7 wind \u00b7 basic \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "empty",
+    "light": "night",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 904645,
+   "query": "house=flush&event=empty&light=night&weather=wind&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=none&seed=904645"
+  },
+  {
+   "id": "s061",
+   "name": "side \u00b7 delivery \u00b7 night \u00b7 snow \u00b7 basic \u00b7 man \u00b7 walk \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "night",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 692526,
+   "query": "house=side&event=delivery&light=night&weather=snow&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=none&seed=692526"
+  },
+  {
+   "id": "s062",
+   "name": "flush \u00b7 delivery \u00b7 day \u00b7 wind \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "day",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 170936,
+   "query": "house=flush&event=delivery&light=day&weather=wind&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=bins&seed=170936"
+  },
+  {
+   "id": "s063",
+   "name": "stoop \u00b7 delivery \u00b7 IR \u00b7 snow \u00b7 fisheye \u00b7 woman \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 810468,
+   "query": "house=stoop&event=delivery&light=ir&weather=snow&camera=ring&person=woman&speed=walk&surfaces=flat&occlusion=bins&seed=810468"
+  },
+  {
+   "id": "s064",
+   "name": "portico \u00b7 delivery \u00b7 IR \u00b7 rain \u00b7 basic \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 862100,
+   "query": "house=portico&event=delivery&light=ir&weather=rain&camera=basic&person=hooded&speed=walk&surfaces=flat&occlusion=none&seed=862100"
+  },
+  {
+   "id": "s065",
+   "name": "stoop \u00b7 car \u00b7 IR \u00b7 wind \u00b7 fisheye \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "car",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 331168,
+   "query": "house=stoop&event=car&light=ir&weather=wind&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=car&seed=331168"
+  },
+  {
+   "id": "s066",
+   "name": "flush \u00b7 delivery \u00b7 IR \u00b7 snow \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 777851,
+   "query": "house=flush&event=delivery&light=ir&weather=snow&camera=ring&person=dark&speed=walk&surfaces=textured&occlusion=none&seed=777851"
+  },
+  {
+   "id": "s067",
+   "name": "side \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 dark \u00b7 run \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "night",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 350551,
+   "query": "house=side&event=delivery&light=night&weather=clear&camera=basic&person=dark&speed=run&surfaces=textured&occlusion=none&seed=350551"
+  },
+  {
+   "id": "s068",
+   "name": "portico \u00b7 car \u00b7 dusk \u00b7 snow \u00b7 basic \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "car",
+    "light": "dusk",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 311246,
+   "query": "house=portico&event=car&light=dusk&weather=snow&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=bins&seed=311246"
+  },
+  {
+   "id": "s069",
+   "name": "porch \u00b7 delivery \u00b7 day \u00b7 snow \u00b7 fisheye \u00b7 woman \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "day",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 225993,
+   "query": "house=porch&event=delivery&light=day&weather=snow&camera=ring&person=woman&speed=run&surfaces=textured&occlusion=car&seed=225993"
+  },
+  {
+   "id": "s070",
+   "name": "porch \u00b7 car \u00b7 IR \u00b7 fog \u00b7 basic \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "car",
+    "light": "ir",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 354661,
+   "query": "house=porch&event=car&light=ir&weather=fog&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=bins&seed=354661"
+  },
+  {
+   "id": "s071",
+   "name": "flush \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 woman \u00b7 run \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "night",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 340563,
+   "query": "house=flush&event=delivery&light=night&weather=clear&camera=basic&person=woman&speed=run&surfaces=flat&occlusion=bins&seed=340563"
+  },
+  {
+   "id": "s072",
+   "name": "flush \u00b7 delivery \u00b7 IR \u00b7 clear \u00b7 basic \u00b7 child \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 501970,
+   "query": "house=flush&event=delivery&light=ir&weather=clear&camera=basic&person=child&speed=walk&surfaces=textured&occlusion=none&seed=501970"
+  },
+  {
+   "id": "s073",
+   "name": "stoop \u00b7 delivery \u00b7 day \u00b7 wind \u00b7 fisheye \u00b7 hooded \u00b7 run \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "day",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 302276,
+   "query": "house=stoop&event=delivery&light=day&weather=wind&camera=ring&person=hooded&speed=run&surfaces=flat&occlusion=bins&seed=302276"
+  },
+  {
+   "id": "s074",
+   "name": "flush \u00b7 dog \u00b7 day \u00b7 clear \u00b7 basic \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "dog",
+    "light": "day",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 744186,
+   "query": "house=flush&event=dog&light=day&weather=clear&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=bins&seed=744186"
+  },
+  {
+   "id": "s075",
+   "name": "flush \u00b7 delivery \u00b7 night \u00b7 rain \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "night",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 941301,
+   "query": "house=flush&event=delivery&light=night&weather=rain&camera=ring&person=dark&speed=walk&surfaces=textured&occlusion=bins&seed=941301"
+  },
+  {
+   "id": "s076",
+   "name": "portico \u00b7 dog \u00b7 dusk \u00b7 wind \u00b7 fisheye \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "dog",
+    "light": "dusk",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 172299,
+   "query": "house=portico&event=dog&light=dusk&weather=wind&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=none&seed=172299"
+  },
+  {
+   "id": "s077",
+   "name": "side \u00b7 delivery \u00b7 IR \u00b7 clear \u00b7 fisheye \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 936595,
+   "query": "house=side&event=delivery&light=ir&weather=clear&camera=ring&person=hooded&speed=walk&surfaces=flat&occlusion=none&seed=936595"
+  },
+  {
+   "id": "s078",
+   "name": "porch \u00b7 empty \u00b7 IR \u00b7 clear \u00b7 fisheye \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "empty",
+    "light": "ir",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 377711,
+   "query": "house=porch&event=empty&light=ir&weather=clear&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=none&seed=377711"
+  },
+  {
+   "id": "s079",
+   "name": "portico \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 528283,
+   "query": "house=portico&event=delivery&light=dusk&weather=clear&camera=ring&person=dark&speed=walk&surfaces=flat&occlusion=none&seed=528283"
+  },
+  {
+   "id": "s080",
+   "name": "portico \u00b7 delivery \u00b7 IR \u00b7 clear \u00b7 basic \u00b7 hooded \u00b7 run \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 582812,
+   "query": "house=portico&event=delivery&light=ir&weather=clear&camera=basic&person=hooded&speed=run&surfaces=textured&occlusion=car&seed=582812"
+  },
+  {
+   "id": "s081",
+   "name": "stoop \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 fisheye \u00b7 child \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 576763,
+   "query": "house=stoop&event=delivery&light=ir&weather=wind&camera=ring&person=child&speed=run&surfaces=flat&occlusion=car&seed=576763"
+  },
+  {
+   "id": "s082",
+   "name": "porch \u00b7 delivery \u00b7 IR \u00b7 fog \u00b7 fisheye \u00b7 dark \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "fog",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 447783,
+   "query": "house=porch&event=delivery&light=ir&weather=fog&camera=ring&person=dark&speed=run&surfaces=flat&occlusion=none&seed=447783"
+  },
+  {
+   "id": "s083",
+   "name": "side \u00b7 delivery \u00b7 day \u00b7 snow \u00b7 fisheye \u00b7 man \u00b7 run \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "day",
+    "weather": "snow",
+    "camera": "ring",
+    "person": "man",
+    "speed": "run",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 253457,
+   "query": "house=side&event=delivery&light=day&weather=snow&camera=ring&person=man&speed=run&surfaces=textured&occlusion=bins&seed=253457"
+  },
+  {
+   "id": "s084",
+   "name": "portico \u00b7 delivery \u00b7 day \u00b7 rain \u00b7 basic \u00b7 man \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "day",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 153851,
+   "query": "house=portico&event=delivery&light=day&weather=rain&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=bins&seed=153851"
+  },
+  {
+   "id": "s085",
+   "name": "side \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "clear",
+    "camera": "ring",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 388855,
+   "query": "house=side&event=delivery&light=dusk&weather=clear&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=none&seed=388855"
+  },
+  {
+   "id": "s086",
+   "name": "flush \u00b7 delivery \u00b7 night \u00b7 snow \u00b7 basic \u00b7 child \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "night",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "child",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 349509,
+   "query": "house=flush&event=delivery&light=night&weather=snow&camera=basic&person=child&speed=walk&surfaces=flat&occlusion=car&seed=349509"
+  },
+  {
+   "id": "s087",
+   "name": "flush \u00b7 delivery \u00b7 IR \u00b7 rain \u00b7 basic \u00b7 child \u00b7 run \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "flush",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "child",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 501438,
+   "query": "house=flush&event=delivery&light=ir&weather=rain&camera=basic&person=child&speed=run&surfaces=flat&occlusion=car&seed=501438"
+  },
+  {
+   "id": "s088",
+   "name": "portico \u00b7 empty \u00b7 night \u00b7 rain \u00b7 basic \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "portico",
+    "event": "empty",
+    "light": "night",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 519077,
+   "query": "house=portico&event=empty&light=night&weather=rain&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=bins&seed=519077"
+  },
+  {
+   "id": "s089",
+   "name": "portico \u00b7 empty \u00b7 day \u00b7 fog \u00b7 basic \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "portico",
+    "event": "empty",
+    "light": "day",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 175711,
+   "query": "house=portico&event=empty&light=day&weather=fog&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=none&seed=175711"
+  },
+  {
+   "id": "s090",
+   "name": "porch \u00b7 delivery \u00b7 dusk \u00b7 rain \u00b7 fisheye \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "rain",
+    "camera": "ring",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 548669,
+   "query": "house=porch&event=delivery&light=dusk&weather=rain&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=548669"
+  },
+  {
+   "id": "s091",
+   "name": "stoop \u00b7 delivery \u00b7 dusk \u00b7 snow \u00b7 basic \u00b7 hooded \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 724299,
+   "query": "house=stoop&event=delivery&light=dusk&weather=snow&camera=basic&person=hooded&speed=walk&surfaces=textured&occlusion=car&seed=724299"
+  },
+  {
+   "id": "s092",
+   "name": "side \u00b7 car \u00b7 night \u00b7 rain \u00b7 basic \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "car",
+    "light": "night",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 24802,
+   "query": "house=side&event=car&light=night&weather=rain&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=car&seed=24802"
+  },
+  {
+   "id": "s093",
+   "name": "stoop \u00b7 dog \u00b7 night \u00b7 fog \u00b7 basic \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "stoop",
+    "event": "dog",
+    "light": "night",
+    "weather": "fog",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 724248,
+   "query": "house=stoop&event=dog&light=night&weather=fog&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=724248"
+  },
+  {
+   "id": "s094",
+   "name": "side \u00b7 dog \u00b7 IR \u00b7 snow \u00b7 basic \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "side",
+    "event": "dog",
+    "light": "ir",
+    "weather": "snow",
+    "camera": "basic",
+    "person": "man",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 667690,
+   "query": "house=side&event=dog&light=ir&weather=snow&camera=basic&person=man&speed=walk&surfaces=textured&occlusion=none&seed=667690"
+  },
+  {
+   "id": "s095",
+   "name": "stoop \u00b7 delivery \u00b7 dusk \u00b7 wind \u00b7 basic \u00b7 woman \u00b7 walk \u00b7 textured \u00b7 bins",
+   "settings": {
+    "house": "stoop",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "bins"
+   },
+   "seed": 25388,
+   "query": "house=stoop&event=delivery&light=dusk&weather=wind&camera=basic&person=woman&speed=walk&surfaces=textured&occlusion=bins&seed=25388"
+  },
+  {
+   "id": "s096",
+   "name": "side \u00b7 delivery \u00b7 dusk \u00b7 wind \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 flat \u00b7 car",
+   "settings": {
+    "house": "side",
+    "event": "delivery",
+    "light": "dusk",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "car"
+   },
+   "seed": 884080,
+   "query": "house=side&event=delivery&light=dusk&weather=wind&camera=ring&person=dark&speed=walk&surfaces=flat&occlusion=car&seed=884080"
+  },
+  {
+   "id": "s097",
+   "name": "porch \u00b7 delivery \u00b7 IR \u00b7 rain \u00b7 basic \u00b7 woman \u00b7 walk \u00b7 textured \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "rain",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "none"
+   },
+   "seed": 459765,
+   "query": "house=porch&event=delivery&light=ir&weather=rain&camera=basic&person=woman&speed=walk&surfaces=textured&occlusion=none&seed=459765"
+  },
+  {
+   "id": "s098",
+   "name": "porch \u00b7 delivery \u00b7 day \u00b7 clear \u00b7 basic \u00b7 dark \u00b7 walk \u00b7 flat \u00b7 bins",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "day",
+    "weather": "clear",
+    "camera": "basic",
+    "person": "dark",
+    "speed": "walk",
+    "surfaces": "flat",
+    "occlusion": "bins"
+   },
+   "seed": 910398,
+   "query": "house=porch&event=delivery&light=day&weather=clear&camera=basic&person=dark&speed=walk&surfaces=flat&occlusion=bins&seed=910398"
+  },
+  {
+   "id": "s099",
+   "name": "porch \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 basic \u00b7 woman \u00b7 run \u00b7 flat \u00b7 none",
+   "settings": {
+    "house": "porch",
+    "event": "delivery",
+    "light": "ir",
+    "weather": "wind",
+    "camera": "basic",
+    "person": "woman",
+    "speed": "run",
+    "surfaces": "flat",
+    "occlusion": "none"
+   },
+   "seed": 730727,
+   "query": "house=porch&event=delivery&light=ir&weather=wind&camera=basic&person=woman&speed=run&surfaces=flat&occlusion=none&seed=730727"
+  },
+  {
+   "id": "s100",
+   "name": "portico \u00b7 delivery \u00b7 day \u00b7 wind \u00b7 fisheye \u00b7 hooded \u00b7 walk \u00b7 textured \u00b7 car",
+   "settings": {
+    "house": "portico",
+    "event": "delivery",
+    "light": "day",
+    "weather": "wind",
+    "camera": "ring",
+    "person": "hooded",
+    "speed": "walk",
+    "surfaces": "textured",
+    "occlusion": "car"
+   },
+   "seed": 192936,
+   "query": "house=portico&event=delivery&light=day&weather=wind&camera=ring&person=hooded&speed=walk&surfaces=textured&occlusion=car&seed=192936"
   }
  ],
  "detectors": [
-  {
-   "id": "frcnn-mobilenet",
-   "name": "Faster R-CNN MobileNetV3",
-   "source": "torchvision fasterrcnn_mobilenet_v3_large_fpn (FasterRCNN_MobileNet_V3_Large_FPN_Weights.COCO_V1)",
-   "settings": {
-    "min_score": 0.5,
-    "min_iou": 0.3,
-    "fps": 2,
-    "seed": 0
-   },
-   "run": "2026-10-23T21:50:38+00:00",
-   "results": {
-    "porch": {
-     "frames": 68,
-     "in_view": 65,
-     "detected": 53,
-     "first_seen_m": 16.7,
-     "false_alarms": 0,
-     "by_distance": {
-      "0-3 m": [
-       2,
-       8
-      ],
-      "3-6 m": [
-       8,
-       8
-      ],
-      "6-9 m": [
-       10,
-       10
-      ],
-      "9-12 m": [
-       15,
-       18
-      ],
-      "12+ m": [
-       18,
-       21
-      ]
-     }
-    },
-    "stoop": {
-     "frames": 62,
-     "in_view": 46,
-     "detected": 21,
-     "first_seen_m": 9.2,
-     "false_alarms": 2,
-     "by_distance": {
-      "0-3 m": [
-       0,
-       12
-      ],
-      "3-6 m": [
-       9,
-       9
-      ],
-      "6-9 m": [
-       11,
-       21
-      ],
-      "9-12 m": [
-       1,
-       4
-      ],
-      "12+ m": [
-       0,
-       0
-      ]
-     }
-    },
-    "side": {
-     "frames": 72,
-     "in_view": 69,
-     "detected": 54,
-     "first_seen_m": 18.1,
-     "false_alarms": 0,
-     "by_distance": {
-      "0-3 m": [
-       5,
-       8
-      ],
-      "3-6 m": [
-       6,
-       9
-      ],
-      "6-9 m": [
-       7,
-       16
-      ],
-      "9-12 m": [
-       12,
-       12
-      ],
-      "12+ m": [
-       24,
-       24
-      ]
-     }
-    },
-    "flush": {
-     "frames": 81,
-     "in_view": 76,
-     "detected": 64,
-     "first_seen_m": 20.2,
-     "false_alarms": 0,
-     "by_distance": {
-      "0-3 m": [
-       8,
-       13
-      ],
-      "3-6 m": [
-       3,
-       8
-      ],
-      "6-9 m": [
-       12,
-       14
-      ],
-      "9-12 m": [
-       12,
-       12
-      ],
-      "12+ m": [
-       29,
-       29
-      ]
-     }
-    },
-    "portico": {
-     "frames": 82,
-     "in_view": 79,
-     "detected": 42,
-     "first_seen_m": 18.8,
-     "false_alarms": 0,
-     "by_distance": {
-      "0-3 m": [
-       1,
-       10
-      ],
-      "3-6 m": [
-       5,
-       8
-      ],
-      "6-9 m": [
-       10,
-       10
-      ],
-      "9-12 m": [
-       7,
-       8
-      ],
-      "12+ m": [
-       19,
-       43
-      ]
-     }
-    },
-    "all": {
-     "frames": 365,
-     "in_view": 335,
-     "detected": 234,
-     "false_alarms": 2,
-     "first_seen_m": null,
-     "by_distance": {
-      "0-3 m": [
-       16,
-       51
-      ],
-      "3-6 m": [
-       31,
-       42
-      ],
-      "6-9 m": [
-       50,
-       71
-      ],
-      "9-12 m": [
-       47,
-       54
-      ],
-      "12+ m": [
-       90,
-       117
-      ]
-     }
-    }
-   }
-  },
   {
    "id": "ssdlite",
    "name": "SSDlite320 MobileNetV3",
@@ -223,49 +1710,291 @@
     "min_score": 0.5,
     "min_iou": 0.3,
     "fps": 2,
-    "seed": 0
+    "device": "mps"
    },
-   "run": "2026-10-23T21:50:38+00:00",
+   "run": "2026-10-27T18:24:11+00:00",
    "results": {
-    "porch": {
-     "frames": 68,
-     "in_view": 65,
-     "detected": 6,
-     "first_seen_m": 3.3,
+    "s001": {
+     "frames": 29,
+     "seconds": 14.5,
+     "in_view": 26,
+     "detected": 8,
+     "first_seen_m": 2.5,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       8,
+       8
+      ],
+      "3-6 m": [
+       0,
+       2
+      ],
+      "6-9 m": [
+       0,
+       5
+      ],
+      "9-12 m": [
+       0,
+       3
+      ],
+      "12+ m": [
+       0,
+       8
+      ]
+     }
+    },
+    "s002": {
+     "frames": 60,
+     "seconds": 30.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s003": {
+     "frames": 86,
+     "seconds": 43.0,
+     "in_view": 83,
+     "detected": 15,
+     "first_seen_m": 2.9,
      "false_alarms": 1,
      "by_distance": {
       "0-3 m": [
-       4,
+       13,
+       13
+      ],
+      "3-6 m": [
+       2,
+       10
+      ],
+      "6-9 m": [
+       0,
+       16
+      ],
+      "9-12 m": [
+       0,
+       13
+      ],
+      "12+ m": [
+       0,
+       31
+      ]
+     }
+    },
+    "s004": {
+     "frames": 25,
+     "seconds": 12.5,
+     "in_view": 19,
+     "detected": 6,
+     "first_seen_m": 1.5,
+     "false_alarms": 2,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       7
+      ],
+      "3-6 m": [
+       0,
+       4
+      ],
+      "6-9 m": [
+       0,
+       6
+      ],
+      "9-12 m": [
+       0,
+       2
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s005": {
+     "frames": 54,
+     "seconds": 27.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s006": {
+     "frames": 34,
+     "seconds": 17.0,
+     "in_view": 31,
+     "detected": 12,
+     "first_seen_m": 6.8,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       8,
        8
       ],
       "3-6 m": [
        2,
+       3
+      ],
+      "6-9 m": [
+       2,
+       5
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       11
+      ]
+     }
+    },
+    "s007": {
+     "frames": 83,
+     "seconds": 41.5,
+     "in_view": 80,
+     "detected": 6,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       10
+      ],
+      "3-6 m": [
+       0,
        8
       ],
       "6-9 m": [
        0,
-       10
+       8
       ],
       "9-12 m": [
        0,
-       18
+       9
       ],
       "12+ m": [
        0,
-       21
+       45
       ]
      }
     },
-    "stoop": {
-     "frames": 62,
-     "in_view": 46,
+    "s008": {
+     "frames": 36,
+     "seconds": 18.0,
+     "in_view": 33,
      "detected": 5,
-     "first_seen_m": 2.7,
+     "first_seen_m": null,
      "false_alarms": 0,
      "by_distance": {
       "0-3 m": [
        5,
-       12
+       7
+      ],
+      "3-6 m": [
+       0,
+       3
+      ],
+      "6-9 m": [
+       0,
+       3
+      ],
+      "9-12 m": [
+       0,
+       3
+      ],
+      "12+ m": [
+       0,
+       17
+      ]
+     }
+    },
+    "s009": {
+     "frames": 66,
+     "seconds": 33.0,
+     "in_view": 63,
+     "detected": 5,
+     "first_seen_m": 2.4,
+     "false_alarms": 8,
+     "by_distance": {
+      "0-3 m": [
+       5,
+       9
+      ],
+      "3-6 m": [
+       0,
+       8
+      ],
+      "6-9 m": [
+       0,
+       8
+      ],
+      "9-12 m": [
+       0,
+       20
+      ],
+      "12+ m": [
+       0,
+       18
+      ]
+     }
+    },
+    "s010": {
+     "frames": 66,
+     "seconds": 33.0,
+     "in_view": 50,
+     "detected": 11,
+     "first_seen_m": 2.7,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       11,
+       11
       ],
       "3-6 m": [
        0,
@@ -277,7 +2006,7 @@
       ],
       "9-12 m": [
        0,
-       4
+       9
       ],
       "12+ m": [
        0,
@@ -285,19 +2014,320 @@
       ]
      }
     },
-    "side": {
-     "frames": 72,
-     "in_view": 69,
-     "detected": 13,
-     "first_seen_m": 5.6,
+    "s011": {
+     "frames": 27,
+     "seconds": 13.5,
+     "in_view": 24,
+     "detected": 1,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       1,
+       6
+      ],
+      "3-6 m": [
+       0,
+       4
+      ],
+      "6-9 m": [
+       0,
+       4
+      ],
+      "9-12 m": [
+       0,
+       3
+      ],
+      "12+ m": [
+       0,
+       7
+      ]
+     }
+    },
+    "s012": {
+     "frames": 26,
+     "seconds": 13.0,
+     "in_view": 23,
+     "detected": 7,
+     "first_seen_m": 5.5,
      "false_alarms": 0,
      "by_distance": {
       "0-3 m": [
        4,
+       6
+      ],
+      "3-6 m": [
+       3,
+       3
+      ],
+      "6-9 m": [
+       0,
+       5
+      ],
+      "9-12 m": [
+       0,
+       3
+      ],
+      "12+ m": [
+       0,
+       6
+      ]
+     }
+    },
+    "s013": {
+     "frames": 27,
+     "seconds": 13.5,
+     "in_view": 24,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       6
+      ],
+      "3-6 m": [
+       0,
+       3
+      ],
+      "6-9 m": [
+       0,
+       3
+      ],
+      "9-12 m": [
+       0,
+       5
+      ],
+      "12+ m": [
+       0,
+       7
+      ]
+     }
+    },
+    "s014": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s015": {
+     "frames": 24,
+     "seconds": 12.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s016": {
+     "frames": 31,
+     "seconds": 15.5,
+     "in_view": 28,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       7
+      ],
+      "3-6 m": [
+       0,
+       2
+      ],
+      "6-9 m": [
+       0,
+       4
+      ],
+      "9-12 m": [
+       0,
+       6
+      ],
+      "12+ m": [
+       0,
+       9
+      ]
+     }
+    },
+    "s017": {
+     "frames": 32,
+     "seconds": 16.0,
+     "in_view": 29,
+     "detected": 5,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       5,
+       7
+      ],
+      "3-6 m": [
+       0,
+       3
+      ],
+      "6-9 m": [
+       0,
+       2
+      ],
+      "9-12 m": [
+       0,
+       2
+      ],
+      "12+ m": [
+       0,
+       15
+      ]
+     }
+    },
+    "s018": {
+     "frames": 81,
+     "seconds": 40.5,
+     "in_view": 76,
+     "detected": 18,
+     "first_seen_m": 7.2,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       10,
+       12
+      ],
+      "3-6 m": [
+       5,
+       9
+      ],
+      "6-9 m": [
+       3,
+       13
+      ],
+      "9-12 m": [
+       0,
+       11
+      ],
+      "12+ m": [
+       0,
+       31
+      ]
+     }
+    },
+    "s019": {
+     "frames": 58,
+     "seconds": 29.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s020": {
+     "frames": 69,
+     "seconds": 34.5,
+     "in_view": 55,
+     "detected": 8,
+     "first_seen_m": 1.9,
+     "false_alarms": 5,
+     "by_distance": {
+      "0-3 m": [
+       8,
+       12
+      ],
+      "3-6 m": [
+       0,
+       10
+      ],
+      "6-9 m": [
+       0,
+       23
+      ],
+      "9-12 m": [
+       0,
+       10
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s021": {
+     "frames": 72,
+     "seconds": 36.0,
+     "in_view": 69,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
        8
       ],
       "3-6 m": [
-       9,
+       0,
        9
       ],
       "6-9 m": [
@@ -314,23 +2344,804 @@
       ]
      }
     },
-    "flush": {
-     "frames": 81,
-     "in_view": 76,
-     "detected": 20,
-     "first_seen_m": 7.4,
-     "false_alarms": 1,
+    "s022": {
+     "frames": 78,
+     "seconds": 39.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
      "by_distance": {
       "0-3 m": [
-       10,
-       13
+       0,
+       0
       ],
       "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s023": {
+     "frames": 74,
+     "seconds": 37.0,
+     "in_view": 71,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       8
+      ],
+      "3-6 m": [
+       0,
+       9
+      ],
+      "6-9 m": [
+       0,
+       10
+      ],
+      "9-12 m": [
+       0,
+       18
+      ],
+      "12+ m": [
+       0,
+       26
+      ]
+     }
+    },
+    "s024": {
+     "frames": 64,
+     "seconds": 32.0,
+     "in_view": 50,
+     "detected": 9,
+     "first_seen_m": 2.1,
+     "false_alarms": 7,
+     "by_distance": {
+      "0-3 m": [
+       9,
+       11
+      ],
+      "3-6 m": [
+       0,
+       10
+      ],
+      "6-9 m": [
+       0,
+       20
+      ],
+      "9-12 m": [
+       0,
+       9
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s025": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s026": {
+     "frames": 64,
+     "seconds": 32.0,
+     "in_view": 45,
+     "detected": 11,
+     "first_seen_m": 3.1,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       9,
+       11
+      ],
+      "3-6 m": [
+       2,
+       10
+      ],
+      "6-9 m": [
+       0,
+       20
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s027": {
+     "frames": 66,
+     "seconds": 33.0,
+     "in_view": 63,
+     "detected": 14,
+     "first_seen_m": 5.7,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
        5,
        8
       ],
+      "3-6 m": [
+       8,
+       10
+      ],
       "6-9 m": [
+       1,
+       15
+      ],
+      "9-12 m": [
+       0,
+       12
+      ],
+      "12+ m": [
+       0,
+       18
+      ]
+     }
+    },
+    "s028": {
+     "frames": 29,
+     "seconds": 14.5,
+     "in_view": 22,
+     "detected": 5,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
        5,
+       8
+      ],
+      "3-6 m": [
+       0,
+       3
+      ],
+      "6-9 m": [
+       0,
+       7
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s029": {
+     "frames": 34,
+     "seconds": 17.0,
+     "in_view": 31,
+     "detected": 6,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       8
+      ],
+      "3-6 m": [
+       0,
+       2
+      ],
+      "6-9 m": [
+       0,
+       2
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       15
+      ]
+     }
+    },
+    "s030": {
+     "frames": 62,
+     "seconds": 31.0,
+     "in_view": 43,
+     "detected": 2,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       2,
+       12
+      ],
+      "3-6 m": [
+       0,
+       8
+      ],
+      "6-9 m": [
+       0,
+       20
+      ],
+      "9-12 m": [
+       0,
+       3
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s031": {
+     "frames": 27,
+     "seconds": 13.5,
+     "in_view": 24,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       6
+      ],
+      "3-6 m": [
+       0,
+       4
+      ],
+      "6-9 m": [
+       0,
+       4
+      ],
+      "9-12 m": [
+       0,
+       2
+      ],
+      "12+ m": [
+       0,
+       8
+      ]
+     }
+    },
+    "s032": {
+     "frames": 93,
+     "seconds": 46.5,
+     "in_view": 90,
+     "detected": 6,
+     "first_seen_m": null,
+     "false_alarms": 1,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       10
+      ],
+      "3-6 m": [
+       0,
+       9
+      ],
+      "6-9 m": [
+       0,
+       10
+      ],
+      "9-12 m": [
+       0,
+       9
+      ],
+      "12+ m": [
+       0,
+       52
+      ]
+     }
+    },
+    "s033": {
+     "frames": 24,
+     "seconds": 12.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s034": {
+     "frames": 33,
+     "seconds": 16.5,
+     "in_view": 30,
+     "detected": 2,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       2,
+       7
+      ],
+      "3-6 m": [
+       0,
+       3
+      ],
+      "6-9 m": [
+       0,
+       2
+      ],
+      "9-12 m": [
+       0,
+       3
+      ],
+      "12+ m": [
+       0,
+       15
+      ]
+     }
+    },
+    "s035": {
+     "frames": 26,
+     "seconds": 13.0,
+     "in_view": 21,
+     "detected": 6,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       8
+      ],
+      "3-6 m": [
+       0,
+       3
+      ],
+      "6-9 m": [
+       0,
+       6
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s036": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 25,
+     "detected": 1,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       1,
+       7
+      ],
+      "3-6 m": [
+       0,
+       2
+      ],
+      "6-9 m": [
+       0,
+       3
+      ],
+      "9-12 m": [
+       0,
+       5
+      ],
+      "12+ m": [
+       0,
+       8
+      ]
+     }
+    },
+    "s037": {
+     "frames": 32,
+     "seconds": 16.0,
+     "in_view": 29,
+     "detected": 10,
+     "first_seen_m": 3.1,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       8,
+       8
+      ],
+      "3-6 m": [
+       2,
+       3
+      ],
+      "6-9 m": [
+       0,
+       4
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       10
+      ]
+     }
+    },
+    "s038": {
+     "frames": 26,
+     "seconds": 13.0,
+     "in_view": 23,
+     "detected": 2,
+     "first_seen_m": 2.7,
+     "false_alarms": 25,
+     "by_distance": {
+      "0-3 m": [
+       2,
+       7
+      ],
+      "3-6 m": [
+       0,
+       2
+      ],
+      "6-9 m": [
+       0,
+       2
+      ],
+      "9-12 m": [
+       0,
+       6
+      ],
+      "12+ m": [
+       0,
+       6
+      ]
+     }
+    },
+    "s039": {
+     "frames": 25,
+     "seconds": 12.5,
+     "in_view": 19,
+     "detected": 5,
+     "first_seen_m": null,
+     "false_alarms": 10,
+     "by_distance": {
+      "0-3 m": [
+       5,
+       7
+      ],
+      "3-6 m": [
+       0,
+       4
+      ],
+      "6-9 m": [
+       0,
+       6
+      ],
+      "9-12 m": [
+       0,
+       2
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s040": {
+     "frames": 34,
+     "seconds": 17.0,
+     "in_view": 30,
+     "detected": 12,
+     "first_seen_m": 6.8,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       8,
+       8
+      ],
+      "3-6 m": [
+       2,
+       3
+      ],
+      "6-9 m": [
+       2,
+       4
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       11
+      ]
+     }
+    },
+    "s041": {
+     "frames": 26,
+     "seconds": 13.0,
+     "in_view": 19,
+     "detected": 3,
+     "first_seen_m": null,
+     "false_alarms": 3,
+     "by_distance": {
+      "0-3 m": [
+       3,
+       7
+      ],
+      "3-6 m": [
+       0,
+       4
+      ],
+      "6-9 m": [
+       0,
+       6
+      ],
+      "9-12 m": [
+       0,
+       2
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s042": {
+     "frames": 30,
+     "seconds": 15.0,
+     "in_view": 27,
+     "detected": 4,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       3,
+       7
+      ],
+      "3-6 m": [
+       1,
+       2
+      ],
+      "6-9 m": [
+       0,
+       6
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       8
+      ]
+     }
+    },
+    "s043": {
+     "frames": 26,
+     "seconds": 13.0,
+     "in_view": 19,
+     "detected": 7,
+     "first_seen_m": 1.8,
+     "false_alarms": 1,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       7
+      ],
+      "3-6 m": [
+       1,
+       4
+      ],
+      "6-9 m": [
+       0,
+       6
+      ],
+      "9-12 m": [
+       0,
+       2
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s044": {
+     "frames": 24,
+     "seconds": 12.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s045": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s046": {
+     "frames": 91,
+     "seconds": 45.5,
+     "in_view": 88,
+     "detected": 15,
+     "first_seen_m": 2.6,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       13,
+       13
+      ],
+      "3-6 m": [
+       2,
+       10
+      ],
+      "6-9 m": [
+       0,
+       16
+      ],
+      "9-12 m": [
+       0,
+       13
+      ],
+      "12+ m": [
+       0,
+       36
+      ]
+     }
+    },
+    "s047": {
+     "frames": 30,
+     "seconds": 15.0,
+     "in_view": 27,
+     "detected": 8,
+     "first_seen_m": 2.7,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       7,
+       7
+      ],
+      "3-6 m": [
+       1,
+       2
+      ],
+      "6-9 m": [
+       0,
+       6
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       8
+      ]
+     }
+    },
+    "s048": {
+     "frames": 81,
+     "seconds": 40.5,
+     "in_view": 76,
+     "detected": 23,
+     "first_seen_m": 7.1,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       13,
+       13
+      ],
+      "3-6 m": [
+       6,
+       10
+      ],
+      "6-9 m": [
+       4,
        14
       ],
       "9-12 m": [
@@ -339,24 +3150,85 @@
       ],
       "12+ m": [
        0,
-       29
+       27
       ]
      }
     },
-    "portico": {
-     "frames": 82,
-     "in_view": 79,
-     "detected": 8,
-     "first_seen_m": 4.0,
+    "s049": {
+     "frames": 24,
+     "seconds": 12.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
      "false_alarms": 0,
      "by_distance": {
       "0-3 m": [
-       5,
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s050": {
+     "frames": 31,
+     "seconds": 15.5,
+     "in_view": 28,
+     "detected": 11,
+     "first_seen_m": 4.5,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       8,
+       8
+      ],
+      "3-6 m": [
+       2,
+       3
+      ],
+      "6-9 m": [
+       1,
+       5
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       8
+      ]
+     }
+    },
+    "s051": {
+     "frames": 83,
+     "seconds": 41.5,
+     "in_view": 80,
+     "detected": 11,
+     "first_seen_m": 2.9,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       9,
        10
       ],
       "3-6 m": [
-       3,
-       8
+       2,
+       9
       ],
       "6-9 m": [
        0,
@@ -372,37 +3244,2521 @@
       ]
      }
     },
-    "all": {
-     "frames": 365,
-     "in_view": 335,
-     "detected": 52,
-     "false_alarms": 2,
+    "s052": {
+     "frames": 31,
+     "seconds": 15.5,
+     "in_view": 28,
+     "detected": 6,
      "first_seen_m": null,
+     "false_alarms": 0,
      "by_distance": {
       "0-3 m": [
-       28,
-       51
+       6,
+       7
       ],
       "3-6 m": [
-       19,
-       42
+       0,
+       2
       ],
       "6-9 m": [
-       5,
-       71
+       0,
+       4
       ],
       "9-12 m": [
        0,
-       54
+       2
       ],
       "12+ m": [
        0,
-       117
+       13
       ]
+     }
+    },
+    "s053": {
+     "frames": 31,
+     "seconds": 15.5,
+     "in_view": 28,
+     "detected": 7,
+     "first_seen_m": null,
+     "false_alarms": 3,
+     "by_distance": {
+      "0-3 m": [
+       7,
+       7
+      ],
+      "3-6 m": [
+       0,
+       3
+      ],
+      "6-9 m": [
+       0,
+       3
+      ],
+      "9-12 m": [
+       0,
+       6
+      ],
+      "12+ m": [
+       0,
+       9
+      ]
+     }
+    },
+    "s054": {
+     "frames": 70,
+     "seconds": 35.0,
+     "in_view": 67,
+     "detected": 8,
+     "first_seen_m": 3.1,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       7,
+       8
+      ],
+      "3-6 m": [
+       1,
+       10
+      ],
+      "6-9 m": [
+       0,
+       9
+      ],
+      "9-12 m": [
+       0,
+       19
+      ],
+      "12+ m": [
+       0,
+       21
+      ]
+     }
+    },
+    "s055": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s056": {
+     "frames": 65,
+     "seconds": 32.5,
+     "in_view": 62,
+     "detected": 13,
+     "first_seen_m": 4.7,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       7,
+       8
+      ],
+      "3-6 m": [
+       6,
+       10
+      ],
+      "6-9 m": [
+       0,
+       14
+      ],
+      "9-12 m": [
+       0,
+       12
+      ],
+      "12+ m": [
+       0,
+       18
+      ]
+     }
+    },
+    "s057": {
+     "frames": 29,
+     "seconds": 14.5,
+     "in_view": 26,
+     "detected": 6,
+     "first_seen_m": 2.3,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       7
+      ],
+      "3-6 m": [
+       0,
+       2
+      ],
+      "6-9 m": [
+       0,
+       4
+      ],
+      "9-12 m": [
+       0,
+       6
+      ],
+      "12+ m": [
+       0,
+       7
+      ]
+     }
+    },
+    "s058": {
+     "frames": 32,
+     "seconds": 16.0,
+     "in_view": 29,
+     "detected": 7,
+     "first_seen_m": 1.9,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       7,
+       7
+      ],
+      "3-6 m": [
+       0,
+       4
+      ],
+      "6-9 m": [
+       0,
+       2
+      ],
+      "9-12 m": [
+       0,
+       2
+      ],
+      "12+ m": [
+       0,
+       14
+      ]
+     }
+    },
+    "s059": {
+     "frames": 29,
+     "seconds": 14.5,
+     "in_view": 26,
+     "detected": 6,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       7
+      ],
+      "3-6 m": [
+       0,
+       2
+      ],
+      "6-9 m": [
+       0,
+       4
+      ],
+      "9-12 m": [
+       0,
+       6
+      ],
+      "12+ m": [
+       0,
+       7
+      ]
+     }
+    },
+    "s060": {
+     "frames": 24,
+     "seconds": 12.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s061": {
+     "frames": 69,
+     "seconds": 34.5,
+     "in_view": 66,
+     "detected": 12,
+     "first_seen_m": 5.4,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       4,
+       8
+      ],
+      "3-6 m": [
+       8,
+       9
+      ],
+      "6-9 m": [
+       0,
+       16
+      ],
+      "9-12 m": [
+       0,
+       12
+      ],
+      "12+ m": [
+       0,
+       21
+      ]
+     }
+    },
+    "s062": {
+     "frames": 85,
+     "seconds": 42.5,
+     "in_view": 82,
+     "detected": 9,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       9,
+       13
+      ],
+      "3-6 m": [
+       0,
+       9
+      ],
+      "6-9 m": [
+       0,
+       15
+      ],
+      "9-12 m": [
+       0,
+       12
+      ],
+      "12+ m": [
+       0,
+       33
+      ]
+     }
+    },
+    "s063": {
+     "frames": 73,
+     "seconds": 36.5,
+     "in_view": 55,
+     "detected": 7,
+     "first_seen_m": 2.8,
+     "false_alarms": 5,
+     "by_distance": {
+      "0-3 m": [
+       7,
+       12
+      ],
+      "3-6 m": [
+       0,
+       10
+      ],
+      "6-9 m": [
+       0,
+       23
+      ],
+      "9-12 m": [
+       0,
+       10
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s064": {
+     "frames": 75,
+     "seconds": 37.5,
+     "in_view": 72,
+     "detected": 6,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       10
+      ],
+      "3-6 m": [
+       0,
+       8
+      ],
+      "6-9 m": [
+       0,
+       8
+      ],
+      "9-12 m": [
+       0,
+       8
+      ],
+      "12+ m": [
+       0,
+       38
+      ]
+     }
+    },
+    "s065": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s066": {
+     "frames": 78,
+     "seconds": 39.0,
+     "in_view": 75,
+     "detected": 12,
+     "first_seen_m": 2.5,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       12,
+       12
+      ],
+      "3-6 m": [
+       0,
+       9
+      ],
+      "6-9 m": [
+       0,
+       15
+      ],
+      "9-12 m": [
+       0,
+       11
+      ],
+      "12+ m": [
+       0,
+       28
+      ]
+     }
+    },
+    "s067": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 25,
+     "detected": 1,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       1,
+       6
+      ],
+      "3-6 m": [
+       0,
+       4
+      ],
+      "6-9 m": [
+       0,
+       4
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       7
+      ]
+     }
+    },
+    "s068": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s069": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 25,
+     "detected": 5,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       5,
+       6
+      ],
+      "3-6 m": [
+       0,
+       4
+      ],
+      "6-9 m": [
+       0,
+       2
+      ],
+      "9-12 m": [
+       0,
+       6
+      ],
+      "12+ m": [
+       0,
+       7
+      ]
+     }
+    },
+    "s070": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s071": {
+     "frames": 33,
+     "seconds": 16.5,
+     "in_view": 30,
+     "detected": 8,
+     "first_seen_m": 4.5,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       8
+      ],
+      "3-6 m": [
+       1,
+       3
+      ],
+      "6-9 m": [
+       1,
+       5
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       10
+      ]
+     }
+    },
+    "s072": {
+     "frames": 86,
+     "seconds": 43.0,
+     "in_view": 81,
+     "detected": 12,
+     "first_seen_m": 1.7,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       9,
+       13
+      ],
+      "3-6 m": [
+       3,
+       9
+      ],
+      "6-9 m": [
+       0,
+       14
+      ],
+      "9-12 m": [
+       0,
+       13
+      ],
+      "12+ m": [
+       0,
+       32
+      ]
+     }
+    },
+    "s073": {
+     "frames": 24,
+     "seconds": 12.0,
+     "in_view": 19,
+     "detected": 8,
+     "first_seen_m": 2.5,
+     "false_alarms": 1,
+     "by_distance": {
+      "0-3 m": [
+       8,
+       8
+      ],
+      "3-6 m": [
+       0,
+       2
+      ],
+      "6-9 m": [
+       0,
+       6
+      ],
+      "9-12 m": [
+       0,
+       3
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s074": {
+     "frames": 75,
+     "seconds": 37.5,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s075": {
+     "frames": 80,
+     "seconds": 40.0,
+     "in_view": 77,
+     "detected": 6,
+     "first_seen_m": 1.9,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       13
+      ],
+      "3-6 m": [
+       0,
+       8
+      ],
+      "6-9 m": [
+       0,
+       14
+      ],
+      "9-12 m": [
+       0,
+       12
+      ],
+      "12+ m": [
+       0,
+       30
+      ]
+     }
+    },
+    "s076": {
+     "frames": 72,
+     "seconds": 36.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s077": {
+     "frames": 71,
+     "seconds": 35.5,
+     "in_view": 68,
+     "detected": 10,
+     "first_seen_m": 3.5,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       8,
+       9
+      ],
+      "3-6 m": [
+       2,
+       10
+      ],
+      "6-9 m": [
+       0,
+       16
+      ],
+      "9-12 m": [
+       0,
+       12
+      ],
+      "12+ m": [
+       0,
+       21
+      ]
+     }
+    },
+    "s078": {
+     "frames": 24,
+     "seconds": 12.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s079": {
+     "frames": 90,
+     "seconds": 45.0,
+     "in_view": 87,
+     "detected": 11,
+     "first_seen_m": 3.1,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       9,
+       10
+      ],
+      "3-6 m": [
+       2,
+       10
+      ],
+      "6-9 m": [
+       0,
+       9
+      ],
+      "9-12 m": [
+       0,
+       9
+      ],
+      "12+ m": [
+       0,
+       49
+      ]
+     }
+    },
+    "s080": {
+     "frames": 31,
+     "seconds": 15.5,
+     "in_view": 28,
+     "detected": 6,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       7
+      ],
+      "3-6 m": [
+       0,
+       3
+      ],
+      "6-9 m": [
+       0,
+       3
+      ],
+      "9-12 m": [
+       0,
+       2
+      ],
+      "12+ m": [
+       0,
+       13
+      ]
+     }
+    },
+    "s081": {
+     "frames": 25,
+     "seconds": 12.5,
+     "in_view": 21,
+     "detected": 2,
+     "first_seen_m": null,
+     "false_alarms": 5,
+     "by_distance": {
+      "0-3 m": [
+       2,
+       7
+      ],
+      "3-6 m": [
+       0,
+       4
+      ],
+      "6-9 m": [
+       0,
+       7
+      ],
+      "9-12 m": [
+       0,
+       3
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s082": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 25,
+     "detected": 6,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       6
+      ],
+      "3-6 m": [
+       0,
+       4
+      ],
+      "6-9 m": [
+       0,
+       2
+      ],
+      "9-12 m": [
+       0,
+       6
+      ],
+      "12+ m": [
+       0,
+       7
+      ]
+     }
+    },
+    "s083": {
+     "frames": 27,
+     "seconds": 13.5,
+     "in_view": 24,
+     "detected": 7,
+     "first_seen_m": 2.5,
+     "false_alarms": 1,
+     "by_distance": {
+      "0-3 m": [
+       7,
+       7
+      ],
+      "3-6 m": [
+       0,
+       2
+      ],
+      "6-9 m": [
+       0,
+       6
+      ],
+      "9-12 m": [
+       0,
+       2
+      ],
+      "12+ m": [
+       0,
+       7
+      ]
+     }
+    },
+    "s084": {
+     "frames": 85,
+     "seconds": 42.5,
+     "in_view": 82,
+     "detected": 13,
+     "first_seen_m": 4.0,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       10,
+       10
+      ],
+      "3-6 m": [
+       3,
+       10
+      ],
+      "6-9 m": [
+       0,
+       9
+      ],
+      "9-12 m": [
+       0,
+       9
+      ],
+      "12+ m": [
+       0,
+       44
+      ]
+     }
+    },
+    "s085": {
+     "frames": 72,
+     "seconds": 36.0,
+     "in_view": 69,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       8
+      ],
+      "3-6 m": [
+       0,
+       10
+      ],
+      "6-9 m": [
+       0,
+       16
+      ],
+      "9-12 m": [
+       0,
+       11
+      ],
+      "12+ m": [
+       0,
+       24
+      ]
+     }
+    },
+    "s086": {
+     "frames": 81,
+     "seconds": 40.5,
+     "in_view": 77,
+     "detected": 7,
+     "first_seen_m": 2.2,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       7,
+       12
+      ],
+      "3-6 m": [
+       0,
+       9
+      ],
+      "6-9 m": [
+       0,
+       13
+      ],
+      "9-12 m": [
+       0,
+       11
+      ],
+      "12+ m": [
+       0,
+       32
+      ]
+     }
+    },
+    "s087": {
+     "frames": 31,
+     "seconds": 15.5,
+     "in_view": 28,
+     "detected": 6,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       8
+      ],
+      "3-6 m": [
+       0,
+       2
+      ],
+      "6-9 m": [
+       0,
+       5
+      ],
+      "9-12 m": [
+       0,
+       3
+      ],
+      "12+ m": [
+       0,
+       10
+      ]
+     }
+    },
+    "s088": {
+     "frames": 24,
+     "seconds": 12.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s089": {
+     "frames": 24,
+     "seconds": 12.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s090": {
+     "frames": 73,
+     "seconds": 36.5,
+     "in_view": 70,
+     "detected": 7,
+     "first_seen_m": 2.7,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       6,
+       8
+      ],
+      "3-6 m": [
+       1,
+       10
+      ],
+      "6-9 m": [
+       0,
+       8
+      ],
+      "9-12 m": [
+       0,
+       20
+      ],
+      "12+ m": [
+       0,
+       24
+      ]
+     }
+    },
+    "s091": {
+     "frames": 62,
+     "seconds": 31.0,
+     "in_view": 47,
+     "detected": 13,
+     "first_seen_m": 3.2,
+     "false_alarms": 1,
+     "by_distance": {
+      "0-3 m": [
+       12,
+       12
+      ],
+      "3-6 m": [
+       1,
+       9
+      ],
+      "6-9 m": [
+       0,
+       22
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s092": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s093": {
+     "frames": 56,
+     "seconds": 28.0,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s094": {
+     "frames": 51,
+     "seconds": 25.5,
+     "in_view": 0,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       0
+      ],
+      "3-6 m": [
+       0,
+       0
+      ],
+      "6-9 m": [
+       0,
+       0
+      ],
+      "9-12 m": [
+       0,
+       0
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s095": {
+     "frames": 64,
+     "seconds": 32.0,
+     "in_view": 44,
+     "detected": 10,
+     "first_seen_m": 2.8,
+     "false_alarms": 2,
+     "by_distance": {
+      "0-3 m": [
+       10,
+       12
+      ],
+      "3-6 m": [
+       0,
+       8
+      ],
+      "6-9 m": [
+       0,
+       20
+      ],
+      "9-12 m": [
+       0,
+       4
+      ],
+      "12+ m": [
+       0,
+       0
+      ]
+     }
+    },
+    "s096": {
+     "frames": 70,
+     "seconds": 35.0,
+     "in_view": 67,
+     "detected": 11,
+     "first_seen_m": 3.6,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       8,
+       8
+      ],
+      "3-6 m": [
+       3,
+       10
+      ],
+      "6-9 m": [
+       0,
+       17
+      ],
+      "9-12 m": [
+       0,
+       12
+      ],
+      "12+ m": [
+       0,
+       20
+      ]
+     }
+    },
+    "s097": {
+     "frames": 71,
+     "seconds": 35.5,
+     "in_view": 68,
+     "detected": 0,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       0,
+       8
+      ],
+      "3-6 m": [
+       0,
+       9
+      ],
+      "6-9 m": [
+       0,
+       8
+      ],
+      "9-12 m": [
+       0,
+       18
+      ],
+      "12+ m": [
+       0,
+       25
+      ]
+     }
+    },
+    "s098": {
+     "frames": 70,
+     "seconds": 35.0,
+     "in_view": 67,
+     "detected": 8,
+     "first_seen_m": 3.6,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       5,
+       8
+      ],
+      "3-6 m": [
+       3,
+       9
+      ],
+      "6-9 m": [
+       0,
+       9
+      ],
+      "9-12 m": [
+       0,
+       19
+      ],
+      "12+ m": [
+       0,
+       22
+      ]
+     }
+    },
+    "s099": {
+     "frames": 28,
+     "seconds": 14.0,
+     "in_view": 25,
+     "detected": 1,
+     "first_seen_m": null,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       1,
+       6
+      ],
+      "3-6 m": [
+       0,
+       4
+      ],
+      "6-9 m": [
+       0,
+       2
+      ],
+      "9-12 m": [
+       0,
+       6
+      ],
+      "12+ m": [
+       0,
+       7
+      ]
+     }
+    },
+    "s100": {
+     "frames": 78,
+     "seconds": 39.0,
+     "in_view": 75,
+     "detected": 9,
+     "first_seen_m": 2.0,
+     "false_alarms": 0,
+     "by_distance": {
+      "0-3 m": [
+       9,
+       10
+      ],
+      "3-6 m": [
+       0,
+       8
+      ],
+      "6-9 m": [
+       0,
+       10
+      ],
+      "9-12 m": [
+       0,
+       8
+      ],
+      "12+ m": [
+       0,
+       39
+      ]
+     }
+    }
+   },
+   "all": {
+    "frames": 4828,
+    "in_view": 3538,
+    "detected": 546,
+    "false_alarms": 81,
+    "seconds": 2414.0,
+    "scenarios": 100,
+    "first_seen_m": 2.8,
+    "by_distance": {
+     "0-3 m": [
+      457,
+      659
+     ],
+     "3-6 m": [
+      75,
+      458
+     ],
+     "6-9 m": [
+      14,
+      690
+     ],
+     "9-12 m": [
+      0,
+      564
+     ],
+     "12+ m": [
+      0,
+      1167
+     ]
+    }
+   },
+   "by_setting": {
+    "house": {
+     "porch": {
+      "frames": 897,
+      "in_view": 661,
+      "detected": 62,
+      "false_alarms": 36,
+      "seconds": 448.5,
+      "scenarios": 21,
+      "first_seen_m": 2.7,
+      "by_distance": {
+       "0-3 m": [
+        57,
+        115
+       ],
+       "3-6 m": [
+        5,
+        83
+       ],
+       "6-9 m": [
+        0,
+        81
+       ],
+       "9-12 m": [
+        0,
+        172
+       ],
+       "12+ m": [
+        0,
+        210
+       ]
+      }
+     },
+     "stoop": {
+      "frames": 866,
+      "in_view": 548,
+      "detected": 113,
+      "false_alarms": 42,
+      "seconds": 433.0,
+      "scenarios": 20,
+      "first_seen_m": 2.7,
+      "by_distance": {
+       "0-3 m": [
+        109,
+        152
+       ],
+       "3-6 m": [
+        4,
+        102
+       ],
+       "6-9 m": [
+        0,
+        219
+       ],
+       "9-12 m": [
+        0,
+        75
+       ],
+       "12+ m": [
+        0,
+        0
+       ]
+      }
+     },
+     "side": {
+      "frames": 895,
+      "in_view": 638,
+      "detected": 88,
+      "false_alarms": 1,
+      "seconds": 447.5,
+      "scenarios": 20,
+      "first_seen_m": 4.7,
+      "by_distance": {
+       "0-3 m": [
+        55,
+        102
+       ],
+       "3-6 m": [
+        32,
+        89
+       ],
+       "6-9 m": [
+        1,
+        145
+       ],
+       "9-12 m": [
+        0,
+        105
+       ],
+       "12+ m": [
+        0,
+        197
+       ]
+      }
+     },
+     "flush": {
+      "frames": 1128,
+      "in_view": 917,
+      "detected": 184,
+      "false_alarms": 1,
+      "seconds": 564.0,
+      "scenarios": 20,
+      "first_seen_m": 3.1,
+      "by_distance": {
+       "0-3 m": [
+        144,
+        170
+       ],
+       "3-6 m": [
+        27,
+        102
+       ],
+       "6-9 m": [
+        13,
+        163
+       ],
+       "9-12 m": [
+        0,
+        134
+       ],
+       "12+ m": [
+        0,
+        348
+       ]
+      }
+     },
+     "portico": {
+      "frames": 1042,
+      "in_view": 774,
+      "detected": 99,
+      "false_alarms": 1,
+      "seconds": 521.0,
+      "scenarios": 19,
+      "first_seen_m": 2.9,
+      "by_distance": {
+       "0-3 m": [
+        92,
+        120
+       ],
+       "3-6 m": [
+        7,
+        82
+       ],
+       "6-9 m": [
+        0,
+        82
+       ],
+       "9-12 m": [
+        0,
+        78
+       ],
+       "12+ m": [
+        0,
+        412
+       ]
+      }
+     }
+    },
+    "event": {
+     "delivery": {
+      "frames": 3908,
+      "in_view": 3538,
+      "detected": 546,
+      "false_alarms": 81,
+      "seconds": 1954.0,
+      "scenarios": 76,
+      "first_seen_m": 2.8,
+      "by_distance": {
+       "0-3 m": [
+        457,
+        659
+       ],
+       "3-6 m": [
+        75,
+        458
+       ],
+       "6-9 m": [
+        14,
+        690
+       ],
+       "9-12 m": [
+        0,
+        564
+       ],
+       "12+ m": [
+        0,
+        1167
+       ]
+      }
+     },
+     "dog": {
+      "frames": 504,
+      "in_view": 0,
+      "detected": 0,
+      "false_alarms": 0,
+      "seconds": 252.0,
+      "scenarios": 8,
+      "first_seen_m": null,
+      "by_distance": {
+       "0-3 m": [
+        0,
+        0
+       ],
+       "3-6 m": [
+        0,
+        0
+       ],
+       "6-9 m": [
+        0,
+        0
+       ],
+       "9-12 m": [
+        0,
+        0
+       ],
+       "12+ m": [
+        0,
+        0
+       ]
+      }
+     },
+     "car": {
+      "frames": 224,
+      "in_view": 0,
+      "detected": 0,
+      "false_alarms": 0,
+      "seconds": 112.0,
+      "scenarios": 8,
+      "first_seen_m": null,
+      "by_distance": {
+       "0-3 m": [
+        0,
+        0
+       ],
+       "3-6 m": [
+        0,
+        0
+       ],
+       "6-9 m": [
+        0,
+        0
+       ],
+       "9-12 m": [
+        0,
+        0
+       ],
+       "12+ m": [
+        0,
+        0
+       ]
+      }
+     },
+     "empty": {
+      "frames": 192,
+      "in_view": 0,
+      "detected": 0,
+      "false_alarms": 0,
+      "seconds": 96.0,
+      "scenarios": 8,
+      "first_seen_m": null,
+      "by_distance": {
+       "0-3 m": [
+        0,
+        0
+       ],
+       "3-6 m": [
+        0,
+        0
+       ],
+       "6-9 m": [
+        0,
+        0
+       ],
+       "9-12 m": [
+        0,
+        0
+       ],
+       "12+ m": [
+        0,
+        0
+       ]
+      }
+     }
+    },
+    "light": {
+     "day": {
+      "frames": 1128,
+      "in_view": 755,
+      "detected": 145,
+      "false_alarms": 2,
+      "seconds": 564.0,
+      "scenarios": 23,
+      "first_seen_m": 3.1,
+      "by_distance": {
+       "0-3 m": [
+        118,
+        147
+       ],
+       "3-6 m": [
+        24,
+        97
+       ],
+       "6-9 m": [
+        3,
+        154
+       ],
+       "9-12 m": [
+        0,
+        118
+       ],
+       "12+ m": [
+        0,
+        239
+       ]
+      }
+     },
+     "dusk": {
+      "frames": 1276,
+      "in_view": 981,
+      "detected": 162,
+      "false_alarms": 4,
+      "seconds": 638.0,
+      "scenarios": 25,
+      "first_seen_m": 3.1,
+      "by_distance": {
+       "0-3 m": [
+        131,
+        169
+       ],
+       "3-6 m": [
+        25,
+        125
+       ],
+       "6-9 m": [
+        6,
+        183
+       ],
+       "9-12 m": [
+        0,
+        152
+       ],
+       "12+ m": [
+        0,
+        352
+       ]
+      }
+     },
+     "night": {
+      "frames": 1191,
+      "in_view": 861,
+      "detected": 117,
+      "false_alarms": 54,
+      "seconds": 595.5,
+      "scenarios": 27,
+      "first_seen_m": 2.4,
+      "by_distance": {
+       "0-3 m": [
+        97,
+        169
+       ],
+       "3-6 m": [
+        15,
+        112
+       ],
+       "6-9 m": [
+        5,
+        164
+       ],
+       "9-12 m": [
+        0,
+        137
+       ],
+       "12+ m": [
+        0,
+        279
+       ]
+      }
+     },
+     "ir": {
+      "frames": 1233,
+      "in_view": 941,
+      "detected": 122,
+      "false_alarms": 21,
+      "seconds": 616.5,
+      "scenarios": 25,
+      "first_seen_m": 2.6,
+      "by_distance": {
+       "0-3 m": [
+        111,
+        174
+       ],
+       "3-6 m": [
+        11,
+        124
+       ],
+       "6-9 m": [
+        0,
+        189
+       ],
+       "9-12 m": [
+        0,
+        157
+       ],
+       "12+ m": [
+        0,
+        297
+       ]
+      }
+     }
+    },
+    "weather": {
+     "clear": {
+      "frames": 1098,
+      "in_view": 798,
+      "detected": 115,
+      "false_alarms": 6,
+      "seconds": 549.0,
+      "scenarios": 21,
+      "first_seen_m": 3.1,
+      "by_distance": {
+       "0-3 m": [
+        97,
+        139
+       ],
+       "3-6 m": [
+        16,
+        101
+       ],
+       "6-9 m": [
+        2,
+        148
+       ],
+       "9-12 m": [
+        0,
+        125
+       ],
+       "12+ m": [
+        0,
+        285
+       ]
+      }
+     },
+     "rain": {
+      "frames": 962,
+      "in_view": 698,
+      "detected": 86,
+      "false_alarms": 2,
+      "seconds": 481.0,
+      "scenarios": 19,
+      "first_seen_m": 4.0,
+      "by_distance": {
+       "0-3 m": [
+        66,
+        121
+       ],
+       "3-6 m": [
+        17,
+        90
+       ],
+       "6-9 m": [
+        3,
+        121
+       ],
+       "9-12 m": [
+        0,
+        119
+       ],
+       "12+ m": [
+        0,
+        247
+       ]
+      }
+     },
+     "snow": {
+      "frames": 944,
+      "in_view": 711,
+      "detected": 108,
+      "false_alarms": 25,
+      "seconds": 472.0,
+      "scenarios": 19,
+      "first_seen_m": 2.8,
+      "by_distance": {
+       "0-3 m": [
+        95,
+        132
+       ],
+       "3-6 m": [
+        13,
+        93
+       ],
+       "6-9 m": [
+        0,
+        150
+       ],
+       "9-12 m": [
+        0,
+        111
+       ],
+       "12+ m": [
+        0,
+        225
+       ]
+      }
+     },
+     "fog": {
+      "frames": 825,
+      "in_view": 590,
+      "detected": 121,
+      "false_alarms": 32,
+      "seconds": 412.5,
+      "scenarios": 19,
+      "first_seen_m": 3.1,
+      "by_distance": {
+       "0-3 m": [
+        94,
+        121
+       ],
+       "3-6 m": [
+        20,
+        79
+       ],
+       "6-9 m": [
+        7,
+        120
+       ],
+       "9-12 m": [
+        0,
+        90
+       ],
+       "12+ m": [
+        0,
+        180
+       ]
+      }
+     },
+     "wind": {
+      "frames": 999,
+      "in_view": 741,
+      "detected": 116,
+      "false_alarms": 16,
+      "seconds": 499.5,
+      "scenarios": 22,
+      "first_seen_m": 2.8,
+      "by_distance": {
+       "0-3 m": [
+        105,
+        146
+       ],
+       "3-6 m": [
+        9,
+        95
+       ],
+       "6-9 m": [
+        2,
+        151
+       ],
+       "9-12 m": [
+        0,
+        119
+       ],
+       "12+ m": [
+        0,
+        230
+       ]
+      }
+     }
+    },
+    "camera": {
+     "basic": {
+      "frames": 2358,
+      "in_view": 1689,
+      "detected": 291,
+      "false_alarms": 45,
+      "seconds": 1179.0,
+      "scenarios": 51,
+      "first_seen_m": 4.0,
+      "by_distance": {
+       "0-3 m": [
+        218,
+        325
+       ],
+       "3-6 m": [
+        59,
+        218
+       ],
+       "6-9 m": [
+        14,
+        322
+       ],
+       "9-12 m": [
+        0,
+        245
+       ],
+       "12+ m": [
+        0,
+        579
+       ]
+      }
+     },
+     "ring": {
+      "frames": 2470,
+      "in_view": 1849,
+      "detected": 255,
+      "false_alarms": 36,
+      "seconds": 1235.0,
+      "scenarios": 49,
+      "first_seen_m": 2.6,
+      "by_distance": {
+       "0-3 m": [
+        239,
+        334
+       ],
+       "3-6 m": [
+        16,
+        240
+       ],
+       "6-9 m": [
+        0,
+        368
+       ],
+       "9-12 m": [
+        0,
+        319
+       ],
+       "12+ m": [
+        0,
+        588
+       ]
+      }
+     }
+    },
+    "person": {
+     "man": {
+      "frames": 777,
+      "in_view": 698,
+      "detected": 134,
+      "false_alarms": 10,
+      "seconds": 388.5,
+      "scenarios": 15,
+      "first_seen_m": 2.6,
+      "by_distance": {
+       "0-3 m": [
+        110,
+        130
+       ],
+       "3-6 m": [
+        21,
+        92
+       ],
+       "6-9 m": [
+        3,
+        140
+       ],
+       "9-12 m": [
+        0,
+        105
+       ],
+       "12+ m": [
+        0,
+        231
+       ]
+      }
+     },
+     "woman": {
+      "frames": 646,
+      "in_view": 569,
+      "detected": 84,
+      "false_alarms": 8,
+      "seconds": 323.0,
+      "scenarios": 13,
+      "first_seen_m": 2.9,
+      "by_distance": {
+       "0-3 m": [
+        72,
+        112
+       ],
+       "3-6 m": [
+        11,
+        80
+       ],
+       "6-9 m": [
+        1,
+        119
+       ],
+       "9-12 m": [
+        0,
+        95
+       ],
+       "12+ m": [
+        0,
+        163
+       ]
+      }
+     },
+     "dark": {
+      "frames": 805,
+      "in_view": 738,
+      "detected": 141,
+      "false_alarms": 13,
+      "seconds": 402.5,
+      "scenarios": 16,
+      "first_seen_m": 3.1,
+      "by_distance": {
+       "0-3 m": [
+        118,
+        139
+       ],
+       "3-6 m": [
+        17,
+        91
+       ],
+       "6-9 m": [
+        6,
+        135
+       ],
+       "9-12 m": [
+        0,
+        119
+       ],
+       "12+ m": [
+        0,
+        254
+       ]
+      }
+     },
+     "hooded": {
+      "frames": 802,
+      "in_view": 730,
+      "detected": 129,
+      "false_alarms": 42,
+      "seconds": 401.0,
+      "scenarios": 15,
+      "first_seen_m": 3.1,
+      "by_distance": {
+       "0-3 m": [
+        102,
+        132
+       ],
+       "3-6 m": [
+        23,
+        97
+       ],
+       "6-9 m": [
+        4,
+        147
+       ],
+       "9-12 m": [
+        0,
+        125
+       ],
+       "12+ m": [
+        0,
+        229
+       ]
+      }
+     },
+     "child": {
+      "frames": 878,
+      "in_view": 803,
+      "detected": 58,
+      "false_alarms": 8,
+      "seconds": 439.0,
+      "scenarios": 17,
+      "first_seen_m": 2.2,
+      "by_distance": {
+       "0-3 m": [
+        55,
+        146
+       ],
+       "3-6 m": [
+        3,
+        98
+       ],
+       "6-9 m": [
+        0,
+        149
+       ],
+       "9-12 m": [
+        0,
+        120
+       ],
+       "12+ m": [
+        0,
+        290
+       ]
+      }
+     }
+    },
+    "speed": {
+     "walk": {
+      "frames": 2769,
+      "in_view": 2540,
+      "detected": 338,
+      "false_alarms": 30,
+      "seconds": 1384.5,
+      "scenarios": 37,
+      "first_seen_m": 2.9,
+      "by_distance": {
+       "0-3 m": [
+        270,
+        383
+       ],
+       "3-6 m": [
+        60,
+        342
+       ],
+       "6-9 m": [
+        8,
+        525
+       ],
+       "9-12 m": [
+        0,
+        418
+       ],
+       "12+ m": [
+        0,
+        872
+       ]
+      }
+     },
+     "run": {
+      "frames": 1139,
+      "in_view": 998,
+      "detected": 208,
+      "false_alarms": 51,
+      "seconds": 569.5,
+      "scenarios": 39,
+      "first_seen_m": 2.7,
+      "by_distance": {
+       "0-3 m": [
+        187,
+        276
+       ],
+       "3-6 m": [
+        15,
+        116
+       ],
+       "6-9 m": [
+        6,
+        165
+       ],
+       "9-12 m": [
+        0,
+        146
+       ],
+       "12+ m": [
+        0,
+        295
+       ]
+      }
+     }
+    },
+    "surfaces": {
+     "flat": {
+      "frames": 2548,
+      "in_view": 1977,
+      "detected": 286,
+      "false_alarms": 36,
+      "seconds": 1274.0,
+      "scenarios": 49,
+      "first_seen_m": 3.1,
+      "by_distance": {
+       "0-3 m": [
+        231,
+        340
+       ],
+       "3-6 m": [
+        47,
+        252
+       ],
+       "6-9 m": [
+        8,
+        356
+       ],
+       "9-12 m": [
+        0,
+        322
+       ],
+       "12+ m": [
+        0,
+        707
+       ]
+      }
+     },
+     "textured": {
+      "frames": 2280,
+      "in_view": 1561,
+      "detected": 260,
+      "false_alarms": 45,
+      "seconds": 1140.0,
+      "scenarios": 51,
+      "first_seen_m": 2.7,
+      "by_distance": {
+       "0-3 m": [
+        226,
+        319
+       ],
+       "3-6 m": [
+        28,
+        206
+       ],
+       "6-9 m": [
+        6,
+        334
+       ],
+       "9-12 m": [
+        0,
+        242
+       ],
+       "12+ m": [
+        0,
+        460
+       ]
+      }
+     }
+    },
+    "occlusion": {
+     "none": {
+      "frames": 1615,
+      "in_view": 1190,
+      "detected": 181,
+      "false_alarms": 8,
+      "seconds": 807.5,
+      "scenarios": 34,
+      "first_seen_m": 3.1,
+      "by_distance": {
+       "0-3 m": [
+        144,
+        220
+       ],
+       "3-6 m": [
+        29,
+        157
+       ],
+       "6-9 m": [
+        8,
+        214
+       ],
+       "9-12 m": [
+        0,
+        194
+       ],
+       "12+ m": [
+        0,
+        405
+       ]
+      }
+     },
+     "bins": {
+      "frames": 1539,
+      "in_view": 1125,
+      "detected": 181,
+      "false_alarms": 25,
+      "seconds": 769.5,
+      "scenarios": 32,
+      "first_seen_m": 2.9,
+      "by_distance": {
+       "0-3 m": [
+        149,
+        213
+       ],
+       "3-6 m": [
+        27,
+        141
+       ],
+       "6-9 m": [
+        5,
+        226
+       ],
+       "9-12 m": [
+        0,
+        186
+       ],
+       "12+ m": [
+        0,
+        359
+       ]
+      }
+     },
+     "car": {
+      "frames": 1674,
+      "in_view": 1223,
+      "detected": 184,
+      "false_alarms": 48,
+      "seconds": 837.0,
+      "scenarios": 34,
+      "first_seen_m": 2.7,
+      "by_distance": {
+       "0-3 m": [
+        164,
+        226
+       ],
+       "3-6 m": [
+        19,
+        160
+       ],
+       "6-9 m": [
+        1,
+        250
+       ],
+       "9-12 m": [
+        0,
+        184
+       ],
+       "12+ m": [
+        0,
+        403
+       ]
+      }
      }
     }
    }
   }
  ],
- "updated": "2026-10-23T21:50:38+00:00"
+ "updated": "2026-10-27T18:24:11+00:00"
 }
