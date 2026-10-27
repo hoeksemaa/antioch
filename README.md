@@ -235,7 +235,7 @@ More data in each frame record: `low` (person boxes from 0.1 up to the threshold
 
 ## Benchmark page
 
-Two sentences on what ran, a picture of one frame with the best detector's box (`notable/hero.jpg`, made by `bench/gallery.py` from `HERO`), then one chart, styled after antioch.com. One column for each detector; its name links to the model's page (torchvision or Ultralytics docs). One row group for each category, each with its own color: a block at the left with the category name and its unit (for example "% detected"; hover it for what the numbers mean), and a light tint on its rows.
+Two sentences on what ran, a picture of one frame with the best detector's box (`notable/hero.jpg`, made by `bench/gallery.py` from `HERO`), then one chart, styled after antioch.com. One column for each detector; its name links to the model's page (torchvision or Ultralytics docs), with one sentence on how the model works and its parameter count under it (`MODELS` in `scene/src/results.ts`; counted from the weights). One row group for each category, each with its own color: a block at the left with the category name and its unit (for example "% detected"; hover it for what the numbers mean), and a light tint on its rows.
 - **Overall detection rate** (red): all deliveries.
 - **Distance of person** (orange): the rate at 0–3, 3–6, 6–9, 9–12, and 12+ m, and the median distance of the first hit.
 - **House, Light, Weather, Camera, Person, Speed, Surfaces, Occlusion:** the rate for each value of the axis.
