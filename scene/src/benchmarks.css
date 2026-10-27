@@ -2,72 +2,121 @@
    so a change here does not touch the capture scene, and the benchmark's
    frame cache (bench/capture.py) stays valid. */
 
-/* By setting: one group row for each axis. */
-.matrix tr.group td {
-  padding-top: 16px;
-  padding-bottom: 6px;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+/* The chart: one table, with one row group (tbody) for each category. Each
+   group has its color (--hue, from benchmarks.ts): a block with its name at
+   the left, a light tint on its rows, and data bars behind the rates. */
+.chart-card {
+  overflow: hidden;
 }
 
-.matrix tr.group small {
-  margin-left: 6px;
+.chart {
+  min-width: 860px;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+.chart col.c-group {
+  width: 128px;
+}
+
+.chart col.c-row {
+  width: 150px;
+}
+
+.chart thead th {
+  padding: 16px 12px 12px;
+  vertical-align: bottom;
+  white-space: normal;
+}
+
+.chart thead a {
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.chart thead a span {
+  color: var(--muted);
+}
+
+.chart thead a:hover {
+  color: var(--accent);
+}
+
+.chart thead a:hover span {
+  color: inherit;
+}
+
+/* The group block: its name on its color, over all its rows. */
+.chart th.group {
+  padding: 10px 12px;
+  border-top: 3px solid var(--card);
+  background: var(--hue);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: left;
+  vertical-align: top;
+  white-space: normal;
+  cursor: help;
+}
+
+.chart th.row,
+.chart tbody td {
+  height: 34px;
+  padding: 0 12px;
+  border-top: 1px solid color-mix(in srgb, var(--hue) 16%, var(--card));
+  background: color-mix(in srgb, var(--hue) 6%, var(--card));
+}
+
+/* Space between the groups. */
+.chart tbody tr:first-child th.row,
+.chart tbody tr:first-child td {
+  border-top: 3px solid var(--card);
+}
+
+.chart th.row {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
 }
 
-.matrix tr.total-2 td {
-  border-top: 1px solid var(--line);
+.chart tbody tr:hover th.row,
+.chart tbody tr:hover td {
+  background: color-mix(in srgb, var(--hue) 13%, var(--card));
 }
 
-/* Summary: headline table, then three columns of notes. */
-.summary {
-  margin-bottom: 24px;
+/* A value with its data bar behind it. */
+.chart .v {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 22px;
 }
 
-.notes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px 32px;
-  padding: 18px 20px 20px;
-  border-top: 1px solid var(--line);
-  font-size: 13px;
+.chart .v i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--hue) 26%, transparent);
 }
 
-.notes h3 {
-  margin: 0 0 8px;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+.chart .v b {
+  position: relative;
+  padding-left: 7px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
 }
 
-.notes ul {
-  display: grid;
-  gap: 6px;
-  margin: 0;
-  padding-left: 16px;
-}
-
-.notes li.muted {
-  margin-left: -16px;
-  list-style: none;
-}
-
-.notes small {
-  color: var(--muted);
-}
-
-.notes a {
-  color: var(--accent);
-  font-size: 12px;
-}
-
-/* Space between the cards. */
-main .card + .card {
-  margin-top: 24px;
+/* The best detector in a row. */
+.chart td.best .v b {
+  font-weight: 650;
 }

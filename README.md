@@ -18,7 +18,7 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulation), https://antioch-dem
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots, caches them in `bench/frames/` |
 | Detectors | **Python** | `bench/detector.py` | 5 detectors (torchvision and Ultralytics); add one entry to add a detector |
 | Scoring and results | **Python** | `bench/run.py` | Matches detections to the ground truth; writes `scene/public/results/` |
-| Benchmark page | TypeScript (browser) | `scene/benchmarks.html`, `scene/src/benchmarks.ts` | The scores: a summary, and results by setting |
+| Benchmark page | TypeScript (browser) | `scene/benchmarks.html`, `scene/src/benchmarks.ts` | One chart of the scores: a column for each detector, a colored row group for each category |
 | Analysis page | TypeScript (browser) with the Three.js viewer | `scene/gallery.html`, `scene/src/gallery.ts`, `replay.ts` | A replay of one run with the boxes on the doorbell camera, and the notable frames from `bench/gallery.py` (`scene/public/notable/`), in groups, with every setting and each detector's result |
 | Hosting | Vercel | `scene/` | Serves the Three.js scene as a static site. Python does not run on Vercel |
 
@@ -235,11 +235,14 @@ More data in each frame record: `low` (person boxes from 0.1 up to the threshold
 
 ## Benchmark page
 
-Styled after antioch.com:
-- **Summary:** for each detector, the detection rate, the rate by distance, the median first-seen distance, false alarms per minute with no person, and the time per frame (the best in each row is green); the largest differences within one setting for the best detector; scoring notes; and links to the data files. All of it comes from `results/index.json`.
-- **By setting:** one row for each value of each axis (for example Light: Dusk), one column for each detector. A cell is the detection rate over the frames with that value; for the scenes with no person (dog, passing car, empty) it is false alarms per minute. The best detector in each row is green.
+One chart, styled after antioch.com, with no other text. One column for each detector; its name links to the model's page (torchvision or Ultralytics docs). One row group for each category, each with its own color: a block with the category name at the left (hover it for what the numbers mean), a light tint on its rows, and a data bar behind each rate.
+- **Detection rate** (red): all deliveries.
+- **Distance** (orange): the rate at 0–3, 3–6, 6–9, 9–12, and 12+ m, and the median distance of the first hit.
+- **House, Light, Weather, Camera, Person, Speed, Surfaces, Occlusion:** the rate for each value of the axis.
+- **False alarms:** person boxes per minute in each scene with no person (dog, passing car, empty), and all of them.
+- **Time per frame:** the mean detector time.
 
-The page shows no scenario list and no replay: the replay is on the Analysis page.
+The best detector in each row is bold. Hover a row label for its frame count, and a value for its counts. The notes (largest differences, scoring notes, data) and the replay are on the Analysis page.
 
 `/results` and `/results.html` (the old results page) redirect to `/benchmarks` (`scene/vercel.json`).
 
@@ -248,6 +251,7 @@ The page shows no scenario list and no replay: the replay is on the Analysis pag
 - **Replay:** one run in the Three.js scene itself, with the true box (white, dashed) and the detector's boxes (yellow) on the doorbell camera. The scene is deterministic, so each frame is the same frame that the detector saw.
 - **Timeline:** play, pause, and step (space, ← →); one strip for each detector (green: hit, red: miss, gray: person out of view, orange: false alarm in a scene with no person). Click a frame to go to it.
 - **Distance table:** detection rate by distance for each detector.
+- **Notes:** for the best detector, the largest differences within one setting; how the scores are counted; and the data files (`notes.ts`).
 - **Notable frames:** the frames from `bench/gallery.py`, in groups (filter at the top). Each card has the picture (click for full size), the reason, the scenario, every setting, the time, the distance, each detector's result, and links: Open frame (the exact frame live, in capture mode) and Replay (that frame in the replay at the top of the page). The keys (space, ← →) work while the replay is on screen.
 
 ## Results (2026-10-27)

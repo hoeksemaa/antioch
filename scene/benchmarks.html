@@ -24,60 +24,9 @@
     </header>
     <div class="hatch"><div class="rail"></div></div>
     <main class="rail section">
-      <p class="eyebrow"><span>//</span> Benchmark</p>
-      <h1>Person detection</h1>
-      <p class="lede">
-        Every detector sees the same simulated frames, which mix every setting. Detection rate: the share of frames with
-        the person in view in which the detector found the person. False alarms: person boxes per minute in scenes with
-        no person (dog, passing car, empty). All scenes are simulated and uncalibrated.
-      </p>
-
-      <section class="card summary">
-        <div class="card-head">
-          <div>
-            <div class="card-title">Summary</div>
-            <div class="mono muted" id="summary-sub"></div>
-          </div>
-        </div>
-        <div class="table-wrap"><table class="matrix" id="summary"></table></div>
-        <div class="notes">
-          <div>
-            <h3>Largest differences</h3>
-            <ul id="findings"></ul>
-          </div>
-          <div>
-            <h3>Scoring notes</h3>
-            <ul>
-              <li>
-                The true box covers the whole body, also the parts behind a railing, a wall, a tree, or the package. A
-                correct box on the visible part can overlap less than 0.3; then it counts as a miss and a false alarm.
-              </li>
-              <li>
-                A person inside the camera's frame counts as in view, also when a tree hides them or most of the body is
-                outside the frame. No detector can find them, so these frames lower every detector's rate.
-              </li>
-              <li>A detector that finds few people also makes few false alarms. Read the two together.</li>
-              <li>The detectors learned from real photos (COCO). None of them saw this simulation before.</li>
-            </ul>
-          </div>
-          <div>
-            <h3>Data</h3>
-            <ul id="data"></ul>
-          </div>
-        </div>
+      <section class="card chart-card">
+        <div class="table-wrap"><table class="chart" id="chart"></table></div>
       </section>
-
-      <section class="card">
-        <div class="card-head">
-          <div>
-            <div class="card-title">By setting</div>
-            <div class="mono muted" id="settings"></div>
-          </div>
-          <div class="stats" id="stats"></div>
-        </div>
-        <div class="table-wrap"><table class="matrix" id="by-setting"></table></div>
-      </section>
-
     </main>
     <p class="credit">Unofficial demo.<br />Not affiliated<br />with Antioch.</p>
     <script type="module" src="/src/benchmarks.ts"></script>
