@@ -50,7 +50,7 @@ export const AXES: Axis[] = [
   },
   {
     id: "event",
-    label: "Event",
+    label: "Scene", // what plays out in front of the doorbell (the id stays "event")
     values: [
       { id: "delivery", label: "Delivery" },
       { id: "dog", label: "Dog" },
