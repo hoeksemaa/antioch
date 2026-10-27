@@ -152,10 +152,12 @@ export function readSettings(params: URLSearchParams, fill: "baseline" | "showca
   return settings;
 }
 
-// Writes every axis and the seed into the URL parameters.
+// Writes every axis into the URL parameters, and the seed only when it is not
+// 0 (the default), so the Simulations page URL shows no seed.
 export function writeSettings(settings: Settings, params: URLSearchParams) {
   for (const axis of AXES) params.set(axis.id, settings[axis.id]);
-  params.set("seed", String(settings.seed));
+  if (settings.seed) params.set("seed", String(settings.seed));
+  else params.delete("seed");
 }
 
 export function baseline(): Settings {

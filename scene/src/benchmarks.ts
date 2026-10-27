@@ -223,7 +223,7 @@ async function start() {
       [`${base}results/index.json`, "results/index.json", "every detector × scenario, all scenarios, and by setting"],
       [`${base}results/${example}`, `results/${example}`, "every frame of one scenario: true box, boxes, scores, low boxes, overlap, time"],
       [`${base}notable/gallery.json`, "notable/gallery.json", "the notable frames, with every setting (see the Gallery)"],
-      ["https://github.com/hoeksemaa/antioch/blob/main/bench/scenarios.json", "bench/scenarios.json", "the 100 fixed scenarios and their seeds"],
+      ["https://github.com/hoeksemaa/antioch/blob/main/bench/scenarios.json", "bench/scenarios.json", "the 100 fixed scenarios"],
       ["https://github.com/hoeksemaa/antioch/tree/main/bench", "bench/", "the Python benchmark: capture, detectors, scoring, gallery"],
     ]
       .map(([href, name, about]) => `<li><a class="mono" href="${href}">${name}</a> <small>${about}</small></li>`)
@@ -267,7 +267,7 @@ async function start() {
       ? `${esc(AXES.find((a) => a.id === filter!.axis)!.label)} = ${esc(label(filter.axis, filter.value))} · ${list.length} of ${scenarios.length} scenarios · <button class="link" id="clear">show all</button>`
       : `All ${scenarios.length} scenarios. Click a setting above to list only its scenarios.`;
     const rows = list.map((s) => {
-      const name = `<span>${esc(s.name)}<small>${esc(s.id)} · seed ${s.seed}</small></span>`;
+      const name = `<span>${esc(s.name)}<small>${esc(s.id)}</small></span>`;
       const row = cells(
         detectors.map((d) => d.results[s.id]),
         noPerson(s),
