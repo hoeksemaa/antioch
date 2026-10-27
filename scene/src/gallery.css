@@ -1,248 +1,83 @@
-/* Analysis page only (style.css has the shared styles). A separate file, so a
+/* Gallery page only (style.css has the shared styles). A separate file, so a
    change here does not touch the capture scene, and the benchmark's frame
    cache (bench/capture.py) stays valid. */
 
-.key {
+/* The scene picker in the replay's head: previous, the list, next. */
+.scene-pick {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  margin-bottom: 16px;
-  color: var(--muted);
-  font: 12px/1.4 var(--mono);
-}
-
-.key i {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin-right: 6px;
-  border: 2px solid;
-  border-radius: 2px;
-  vertical-align: -1px;
-}
-
-.key i.truth {
-  border: 2px dashed var(--ink);
-}
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
+  flex: 1;
   gap: 6px;
-  margin-bottom: 8px;
 }
 
-.filters button {
-  padding: 6px 12px;
+.scene-pick button,
+.scene-pick select {
+  height: 32px;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 6px;
   background: var(--card);
   color: var(--ink);
   font: inherit;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
 }
 
-.filters button:hover {
+.scene-pick button {
+  flex: none;
+  width: 32px;
+}
+
+.scene-pick select {
+  flex: 1;
+  min-width: 0;
+  padding: 0 8px;
+  text-overflow: ellipsis;
+}
+
+.scene-pick button:hover,
+.scene-pick select:hover {
   border-color: var(--accent);
 }
 
-.filters button.on {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
-.filters small {
-  margin-left: 4px;
-  color: var(--muted);
-  font-family: var(--mono);
-}
-
-.group {
-  padding-top: 40px;
-}
-
-.group h2 {
-  font-size: 28px;
-}
-
-.group .lede {
-  margin-bottom: 18px;
-}
-
-.grid {
+/* The notable frames: one grid of pictures. Each frame sits in a 16:9 box
+   with black bars, as on the doorbell camera. */
+.shots {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
 }
 
 .shot {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.shot-image {
   display: block;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
   background: #000;
+  cursor: pointer;
 }
 
-.shot-image img {
+.shot img {
   display: block;
   width: 100%;
-  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  transition: opacity 0.15s;
 }
 
-.shot-body {
-  display: grid;
-  gap: 8px;
-  padding: 12px 14px 14px;
-  font-size: 13px;
+.shot:hover img {
+  opacity: 0.85;
 }
 
-.shot-reason {
-  font-size: 14px;
-  font-weight: 500;
+.shot:hover,
+.shot.on {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
-.shot-body .mono {
-  font-size: 11px;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-.tags span {
-  padding: 1px 6px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.tags b {
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.dets {
-  display: grid;
-  gap: 2px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font: 12px/1.5 var(--mono);
-}
-
-.dets li {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.dets li.focus span {
-  font-weight: 600;
-}
-
-.dets i {
-  flex: none;
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-}
-
-.dets span {
-  flex: 1;
-  min-width: 0;
-  color: var(--muted);
-}
-
-.dets b {
-  font-weight: 500;
-}
-
-.dets b.r-hit {
-  color: var(--good);
-}
-
-.dets b.r-miss,
-.dets b.r-fa {
-  color: var(--bad);
-}
-
-.dets b.r-none {
-  color: var(--muted);
-}
-
-.dets small {
-  color: var(--muted);
-}
-
-.links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 14px;
-}
-
-.links a,
-.links button {
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--accent);
-  font: inherit;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-/* The heading of the notable frames, under the replay. */
-h2.notable {
-  margin-top: 8px;
-}
-
-/* The notes on the scores, under the replay: three columns. */
-#notes {
-  margin-bottom: 48px;
-}
-
-.notes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px 32px;
-  padding: 18px 20px 20px;
-  font-size: 13px;
-}
-
-.notes h3 {
-  margin: 0 0 8px;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.notes ul {
-  display: grid;
-  gap: 6px;
-  margin: 0;
-  padding-left: 16px;
-}
-
-.notes li.muted {
-  margin-left: -16px;
-  list-style: none;
-}
-
-.notes small {
-  color: var(--muted);
-}
-
-.notes a {
-  color: var(--accent);
-  font-size: 12px;
+/* Phones: two pictures in each row. */
+@media (max-width: 600px) {
+  .shots {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
 }

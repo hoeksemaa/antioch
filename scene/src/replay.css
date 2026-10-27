@@ -1,4 +1,4 @@
-/* The replay (replay.ts) on the Analysis page. style.css has the viewer,
+/* The replay (replay.ts) on the Gallery page. style.css has the viewer,
    timeline, and strip styles. A separate file, so a change here does not
    touch the capture scene, and the benchmark's frame cache
    (bench/capture.py) stays valid. */
