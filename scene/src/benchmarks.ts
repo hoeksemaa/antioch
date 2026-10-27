@@ -222,7 +222,7 @@ async function start() {
     $("data").innerHTML = [
       [`${base}results/index.json`, "results/index.json", "every detector × scenario, all scenarios, and by setting"],
       [`${base}results/${example}`, `results/${example}`, "every frame of one scenario: true box, boxes, scores, low boxes, overlap, time"],
-      [`${base}notable/gallery.json`, "notable/gallery.json", "the notable frames, with every setting (see the Gallery)"],
+      [`${base}notable/gallery.json`, "notable/gallery.json", "the notable frames, with every setting (see Analysis)"],
       ["https://github.com/hoeksemaa/antioch/blob/main/bench/scenarios.json", "bench/scenarios.json", "the 100 fixed scenarios"],
       ["https://github.com/hoeksemaa/antioch/tree/main/bench", "bench/", "the Python benchmark: capture, detectors, scoring, gallery"],
     ]

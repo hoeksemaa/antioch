@@ -73,7 +73,7 @@
   {
    "id": "false-alarm-delivery",
    "title": "Boxes away from the person",
-   "about": "Counted person boxes that do not match the true box. Some are on the visible part of a partly hidden person (see Scoring notes on the Benchmarks page)."
+   "about": "Counted person boxes that do not match the true box. Some are on the visible part of a partly hidden person (see Scoring notes on the Benchmark page)."
   },
   {
    "id": "best-and-worst",

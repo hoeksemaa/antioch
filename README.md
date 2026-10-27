@@ -4,7 +4,7 @@ A doorbell camera on a simulated front porch, in many environments. It benchmark
 
 Unofficial demo by [John Hoeksema](https://johnhoeksema.com) for the Member of Technical Staff, Core Platform role at Antioch. Not affiliated with Antioch. All scenes and results are simulated and uncalibrated.
 
-Live: https://antioch-demo-hoeksema.vercel.app (Simulations), https://antioch-demo-hoeksema.vercel.app/benchmarks (Benchmarks), and https://antioch-demo-hoeksema.vercel.app/gallery (Gallery).
+Live: https://antioch-demo-hoeksema.vercel.app (Simulation), https://antioch-demo-hoeksema.vercel.app/benchmarks (Benchmark), and https://antioch-demo-hoeksema.vercel.app/gallery (Analysis).
 
 ## Stack: which parts are Three.js and which are Python
 
@@ -12,14 +12,14 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations), https://antioch-de
 |---|---|---|---|
 | 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
 | Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `weather.ts`, `camera.ts`, `sensor.ts`, `people.ts`, `surfaces.ts`, `props.ts`, `events.ts` | The axes: house, event, light, weather, camera, person, speed, surfaces, occlusion, with a v1 baseline value and a showcase value for each |
-| Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset at the bottom right, and a panel above it with one row of buttons per axis, each named by a symbol (`icons.ts`). Click the inset (or press V) for the doorbell view; click again to go back. Keys 1–5 switch houses. Also capture mode for Python |
+| Simulation page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset at the bottom right, and a panel above it with one row of buttons per axis, each named by a symbol (`icons.ts`). Click the inset (or press V) for the doorbell view; click again to go back. Keys 1–5 switch houses. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Scenario list | **Python** | `bench/scenarios.py` → `bench/scenarios.json` | The fixed 100 scenarios that every detector runs on |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots, caches them in `bench/frames/` |
 | Detectors | **Python** | `bench/detector.py` | 5 detectors (torchvision and Ultralytics); add one entry to add a detector |
 | Scoring and results | **Python** | `bench/run.py` | Matches detections to the ground truth; writes `scene/public/results/` |
-| Benchmarks page | TypeScript (browser) with the Three.js viewer | `scene/benchmarks.html`, `scene/src/benchmarks.ts` | Summary, results by setting, the scenario list, and a replay of the selected cell with the boxes on the doorbell camera |
-| Gallery page | TypeScript (browser) | `scene/gallery.html`, `scene/src/gallery.ts` | The notable frames from `bench/gallery.py` (`scene/public/notable/`), in groups, with every setting and each detector's result |
+| Benchmark page | TypeScript (browser) with the Three.js viewer | `scene/benchmarks.html`, `scene/src/benchmarks.ts` | Summary, results by setting, the scenario list, and a replay of the selected cell with the boxes on the doorbell camera |
+| Analysis page | TypeScript (browser) | `scene/gallery.html`, `scene/src/gallery.ts` | The notable frames from `bench/gallery.py` (`scene/public/notable/`), in groups, with every setting and each detector's result |
 | Hosting | Vercel | `scene/` | Serves the Three.js scene as a static site. Python does not run on Vercel |
 
 ```
@@ -43,16 +43,16 @@ npm install
 npm run dev
 ```
 
-Three pages, with the same header: the title at the left, and one bar with Simulations, Benchmarks, Gallery, View source, and View creator:
-- **Simulations** (http://localhost:5173): the 3D scene. Drag to orbit and scroll to zoom. Click a button in each axis row (the panel at the top right) to change the scenario. A symbol names each row; the `?` button opens a panel with the keys and the symbol names. Press `1`–`5` to switch houses. Click the doorbell camera inset, or press `V`, for the doorbell camera view; click that view, or press `V` or `Esc`, to go back to the overview.
-- **Benchmarks** (http://localhost:5173/benchmarks.html; live: `/benchmarks`): the detector results (see below).
-- **Gallery** (http://localhost:5173/gallery.html; live: `/gallery`): the notable frames from the benchmark run (see below).
+Three pages, with the same header: the title at the left, and one bar with Simulation, Benchmark, Analysis, View source, and View creator:
+- **Simulation** (http://localhost:5173): the 3D scene. Drag to orbit and scroll to zoom. Click a button in each axis row (the panel at the top right) to change the scenario. A symbol names each row; the `?` button opens a panel with the keys and the symbol names. Press `1`–`5` to switch houses. Click the doorbell camera inset, or press `V`, for the doorbell camera view; click that view, or press `V` or `Esc`, to go back to the overview.
+- **Benchmark** (http://localhost:5173/benchmarks.html; live: `/benchmarks`): the detector results (see below).
+- **Analysis** (http://localhost:5173/gallery.html; live: `/gallery`): the notable frames from the benchmark run (see below).
 
 Capture mode (`/?view=doorbell`) shows the doorbell camera alone, in the full window, with no page around it. The Python benchmark uses this mode, for example `?house=stoop&view=doorbell`.
 
 URL parameters:
-- One parameter per axis in `scene/src/settings.ts`, for example `?house=<id>` (ids below). On Benchmarks, `?detector=<id>` picks the detector.
-- A missing axis takes a default. On Simulations, it is the axis's showcase value. In capture mode, it is the baseline value. The benchmark scenarios set every axis, so the Benchmarks replay loads each scenario exactly.
+- One parameter per axis in `scene/src/settings.ts`, for example `?house=<id>` (ids below). On Benchmark, `?detector=<id>` picks the detector.
+- A missing axis takes a default. On Simulation, it is the axis's showcase value. In capture mode, it is the baseline value. The benchmark scenarios set every axis, so the Benchmark replay loads each scenario exactly.
 - `?t=<seconds>` freezes the delivery at that time, for example `?house=porch&view=doorbell&t=16`.
 - `?seed=<n>` seeds every random choice in the scene. Seed 0 (the default) is the canonical scene, with no jitter. Another seed moves the delivery's start point (±2 m) and speed (±10%). Each module takes its own named stream from `scene/src/random.ts`, so a change on one axis does not change the random values of another module.
 - `window.sim.stats()` gives the draw calls and triangles of the last frame (all passes), for the browser budget checks. Static meshes that share a material are merged into one mesh, so a frame costs about 90–110 draw calls.
@@ -83,7 +83,7 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 | `ir` | Night with the porch light off | None | IR light at the doorbell (falls off with distance); the doorbell image is monochrome. The overview does not show the IR light |
 
 - The sky is the three.js Sky shader, drawn once per load into a cube map: the background, and (through PMREM) the ambient light. It has no download.
-- `v1` (not a button) is the v1 light: a flat blue background, a hemisphere light, and the sun. Capture mode and Benchmarks use it when `?light=` is missing.
+- `v1` (not a button) is the v1 light: a flat blue background, a hemisphere light, and the sun. Capture mode and Benchmark use it when `?light=` is missing.
 - The doorbell image goes through a sensor pass (`scene/src/sensor.ts`) when an effect is on; for now the only effect is IR monochrome.
 - Code: `scene/src/lights.ts`.
 
@@ -123,7 +123,7 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 | `hooded` | Outfit with the hood up | 1.80 m |
 | `child` | The woman scaled to child height (the free pack has no child body) | 1.20 m |
 
-- Capture mode and Benchmarks use `man` when `?person=` is missing. The v1 capsule figure (the mannequin) is gone.
+- Capture mode and Benchmark use `man` when `?person=` is missing. The v1 capsule figure (the mannequin) is gone.
 - Speed: `walk` 1.4 m/s, `run` 4.5 m/s. The run speed matches the stride of the free jog clip, so the feet stay planted.
 - The rigged people are CC0 Quaternius assets, assembled offline into `scene/public/people/` (see `LICENSE.txt` there). The page loads a person's file (1.4–2.3 MB) only when it is on screen.
 - Animation: walk or jog clips matched to the speed, idle at the pauses, and a crouch for the drop. Two-bone IK puts the hands on the package. All of it comes from the delivery time t, so frames repeat.
@@ -212,7 +212,7 @@ Scenarios: the fixed list in `bench/scenarios.json`, made by `bench/scenarios.py
 Frames:
 - The page is the size of the doorbell image: 1280 × 720 for `basic`, 960 × 960 for `ring` (the same number of pixels).
 - Chromium renders on the real GPU (Metal): about 0.2 s for each frame, against about 5 s without it (`--software`).
-- `bench/frames/<scenario>/` caches the PNG frames, so every detector reads the exact same pixels and a second detector does not render again. The cache key is the query, the frame rate, the URL, and the last git commit of `scene/` (not counting the results and the Benchmarks page files). The full list is about 4.3 GB. `--recapture` renders again.
+- `bench/frames/<scenario>/` caches the PNG frames, so every detector reads the exact same pixels and a second detector does not render again. The cache key is the query, the frame rate, the URL, and the last git commit of `scene/` (not counting the results and the Benchmark page files). The full list is about 4.3 GB. `--recapture` renders again.
 
 How it scores:
 - **Ground truth:** the scene projects every vertex of the person onto the doorbell image (through the fisheye mapping for `ring`) and takes the box around them. The box covers the whole body, also the parts behind walls or rails.
@@ -229,11 +229,11 @@ Output (in git, so the deployed page shows it):
 
 A run replaces the results for the detectors and scenarios it runs and keeps the others. Results for scenarios that are not in the list are dropped.
 
-Notable frames: after a run, `bench/.venv/bin/python bench/gallery.py` picks frames (every detector missed a near person, only one detector hit, the farthest hits, low light on the fisheye, false alarms, the best and worst scenarios) and saves them in `scene/public/notable/`, with a 480 px copy of each in `thumbs/` for the Gallery page. Each picture shows the true box and every detector's boxes, with a caption band: the reason, the scenario, every setting, the time, the distance, and each detector's result. A JSON file next to each picture has the same data and links to the frame on the live site. [`scene/public/notable/README.md`](scene/public/notable/README.md) shows them by category on GitHub.
+Notable frames: after a run, `bench/.venv/bin/python bench/gallery.py` picks frames (every detector missed a near person, only one detector hit, the farthest hits, low light on the fisheye, false alarms, the best and worst scenarios) and saves them in `scene/public/notable/`, with a 480 px copy of each in `thumbs/` for the Analysis page. Each picture shows the true box and every detector's boxes, with a caption band: the reason, the scenario, every setting, the time, the distance, and each detector's result. A JSON file next to each picture has the same data and links to the frame on the live site. [`scene/public/notable/README.md`](scene/public/notable/README.md) shows them by category on GitHub.
 
 More data in each frame record: `low` (person boxes from 0.1 up to the threshold, not counted, for other thresholds later), `iou` (the best overlap of a counted box with the true box), and `ms` (detector time). With `--images`, marked-up frames also go to `bench/out/<detector>/<scenario>/` (not in git).
 
-## Benchmarks page
+## Benchmark page
 
 Styled after antioch.com:
 - **Summary:** for each detector, the detection rate, the rate by distance, the median first-seen distance, false alarms per minute with no person, and the time per frame (the best in each row is green); the largest differences within one setting for the best detector; scoring notes; and links to the data files. All of it comes from `results/index.json`.
@@ -245,9 +245,9 @@ Styled after antioch.com:
 
 `/results` and `/results.html` (the old results page) redirect to `/benchmarks` (`scene/vercel.json`).
 
-## Gallery page
+## Analysis page
 
-The notable frames from `bench/gallery.py`, in groups (filter at the top). Each card has the picture (click for full size), the reason, the scenario, every setting, the time, the distance, each detector's result, and links: Open frame (the exact frame live, in capture mode) and Replay (the scenario on the Benchmarks page).
+The notable frames from `bench/gallery.py`, in groups (filter at the top). Each card has the picture (click for full size), the reason, the scenario, every setting, the time, the distance, each detector's result, and links: Open frame (the exact frame live, in capture mode) and Replay (the scenario on the Benchmark page).
 
 ## Results (2026-10-27)
 
@@ -275,4 +275,4 @@ Vercel project `antioch-demo-hoeksema`, with Root Directory `scene`. Vercel dete
 
 ## Status
 
-v9: three pages (Simulations, Benchmarks, Gallery); nine scenario axes; a Python person-detection benchmark with five detectors on 100 fixed scenarios, and 67 notable frames.
+v9: three pages (Simulation, Benchmark, Analysis); nine scenario axes; a Python person-detection benchmark with five detectors on 100 fixed scenarios, and 67 notable frames.

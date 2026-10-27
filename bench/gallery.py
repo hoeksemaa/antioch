@@ -1,6 +1,6 @@
 """Python: picks notable frames from a benchmark run and saves them as
 pictures with all their settings, in scene/public/notable/ (the site's
-Gallery page shows them; GitHub shows README.md there).
+Analysis page shows them; GitHub shows README.md there).
 
 Run it after bench/run.py (it reads scene/public/results/ and the frame cache
 in bench/frames/):
@@ -52,7 +52,7 @@ CATEGORIES = {
     "light": ("One pair for each light", "For each light: the farthest frame where most detectors hit, and the nearest frame where all miss."),
     "child-missed": ("Child height: every detector missed", "The weakest person setting."),
     "false-alarm-no-person": ("False alarms with no person", "Person boxes in scenes with a dog, a passing car, or nobody. Highest scores first."),
-    "false-alarm-delivery": ("Boxes away from the person", "Counted person boxes that do not match the true box. Some are on the visible part of a partly hidden person (see Scoring notes on the Benchmarks page)."),
+    "false-alarm-delivery": ("Boxes away from the person", "Counted person boxes that do not match the true box. Some are on the visible part of a partly hidden person (see Scoring notes on the Benchmark page)."),
     "best-and-worst": ("Best and worst scenarios", "The scenarios with the highest and lowest mean detection rate (a middle frame)."),
 }
 SITE = "https://antioch-demo-hoeksema.vercel.app"
