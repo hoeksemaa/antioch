@@ -105,7 +105,7 @@ a {
   border-inline: 1px solid var(--line);
 }
 
-/* The credit: a small box fixed at the bottom left of every page. Its 4
+/* The credit: a small box fixed at the bottom left of every page. Its 3
    short lines keep it in the margin left of the rail on wide screens. */
 .credit {
   position: fixed;
@@ -122,35 +122,20 @@ a {
   line-height: 1.35;
 }
 
-.credit a {
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.credit a:hover {
-  color: var(--ink);
-}
-
 .top {
   border-bottom: 1px solid var(--line);
   background: var(--card);
 }
 
+/* The header: the title at the far left (not a link), and one bar in the
+   middle with the pages and the outside links. */
 .top-inner {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 16px;
-  max-width: 1200px;
   min-height: 64px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
+  padding: 0 24px;
 }
 
 .brand {
@@ -160,7 +145,7 @@ a {
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.02em;
-  text-decoration: none;
+  cursor: default;
 }
 
 /* This demo's mark: the favicon's house, in the ink color, so it follows the
@@ -192,30 +177,6 @@ nav a:hover {
 nav a.on {
   background: var(--accent-soft);
   color: var(--accent);
-}
-
-.button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: #f5f5f5;
-  text-decoration: none;
-}
-
-.button:hover {
-  background: var(--accent-hover);
-}
-
-.button.soft {
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
-.button.soft:hover {
-  background: color-mix(in srgb, var(--accent-soft) 80%, var(--accent));
 }
 
 h1 {
@@ -880,17 +841,13 @@ body.doorbell #inset {
 
 @media (max-width: 760px) {
   .top-inner {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr;
+    gap: 8px;
     padding: 10px 16px;
   }
 
   .top-inner nav {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
-
-  .actions .soft {
-    display: none;
+    flex-wrap: wrap;
   }
 }
 
