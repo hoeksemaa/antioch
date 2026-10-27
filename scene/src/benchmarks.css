@@ -42,14 +42,16 @@
 
 /* The chart: one table, with one row group (tbody) for each category. Each
    group has its color (--hue, from benchmarks.ts): a block with its name at
-   the left, and a light tint on its rows. The best value in a row is green
-   (--best). */
+   the left, and a light tint on its rows. Only the best value in a row has a
+   color: a mix of --best (green) and --worst (red), by --good (benchmarks.ts:
+   100% for the rows that are not detection rates). */
 .chart-card {
   overflow: hidden;
 }
 
 .chart {
   --best: #16a34a;
+  --worst: #dc2626;
 
   min-width: 860px;
   border-collapse: separate;
@@ -173,18 +175,20 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* The best detector in a row. */
+/* The best detector in a row. The mix goes through amber (OKLCH hue). */
 .chart td.best {
-  color: var(--best);
+  color: color-mix(in oklch, var(--best) var(--good, 100%), var(--worst));
   font-weight: 700;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .chart {
     --best: #4ade80;
+    --worst: #f87171;
   }
 }
 
 :root[data-theme="dark"] .chart {
   --best: #4ade80;
+  --worst: #f87171;
 }
