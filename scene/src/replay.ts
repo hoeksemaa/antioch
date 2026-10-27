@@ -1,9 +1,10 @@
-// Analysis page: the replay of one benchmark run in the Three.js viewer. The
-// doorbell camera shows the true box and one detector's boxes, and a strip
-// for each detector shows every scored frame: hit, miss, out of view, or a
-// false alarm with no person. The markup is #replay in gallery.html.
+// Gallery page: the replay of one benchmark run in the Three.js viewer. A
+// picker selects any scene. The doorbell camera shows the true box and one
+// detector's boxes, and a strip for each detector shows every scored frame:
+// hit, miss, out of view, or a false alarm with no person. The markup is
+// #replay in gallery.html.
 
-import { esc, noPerson, pct, perMinute, base, type Frame, type Index, type Scenario } from "./results";
+import { esc, base, type Frame, type Index, type Scenario } from "./results";
 import type { Settings } from "./settings";
 import { Viewer } from "./viewer";
 import "./replay.css";
@@ -29,6 +30,8 @@ export async function startReplay(index: Index, first: { scenario: string; detec
   new ResizeObserver(([entry]) => viewer.setSize(entry.contentRect.width, entry.contentRect.height)).observe(viewport);
   const frames = new Map<string, Frame[]>(); // "detector/scenario" -> frames
   let drawn = -2; // frame index of the overlay now on screen
+  const picker = $<HTMLSelectElement>("scene");
+  picker.innerHTML = scenarios.map((s) => `<option value="${esc(s.id)}">${esc(s.id)} · ${esc(s.name)}</option>`).join("");
 
   const fps = () => detectors[0]?.settings.fps ?? 2;
   const current = () => frames.get(`${detector}/${scenario?.id}`) ?? [];
@@ -55,27 +58,7 @@ export async function startReplay(index: Index, first: { scenario: string; detec
 
   function render() {
     if (!scenario) return;
-    const d = detectors.find((x) => x.id === detector);
-    const r = d?.results[scenario.id];
-    $("detail-title").textContent = scenario.name;
-    $("detail-sub").textContent = d ? `${d.id} · ${d.source}` : "";
-    $("cell-stats").innerHTML = r
-      ? (noPerson(scenario)
-          ? [
-              ["Person", "none"],
-              ["False alarms", r.false_alarms],
-              ["Per minute", perMinute(r).toFixed(1)],
-            ]
-          : [
-              ["Detection rate", pct(r.detected, r.in_view)],
-              ["First seen", r.first_seen_m !== null ? `${r.first_seen_m} m` : "–"],
-              ["False alarms", r.false_alarms],
-            ]
-        )
-          .map(([name, value]) => `<div><span>${name}</span><b>${value}</b></div>`)
-          .join("")
-      : "";
-
+    picker.value = scenario.id;
     $("strips").innerHTML = detectors
       .map((x) => {
         const strip = (frames.get(`${x.id}/${scenario!.id}`) ?? [])
@@ -88,19 +71,6 @@ export async function startReplay(index: Index, first: { scenario: string; detec
         return `<div class="strip-row ${x.id === detector ? "on" : ""}"><span>${esc(x.id)}</span><div class="strip">${strip}</div></div>`;
       })
       .join("");
-
-    const bands = r && !noPerson(scenario) ? Object.keys(r.by_distance) : [];
-    $("bands").innerHTML = bands.length
-      ? `<thead><tr><th>Detection rate by distance</th>${bands.map((k) => `<th>${k}</th>`).join("")}</tr></thead><tbody>` +
-        detectors
-          .map((x) => {
-            const b = x.results[scenario!.id]?.by_distance ?? {};
-            const row = bands.map((k) => `<td title="${b[k]?.[0] ?? 0} of ${b[k]?.[1] ?? 0} frames">${b[k] ? pct(...b[k]) : "–"}</td>`);
-            return `<tr class="${x.id === detector ? "on" : ""}"><td class="mono">${esc(x.id)}</td>${row.join("")}</tr>`;
-          })
-          .join("") +
-        `</tbody>`
-      : "";
     drawn = -2;
   }
 
@@ -163,6 +133,14 @@ export async function startReplay(index: Index, first: { scenario: string; detec
     }
     viewer.setTime(Number(b.dataset.frame) / fps());
   });
+  // The scene picker, and the buttons for the previous and next scene.
+  picker.addEventListener("change", () => select(picker.value));
+  const nextScene = (by: number) => {
+    const i = scenarios.findIndex((s) => s.id === scenario?.id);
+    select(scenarios[(i + by + scenarios.length) % scenarios.length].id);
+  };
+  $("scene-prev").addEventListener("click", () => nextScene(-1));
+  $("scene-next").addEventListener("click", () => nextScene(1));
   $("play").addEventListener("click", () => (viewer.playing ? viewer.pause() : viewer.play()));
   $("prev").addEventListener("click", () => step(-1));
   $("next").addEventListener("click", () => step(1));

@@ -4,8 +4,8 @@
 // sentence on the model and its parameter count under it), and one
 // colored row group for each category: the overall detection rate, by the
 // distance of the person, by each setting, the false alarms, and the time to
-// process one frame. The best value in each row is green. The notes and the
-// replay are on the Analysis page.
+// process one frame. The best value in each row is green. The replay is on
+// the Gallery page.
 
 import { AXES, type AxisId } from "./settings";
 import { base, deliveries, esc, loadIndex, MODELS, NO_PERSON_EVENTS, noPersonScenes, perMinute, type Detector, type Summary } from "./results";

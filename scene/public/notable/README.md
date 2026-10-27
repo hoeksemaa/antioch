@@ -317,7 +317,7 @@ Person boxes in scenes with a dog, a passing car, or nobody. Highest scores firs
 
 ## Boxes away from the person
 
-Counted person boxes that do not match the true box. Some are on the visible part of a partly hidden person (see Scoring notes on the Benchmark page).
+Counted person boxes that do not match the true box. Some are on the visible part of a partly hidden person.
 
 **a person box at 1.00 away from the person**  
 `s098` porch · delivery · day · clear · basic · dark · walk · flat · bins · t 7 s · [frame](https://antioch-demo-hoeksema.vercel.app/?house=porch&event=delivery&light=day&weather=clear&camera=basic&person=dark&speed=walk&surfaces=flat&occlusion=bins&seed=910398&view=doorbell&t=7) · [replay](https://antioch-demo-hoeksema.vercel.app/gallery?replay=s098&detector=frcnn-resnet50&t=7)

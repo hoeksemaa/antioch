@@ -56,7 +56,7 @@ NOT_CAPTURE = [
     "scene/src/replay.ts",
     "scene/src/replay.css",
     "scene/src/results.ts",
-    "scene/src/notes.ts",
+    "scene/src/notes.ts",  # deleted; kept so the commit that deleted it is not a scene change
 ]
 
 

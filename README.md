@@ -4,7 +4,7 @@ A doorbell camera on a simulated front porch, in many environments. It benchmark
 
 Unofficial demo by [John Hoeksema](https://johnhoeksema.com) for the Member of Technical Staff, Core Platform role at Antioch. Not affiliated with Antioch. All scenes and results are simulated and uncalibrated.
 
-Live: https://antioch-demo-hoeksema.vercel.app (Simulation), https://antioch-demo-hoeksema.vercel.app/benchmarks (Benchmark), and https://antioch-demo-hoeksema.vercel.app/gallery (Analysis).
+Live: https://antioch-demo-hoeksema.vercel.app (Simulation), https://antioch-demo-hoeksema.vercel.app/benchmarks (Benchmark), and https://antioch-demo-hoeksema.vercel.app/gallery (Gallery).
 
 ## Stack: which parts are Three.js and which are Python
 
@@ -19,7 +19,7 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulation), https://antioch-dem
 | Detectors | **Python** | `bench/detector.py` | 5 detectors (torchvision and Ultralytics); add one entry to add a detector |
 | Scoring and results | **Python** | `bench/run.py` | Matches detections to the ground truth; writes `scene/public/results/` |
 | Benchmark page | TypeScript (browser) | `scene/benchmarks.html`, `scene/src/benchmarks.ts` | One chart of the scores: a column for each detector, a colored row group for each category |
-| Analysis page | TypeScript (browser) with the Three.js viewer | `scene/gallery.html`, `scene/src/gallery.ts`, `replay.ts` | A replay of one run with the boxes on the doorbell camera, and the notable frames from `bench/gallery.py` (`scene/public/notable/`), in groups, with every setting and each detector's result |
+| Gallery page | TypeScript (browser) with the Three.js viewer | `scene/gallery.html`, `scene/src/gallery.ts`, `replay.ts` | A replay of any scene with the boxes on the doorbell camera, and a grid of the notable frames from `bench/gallery.py` (`scene/public/notable/`), with no text |
 | Hosting | Vercel | `scene/` | Serves the Three.js scene as a static site. Python does not run on Vercel |
 
 ```
@@ -43,16 +43,16 @@ npm install
 npm run dev
 ```
 
-Three pages, with the same header: the title at the left, and one bar with Simulation, Benchmark, Analysis, View source, and View creator:
+Three pages, with the same header: the title at the left, and one bar with Simulation, Benchmark, Gallery, View source, and View creator:
 - **Simulation** (http://localhost:5173): the 3D scene. Drag to orbit and scroll to zoom. Click a button in each axis row (the panel at the top right) to change the scenario. A symbol names each row; the `?` button opens a panel with the keys and the symbol names. Press `1`–`5` to switch houses. Click the doorbell camera inset, or press `V`, for the doorbell camera view; click that view, or press `V` or `Esc`, to go back to the overview.
 - **Benchmark** (http://localhost:5173/benchmarks.html; live: `/benchmarks`): the detector scores (see below).
-- **Analysis** (http://localhost:5173/gallery.html; live: `/gallery`): the replay, and the notable frames from the benchmark run (see below).
+- **Gallery** (http://localhost:5173/gallery.html; live: `/gallery`): the replay of any scene, and the notable frames from the benchmark run (see below).
 
 Capture mode (`/?view=doorbell`) shows the doorbell camera alone, in the full window, with no page around it. The Python benchmark uses this mode, for example `?house=stoop&view=doorbell`.
 
 URL parameters:
-- One parameter per axis in `scene/src/settings.ts`, for example `?house=<id>` (ids below). On Analysis, `?replay=<scenario>&detector=<id>&t=<seconds>` picks the replay.
-- A missing axis takes a default. On Simulation, it is the axis's showcase value. In capture mode, it is the baseline value. The benchmark scenarios set every axis, so the Analysis replay loads each scenario exactly.
+- One parameter per axis in `scene/src/settings.ts`, for example `?house=<id>` (ids below). On Gallery, `?replay=<scenario>&detector=<id>&t=<seconds>` picks the replay.
+- A missing axis takes a default. On Simulation, it is the axis's showcase value. In capture mode, it is the baseline value. The benchmark scenarios set every axis, so the Gallery replay loads each scenario exactly.
 - `?t=<seconds>` freezes the delivery at that time, for example `?house=porch&view=doorbell&t=16`.
 - `?seed=<n>` seeds every random choice in the scene. Seed 0 (the default) is the canonical scene, with no jitter. Another seed moves the delivery's start point (±2 m) and speed (±10%). Each module takes its own named stream from `scene/src/random.ts`, so a change on one axis does not change the random values of another module.
 - `window.sim.stats()` gives the draw calls and triangles of the last frame (all passes), for the browser budget checks. Static meshes that share a material are merged into one mesh, so a frame costs about 90–110 draw calls.
@@ -229,7 +229,7 @@ Output (in git, so the deployed page shows it):
 
 A run replaces the results for the detectors and scenarios it runs and keeps the others. Results for scenarios that are not in the list are dropped.
 
-Notable frames: after a run, `bench/.venv/bin/python bench/gallery.py` picks frames (every detector missed a near person, only one detector hit, the farthest hits, low light on the fisheye, false alarms, the best and worst scenarios) and saves them in `scene/public/notable/`, with a 480 px copy of each in `thumbs/` for the Analysis page. Each picture shows the true box and every detector's boxes, with a caption band: the reason, the scenario, every setting, the time, the distance, and each detector's result. A JSON file next to each picture has the same data and links to the frame on the live site. [`scene/public/notable/README.md`](scene/public/notable/README.md) shows them by category on GitHub.
+Notable frames: after a run, `bench/.venv/bin/python bench/gallery.py` picks frames (every detector missed a near person, only one detector hit, the farthest hits, low light on the fisheye, false alarms, the best and worst scenarios) and saves them in `scene/public/notable/`, with a 640 px copy of each in `thumbs/` for the Gallery page (the boxes only, with no caption or tags). Each picture shows the true box and every detector's boxes, with a caption band: the reason, the scenario, every setting, the time, the distance, and each detector's result. A JSON file next to each picture has the same data and links to the frame on the live site. [`scene/public/notable/README.md`](scene/public/notable/README.md) shows them by category on GitHub.
 
 More data in each frame record: `low` (person boxes from 0.1 up to the threshold, not counted, for other thresholds later), `iou` (the best overlap of a counted box with the true box), and `ms` (detector time). With `--images`, marked-up frames also go to `bench/out/<detector>/<scenario>/` (not in git).
 
@@ -242,17 +242,17 @@ One sentence on what ran, a picture of one frame with the best detector's box (`
 - **False alarms:** person boxes per minute in each scene with no person (dog, passing car, empty), and all of them.
 - **Time to process one frame:** the mean time for each model to process one frame.
 
-The best value in each row is bright green. Hover a row label for its frame count, and a value for its counts. The notes (largest differences, scoring notes, data) and the replay are on the Analysis page.
+The best value in each row is bright green. Hover a row label for its frame count, and a value for its counts. The replay is on the Gallery page.
 
 `/results` and `/results.html` (the old results page) redirect to `/benchmarks` (`scene/vercel.json`).
 
-## Analysis page
+## Gallery page
 
-- **Replay:** one run in the Three.js scene itself, with the true box (white, dashed) and the detector's boxes (yellow) on the doorbell camera. The scene is deterministic, so each frame is the same frame that the detector saw.
-- **Timeline:** play, pause, and step (space, ← →); one strip for each detector (green: hit, red: miss, gray: person out of view, orange: false alarm in a scene with no person). Click a frame to go to it.
-- **Distance table:** detection rate by distance for each detector.
-- **Notes:** for the best detector, the largest differences within one setting; how the scores are counted; and the data files (`notes.ts`).
-- **Notable frames:** the frames from `bench/gallery.py`, in groups (filter at the top). Each card has the picture (click for full size), the reason, the scenario, every setting, the time, the distance, each detector's result, and links: Open frame (the exact frame live, in capture mode) and Replay (that frame in the replay at the top of the page). The keys (space, ← →) work while the replay is on screen.
+No text: the replay, then the pictures.
+
+- **Replay:** one scene in the Three.js scene itself, with the true box (white, dashed) and the detector's boxes (yellow) on the doorbell camera. The scene is deterministic, so each frame is the same frame that the detector saw. A list at the top picks any of the 100 scenes (‹ › go to the previous or next scene).
+- **Timeline:** play, pause, and step (space, ← →, while the replay is on screen); one strip for each detector (green: hit, red: miss, gray: person out of view, orange: false alarm in a scene with no person). Click a frame to go to it, and a strip to change the detector.
+- **Pictures:** the notable frames from `bench/gallery.py`, in one grid. Hover a picture for why it is notable. Click it to load that frame in the replay.
 
 ## Results (2026-10-27)
 
@@ -280,4 +280,4 @@ Vercel project `antioch-demo-hoeksema`, with Root Directory `scene`. Vercel dete
 
 ## Status
 
-v9: three pages (Simulation, Benchmark, Analysis); nine scenario axes; a Python person-detection benchmark with five detectors on 100 fixed scenarios, and 67 notable frames.
+v9: three pages (Simulation, Benchmark, Gallery); nine scenario axes; a Python person-detection benchmark with five detectors on 100 fixed scenarios, and 67 notable frames.

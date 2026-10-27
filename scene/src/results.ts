@@ -1,5 +1,5 @@
 // The Python benchmark's results (scene/public/results/, made by bench/run.py)
-// as the Benchmark and Analysis pages read them: the types of index.json and
+// as the Benchmark and Gallery pages read them: the types of index.json and
 // of the per-frame files, and small helpers.
 
 import type { AxisId } from "./settings";
@@ -55,9 +55,7 @@ export interface Frame {
 
 export const base = import.meta.env.BASE_URL;
 export const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
-export const pct = (n: number, d: number) => (d ? `${Math.round((100 * n) / d)}%` : "–");
 export const perMinute = (s: Summary) => (s.seconds ? (s.false_alarms / s.seconds) * 60 : 0);
-export const noPerson = (s: Scenario) => s.settings.event !== "delivery";
 export const NO_PERSON_EVENTS = ["dog", "car", "empty"];
 
 // Each open-source model: its page in the library docs, one sentence on how

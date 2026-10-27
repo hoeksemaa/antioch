@@ -1,6 +1,6 @@
 """Python: picks notable frames from a benchmark run and saves them as
 pictures with all their settings, in scene/public/notable/ (the site's
-Analysis page shows them; GitHub shows README.md there).
+Gallery page shows the thumbs; GitHub shows README.md there).
 
 Run it after bench/run.py (it reads scene/public/results/ and the frame cache
 in bench/frames/):
@@ -12,7 +12,8 @@ why the frame is notable, the scenario, every axis setting, the time, the
 distance, and each detector's result (the site shows no seed; the JSON has
 it). Next to each picture, a JSON
 file has the same data, plus links that open the exact frame on the live site.
-thumbs/ has a 480 px copy of each picture for the page. gallery.json lists
+thumbs/ has a 640 px copy of each frame for the Gallery page: the boxes only,
+with no caption band and no score tags. gallery.json lists
 every picture (and the category titles); README.md shows them by category.
 hero.jpg and hero.json are the picture at the top of the Benchmark page: one
 clear frame (HERO) with the best detector's box.
@@ -44,7 +45,7 @@ ROOT = Path(__file__).parent
 RESULTS = ROOT.parent / "scene" / "public" / "results"
 FRAMES = ROOT / "frames"
 OUT = ROOT.parent / "scene" / "public" / "notable"
-THUMB = 480  # px wide
+THUMB = 640  # px wide
 # Category id: (title, what it shows), in page order.
 CATEGORIES = {
     "all-missed-close": ("Every detector missed a near person", "The person is in view and less than 6 m away, and no detector finds them. Largest true boxes first."),
@@ -54,7 +55,7 @@ CATEGORIES = {
     "light": ("One pair for each light", "For each light: the farthest frame where most detectors hit, and the nearest frame where all miss."),
     "child-missed": ("Child height: every detector missed", "The weakest person setting."),
     "false-alarm-no-person": ("False alarms with no person", "Person boxes in scenes with a dog, a passing car, or nobody. Highest scores first."),
-    "false-alarm-delivery": ("Boxes away from the person", "Counted person boxes that do not match the true box. Some are on the visible part of a partly hidden person (see Scoring notes on the Benchmark page)."),
+    "false-alarm-delivery": ("Boxes away from the person", "Counted person boxes that do not match the true box. Some are on the visible part of a partly hidden person."),
     "best-and-worst": ("Best and worst scenarios", "The scenarios with the highest and lowest mean detection rate (a middle frame)."),
 }
 SITE = "https://antioch-demo-hoeksema.vercel.app"
@@ -192,7 +193,9 @@ def dashed(draw, box, fill, width=3, dash=10):
             draw.line([p, q], fill=fill, width=width)
 
 
-def render(category, reason, scenario, i, per, detectors):
+def marked(scenario, i, per, detectors, tags=True):
+    """The doorbell frame with the true box (white, dashed) and each
+    detector's counted boxes, with a score tag under each box (when tags)."""
     folder = FRAMES / scenario["id"]
     cached = json.loads((folder / "frames.json").read_text())["frames"][i]
     image = Image.open(folder / cached["file"]).convert("RGB")
@@ -208,8 +211,15 @@ def render(category, reason, scenario, i, per, detectors):
             x0, y0, x1, y1 = scale(b[:4])
             pad = k * 2  # boxes in the same place stay visible
             draw.rectangle((x0 - pad, y0 - pad, x1 + pad, y1 + pad), outline=COLORS.get(d, (255, 255, 255)), width=2)
-            draw.text((x0 - pad + 3, y1 + pad + 2 + 16 * k), f"{d} {b[4]:.2f}", fill=COLORS.get(d, (255, 255, 255)), font=small)
+            if tags:
+                draw.text((x0 - pad + 3, y1 + pad + 2 + 16 * k), f"{d} {b[4]:.2f}", fill=COLORS.get(d, (255, 255, 255)), font=small)
+    return image
 
+
+def render(category, reason, scenario, i, per, detectors):
+    """The marked frame with a caption band under it."""
+    image = marked(scenario, i, per, detectors)
+    w, h = image.size
     s = dict(scenario["settings"])
     if s["event"] != "delivery":  # no person: person and speed do not apply
         s.pop("person"), s.pop("speed")
@@ -303,7 +313,8 @@ def main():
         picture = render(category, reason, scenario, i, per, detectors)
         picture.save(OUT / category / f"{name}.jpg", quality=88)
         (OUT / "thumbs" / category).mkdir(parents=True, exist_ok=True)
-        picture.resize((THUMB, round(picture.height * THUMB / picture.width)), Image.LANCZOS).save(OUT / "thumbs" / category / f"{name}.jpg", quality=82)
+        thumb = marked(scenario, i, per, detectors, tags=False)
+        thumb.resize((THUMB, round(thumb.height * THUMB / thumb.width)), Image.LANCZOS).save(OUT / "thumbs" / category / f"{name}.jpg", quality=82)
         f0 = per[detectors[0]]
         item = {
             "picture": f"{category}/{name}.jpg",
