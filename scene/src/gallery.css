@@ -1,4 +1,4 @@
-/* Gallery page only (style.css has the shared styles). A separate file, so a
+/* Analysis page only (style.css has the shared styles). A separate file, so a
    change here does not touch the capture scene, and the benchmark's frame
    cache (bench/capture.py) stays valid. */
 
@@ -188,6 +188,18 @@
   gap: 4px 14px;
 }
 
-.links a {
+.links a,
+.links button {
+  padding: 0;
+  border: 0;
+  background: none;
   color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* The heading of the notable frames, under the replay. */
+h2.notable {
+  margin-top: 8px;
 }

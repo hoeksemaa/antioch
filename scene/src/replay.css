@@ -1,0 +1,18 @@
+/* The replay (replay.ts) on the Analysis page. style.css has the viewer,
+   timeline, and strip styles. A separate file, so a change here does not
+   touch the capture scene, and the benchmark's frame cache
+   (bench/capture.py) stays valid. */
+
+/* The box overlay covers the doorbell image (replay.ts sets left and width:
+   the whole viewport, or the centered square of the fisheye). */
+#boxes {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+/* A false alarm in a scene with no person. */
+.fa {
+  background: #f08a24;
+}

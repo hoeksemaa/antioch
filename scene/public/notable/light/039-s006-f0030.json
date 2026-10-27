@@ -223,7 +223,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=day&weather=wind&camera=basic&person=man&speed=run&surfaces=textured&occlusion=none&seed=594935&view=doorbell&t=15",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s006&detector=frcnn-resnet50",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s006&detector=frcnn-resnet50&t=15",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/light/039-s006-f0030.jpg"
  }
 }

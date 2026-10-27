@@ -125,7 +125,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=side&event=delivery&light=dusk&weather=fog&camera=ring&person=dark&speed=run&surfaces=textured&occlusion=bins&seed=443198&view=doorbell&t=8.5",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s047&detector=frcnn-resnet50",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s047&detector=frcnn-resnet50&t=8.5",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/hard-all-hit/033-s047-f0017.jpg"
  }
 }

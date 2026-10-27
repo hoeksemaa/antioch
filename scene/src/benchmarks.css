@@ -1,20 +1,6 @@
-/* Benchmarks page only (style.css has the shared styles). A separate file,
+/* Benchmark page only (style.css has the shared styles). A separate file,
    so a change here does not touch the capture scene, and the benchmark's
    frame cache (bench/capture.py) stays valid. */
-
-/* The box overlay covers the doorbell image (benchmarks.ts sets left and
-   width: the whole viewport, or the centered square of the fisheye). */
-#boxes {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  pointer-events: none;
-}
-
-/* A false alarm in a scene with no person. */
-.fa {
-  background: #f08a24;
-}
 
 /* By setting: one group row for each axis. */
 .matrix tr.group td {
@@ -33,39 +19,8 @@
   text-transform: none;
 }
 
-.matrix tr[data-axis] {
-  cursor: pointer;
-}
-
-.matrix tr.on td.name {
-  box-shadow: inset 2px 0 0 var(--accent);
-}
-
 .matrix tr.total-2 td {
   border-top: 1px solid var(--line);
-}
-
-/* Scenarios: 100 rows scroll inside the card. */
-.table-wrap.scroll {
-  max-height: 460px;
-  overflow-y: auto;
-}
-
-.table-wrap.scroll thead th {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: var(--card);
-}
-
-button.link {
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--accent);
-  font: inherit;
-  cursor: pointer;
-  text-decoration: underline;
 }
 
 /* Summary: headline table, then three columns of notes. */

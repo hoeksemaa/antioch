@@ -1,9 +1,12 @@
-// Gallery page entry (TypeScript in the browser). Shows the notable frames
-// that bench/gallery.py (Python) picked from the benchmark run, from
-// public/notable/gallery.json: one card for each picture, in groups, with
-// every setting, each detector's result, and links to the frame and its
-// replay.
+// Analysis page entry (TypeScript in the browser, gallery.html).
+// - The replay (replay.ts) of one benchmark run, frame by frame.
+// - The notable frames that bench/gallery.py (Python) picked from the run,
+//   from public/notable/gallery.json: one card for each picture, in groups,
+//   with every setting, each detector's result, a link to the frame, and a
+//   button that loads it in the replay.
 
+import { startReplay, type Replay } from "./replay";
+import { base, bestDetector, esc, loadIndex } from "./results";
 import { AXES, type AxisId } from "./settings";
 import "./style.css";
 import "./gallery.css";
@@ -34,9 +37,7 @@ interface Gallery {
   pictures: Picture[];
 }
 
-const base = import.meta.env.BASE_URL;
 const $ = (id: string) => document.getElementById(id)!;
-const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 const rgb = (c: [number, number, number] | undefined) => (c ? `rgb(${c.join(" ")})` : "currentColor");
 
 function settings(p: Picture) {
@@ -58,7 +59,6 @@ function result(r: Result) {
 
 function card(p: Picture, g: Gallery) {
   const where = p.frame.distance_m !== null ? `${p.frame.distance_m.toFixed(1)} m` : "no person";
-  const replay = `./benchmarks.html?scenario=${p.scenario.id}${p.focus ? `&detector=${p.focus}` : ""}`;
   const frame = `./?${p.scenario.query}&view=doorbell&t=${p.frame.t}`;
   const dets = g.detectors
     .map((d) => `<li class="${d === p.focus ? "focus" : ""}"><i style="background:${rgb(g.colors[d])}"></i><span>${esc(d)}</span>${result(p.detectors[d])}</li>`)
@@ -70,12 +70,38 @@ function card(p: Picture, g: Gallery) {
       <div class="mono muted">${esc(p.scenario.id)} · t ${p.frame.t.toFixed(1)} s · ${esc(p.frame.phase)} · ${where}</div>
       <div class="tags">${settings(p)}</div>
       <ul class="dets">${dets}</ul>
-      <div class="links"><a href="${frame}">Open frame</a><a href="${replay}">Replay</a><a href="${base}notable/${p.picture}" target="_blank" rel="noopener">Full size</a></div>
+      <div class="links"><a href="${frame}">Open frame</a><button type="button" data-replay="${esc(p.scenario.id)}" data-detector="${esc(p.focus ?? "")}" data-t="${p.frame.t}">Replay</button><a href="${base}notable/${p.picture}" target="_blank" rel="noopener">Full size</a></div>
     </div>
   </article>`;
 }
 
 async function start() {
+  const params = new URLSearchParams(location.search);
+  let group = params.get("group");
+  let replay: Replay | null = null;
+  // The URL keeps the group filter and the replay's run and detector.
+  function saveUrl() {
+    const p = new URLSearchParams();
+    if (group) p.set("group", group);
+    const r = replay?.state();
+    if (r) {
+      p.set("replay", r.scenario);
+      p.set("detector", r.detector);
+    }
+    history.replaceState(null, "", p.size ? `?${p}` : location.pathname);
+  }
+
+  const index = await loadIndex();
+  if (index?.detectors.length && index.scenarios.length) {
+    const best = bestDetector(index.detectors).id;
+    const t = params.get("t");
+    const first = { scenario: params.get("replay") ?? index.scenarios[0].id, detector: params.get("detector") ?? best, t: t !== null ? Number(t) : undefined };
+    if (!index.scenarios.some((s) => s.id === first.scenario)) first.scenario = index.scenarios[0].id;
+    replay = await startReplay(index, first, saveUrl);
+  } else {
+    $("replay").hidden = true;
+  }
+
   let g: Gallery | null = null;
   try {
     const res = await fetch(`${base}notable/gallery.json`);
@@ -91,8 +117,7 @@ async function start() {
   $("key").innerHTML =
     `<span><i class="truth"></i>true box</span>` + gallery.detectors.map((d) => `<span><i style="border-color:${rgb(gallery.colors[d])}"></i>${esc(d)}</span>`).join("");
 
-  const params = new URLSearchParams(location.search);
-  let group = gallery.categories.some((c) => c.id === params.get("group")) ? params.get("group") : null;
+  if (!gallery.categories.some((c) => c.id === group)) group = null;
 
   function render() {
     const count = (id: string) => gallery.pictures.filter((p) => p.category === id).length;
@@ -106,9 +131,7 @@ async function start() {
         return `<section class="group" id="${c.id}"><h2>${esc(c.title)}</h2><p class="lede">${esc(c.about)}</p><div class="grid">${cards}</div></section>`;
       })
       .join("");
-    const p = new URLSearchParams();
-    if (group) p.set("group", group);
-    history.replaceState(null, "", p.size ? `?${p}` : location.pathname);
+    saveUrl();
   }
 
   $("filters").addEventListener("click", (event) => {
@@ -116,6 +139,13 @@ async function start() {
     if (!b) return;
     group = b.dataset.group || null;
     render();
+  });
+  // Replay on a card: load that frame in the replay above.
+  $("groups").addEventListener("click", async (event) => {
+    const b = (event.target as HTMLElement).closest<HTMLButtonElement>("button[data-replay]");
+    if (!b || !replay) return;
+    await replay.select(b.dataset.replay!, b.dataset.detector || replay.state().detector, Number(b.dataset.t));
+    $("replay").scrollIntoView({ behavior: "smooth", block: "start" });
   });
   render();
 }

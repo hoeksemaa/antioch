@@ -193,7 +193,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=porch&event=delivery&light=ir&weather=rain&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=bins&seed=39387&view=doorbell&t=16",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s023&detector=frcnn-resnet50",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s023&detector=frcnn-resnet50&t=16",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/all-missed-close/006-s023-f0032.jpg"
  }
 }

@@ -132,7 +132,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=day&weather=snow&camera=ring&person=hooded&speed=run&surfaces=flat&occlusion=none&seed=376196&view=doorbell&t=7",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s037&detector=frcnn-resnet50",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s037&detector=frcnn-resnet50&t=7",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/best-and-worst/064-s037-f0014.jpg"
  }
 }

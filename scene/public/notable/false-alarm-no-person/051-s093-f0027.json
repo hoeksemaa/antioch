@@ -126,7 +126,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=stoop&event=dog&light=night&weather=fog&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=724248&view=doorbell&t=13.5",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s093&detector=frcnn-mobilenet",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s093&detector=frcnn-mobilenet&t=13.5",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/false-alarm-no-person/051-s093-f0027.jpg"
  }
 }

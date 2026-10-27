@@ -107,7 +107,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=night&weather=clear&camera=basic&person=woman&speed=run&surfaces=flat&occlusion=bins&seed=340563&view=doorbell&t=10",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s071&detector=frcnn-resnet50",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s071&detector=frcnn-resnet50&t=10",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/all-missed-close/004-s071-f0020.jpg"
  }
 }

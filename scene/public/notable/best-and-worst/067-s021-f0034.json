@@ -180,7 +180,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=side&event=delivery&light=ir&weather=snow&camera=ring&person=child&speed=walk&surfaces=textured&occlusion=car&seed=93988&view=doorbell&t=17",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s021&detector=frcnn-resnet50",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s021&detector=frcnn-resnet50&t=17",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/best-and-worst/067-s021-f0034.jpg"
  }
 }

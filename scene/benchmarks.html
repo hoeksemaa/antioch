@@ -27,10 +27,9 @@
       <p class="eyebrow"><span>//</span> Benchmark</p>
       <h1>Person detection</h1>
       <p class="lede">
-        Every detector runs on the same 100 fixed scenarios, which mix every setting. Detection rate: the share of frames
-        with the person in view in which the detector found the person. False alarms: person boxes per minute in scenes
-        with no person (dog, passing car, empty). Click a setting to list its scenarios, and a cell to replay it. All
-        scenes are simulated and uncalibrated.
+        Every detector sees the same simulated frames, which mix every setting. Detection rate: the share of frames with
+        the person in view in which the detector found the person. False alarms: person boxes per minute in scenes with
+        no person (dog, passing car, empty). All scenes are simulated and uncalibrated.
       </p>
 
       <section class="card summary">
@@ -79,55 +78,6 @@
         <div class="table-wrap"><table class="matrix" id="by-setting"></table></div>
       </section>
 
-      <section class="card">
-        <div class="card-head">
-          <div>
-            <div class="card-title">Scenarios</div>
-            <div class="mono muted" id="filter"></div>
-          </div>
-        </div>
-        <div class="table-wrap scroll"><table class="matrix" id="matrix"></table></div>
-      </section>
-
-      <section class="card detail">
-        <div class="card-head">
-          <div>
-            <div class="card-title" id="detail-title"></div>
-            <div class="mono muted" id="detail-sub"></div>
-          </div>
-          <div class="stats" id="cell-stats"></div>
-        </div>
-        <div class="detail-body">
-          <div class="viewer">
-            <div class="viewer-bar">
-              <span class="label"><i></i>Doorbell camera</span>
-              <span class="mono">← → step · space play</span>
-            </div>
-            <div class="viewport" id="viewport"><div id="boxes"></div></div>
-            <div class="timeline">
-              <div class="controls">
-                <button id="prev" title="Previous frame (←)">‹</button>
-                <button id="play" title="Play or pause (space)">▶</button>
-                <button id="next" title="Next frame (→)">›</button>
-                <span class="mono" id="frame-info"></span>
-              </div>
-              <div class="strips-wrap">
-                <div id="strips"></div>
-                <div class="playhead" id="playhead"></div>
-              </div>
-              <div class="legend mono">
-                <span><i class="hit"></i>hit</span>
-                <span><i class="miss"></i>miss</span>
-                <span><i class="out"></i>out of view</span>
-                <span><i class="fa"></i>false alarm (no person)</span>
-                <span><i class="truth"></i>true box</span>
-                <span><i class="det"></i>detection</span>
-              </div>
-            </div>
-          </div>
-          <div class="table-wrap"><table class="bands" id="bands"></table></div>
-        </div>
-      </section>
     </main>
     <p class="credit">Unofficial demo.<br />Not affiliated<br />with Antioch.</p>
     <script type="module" src="/src/benchmarks.ts"></script>

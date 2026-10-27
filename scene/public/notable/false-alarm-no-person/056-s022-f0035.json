@@ -104,7 +104,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=portico&event=dog&light=day&weather=clear&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=812286&view=doorbell&t=17.5",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s022&detector=rtdetr-x",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s022&detector=rtdetr-x&t=17.5",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/false-alarm-no-person/056-s022-f0035.jpg"
  }
 }
