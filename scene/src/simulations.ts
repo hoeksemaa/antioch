@@ -1,12 +1,15 @@
 // Simulations page (Three.js viewer plus a few controls): the overview with
 // the doorbell camera inset and the delivery playing. One row of buttons for
-// each axis in settings.ts, in a panel on the right above the inset. Keys 1–5
-// switch houses. A click on the inset (or V) opens the doorbell view, and a
-// click on that view (or V, or Esc) goes back to the overview.
+// each axis in settings.ts, in a panel on the right above the inset; a symbol
+// (icons.ts) names each row, and the ? button opens a panel with the keys and
+// the symbol names. Keys 1–5 switch houses. A click on the inset (or V) opens
+// the doorbell view, and a click on that view (or V, or Esc) goes back to the
+// overview.
 // The page shows no seed control: a seed from the URL (an Open frame link from
 // the Gallery) stays in the settings, so that frame matches the benchmark.
 
 import { HOUSES } from "./houses";
+import { icon } from "./icons";
 import { AXES, writeSettings, type AxisId, type Settings } from "./settings";
 import type { Viewer } from "./viewer";
 
@@ -44,7 +47,7 @@ export async function startSimulations(viewer: Viewer, first: Settings) {
   for (const axis of AXES) {
     const row = document.createElement("div");
     row.className = "axis";
-    row.innerHTML = `<span>${axis.label}</span><div class="options"></div>`;
+    row.innerHTML = `<span class="icon" role="img" aria-label="${axis.label}" title="${axis.label}">${icon(axis.id)}</span><div class="options" role="group" aria-label="${axis.label}"></div>`;
     const options = row.querySelector(".options")!;
     axis.values.forEach((value, i) => {
       const b = document.createElement("button");
@@ -57,12 +60,32 @@ export async function startSimulations(viewer: Viewer, first: Settings) {
     rows.append(row);
   }
 
+  // The help panel: the keys, and the name of each symbol. A click outside it
+  // (or Esc) closes it.
+  const help = document.getElementById("help")!;
+  const panel = document.getElementById("help-panel")!;
+  document.getElementById("help-icons")!.innerHTML = AXES.map((a) => `<li>${icon(a.id)}${a.label}</li>`).join("");
+  function showHelp(open: boolean) {
+    panel.hidden = !open;
+    help.setAttribute("aria-expanded", String(open));
+  }
+  help.addEventListener("click", (event) => {
+    event.stopPropagation();
+    showHelp(panel.hidden);
+  });
+  document.addEventListener("click", (event) => {
+    if (!panel.hidden && !panel.contains(event.target as Node)) showHelp(false);
+  });
+
   window.addEventListener("keydown", (event) => {
     if (event.target instanceof HTMLInputElement) return;
     const house = HOUSES[Number(event.key) - 1];
     if (house) set({ house: house.id });
     else if (event.key.toLowerCase() === "v") setView(viewer.view === "overview" ? "doorbell" : "overview");
-    else if (event.key === "Escape") setView("overview");
+    else if (event.key === "Escape") {
+      if (!panel.hidden) showHelp(false);
+      else setView("overview");
+    }
   });
 
   inset.addEventListener("click", () => setView("doorbell"));
