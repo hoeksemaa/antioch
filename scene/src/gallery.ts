@@ -22,7 +22,7 @@ interface Picture {
   category: string;
   focus: string | null;
   reason: string;
-  scenario: { id: string; name: string; settings: Record<AxisId, string>; seed: number; query: string };
+  scenario: { id: string; name: string; settings: Record<AxisId, string>; query: string };
   frame: { index: number; t: number; phase: string; distance_m: number | null };
   detectors: Record<string, Result>;
 }
@@ -67,7 +67,7 @@ function card(p: Picture, g: Gallery) {
     <a class="shot-image" href="${base}notable/${p.picture}" target="_blank" rel="noopener"><img src="${base}notable/${p.thumb}" alt="${esc(p.reason)}" loading="lazy" /></a>
     <div class="shot-body">
       <div class="shot-reason">${esc(p.reason)}</div>
-      <div class="mono muted">${esc(p.scenario.id)} · seed ${p.scenario.seed} · t ${p.frame.t.toFixed(1)} s · ${esc(p.frame.phase)} · ${where}</div>
+      <div class="mono muted">${esc(p.scenario.id)} · t ${p.frame.t.toFixed(1)} s · ${esc(p.frame.phase)} · ${where}</div>
       <div class="tags">${settings(p)}</div>
       <ul class="dets">${dets}</ul>
       <div class="links"><a href="${frame}">Open frame</a><a href="${replay}">Replay</a><a href="${base}notable/${p.picture}" target="_blank" rel="noopener">Full size</a></div>

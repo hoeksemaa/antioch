@@ -1,7 +1,8 @@
 // Simulations page (Three.js viewer plus a few controls): the overview with
 // the doorbell camera inset and the delivery playing. One row of buttons for
-// each axis in settings.ts, and a seed. Keys 1–5 switch houses, and V
-// switches the view.
+// each axis in settings.ts. Keys 1–5 switch houses, and V switches the view.
+// The page shows no seed control: a seed from the URL (an Open frame link from
+// the Gallery) stays in the settings, so that frame matches the benchmark.
 
 import { HOUSES } from "./houses";
 import { AXES, writeSettings, type AxisId, type Settings } from "./settings";
@@ -25,7 +26,6 @@ export async function startSimulations(viewer: Viewer, first: Settings) {
     await viewer.load(settings);
     if (viewer.settings !== settings) return; // a newer choice replaced this one
     viewer.play();
-    seed.value = String(settings.seed);
     const p = new URLSearchParams(location.search);
     p.delete("t");
     writeSettings(settings, p);
@@ -53,15 +53,6 @@ export async function startSimulations(viewer: Viewer, first: Settings) {
     });
     rows.append(row);
   }
-
-  // Seed 0 is the canonical scene. The new-seed button picks one at random.
-  const row = document.createElement("div");
-  row.className = "axis";
-  row.innerHTML = `<span>Seed</span><input id="seed" type="number" min="0" step="1" /><button id="reseed" title="New seed">↻</button>`;
-  rows.append(row);
-  const seed = row.querySelector<HTMLInputElement>("#seed")!;
-  seed.addEventListener("change", () => set({ seed: Math.max(0, Math.floor(Number(seed.value)) || 0) }));
-  row.querySelector("#reseed")!.addEventListener("click", () => set({ seed: 1 + Math.floor(Math.random() * 9999) }));
 
   window.addEventListener("keydown", (event) => {
     if (event.target instanceof HTMLInputElement) return;

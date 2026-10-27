@@ -721,8 +721,7 @@ kbd {
   font-size: 12px;
 }
 
-#axes button,
-#axes input {
+#axes button {
   padding: 2px 8px;
   border: 1px solid rgb(255 255 255 / 0.25);
   border-radius: 4px;
@@ -731,11 +730,6 @@ kbd {
   font: inherit;
   font-size: 12px;
   cursor: pointer;
-}
-
-#axes input {
-  width: 64px;
-  cursor: text;
 }
 
 #axes button.on {

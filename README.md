@@ -12,7 +12,7 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations), https://antioch-de
 |---|---|---|---|
 | 3D scene | **Three.js** (TypeScript, in the browser) | `scene/src/` (`viewer.ts`, `houses.ts`, `delivery.ts`, …) | Houses, the delivery person and package, the doorbell camera, the overview |
 | Scenario axes | TypeScript (browser) | `scene/src/settings.ts`, `lights.ts`, `weather.ts`, `camera.ts`, `sensor.ts`, `people.ts`, `surfaces.ts`, `props.ts`, `events.ts` | The axes: house, event, light, weather, camera, person, speed, surfaces, occlusion, with a v1 baseline value and a showcase value for each |
-| Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, one row of buttons per axis, a seed, keys 1–5 and V. Also capture mode for Python |
+| Simulations page | **Three.js** viewer plus buttons | `scene/index.html`, `scene/src/main.ts`, `simulations.ts` | The scene browser: overview with the doorbell inset, one row of buttons per axis, keys 1–5 and V. Also capture mode for Python |
 | Benchmark hook | **Three.js** (TypeScript, in the browser) | `scene/src/bench.ts` | `window.bench`: renders the frame at time t and returns the ground truth (person box, distance, phase) |
 | Scenario list | **Python** | `bench/scenarios.py` → `bench/scenarios.json` | The fixed 100 scenarios that every detector runs on |
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots, caches them in `bench/frames/` |
@@ -226,7 +226,7 @@ Output (in git, so the deployed page shows it):
 
 A run replaces the results for the detectors and scenarios it runs and keeps the others. Results for scenarios that are not in the list are dropped.
 
-Notable frames: after a run, `bench/.venv/bin/python bench/gallery.py` picks frames (every detector missed a near person, only one detector hit, the farthest hits, low light on the fisheye, false alarms, the best and worst scenarios) and saves them in `scene/public/notable/`, with a 480 px copy of each in `thumbs/` for the Gallery page. Each picture shows the true box and every detector's boxes, with a caption band: the reason, the scenario, every setting, the seed, the time, the distance, and each detector's result. A JSON file next to each picture has the same data and links to the frame on the live site. [`scene/public/notable/README.md`](scene/public/notable/README.md) shows them by category on GitHub.
+Notable frames: after a run, `bench/.venv/bin/python bench/gallery.py` picks frames (every detector missed a near person, only one detector hit, the farthest hits, low light on the fisheye, false alarms, the best and worst scenarios) and saves them in `scene/public/notable/`, with a 480 px copy of each in `thumbs/` for the Gallery page. Each picture shows the true box and every detector's boxes, with a caption band: the reason, the scenario, every setting, the time, the distance, and each detector's result. A JSON file next to each picture has the same data and links to the frame on the live site. [`scene/public/notable/README.md`](scene/public/notable/README.md) shows them by category on GitHub.
 
 More data in each frame record: `low` (person boxes from 0.1 up to the threshold, not counted, for other thresholds later), `iou` (the best overlap of a counted box with the true box), and `ms` (detector time). With `--images`, marked-up frames also go to `bench/out/<detector>/<scenario>/` (not in git).
 
@@ -244,7 +244,7 @@ Styled after antioch.com:
 
 ## Gallery page
 
-The notable frames from `bench/gallery.py`, in groups (filter at the top). Each card has the picture (click for full size), the reason, the scenario, every setting, the seed, the time, the distance, each detector's result, and links: Open frame (the exact frame live, in capture mode) and Replay (the scenario on the Benchmarks page).
+The notable frames from `bench/gallery.py`, in groups (filter at the top). Each card has the picture (click for full size), the reason, the scenario, every setting, the time, the distance, each detector's result, and links: Open frame (the exact frame live, in capture mode) and Replay (the scenario on the Benchmarks page).
 
 ## Results (2026-10-27)
 

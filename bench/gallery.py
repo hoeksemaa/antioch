@@ -8,8 +8,9 @@ in bench/frames/):
 
 Each picture is the doorbell frame with the true box (white, dashed) and the
 counted boxes of every detector (one color each), and a caption band under it:
-why the frame is notable, the scenario, every axis setting, the seed, the
-time, the distance, and each detector's result. Next to each picture, a JSON
+why the frame is notable, the scenario, every axis setting, the time, the
+distance, and each detector's result (the site shows no seed; the JSON has
+it). Next to each picture, a JSON
 file has the same data, plus links that open the exact frame on the live site.
 thumbs/ has a 480 px copy of each picture for the page. gallery.json lists
 every picture (and the category titles); README.md shows them by category.
@@ -212,7 +213,7 @@ def render(category, reason, scenario, i, per, detectors):
     gray = (190, 190, 185)
     lines = [
         [(f"{category}: {reason}", (255, 255, 255))],
-        [(f"{scenario['id']} · seed {scenario['seed']} · t {f0['t']:.1f} s · frame {i + 1} · {f0['phase']} · {where}", gray)],
+        [(f"{scenario['id']} · t {f0['t']:.1f} s · frame {i + 1} · {f0['phase']} · {where}", gray)],
         [(f"{a} {v}" + (" · " if k < len(s) - 1 else ""), gray) for k, (a, v) in enumerate(s.items())],
         [],
     ]
@@ -291,11 +292,11 @@ def main():
     categories = [{"id": c, "title": t, "about": a} for c, (t, a) in CATEGORIES.items() if any(x["category"] == c for x in items)]
     (OUT / "gallery.json").write_text(json.dumps({"made_by": "bench/gallery.py", "detectors": detectors, "colors": COLORS, "categories": categories, "pictures": items}, indent=1))
 
-    md = ["# Notable frames", "", f"Made by `bench/gallery.py` from the benchmark results ({len(items)} pictures). True box: white, dashed. Detector boxes: " + ", ".join(f"{d} (rgb{COLORS[d]})" for d in detectors if d in COLORS) + ". Each picture has a JSON file with the same name: every setting, the seed, the frame, each detector's boxes, and links to the frame on the live site.", ""]
+    md = ["# Notable frames", "", f"Made by `bench/gallery.py` from the benchmark results ({len(items)} pictures). True box: white, dashed. Detector boxes: " + ", ".join(f"{d} (rgb{COLORS[d]})" for d in detectors if d in COLORS) + ". Each picture has a JSON file with the same name: every setting, the frame, each detector's boxes, and links to the frame on the live site.", ""]
     for category in dict.fromkeys(i["category"] for i in items):
         md += [f"## {CATEGORIES[category][0]}", "", CATEGORIES[category][1], ""]
         for item in (x for x in items if x["category"] == category):
-            md += [f"**{item['reason']}**  ", f"`{item['scenario']['id']}` {item['scenario']['name']} · seed {item['scenario']['seed']} · t {item['frame']['t']} s · [frame]({item['links']['frame']}) · [replay]({item['links']['replay']})", "", f"![{item['reason']}]({item['picture']})", ""]
+            md += [f"**{item['reason']}**  ", f"`{item['scenario']['id']}` {item['scenario']['name']} · t {item['frame']['t']} s · [frame]({item['links']['frame']}) · [replay]({item['links']['replay']})", "", f"![{item['reason']}]({item['picture']})", ""]
     (OUT / "README.md").write_text("\n".join(md))
     counts = {}
     for item in items:
