@@ -1,0 +1,139 @@
+{
+ "picture": "false-alarm-no-person/055-s022-f0033.jpg",
+ "thumb": "thumbs/false-alarm-no-person/055-s022-f0033.jpg",
+ "focus": "yolo11x",
+ "category": "false-alarm-no-person",
+ "reason": "yolo11x: a person box at 0.70 with no person in the scene",
+ "scenario": {
+  "id": "s022",
+  "name": "portico \u00b7 dog \u00b7 day \u00b7 clear \u00b7 fisheye \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "portico",
+   "event": "dog",
+   "light": "day",
+   "weather": "clear",
+   "camera": "ring",
+   "person": "man",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 812286,
+  "query": "house=portico&event=dog&light=day&weather=clear&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=812286"
+ },
+ "frame": {
+  "index": 33,
+  "t": 16.5,
+  "phase": "none",
+  "distance_m": null,
+  "truth": null
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": null,
+   "iou": null,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.4829,
+     0.5861,
+     0.5476,
+     0.6934,
+     0.17
+    ]
+   ],
+   "ms": 99.3
+  },
+  "ssdlite": {
+   "hit": null,
+   "iou": null,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 118.7
+  },
+  "frcnn-resnet50": {
+   "hit": null,
+   "iou": null,
+   "fa": 1,
+   "dets": [
+    [
+     0.4812,
+     0.5877,
+     0.5489,
+     0.7002,
+     0.508
+    ]
+   ],
+   "low": [],
+   "ms": 258.1
+  },
+  "yolo11x": {
+   "hit": null,
+   "iou": null,
+   "fa": 1,
+   "dets": [
+    [
+     0.4803,
+     0.5883,
+     0.5483,
+     0.6985,
+     0.696
+    ]
+   ],
+   "low": [],
+   "ms": 284.5
+  },
+  "rtdetr-x": {
+   "hit": null,
+   "iou": null,
+   "fa": 1,
+   "dets": [
+    [
+     0.4799,
+     0.5877,
+     0.5483,
+     0.6985,
+     0.744
+    ]
+   ],
+   "low": [
+    [
+     0.4795,
+     0.5877,
+     0.5481,
+     0.6986,
+     0.126
+    ],
+    [
+     0.48,
+     0.6065,
+     0.5267,
+     0.6747,
+     0.113
+    ],
+    [
+     0.4807,
+     0.6097,
+     0.5244,
+     0.6484,
+     0.108
+    ],
+    [
+     0.4794,
+     0.6083,
+     0.5293,
+     0.6982,
+     0.101
+    ]
+   ],
+   "ms": 223.0
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=portico&event=dog&light=day&weather=clear&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=812286&view=doorbell&t=16.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s022&detector=yolo11x",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/false-alarm-no-person/055-s022-f0033.jpg"
+ }
+}

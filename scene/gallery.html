@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <title>Doorbell Bench: Gallery</title>
+  </head>
+  <body>
+    <div class="notice">
+      <span class="chip">Unofficial</span>
+      An unofficial demo by John Hoeksema. Not affiliated with Antioch.
+    </div>
+    <header class="top">
+      <div class="top-inner">
+        <a class="brand" href="./"><span class="mark"></span>Doorbell Bench</a>
+        <nav>
+          <a href="./">Simulations</a>
+          <a href="./benchmarks.html">Benchmarks</a>
+          <a class="on" href="./gallery.html">Gallery</a>
+        </nav>
+        <div class="actions">
+          <a class="button soft" href="https://github.com/hoeksemaa/antioch">View source</a>
+          <a class="button" href="https://johnhoeksema.com">View creator</a>
+        </div>
+      </div>
+    </header>
+    <div class="hatch"><div class="rail"></div></div>
+    <main class="rail section">
+      <p class="eyebrow"><span>//</span> Gallery</p>
+      <h1>Notable frames</h1>
+      <p class="lede">
+        Frames from the benchmark run, picked by rule: misses by every detector, hits by only one, the farthest hits,
+        and false alarms. Each picture shows the true box (white, dashed) and every detector's boxes, with every
+        setting of its scenario. Open a frame to see it live, or replay its scenario. All scenes are simulated and
+        uncalibrated.
+      </p>
+      <div class="key" id="key"></div>
+      <div class="filters" id="filters"></div>
+      <div id="groups"></div>
+    </main>
+    <script type="module" src="/src/gallery.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+{
+ "picture": "all-missed-close/008-s013-f0011.jpg",
+ "thumb": "thumbs/all-missed-close/008-s013-f0011.jpg",
+ "focus": null,
+ "category": "all-missed-close",
+ "reason": "all 5 detectors missed at 2.3 m",
+ "scenario": {
+  "id": "s013",
+  "name": "porch \u00b7 delivery \u00b7 night \u00b7 wind \u00b7 fisheye \u00b7 child \u00b7 run \u00b7 textured \u00b7 none",
+  "settings": {
+   "house": "porch",
+   "event": "delivery",
+   "light": "night",
+   "weather": "wind",
+   "camera": "ring",
+   "person": "child",
+   "speed": "run",
+   "surfaces": "textured",
+   "occlusion": "none"
+  },
+  "seed": 396111,
+  "query": "house=porch&event=delivery&light=night&weather=wind&camera=ring&person=child&speed=run&surfaces=textured&occlusion=none&seed=396111"
+ },
+ "frame": {
+  "index": 11,
+  "t": 5.5,
+  "phase": "drop",
+  "distance_m": 2.28,
+  "truth": [
+   0.5606,
+   0.5724,
+   0.6515,
+   0.7342
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 166.2
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 121.2
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.5677,
+     0.5687,
+     0.6529,
+     0.6637,
+     0.396
+    ],
+    [
+     0.7514,
+     0.2581,
+     0.9954,
+     0.5033,
+     0.268
+    ]
+   ],
+   "ms": 343.2
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.5616,
+     0.5706,
+     0.6528,
+     0.6646,
+     0.268
+    ]
+   ],
+   "ms": 564.9
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.559,
+     0.5687,
+     0.6537,
+     0.6648,
+     0.314
+    ],
+    [
+     0.7482,
+     0.2797,
+     0.8918,
+     0.4947,
+     0.126
+    ]
+   ],
+   "ms": 439.9
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=porch&event=delivery&light=night&weather=wind&camera=ring&person=child&speed=run&surfaces=textured&occlusion=none&seed=396111&view=doorbell&t=5.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s013&detector=frcnn-resnet50",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/all-missed-close/008-s013-f0011.jpg"
+ }
+}

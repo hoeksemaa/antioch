@@ -1,0 +1,175 @@
+{
+ "picture": "hard-all-hit/034-s046-f0052.jpg",
+ "thumb": "thumbs/hard-all-hit/034-s046-f0052.jpg",
+ "focus": null,
+ "category": "hard-all-hit",
+ "reason": "every detector hit in low light on the fisheye, at 3.9 m",
+ "scenario": {
+  "id": "s046",
+  "name": "flush \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 fisheye \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "flush",
+   "event": "delivery",
+   "light": "ir",
+   "weather": "wind",
+   "camera": "ring",
+   "person": "man",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 778441,
+  "query": "house=flush&event=delivery&light=ir&weather=wind&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=778441"
+ },
+ "frame": {
+  "index": 52,
+  "t": 26,
+  "phase": "leave",
+  "distance_m": 3.92,
+  "truth": [
+   0.0647,
+   0.368,
+   0.1657,
+   0.6008
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": true,
+   "iou": 0.934,
+   "fa": 0,
+   "dets": [
+    [
+     0.0632,
+     0.3662,
+     0.1652,
+     0.5911,
+     0.993
+    ]
+   ],
+   "low": [
+    [
+     0.269,
+     0.4343,
+     0.3199,
+     0.5036,
+     0.206
+    ],
+    [
+     0.3956,
+     0.4026,
+     0.432,
+     0.4646,
+     0.162
+    ]
+   ],
+   "ms": 86.3
+  },
+  "ssdlite": {
+   "hit": true,
+   "iou": 0.87,
+   "fa": 0,
+   "dets": [
+    [
+     0.0648,
+     0.3496,
+     0.1699,
+     0.5957,
+     0.505
+    ]
+   ],
+   "low": [
+    [
+     0.0522,
+     0.3507,
+     0.3042,
+     0.593,
+     0.127
+    ],
+    [
+     0.0208,
+     0.3891,
+     0.2176,
+     0.6211,
+     0.122
+    ],
+    [
+     0.0,
+     0.2297,
+     0.1526,
+     0.7607,
+     0.11
+    ],
+    [
+     0.0712,
+     0.4041,
+     0.131,
+     0.5511,
+     0.101
+    ]
+   ],
+   "ms": 130.8
+  },
+  "frcnn-resnet50": {
+   "hit": true,
+   "iou": 0.957,
+   "fa": 0,
+   "dets": [
+    [
+     0.0653,
+     0.3649,
+     0.1674,
+     0.5989,
+     0.999
+    ]
+   ],
+   "low": [
+    [
+     0.129,
+     0.4181,
+     0.1539,
+     0.4814,
+     0.133
+    ]
+   ],
+   "ms": 256.4
+  },
+  "yolo11x": {
+   "hit": true,
+   "iou": 0.961,
+   "fa": 0,
+   "dets": [
+    [
+     0.0653,
+     0.3666,
+     0.1654,
+     0.595,
+     0.911
+    ]
+   ],
+   "low": [],
+   "ms": 285.7
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.945,
+   "fa": 0,
+   "dets": [
+    [
+     0.0638,
+     0.3626,
+     0.1655,
+     0.5956,
+     0.935
+    ]
+   ],
+   "low": [],
+   "ms": 230.4
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=ir&weather=wind&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=778441&view=doorbell&t=26",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s046&detector=frcnn-resnet50",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/hard-all-hit/034-s046-f0052.jpg"
+ }
+}

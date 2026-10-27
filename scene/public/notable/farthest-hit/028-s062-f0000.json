@@ -1,0 +1,194 @@
+{
+ "picture": "farthest-hit/028-s062-f0000.jpg",
+ "thumb": "thumbs/farthest-hit/028-s062-f0000.jpg",
+ "focus": "frcnn-resnet50",
+ "category": "farthest-hit",
+ "reason": "frcnn-resnet50: one of its farthest hits, at 21.7 m",
+ "scenario": {
+  "id": "s062",
+  "name": "flush \u00b7 delivery \u00b7 day \u00b7 wind \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 flat \u00b7 bins",
+  "settings": {
+   "house": "flush",
+   "event": "delivery",
+   "light": "day",
+   "weather": "wind",
+   "camera": "ring",
+   "person": "child",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "bins"
+  },
+  "seed": 170936,
+  "query": "house=flush&event=delivery&light=day&weather=wind&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=bins&seed=170936"
+ },
+ "frame": {
+  "index": 0,
+  "t": 0,
+  "phase": "approach",
+  "distance_m": 21.72,
+  "truth": [
+   0.0909,
+   0.4033,
+   0.1037,
+   0.4328
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 156.7
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.1208,
+     0.252,
+     0.3611,
+     0.5549,
+     0.104
+    ]
+   ],
+   "ms": 109.1
+  },
+  "frcnn-resnet50": {
+   "hit": true,
+   "iou": 0.715,
+   "fa": 0,
+   "dets": [
+    [
+     0.09,
+     0.401,
+     0.1061,
+     0.4316,
+     0.894
+    ]
+   ],
+   "low": [
+    [
+     0.0898,
+     0.4063,
+     0.0996,
+     0.4315,
+     0.176
+    ],
+    [
+     0.1171,
+     0.4229,
+     0.1229,
+     0.4335,
+     0.149
+    ],
+    [
+     0.0752,
+     0.4813,
+     0.0855,
+     0.4925,
+     0.128
+    ]
+   ],
+   "ms": 239.9
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.0903,
+     0.4024,
+     0.103,
+     0.4319,
+     0.204
+    ]
+   ],
+   "ms": 279.6
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.67,
+   "fa": 0,
+   "dets": [
+    [
+     0.0898,
+     0.4003,
+     0.1068,
+     0.432,
+     0.727
+    ]
+   ],
+   "low": [
+    [
+     0.1958,
+     0.4101,
+     0.2086,
+     0.4259,
+     0.225
+    ],
+    [
+     0.3193,
+     0.3994,
+     0.3294,
+     0.4144,
+     0.197
+    ],
+    [
+     0.0901,
+     0.4035,
+     0.0982,
+     0.4315,
+     0.172
+    ],
+    [
+     0.0951,
+     0.4028,
+     0.1057,
+     0.4312,
+     0.135
+    ],
+    [
+     0.6669,
+     0.3922,
+     0.6764,
+     0.4007,
+     0.128
+    ],
+    [
+     0.2678,
+     0.4018,
+     0.2753,
+     0.4145,
+     0.123
+    ],
+    [
+     0.1162,
+     0.4251,
+     0.1217,
+     0.4341,
+     0.12
+    ],
+    [
+     0.0906,
+     0.4026,
+     0.1011,
+     0.4322,
+     0.114
+    ]
+   ],
+   "ms": 212.4
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=day&weather=wind&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=bins&seed=170936&view=doorbell&t=0",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s062&detector=frcnn-resnet50",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/farthest-hit/028-s062-f0000.jpg"
+ }
+}

@@ -1,0 +1,122 @@
+{
+ "picture": "only-one-hit/017-s032-f0089.jpg",
+ "thumb": "thumbs/only-one-hit/017-s032-f0089.jpg",
+ "focus": "yolo11x",
+ "category": "only-one-hit",
+ "reason": "only yolo11x found the person, at 22.8 m",
+ "scenario": {
+  "id": "s032",
+  "name": "portico \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "portico",
+   "event": "delivery",
+   "light": "night",
+   "weather": "clear",
+   "camera": "basic",
+   "person": "man",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 35605,
+  "query": "house=portico&event=delivery&light=night&weather=clear&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=35605"
+ },
+ "frame": {
+  "index": 89,
+  "t": 44.5,
+  "phase": "leave",
+  "distance_m": 22.84,
+  "truth": [
+   0.2328,
+   0.3923,
+   0.2502,
+   0.4583
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 111.2
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 201.4
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.2326,
+     0.3912,
+     0.2455,
+     0.4223,
+     0.358
+    ]
+   ],
+   "ms": 368.7
+  },
+  "yolo11x": {
+   "hit": true,
+   "iou": 0.367,
+   "fa": 0,
+   "dets": [
+    [
+     0.2326,
+     0.3917,
+     0.2458,
+     0.4252,
+     0.623
+    ]
+   ],
+   "low": [
+    [
+     0.2325,
+     0.3912,
+     0.2459,
+     0.4544,
+     0.189
+    ]
+   ],
+   "ms": 280.9
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.2293,
+     0.3912,
+     0.2466,
+     0.4599,
+     0.22
+    ],
+    [
+     0.3388,
+     0.8713,
+     0.4082,
+     1.0025,
+     0.103
+    ]
+   ],
+   "ms": 432.0
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=portico&event=delivery&light=night&weather=clear&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=35605&view=doorbell&t=44.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s032&detector=yolo11x",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/only-one-hit/017-s032-f0089.jpg"
+ }
+}

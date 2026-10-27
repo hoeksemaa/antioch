@@ -1,0 +1,114 @@
+{
+ "picture": "child-missed/048-s023-f0031.jpg",
+ "thumb": "thumbs/child-missed/048-s023-f0031.jpg",
+ "focus": null,
+ "category": "child-missed",
+ "reason": "child height: all missed at 3.0 m",
+ "scenario": {
+  "id": "s023",
+  "name": "porch \u00b7 delivery \u00b7 IR \u00b7 rain \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 flat \u00b7 bins",
+  "settings": {
+   "house": "porch",
+   "event": "delivery",
+   "light": "ir",
+   "weather": "rain",
+   "camera": "ring",
+   "person": "child",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "bins"
+  },
+  "seed": 39387,
+  "query": "house=porch&event=delivery&light=ir&weather=rain&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=bins&seed=39387"
+ },
+ "frame": {
+  "index": 31,
+  "t": 15.5,
+  "phase": "approach",
+  "distance_m": 3.03,
+  "truth": [
+   0.5418,
+   0.5157,
+   0.6262,
+   0.6858
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 106.5
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.561,
+     0.3693,
+     0.7815,
+     0.582,
+     0.102
+    ]
+   ],
+   "ms": 122.0
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.5481,
+     0.5087,
+     0.6007,
+     0.6733,
+     0.301
+    ],
+    [
+     0.557,
+     0.6142,
+     0.5892,
+     0.6718,
+     0.257
+    ]
+   ],
+   "ms": 265.9
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 287.6
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.5574,
+     0.6159,
+     0.5919,
+     0.6716,
+     0.243
+    ]
+   ],
+   "ms": 222.5
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=porch&event=delivery&light=ir&weather=rain&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=bins&seed=39387&view=doorbell&t=15.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s023&detector=frcnn-resnet50",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/child-missed/048-s023-f0031.jpg"
+ }
+}

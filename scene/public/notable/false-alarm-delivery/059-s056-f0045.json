@@ -1,0 +1,107 @@
+{
+ "picture": "false-alarm-delivery/059-s056-f0045.jpg",
+ "thumb": "thumbs/false-alarm-delivery/059-s056-f0045.jpg",
+ "focus": null,
+ "category": "false-alarm-delivery",
+ "reason": "a person box at 1.00 away from the person",
+ "scenario": {
+  "id": "s056",
+  "name": "side \u00b7 delivery \u00b7 day \u00b7 fog \u00b7 basic \u00b7 woman \u00b7 walk \u00b7 textured \u00b7 bins",
+  "settings": {
+   "house": "side",
+   "event": "delivery",
+   "light": "day",
+   "weather": "fog",
+   "camera": "basic",
+   "person": "woman",
+   "speed": "walk",
+   "surfaces": "textured",
+   "occlusion": "bins"
+  },
+  "seed": 772235,
+  "query": "house=side&event=delivery&light=day&weather=fog&camera=basic&person=woman&speed=walk&surfaces=textured&occlusion=bins&seed=772235"
+ },
+ "frame": {
+  "index": 45,
+  "t": 22.5,
+  "phase": "leave",
+  "distance_m": 8.25,
+  "truth": [
+   0.6654,
+   0.4499,
+   0.7045,
+   0.6022
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 86.5
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 122.6
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.17,
+   "fa": 1,
+   "dets": [
+    [
+     0.67,
+     0.4499,
+     0.6877,
+     0.5071,
+     0.996
+    ]
+   ],
+   "low": [],
+   "ms": 323.0
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.184,
+   "fa": 1,
+   "dets": [
+    [
+     0.6691,
+     0.4493,
+     0.6883,
+     0.5068,
+     0.711
+    ]
+   ],
+   "low": [],
+   "ms": 275.5
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.184,
+   "fa": 1,
+   "dets": [
+    [
+     0.6692,
+     0.4484,
+     0.6883,
+     0.5075,
+     0.742
+    ]
+   ],
+   "low": [],
+   "ms": 420.4
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=side&event=delivery&light=day&weather=fog&camera=basic&person=woman&speed=walk&surfaces=textured&occlusion=bins&seed=772235&view=doorbell&t=22.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s056&detector=frcnn-resnet50",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/false-alarm-delivery/059-s056-f0045.jpg"
+ }
+}
