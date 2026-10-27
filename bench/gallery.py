@@ -283,7 +283,7 @@ def main():
             "detectors": {d: {k: per[d].get(k) for k in ("hit", "iou", "fa", "dets", "low", "ms")} for d in detectors},
             "links": {
                 "frame": f"{SITE}/?{scenario['query']}&view=doorbell&t={f0['t']}",
-                "replay": f"{SITE}/benchmarks?scenario={sid}&detector={focus or best}",
+                "replay": f"{SITE}/gallery?replay={sid}&detector={focus or best}&t={f0['t']}",
                 "picture": f"{SITE}/notable/{category}/{name}.jpg",
             },
         }

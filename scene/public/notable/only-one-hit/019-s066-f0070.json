@@ -115,7 +115,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=ir&weather=snow&camera=ring&person=dark&speed=walk&surfaces=textured&occlusion=none&seed=777851&view=doorbell&t=35",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s066&detector=yolo11x",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s066&detector=yolo11x&t=35",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/only-one-hit/019-s066-f0070.jpg"
  }
 }

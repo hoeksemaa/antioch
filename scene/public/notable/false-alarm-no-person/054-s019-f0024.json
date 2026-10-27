@@ -96,7 +96,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=porch&event=dog&light=day&weather=rain&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=none&seed=846353&view=doorbell&t=12",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s019&detector=yolo11x",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s019&detector=yolo11x&t=12",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/false-alarm-no-person/054-s019-f0024.jpg"
  }
 }

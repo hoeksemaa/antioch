@@ -25,12 +25,57 @@
     <div class="hatch"><div class="rail"></div></div>
     <main class="rail section">
       <p class="eyebrow"><span>//</span> Analysis</p>
-      <h1>Notable frames</h1>
+      <h1>Frame by frame</h1>
+      <p class="lede">
+        Where the person is, and which detectors see them: the true box (white, dashed), the selected detector's boxes,
+        and a strip for each detector with every scored frame. Click a strip to change the detector, or Replay on a
+        notable frame below to load it here. All scenes are simulated and uncalibrated.
+      </p>
+      <section class="card detail" id="replay">
+        <div class="card-head">
+          <div>
+            <div class="card-title" id="detail-title"></div>
+            <div class="mono muted" id="detail-sub"></div>
+          </div>
+          <div class="stats" id="cell-stats"></div>
+        </div>
+        <div class="detail-body">
+          <div class="viewer">
+            <div class="viewer-bar">
+              <span class="label"><i></i>Doorbell camera</span>
+              <span class="mono">← → step · space play</span>
+            </div>
+            <div class="viewport" id="viewport"><div id="boxes"></div></div>
+            <div class="timeline">
+              <div class="controls">
+                <button id="prev" title="Previous frame (←)">‹</button>
+                <button id="play" title="Play or pause (space)">▶</button>
+                <button id="next" title="Next frame (→)">›</button>
+                <span class="mono" id="frame-info"></span>
+              </div>
+              <div class="strips-wrap">
+                <div id="strips"></div>
+                <div class="playhead" id="playhead"></div>
+              </div>
+              <div class="legend mono">
+                <span><i class="hit"></i>hit</span>
+                <span><i class="miss"></i>miss</span>
+                <span><i class="out"></i>out of view</span>
+                <span><i class="fa"></i>false alarm (no person)</span>
+                <span><i class="truth"></i>true box</span>
+                <span><i class="det"></i>detection</span>
+              </div>
+            </div>
+          </div>
+          <div class="table-wrap"><table class="bands" id="bands"></table></div>
+        </div>
+      </section>
+
+      <h2 class="notable">Notable frames</h2>
       <p class="lede">
         Frames from the benchmark run, picked by rule: misses by every detector, hits by only one, the farthest hits,
         and false alarms. Each picture shows the true box (white, dashed) and every detector's boxes, with every
-        setting of its scenario. Open a frame to see it live, or replay its scenario. All scenes are simulated and
-        uncalibrated.
+        setting. Open a frame to see it live, or replay it above.
       </p>
       <div class="key" id="key"></div>
       <div class="filters" id="filters"></div>

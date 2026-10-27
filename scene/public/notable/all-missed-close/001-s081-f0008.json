@@ -192,7 +192,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=stoop&event=delivery&light=ir&weather=wind&camera=ring&person=child&speed=run&surfaces=flat&occlusion=car&seed=576763&view=doorbell&t=4",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s081&detector=frcnn-resnet50",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s081&detector=frcnn-resnet50&t=4",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/all-missed-close/001-s081-f0008.jpg"
  }
 }

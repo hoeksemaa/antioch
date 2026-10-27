@@ -137,7 +137,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=portico&event=delivery&light=dusk&weather=fog&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=car&seed=838091&view=doorbell&t=18",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s007&detector=frcnn-resnet50",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s007&detector=frcnn-resnet50&t=18",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/all-missed-close/005-s007-f0036.jpg"
  }
 }

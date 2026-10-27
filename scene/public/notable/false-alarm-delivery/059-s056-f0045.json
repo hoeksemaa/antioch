@@ -101,7 +101,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=side&event=delivery&light=day&weather=fog&camera=basic&person=woman&speed=walk&surfaces=textured&occlusion=bins&seed=772235&view=doorbell&t=22.5",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s056&detector=frcnn-resnet50",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s056&detector=frcnn-resnet50&t=22.5",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/false-alarm-delivery/059-s056-f0045.jpg"
  }
 }

@@ -125,7 +125,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=dusk&weather=fog&camera=basic&person=hooded&speed=walk&surfaces=flat&occlusion=bins&seed=172307&view=doorbell&t=0",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s018&detector=frcnn-mobilenet",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s018&detector=frcnn-mobilenet&t=0",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/farthest-hit/024-s018-f0000.jpg"
  }
 }

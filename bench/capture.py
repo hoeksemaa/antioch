@@ -53,6 +53,9 @@ NOT_CAPTURE = [
     "scene/gallery.html",
     "scene/src/gallery.ts",
     "scene/src/gallery.css",
+    "scene/src/replay.ts",
+    "scene/src/replay.css",
+    "scene/src/results.ts",
 ]
 
 

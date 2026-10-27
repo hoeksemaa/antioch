@@ -145,7 +145,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=stoop&event=empty&light=day&weather=snow&camera=ring&person=man&speed=walk&surfaces=textured&occlusion=bins&seed=882504&view=doorbell&t=4.5",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s033&detector=frcnn-mobilenet",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s033&detector=frcnn-mobilenet&t=4.5",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/false-alarm-no-person/050-s033-f0009.jpg"
  }
 }

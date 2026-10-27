@@ -122,7 +122,7 @@
  },
  "links": {
   "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=ir&weather=rain&camera=basic&person=child&speed=run&surfaces=flat&occlusion=car&seed=501438&view=doorbell&t=10",
-  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s087&detector=frcnn-resnet50",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/gallery?replay=s087&detector=frcnn-resnet50&t=10",
   "picture": "https://antioch-demo-hoeksema.vercel.app/notable/child-missed/049-s087-f0020.jpg"
  }
 }
