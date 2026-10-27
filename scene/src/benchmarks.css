@@ -51,7 +51,7 @@
 
 .chart {
   --best: #16a34a;
-  --worst: #dc2626;
+  --worst: #e00000;
 
   min-width: 860px;
   border-collapse: separate;
@@ -184,11 +184,11 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .chart {
     --best: #4ade80;
-    --worst: #f87171;
+    --worst: #ff4040;
   }
 }
 
 :root[data-theme="dark"] .chart {
   --best: #4ade80;
-  --worst: #f87171;
+  --worst: #ff4040;
 }

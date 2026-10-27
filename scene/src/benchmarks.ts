@@ -51,6 +51,9 @@ interface Group {
 }
 
 const DETECTED = "% detected";
+// The curve of the red-to-green scale. Below 1, it bends toward green: only
+// the rates near the low end stay red.
+const GREEN_BIAS = 0.25;
 
 const share = (v: number) => `${Math.round(v * 100)}%`;
 const rate = (s?: Summary) => (s && s.in_view ? s.detected / s.in_view : null);
@@ -162,7 +165,7 @@ function render(detectors: Detector[]) {
             if (v === null) return `<td>–</td>`;
             if (v !== best) return `<td title="${esc(r.tips?.[j] ?? "")}">${r.show(v)}</td>`;
             // --good: how far along the scale, from 0% (red) to 100% (green).
-            const good = r.scale && high > low ? `${Math.round(((v - low) / (high - low)) * 100)}%` : "100%";
+            const good = r.scale && high > low ? `${Math.round(((v - low) / (high - low)) ** GREEN_BIAS * 100)}%` : "100%";
             return `<td class="best" style="--good:${good}" title="${esc((r.tips?.[j] ?? "") + " · best")}">${r.show(v)}</td>`;
           })
           .join("");
