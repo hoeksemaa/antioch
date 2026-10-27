@@ -1,5 +1,5 @@
 {
-  "name": "doorbell-bench-people",
+  "name": "porchbench-people",
   "private": true,
   "type": "module",
   "description": "Builds scene/public/people/ from the CC0 Quaternius packs (offline; not part of the site build).",

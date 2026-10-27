@@ -1,4 +1,4 @@
-# Doorbell camera benchmark (unofficial Antioch demo)
+# PorchBench: a doorbell camera benchmark (unofficial Antioch demo)
 
 A doorbell camera on a simulated front porch, in many environments. It benchmarks one detection task: find the person before they reach the door.
 
