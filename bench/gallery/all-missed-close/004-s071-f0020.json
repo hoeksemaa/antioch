@@ -1,0 +1,110 @@
+{
+ "picture": "all-missed-close/004-s071-f0020.jpg",
+ "category": "all-missed-close",
+ "reason": "all 5 detectors missed at 5.3 m",
+ "scenario": {
+  "id": "s071",
+  "name": "flush \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 woman \u00b7 run \u00b7 flat \u00b7 bins",
+  "settings": {
+   "house": "flush",
+   "event": "delivery",
+   "light": "night",
+   "weather": "clear",
+   "camera": "basic",
+   "person": "woman",
+   "speed": "run",
+   "surfaces": "flat",
+   "occlusion": "bins"
+  },
+  "seed": 340563,
+  "query": "house=flush&event=delivery&light=night&weather=clear&camera=basic&person=woman&speed=run&surfaces=flat&occlusion=bins&seed=340563"
+ },
+ "frame": {
+  "index": 20,
+  "t": 10,
+  "phase": "leave",
+  "distance_m": 5.28,
+  "truth": [
+   0,
+   0.2679,
+   0.0826,
+   0.5801
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.0,
+     0.4148,
+     0.0854,
+     0.5873,
+     0.133
+    ]
+   ],
+   "ms": 87.0
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 93.8
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 287.7
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 261.4
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     -0.0039,
+     0.3821,
+     0.0833,
+     0.5856,
+     0.204
+    ],
+    [
+     -0.0035,
+     0.3378,
+     0.0838,
+     0.59,
+     0.183
+    ],
+    [
+     -0.0185,
+     0.295,
+     0.0845,
+     0.5891,
+     0.13
+    ]
+   ],
+   "ms": 386.3
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=night&weather=clear&camera=basic&person=woman&speed=run&surfaces=flat&occlusion=bins&seed=340563&view=doorbell&t=10",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s071&detector=frcnn-mobilenet"
+ }
+}

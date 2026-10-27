@@ -1,0 +1,162 @@
+{
+ "picture": "false-alarm-delivery/058-s098-f0014.jpg",
+ "category": "false-alarm-delivery",
+ "reason": "a person box at 1.00 away from the person",
+ "scenario": {
+  "id": "s098",
+  "name": "porch \u00b7 delivery \u00b7 day \u00b7 clear \u00b7 basic \u00b7 dark \u00b7 walk \u00b7 flat \u00b7 bins",
+  "settings": {
+   "house": "porch",
+   "event": "delivery",
+   "light": "day",
+   "weather": "clear",
+   "camera": "basic",
+   "person": "dark",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "bins"
+  },
+  "seed": 910398,
+  "query": "house=porch&event=delivery&light=day&weather=clear&camera=basic&person=dark&speed=walk&surfaces=flat&occlusion=bins&seed=910398"
+ },
+ "frame": {
+  "index": 14,
+  "t": 7,
+  "phase": "approach",
+  "distance_m": 11.18,
+  "truth": [
+   0.5632,
+   0.4472,
+   0.5985,
+   0.5641
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 254.4
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.1716,
+     0.5819,
+     0.3002,
+     0.9088,
+     0.448
+    ],
+    [
+     0.8585,
+     0.5724,
+     0.9968,
+     0.8911,
+     0.331
+    ],
+    [
+     0.0259,
+     0.5744,
+     0.4066,
+     0.9907,
+     0.13
+    ],
+    [
+     0.0754,
+     0.5709,
+     0.3012,
+     0.947,
+     0.129
+    ],
+    [
+     0.1402,
+     0.561,
+     0.338,
+     1.0,
+     0.107
+    ],
+    [
+     0.921,
+     0.6292,
+     0.9831,
+     0.8547,
+     0.104
+    ]
+   ],
+   "ms": 120.5
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.172,
+   "fa": 1,
+   "dets": [
+    [
+     0.573,
+     0.4476,
+     0.5879,
+     0.4954,
+     0.996
+    ]
+   ],
+   "low": [],
+   "ms": 586.7
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.5661,
+     0.4469,
+     0.5878,
+     0.4979,
+     0.498
+    ]
+   ],
+   "ms": 543.9
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.183,
+   "fa": 1,
+   "dets": [
+    [
+     0.5727,
+     0.4473,
+     0.5878,
+     0.4973,
+     0.619
+    ]
+   ],
+   "low": [
+    [
+     0.5637,
+     0.446,
+     0.5916,
+     0.5768,
+     0.181
+    ],
+    [
+     0.5607,
+     0.4471,
+     0.5882,
+     0.5016,
+     0.103
+    ]
+   ],
+   "ms": 697.5
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=porch&event=delivery&light=day&weather=clear&camera=basic&person=dark&speed=walk&surfaces=flat&occlusion=bins&seed=910398&view=doorbell&t=7",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s098&detector=frcnn-mobilenet"
+ }
+}

@@ -1,0 +1,125 @@
+{
+ "picture": "child-missed/049-s087-f0020.jpg",
+ "category": "child-missed",
+ "reason": "child height: all missed at 7.2 m",
+ "scenario": {
+  "id": "s087",
+  "name": "flush \u00b7 delivery \u00b7 IR \u00b7 rain \u00b7 basic \u00b7 child \u00b7 run \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "flush",
+   "event": "delivery",
+   "light": "ir",
+   "weather": "rain",
+   "camera": "basic",
+   "person": "child",
+   "speed": "run",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 501438,
+  "query": "house=flush&event=delivery&light=ir&weather=rain&camera=basic&person=child&speed=run&surfaces=flat&occlusion=car&seed=501438"
+ },
+ "frame": {
+  "index": 20,
+  "t": 10,
+  "phase": "leave",
+  "distance_m": 7.23,
+  "truth": [
+   0.1086,
+   0.3389,
+   0.2042,
+   0.4757
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 91.5
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 86.5
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.1095,
+     0.3313,
+     0.2142,
+     0.4773,
+     0.107
+    ]
+   ],
+   "ms": 288.0
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.1081,
+     0.3384,
+     0.1775,
+     0.4766,
+     0.472
+    ]
+   ],
+   "ms": 267.0
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.108,
+     0.3305,
+     0.1789,
+     0.4774,
+     0.363
+    ],
+    [
+     0.1461,
+     0.3331,
+     0.1782,
+     0.4327,
+     0.292
+    ],
+    [
+     0.1466,
+     0.3555,
+     0.1675,
+     0.4326,
+     0.153
+    ],
+    [
+     0.1465,
+     0.3297,
+     0.1781,
+     0.397,
+     0.114
+    ]
+   ],
+   "ms": 479.2
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=ir&weather=rain&camera=basic&person=child&speed=run&surfaces=flat&occlusion=car&seed=501438&view=doorbell&t=10",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s087&detector=frcnn-mobilenet"
+ }
+}

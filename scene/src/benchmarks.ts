@@ -21,6 +21,7 @@ interface Summary {
   detected: number;
   first_seen_m: number | null;
   false_alarms: number;
+  ms_per_frame?: number; // detector time
   scenarios?: number;
   by_distance: Record<string, Pair>;
 }
@@ -180,6 +181,11 @@ async function start() {
     const empty = detectors.map((d) => sum(scenarios.filter((s) => noPerson(s) && d.results[s.id]).map((s) => d.results[s.id])));
     rows.push(`<tr class="total"><td class="name"><span><b>All deliveries</b><small>detection rate</small></span></td>${cells(deliveries, false, () => false, () => "")}</tr>`);
     rows.push(`<tr class="total-2"><td class="name"><span><b>All no-person events</b><small>false alarms</small></span></td>${cells(empty, true, () => false, () => "")}</tr>`);
+    if (detectors.some((d) => d.all?.ms_per_frame)) {
+      const device = detectors[0].settings.device ?? "";
+      const times = detectors.map((d) => `<td class="mono" title="mean detector time for one frame">${d.all?.ms_per_frame ? `${Math.round(d.all.ms_per_frame)} ms` : "–"}</td>`).join("");
+      rows.push(`<tr class="total-2"><td class="name"><span><b>Time per frame</b><small>detector only${device ? ` · ${esc(device)}` : ""}</small></span></td>${times}</tr>`);
+    }
     $("by-setting").innerHTML = headRow("Setting") + `<tbody>${rows.join("")}</tbody>`;
   }
 

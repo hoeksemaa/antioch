@@ -1,0 +1,112 @@
+{
+ "picture": "farthest-hit/031-s032-f0003.jpg",
+ "category": "farthest-hit",
+ "reason": "rtdetr-x: one of its farthest hits, at 21.6 m",
+ "scenario": {
+  "id": "s032",
+  "name": "portico \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "portico",
+   "event": "delivery",
+   "light": "night",
+   "weather": "clear",
+   "camera": "basic",
+   "person": "man",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 35605,
+  "query": "house=portico&event=delivery&light=night&weather=clear&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=35605"
+ },
+ "frame": {
+  "index": 3,
+  "t": 1.5,
+  "phase": "approach",
+  "distance_m": 21.6,
+  "truth": [
+   0.2619,
+   0.3929,
+   0.2793,
+   0.4593
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 102.8
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 127.0
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.2624,
+     0.3921,
+     0.2737,
+     0.4223,
+     0.327
+    ]
+   ],
+   "ms": 1205.5
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.2623,
+     0.3926,
+     0.2746,
+     0.4583,
+     0.164
+    ]
+   ],
+   "ms": 291.3
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.322,
+   "fa": 0,
+   "dets": [
+    [
+     0.2615,
+     0.3917,
+     0.2736,
+     0.4254,
+     0.537
+    ]
+   ],
+   "low": [
+    [
+     0.2612,
+     0.3876,
+     0.2747,
+     0.4578,
+     0.255
+    ]
+   ],
+   "ms": 419.2
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=portico&event=delivery&light=night&weather=clear&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=35605&view=doorbell&t=1.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s032&detector=frcnn-mobilenet"
+ }
+}

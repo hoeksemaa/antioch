@@ -1,0 +1,156 @@
+{
+ "picture": "light/045-s046-f0085.jpg",
+ "category": "light",
+ "reason": "light ir: 4 of 5 hit, at 20.1 m (farthest such frame)",
+ "scenario": {
+  "id": "s046",
+  "name": "flush \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 fisheye \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "flush",
+   "event": "delivery",
+   "light": "ir",
+   "weather": "wind",
+   "camera": "ring",
+   "person": "man",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 778441,
+  "query": "house=flush&event=delivery&light=ir&weather=wind&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=778441"
+ },
+ "frame": {
+  "index": 85,
+  "t": 42.5,
+  "phase": "leave",
+  "distance_m": 20.06,
+  "truth": [
+   0.1036,
+   0.3879,
+   0.1221,
+   0.4336
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": true,
+   "iou": 0.431,
+   "fa": 0,
+   "dets": [
+    [
+     0.1077,
+     0.3773,
+     0.1302,
+     0.4307,
+     0.564
+    ]
+   ],
+   "low": [
+    [
+     0.3946,
+     0.403,
+     0.4321,
+     0.4639,
+     0.194
+    ],
+    [
+     0.2662,
+     0.4332,
+     0.3207,
+     0.5032,
+     0.114
+    ]
+   ],
+   "ms": 79.2
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 122.2
+  },
+  "frcnn-resnet50": {
+   "hit": true,
+   "iou": 0.822,
+   "fa": 0,
+   "dets": [
+    [
+     0.1045,
+     0.3857,
+     0.1236,
+     0.4321,
+     0.983
+    ]
+   ],
+   "low": [],
+   "ms": 260.6
+  },
+  "yolo11x": {
+   "hit": true,
+   "iou": 0.873,
+   "fa": 0,
+   "dets": [
+    [
+     0.1045,
+     0.3871,
+     0.1227,
+     0.4317,
+     0.605
+    ]
+   ],
+   "low": [],
+   "ms": 329.8
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.824,
+   "fa": 0,
+   "dets": [
+    [
+     0.1047,
+     0.386,
+     0.123,
+     0.4314,
+     0.756
+    ]
+   ],
+   "low": [
+    [
+     0.0635,
+     0.4064,
+     0.075,
+     0.4273,
+     0.184
+    ],
+    [
+     0.1202,
+     0.3771,
+     0.1338,
+     0.4183,
+     0.11
+    ],
+    [
+     0.1206,
+     0.3768,
+     0.1334,
+     0.4046,
+     0.107
+    ],
+    [
+     0.12,
+     0.3773,
+     0.1341,
+     0.4213,
+     0.104
+    ]
+   ],
+   "ms": 222.3
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=ir&weather=wind&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=778441&view=doorbell&t=42.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s046&detector=frcnn-mobilenet"
+ }
+}

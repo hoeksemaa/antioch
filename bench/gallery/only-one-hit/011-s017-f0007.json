@@ -1,0 +1,104 @@
+{
+ "picture": "only-one-hit/011-s017-f0007.jpg",
+ "category": "only-one-hit",
+ "reason": "only frcnn-mobilenet found the person, at 12.1 m",
+ "scenario": {
+  "id": "s017",
+  "name": "portico \u00b7 delivery \u00b7 day \u00b7 fog \u00b7 basic \u00b7 child \u00b7 run \u00b7 textured \u00b7 none",
+  "settings": {
+   "house": "portico",
+   "event": "delivery",
+   "light": "day",
+   "weather": "fog",
+   "camera": "basic",
+   "person": "child",
+   "speed": "run",
+   "surfaces": "textured",
+   "occlusion": "none"
+  },
+  "seed": 200407,
+  "query": "house=portico&event=delivery&light=day&weather=fog&camera=basic&person=child&speed=run&surfaces=textured&occlusion=none&seed=200407"
+ },
+ "frame": {
+  "index": 7,
+  "t": 3.5,
+  "phase": "approach",
+  "distance_m": 12.1,
+  "truth": [
+   0.4951,
+   0.4285,
+   0.5143,
+   0.4943
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": true,
+   "iou": 0.784,
+   "fa": 0,
+   "dets": [
+    [
+     0.497,
+     0.4276,
+     0.5125,
+     0.4929,
+     0.878
+    ]
+   ],
+   "low": [
+    [
+     0.5016,
+     0.4309,
+     0.5212,
+     0.4956,
+     0.166
+    ]
+   ],
+   "ms": 165.0
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 120.5
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 346.6
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 395.3
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     -0.0002,
+     -0.0139,
+     0.2987,
+     0.9213,
+     0.12
+    ]
+   ],
+   "ms": 868.3
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=portico&event=delivery&light=day&weather=fog&camera=basic&person=child&speed=run&surfaces=textured&occlusion=none&seed=200407&view=doorbell&t=3.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s017&detector=frcnn-mobilenet"
+ }
+}
