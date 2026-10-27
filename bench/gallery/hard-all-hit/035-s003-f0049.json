@@ -1,0 +1,136 @@
+{
+ "picture": "hard-all-hit/035-s003-f0049.jpg",
+ "category": "hard-all-hit",
+ "reason": "every detector hit in low light on the fisheye, at 3.6 m",
+ "scenario": {
+  "id": "s003",
+  "name": "flush \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 fisheye \u00b7 woman \u00b7 walk \u00b7 textured \u00b7 car",
+  "settings": {
+   "house": "flush",
+   "event": "delivery",
+   "light": "dusk",
+   "weather": "clear",
+   "camera": "ring",
+   "person": "woman",
+   "speed": "walk",
+   "surfaces": "textured",
+   "occlusion": "car"
+  },
+  "seed": 839149,
+  "query": "house=flush&event=delivery&light=dusk&weather=clear&camera=ring&person=woman&speed=walk&surfaces=textured&occlusion=car&seed=839149"
+ },
+ "frame": {
+  "index": 49,
+  "t": 24.5,
+  "phase": "leave",
+  "distance_m": 3.64,
+  "truth": [
+   0.0894,
+   0.3666,
+   0.1789,
+   0.604
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": true,
+   "iou": 0.907,
+   "fa": 0,
+   "dets": [
+    [
+     0.0886,
+     0.3662,
+     0.1852,
+     0.599,
+     0.989
+    ]
+   ],
+   "low": [
+    [
+     0.089,
+     0.3688,
+     0.1459,
+     0.5148,
+     0.122
+    ]
+   ],
+   "ms": 75.2
+  },
+  "ssdlite": {
+   "hit": true,
+   "iou": 0.973,
+   "fa": 0,
+   "dets": [
+    [
+     0.0897,
+     0.3654,
+     0.1786,
+     0.6079,
+     0.774
+    ]
+   ],
+   "low": [
+    [
+     0.0885,
+     0.3672,
+     0.2857,
+     0.5939,
+     0.135
+    ]
+   ],
+   "ms": 109.8
+  },
+  "frcnn-resnet50": {
+   "hit": true,
+   "iou": 0.984,
+   "fa": 0,
+   "dets": [
+    [
+     0.0887,
+     0.3661,
+     0.1794,
+     0.6038,
+     1.0
+    ]
+   ],
+   "low": [],
+   "ms": 255.9
+  },
+  "yolo11x": {
+   "hit": true,
+   "iou": 0.967,
+   "fa": 0,
+   "dets": [
+    [
+     0.0891,
+     0.3676,
+     0.1799,
+     0.6004,
+     0.914
+    ]
+   ],
+   "low": [],
+   "ms": 287.1
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.959,
+   "fa": 0,
+   "dets": [
+    [
+     0.0886,
+     0.3645,
+     0.1804,
+     0.6021,
+     0.925
+    ]
+   ],
+   "low": [],
+   "ms": 220.5
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=dusk&weather=clear&camera=ring&person=woman&speed=walk&surfaces=textured&occlusion=car&seed=839149&view=doorbell&t=24.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s003&detector=frcnn-mobilenet"
+ }
+}

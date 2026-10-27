@@ -1,0 +1,104 @@
+{
+ "picture": "false-alarm-delivery/063-s067-f0019.jpg",
+ "category": "false-alarm-delivery",
+ "reason": "a person box at 0.98 away from the person",
+ "scenario": {
+  "id": "s067",
+  "name": "side \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 dark \u00b7 run \u00b7 textured \u00b7 none",
+  "settings": {
+   "house": "side",
+   "event": "delivery",
+   "light": "night",
+   "weather": "clear",
+   "camera": "basic",
+   "person": "dark",
+   "speed": "run",
+   "surfaces": "textured",
+   "occlusion": "none"
+  },
+  "seed": 350551,
+  "query": "house=side&event=delivery&light=night&weather=clear&camera=basic&person=dark&speed=run&surfaces=textured&occlusion=none&seed=350551"
+ },
+ "frame": {
+  "index": 19,
+  "t": 9.5,
+  "phase": "leave",
+  "distance_m": 8.11,
+  "truth": [
+   0.6626,
+   0.4463,
+   0.7379,
+   0.6005
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 81.1
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 96.7
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.206,
+   "fa": 1,
+   "dets": [
+    [
+     0.6646,
+     0.4448,
+     0.703,
+     0.509,
+     0.982
+    ]
+   ],
+   "low": [],
+   "ms": 292.6
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.231,
+   "fa": 1,
+   "dets": [
+    [
+     0.6648,
+     0.4455,
+     0.7073,
+     0.5095,
+     0.832
+    ]
+   ],
+   "low": [],
+   "ms": 272.7
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.256,
+   "fa": 1,
+   "dets": [
+    [
+     0.6617,
+     0.4404,
+     0.7103,
+     0.5105,
+     0.551
+    ]
+   ],
+   "low": [],
+   "ms": 391.8
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=side&event=delivery&light=night&weather=clear&camera=basic&person=dark&speed=run&surfaces=textured&occlusion=none&seed=350551&view=doorbell&t=9.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s067&detector=frcnn-mobilenet"
+ }
+}

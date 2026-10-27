@@ -223,7 +223,11 @@ Output (in git, so the deployed page shows it):
 - `scene/public/results/index.json`: the scenario list, and for each detector a summary of each scenario, of all scenarios, and by setting.
 - `scene/public/results/<detector>/<scenario>.json`: every frame, with the true box and every detection.
 
-A run replaces the results for the detectors and scenarios it runs and keeps the others. Results for scenarios that are not in the list are dropped. With `--images`, marked-up frames also go to `bench/out/<detector>/<scenario>/` (not in git).
+A run replaces the results for the detectors and scenarios it runs and keeps the others. Results for scenarios that are not in the list are dropped.
+
+Notable frames: after a run, `bench/.venv/bin/python bench/gallery.py` picks frames (every detector missed a near person, only one detector hit, the farthest hits, low light on the fisheye, false alarms, the best and worst scenarios) and saves them in `bench/gallery/`. Each picture shows the true box and every detector's boxes, with a caption band: the reason, the scenario, every setting, the seed, the time, the distance, and each detector's result. A JSON file next to each picture has the same data and links to the frame on the live site. `bench/gallery/README.md` shows them by category.
+
+More data in each frame record: `low` (person boxes from 0.1 up to the threshold, not counted, for other thresholds later), `iou` (the best overlap of a counted box with the true box), and `ms` (detector time). With `--images`, marked-up frames also go to `bench/out/<detector>/<scenario>/` (not in git).
 
 ## Benchmarks page
 

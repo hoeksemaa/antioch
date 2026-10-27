@@ -1,0 +1,120 @@
+{
+ "picture": "hard-all-hit/036-s096-f0028.jpg",
+ "category": "hard-all-hit",
+ "reason": "every detector hit in low light on the fisheye, at 3.6 m",
+ "scenario": {
+  "id": "s096",
+  "name": "side \u00b7 delivery \u00b7 dusk \u00b7 wind \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "side",
+   "event": "delivery",
+   "light": "dusk",
+   "weather": "wind",
+   "camera": "ring",
+   "person": "dark",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 884080,
+  "query": "house=side&event=delivery&light=dusk&weather=wind&camera=ring&person=dark&speed=walk&surfaces=flat&occlusion=car&seed=884080"
+ },
+ "frame": {
+  "index": 28,
+  "t": 14,
+  "phase": "approach",
+  "distance_m": 3.6,
+  "truth": [
+   0.7157,
+   0.3923,
+   0.8102,
+   0.6389
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": true,
+   "iou": 0.883,
+   "fa": 0,
+   "dets": [
+    [
+     0.7222,
+     0.3959,
+     0.8122,
+     0.6344,
+     0.999
+    ]
+   ],
+   "low": [],
+   "ms": 156.9
+  },
+  "ssdlite": {
+   "hit": true,
+   "iou": 0.812,
+   "fa": 0,
+   "dets": [
+    [
+     0.721,
+     0.3832,
+     0.803,
+     0.6301,
+     0.639
+    ]
+   ],
+   "low": [],
+   "ms": 116.7
+  },
+  "frcnn-resnet50": {
+   "hit": true,
+   "iou": 0.801,
+   "fa": 0,
+   "dets": [
+    [
+     0.7331,
+     0.3911,
+     0.8103,
+     0.6358,
+     1.0
+    ]
+   ],
+   "low": [],
+   "ms": 430.2
+  },
+  "yolo11x": {
+   "hit": true,
+   "iou": 0.827,
+   "fa": 0,
+   "dets": [
+    [
+     0.7301,
+     0.3918,
+     0.8111,
+     0.6354,
+     0.896
+    ]
+   ],
+   "low": [],
+   "ms": 454.2
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.843,
+   "fa": 0,
+   "dets": [
+    [
+     0.728,
+     0.391,
+     0.8116,
+     0.6357,
+     0.933
+    ]
+   ],
+   "low": [],
+   "ms": 208.6
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=side&event=delivery&light=dusk&weather=wind&camera=ring&person=dark&speed=walk&surfaces=flat&occlusion=car&seed=884080&view=doorbell&t=14",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s096&detector=frcnn-mobilenet"
+ }
+}

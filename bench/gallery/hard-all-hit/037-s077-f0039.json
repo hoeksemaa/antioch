@@ -1,0 +1,180 @@
+{
+ "picture": "hard-all-hit/037-s077-f0039.jpg",
+ "category": "hard-all-hit",
+ "reason": "every detector hit in low light on the fisheye, at 3.5 m",
+ "scenario": {
+  "id": "s077",
+  "name": "side \u00b7 delivery \u00b7 IR \u00b7 clear \u00b7 fisheye \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 none",
+  "settings": {
+   "house": "side",
+   "event": "delivery",
+   "light": "ir",
+   "weather": "clear",
+   "camera": "ring",
+   "person": "hooded",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "none"
+  },
+  "seed": 936595,
+  "query": "house=side&event=delivery&light=ir&weather=clear&camera=ring&person=hooded&speed=walk&surfaces=flat&occlusion=none&seed=936595"
+ },
+ "frame": {
+  "index": 39,
+  "t": 19.5,
+  "phase": "leave",
+  "distance_m": 3.49,
+  "truth": [
+   0.7253,
+   0.398,
+   0.826,
+   0.6615
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": true,
+   "iou": 0.763,
+   "fa": 0,
+   "dets": [
+    [
+     0.7264,
+     0.4098,
+     0.8105,
+     0.6506,
+     0.87
+    ]
+   ],
+   "low": [
+    [
+     0.53,
+     0.4177,
+     0.5629,
+     0.4569,
+     0.217
+    ],
+    [
+     0.516,
+     0.4153,
+     0.583,
+     0.4662,
+     0.118
+    ]
+   ],
+   "ms": 76.5
+  },
+  "ssdlite": {
+   "hit": true,
+   "iou": 0.623,
+   "fa": 0,
+   "dets": [
+    [
+     0.7216,
+     0.3663,
+     0.803,
+     0.6383,
+     0.533
+    ]
+   ],
+   "low": [
+    [
+     0.6149,
+     0.3253,
+     0.8394,
+     0.6214,
+     0.128
+    ],
+    [
+     0.7004,
+     0.3746,
+     0.8406,
+     0.6175,
+     0.113
+    ],
+    [
+     0.654,
+     0.2125,
+     0.8412,
+     0.7034,
+     0.102
+    ]
+   ],
+   "ms": 95.5
+  },
+  "frcnn-resnet50": {
+   "hit": true,
+   "iou": 0.963,
+   "fa": 0,
+   "dets": [
+    [
+     0.726,
+     0.3991,
+     0.8254,
+     0.6564,
+     0.992
+    ]
+   ],
+   "low": [
+    [
+     0.7259,
+     0.4431,
+     0.7498,
+     0.5661,
+     0.324
+    ]
+   ],
+   "ms": 243.6
+  },
+  "yolo11x": {
+   "hit": true,
+   "iou": 0.97,
+   "fa": 0,
+   "dets": [
+    [
+     0.7245,
+     0.4003,
+     0.8262,
+     0.6586,
+     0.853
+    ]
+   ],
+   "low": [],
+   "ms": 264.8
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.968,
+   "fa": 0,
+   "dets": [
+    [
+     0.7254,
+     0.3928,
+     0.8258,
+     0.659,
+     0.893
+    ]
+   ],
+   "low": [
+    [
+     0.7255,
+     0.4402,
+     0.7494,
+     0.5654,
+     0.288
+    ],
+    [
+     0.7258,
+     0.4405,
+     0.7489,
+     0.5327,
+     0.281
+    ]
+   ],
+   "ms": 204.4
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=side&event=delivery&light=ir&weather=clear&camera=ring&person=hooded&speed=walk&surfaces=flat&occlusion=none&seed=936595&view=doorbell&t=19.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s077&detector=frcnn-mobilenet"
+ }
+}

@@ -43,13 +43,16 @@ DETECTORS = {
 
 class PersonDetector:
     """Person boxes (fractions of the image) with their confidence scores.
-    Only boxes with a score of at least min_score count."""
+    It returns every box with a score of at least floor (default: min_score);
+    the benchmark counts only those with at least min_score, and keeps the
+    others so a later analysis can try other thresholds."""
 
-    def __init__(self, id: str, min_score: float = 0.5, device: str = "cpu"):
+    def __init__(self, id: str, min_score: float = 0.5, device: str = "cpu", floor: float | None = None):
         self.id = id
         self.spec = DETECTORS[id]
         self.name = self.spec.name
         self.min_score = min_score
+        self.floor = min(floor, min_score) if floor is not None else min_score
         self.device = device
         if self.spec.library == "torchvision":
             weights = getattr(tv, self.spec.weights).DEFAULT
@@ -77,10 +80,12 @@ class PersonDetector:
                 for (x0, y0, x1, y1), label, score in zip(
                     out["boxes"].tolist(), out["labels"].tolist(), out["scores"].tolist()
                 )
-                if label == self.person and score >= self.min_score
+                if label == self.person and score >= self.floor
             ]
         # The frame's own size (long side, a multiple of 32): no downscale, so
         # far people keep their pixels.
         size = -(-max(w, h) // 32) * 32
-        result = self.model.predict(image, imgsz=size, conf=self.min_score, classes=[self.person], device=self.device, verbose=False)[0]
+        # A lower conf adds low boxes only: NMS cannot remove a box with a
+        # higher score than the box it overlaps.
+        result = self.model.predict(image, imgsz=size, conf=self.floor, classes=[self.person], device=self.device, verbose=False)[0]
         return [(tuple(box), score) for box, score in zip(result.boxes.xyxyn.tolist(), result.boxes.conf.tolist())]

@@ -1,0 +1,135 @@
+{
+ "picture": "false-alarm-delivery/062-s083-f0019.jpg",
+ "category": "false-alarm-delivery",
+ "reason": "a person box at 0.98 away from the person",
+ "scenario": {
+  "id": "s083",
+  "name": "side \u00b7 delivery \u00b7 day \u00b7 snow \u00b7 fisheye \u00b7 man \u00b7 run \u00b7 textured \u00b7 bins",
+  "settings": {
+   "house": "side",
+   "event": "delivery",
+   "light": "day",
+   "weather": "snow",
+   "camera": "ring",
+   "person": "man",
+   "speed": "run",
+   "surfaces": "textured",
+   "occlusion": "bins"
+  },
+  "seed": 253457,
+  "query": "house=side&event=delivery&light=day&weather=snow&camera=ring&person=man&speed=run&surfaces=textured&occlusion=bins&seed=253457"
+ },
+ "frame": {
+  "index": 19,
+  "t": 9.5,
+  "phase": "leave",
+  "distance_m": 8.99,
+  "truth": [
+   0.6212,
+   0.4662,
+   0.6712,
+   0.5485
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.6181,
+     0.469,
+     0.6386,
+     0.5009,
+     0.184
+    ]
+   ],
+   "ms": 70.7
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 98.2
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.276,
+   "fa": 1,
+   "dets": [
+    [
+     0.6232,
+     0.4669,
+     0.6514,
+     0.5071,
+     0.983
+    ]
+   ],
+   "low": [
+    [
+     0.6263,
+     0.4665,
+     0.6449,
+     0.4964,
+     0.463
+    ]
+   ],
+   "ms": 234.6
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.6234,
+     0.4668,
+     0.6495,
+     0.5006,
+     0.167
+    ]
+   ],
+   "ms": 264.2
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.231,
+   "fa": 1,
+   "dets": [
+    [
+     0.6232,
+     0.4661,
+     0.6506,
+     0.5009,
+     0.6
+    ]
+   ],
+   "low": [
+    [
+     0.5936,
+     0.4669,
+     0.6513,
+     0.5144,
+     0.217
+    ],
+    [
+     0.5653,
+     0.4667,
+     0.6513,
+     0.5176,
+     0.103
+    ]
+   ],
+   "ms": 203.7
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=side&event=delivery&light=day&weather=snow&camera=ring&person=man&speed=run&surfaces=textured&occlusion=bins&seed=253457&view=doorbell&t=9.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s083&detector=frcnn-mobilenet"
+ }
+}

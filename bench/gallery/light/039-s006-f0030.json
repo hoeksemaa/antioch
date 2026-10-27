@@ -1,0 +1,226 @@
+{
+ "picture": "light/039-s006-f0030.jpg",
+ "category": "light",
+ "reason": "light day: 4 of 5 hit, at 20.7 m (farthest such frame)",
+ "scenario": {
+  "id": "s006",
+  "name": "flush \u00b7 delivery \u00b7 day \u00b7 wind \u00b7 basic \u00b7 man \u00b7 run \u00b7 textured \u00b7 none",
+  "settings": {
+   "house": "flush",
+   "event": "delivery",
+   "light": "day",
+   "weather": "wind",
+   "camera": "basic",
+   "person": "man",
+   "speed": "run",
+   "surfaces": "textured",
+   "occlusion": "none"
+  },
+  "seed": 594935,
+  "query": "house=flush&event=delivery&light=day&weather=wind&camera=basic&person=man&speed=run&surfaces=textured&occlusion=none&seed=594935"
+ },
+ "frame": {
+  "index": 30,
+  "t": 15,
+  "phase": "leave",
+  "distance_m": 20.72,
+  "truth": [
+   0.0455,
+   0.2866,
+   0.0837,
+   0.3692
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": true,
+   "iou": 0.748,
+   "fa": 0,
+   "dets": [
+    [
+     0.0515,
+     0.2874,
+     0.0817,
+     0.3654,
+     0.615
+    ]
+   ],
+   "low": [],
+   "ms": 99.3
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.0681,
+     0.2868,
+     0.0947,
+     0.3675,
+     0.414
+    ],
+    [
+     0.0681,
+     0.2964,
+     0.0821,
+     0.3546,
+     0.391
+    ],
+    [
+     0.0586,
+     0.3011,
+     0.0746,
+     0.356,
+     0.157
+    ],
+    [
+     0.0457,
+     0.2932,
+     0.0749,
+     0.3677,
+     0.148
+    ],
+    [
+     0.0629,
+     0.2795,
+     0.0854,
+     0.3693,
+     0.144
+    ],
+    [
+     0.0614,
+     0.3039,
+     0.0949,
+     0.3903,
+     0.136
+    ],
+    [
+     0.0479,
+     0.3004,
+     0.0672,
+     0.3555,
+     0.124
+    ],
+    [
+     0.0681,
+     0.2775,
+     0.0967,
+     0.3362,
+     0.115
+    ],
+    [
+     0.1638,
+     0.2952,
+     0.1791,
+     0.3781,
+     0.113
+    ],
+    [
+     0.0644,
+     0.2779,
+     0.1098,
+     0.3539,
+     0.113
+    ],
+    [
+     0.032,
+     0.2533,
+     0.0989,
+     0.3903,
+     0.107
+    ],
+    [
+     0.0661,
+     0.3005,
+     0.0746,
+     0.3265,
+     0.107
+    ],
+    [
+     0.0477,
+     0.2769,
+     0.0838,
+     0.4035,
+     0.107
+    ],
+    [
+     0.0424,
+     0.2819,
+     0.0627,
+     0.3302,
+     0.104
+    ],
+    [
+     0.1714,
+     0.2902,
+     0.1834,
+     0.3538,
+     0.102
+    ]
+   ],
+   "ms": 117.8
+  },
+  "frcnn-resnet50": {
+   "hit": true,
+   "iou": 0.945,
+   "fa": 0,
+   "dets": [
+    [
+     0.0458,
+     0.2868,
+     0.0845,
+     0.3669,
+     0.999
+    ]
+   ],
+   "low": [],
+   "ms": 310.3
+  },
+  "yolo11x": {
+   "hit": true,
+   "iou": 0.956,
+   "fa": 0,
+   "dets": [
+    [
+     0.0451,
+     0.2864,
+     0.0839,
+     0.3669,
+     0.905
+    ]
+   ],
+   "low": [],
+   "ms": 283.1
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.92,
+   "fa": 0,
+   "dets": [
+    [
+     0.0449,
+     0.2848,
+     0.085,
+     0.3681,
+     0.825
+    ]
+   ],
+   "low": [
+    [
+     0.0444,
+     0.2848,
+     0.0851,
+     0.37,
+     0.147
+    ]
+   ],
+   "ms": 412.4
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=day&weather=wind&camera=basic&person=man&speed=run&surfaces=textured&occlusion=none&seed=594935&view=doorbell&t=15",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s006&detector=frcnn-mobilenet"
+ }
+}

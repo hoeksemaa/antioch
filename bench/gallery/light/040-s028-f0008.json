@@ -1,0 +1,167 @@
+{
+ "picture": "light/040-s028-f0008.jpg",
+ "category": "light",
+ "reason": "light day: all missed, at 4.1 m (nearest such frame)",
+ "scenario": {
+  "id": "s028",
+  "name": "stoop \u00b7 delivery \u00b7 day \u00b7 rain \u00b7 fisheye \u00b7 woman \u00b7 run \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "stoop",
+   "event": "delivery",
+   "light": "day",
+   "weather": "rain",
+   "camera": "ring",
+   "person": "woman",
+   "speed": "run",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 704507,
+  "query": "house=stoop&event=delivery&light=day&weather=rain&camera=ring&person=woman&speed=run&surfaces=flat&occlusion=car&seed=704507"
+ },
+ "frame": {
+  "index": 8,
+  "t": 4,
+  "phase": "approach",
+  "distance_m": 4.1,
+  "truth": [
+   0.4234,
+   0.5361,
+   0.4838,
+   0.6798
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.4233,
+     0.5323,
+     0.4825,
+     0.6641,
+     0.288
+    ]
+   ],
+   "ms": 114.0
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 116.2
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.4361,
+     0.5361,
+     0.4844,
+     0.5997,
+     0.393
+    ],
+    [
+     0.427,
+     0.5386,
+     0.486,
+     0.6494,
+     0.299
+    ]
+   ],
+   "ms": 251.3
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 286.8
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.4362,
+     0.5369,
+     0.4831,
+     0.6697,
+     0.305
+    ],
+    [
+     0.4252,
+     0.5349,
+     0.4831,
+     0.6702,
+     0.265
+    ],
+    [
+     0.4378,
+     0.5495,
+     0.4787,
+     0.5801,
+     0.215
+    ],
+    [
+     0.4515,
+     0.552,
+     0.483,
+     0.6696,
+     0.192
+    ],
+    [
+     0.438,
+     0.536,
+     0.4845,
+     0.6103,
+     0.163
+    ],
+    [
+     0.5273,
+     0.4094,
+     0.5459,
+     0.4645,
+     0.118
+    ],
+    [
+     0.4375,
+     0.535,
+     0.4802,
+     0.5828,
+     0.117
+    ],
+    [
+     0.4233,
+     0.5369,
+     0.4836,
+     0.6236,
+     0.109
+    ],
+    [
+     0.2333,
+     0.4156,
+     0.2474,
+     0.4651,
+     0.101
+    ]
+   ],
+   "ms": 223.0
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=stoop&event=delivery&light=day&weather=rain&camera=ring&person=woman&speed=run&surfaces=flat&occlusion=car&seed=704507&view=doorbell&t=4",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s028&detector=frcnn-mobilenet"
+ }
+}

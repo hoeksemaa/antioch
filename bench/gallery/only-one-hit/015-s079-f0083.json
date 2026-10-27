@@ -1,0 +1,96 @@
+{
+ "picture": "only-one-hit/015-s079-f0083.jpg",
+ "category": "only-one-hit",
+ "reason": "only frcnn-resnet50 found the person, at 20.4 m",
+ "scenario": {
+  "id": "s079",
+  "name": "portico \u00b7 delivery \u00b7 dusk \u00b7 clear \u00b7 fisheye \u00b7 dark \u00b7 walk \u00b7 flat \u00b7 none",
+  "settings": {
+   "house": "portico",
+   "event": "delivery",
+   "light": "dusk",
+   "weather": "clear",
+   "camera": "ring",
+   "person": "dark",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "none"
+  },
+  "seed": 528283,
+  "query": "house=portico&event=delivery&light=dusk&weather=clear&camera=ring&person=dark&speed=walk&surfaces=flat&occlusion=none&seed=528283"
+ },
+ "frame": {
+  "index": 83,
+  "t": 41.5,
+  "phase": "leave",
+  "distance_m": 20.35,
+  "truth": [
+   0.2752,
+   0.4333,
+   0.2928,
+   0.4766
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 90.8
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 98.7
+  },
+  "frcnn-resnet50": {
+   "hit": true,
+   "iou": 0.703,
+   "fa": 0,
+   "dets": [
+    [
+     0.2766,
+     0.4416,
+     0.2937,
+     0.4774,
+     0.732
+    ]
+   ],
+   "low": [],
+   "ms": 234.2
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 270.8
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.2773,
+     0.4425,
+     0.2928,
+     0.4767,
+     0.129
+    ]
+   ],
+   "ms": 203.8
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=portico&event=delivery&light=dusk&weather=clear&camera=ring&person=dark&speed=walk&surfaces=flat&occlusion=none&seed=528283&view=doorbell&t=41.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s079&detector=frcnn-mobilenet"
+ }
+}

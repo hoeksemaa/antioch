@@ -1,0 +1,128 @@
+{
+ "picture": "farthest-hit/024-s018-f0000.jpg",
+ "category": "farthest-hit",
+ "reason": "frcnn-mobilenet: one of its farthest hits, at 21.2 m",
+ "scenario": {
+  "id": "s018",
+  "name": "flush \u00b7 delivery \u00b7 dusk \u00b7 fog \u00b7 basic \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 bins",
+  "settings": {
+   "house": "flush",
+   "event": "delivery",
+   "light": "dusk",
+   "weather": "fog",
+   "camera": "basic",
+   "person": "hooded",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "bins"
+  },
+  "seed": 172307,
+  "query": "house=flush&event=delivery&light=dusk&weather=fog&camera=basic&person=hooded&speed=walk&surfaces=flat&occlusion=bins&seed=172307"
+ },
+ "frame": {
+  "index": 0,
+  "t": 0,
+  "phase": "approach",
+  "distance_m": 21.24,
+  "truth": [
+   0.0441,
+   0.2764,
+   0.078,
+   0.3695
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": true,
+   "iou": 0.861,
+   "fa": 0,
+   "dets": [
+    [
+     0.0437,
+     0.2779,
+     0.0754,
+     0.3738,
+     0.782
+    ]
+   ],
+   "low": [
+    [
+     0.3319,
+     0.4925,
+     0.3774,
+     0.5565,
+     0.128
+    ]
+   ],
+   "ms": 143.3
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 146.6
+  },
+  "frcnn-resnet50": {
+   "hit": true,
+   "iou": 0.925,
+   "fa": 0,
+   "dets": [
+    [
+     0.0455,
+     0.2753,
+     0.0776,
+     0.3684,
+     0.996
+    ]
+   ],
+   "low": [
+    [
+     0.0464,
+     0.2804,
+     0.0628,
+     0.3655,
+     0.116
+    ]
+   ],
+   "ms": 322.8
+  },
+  "yolo11x": {
+   "hit": true,
+   "iou": 0.932,
+   "fa": 0,
+   "dets": [
+    [
+     0.0449,
+     0.276,
+     0.0787,
+     0.3673,
+     0.884
+    ]
+   ],
+   "low": [],
+   "ms": 416.9
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.934,
+   "fa": 0,
+   "dets": [
+    [
+     0.0444,
+     0.2755,
+     0.0789,
+     0.3673,
+     0.87
+    ]
+   ],
+   "low": [],
+   "ms": 672.8
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=flush&event=delivery&light=dusk&weather=fog&camera=basic&person=hooded&speed=walk&surfaces=flat&occlusion=bins&seed=172307&view=doorbell&t=0",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s018&detector=frcnn-mobilenet"
+ }
+}

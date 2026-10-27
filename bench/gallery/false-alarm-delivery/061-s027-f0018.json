@@ -1,0 +1,127 @@
+{
+ "picture": "false-alarm-delivery/061-s027-f0018.jpg",
+ "category": "false-alarm-delivery",
+ "reason": "a person box at 0.98 away from the person",
+ "scenario": {
+  "id": "s027",
+  "name": "side \u00b7 delivery \u00b7 day \u00b7 rain \u00b7 basic \u00b7 hooded \u00b7 walk \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "side",
+   "event": "delivery",
+   "light": "day",
+   "weather": "rain",
+   "camera": "basic",
+   "person": "hooded",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 146616,
+  "query": "house=side&event=delivery&light=day&weather=rain&camera=basic&person=hooded&speed=walk&surfaces=flat&occlusion=car&seed=146616"
+ },
+ "frame": {
+  "index": 18,
+  "t": 9,
+  "phase": "approach",
+  "distance_m": 7.71,
+  "truth": [
+   0.7214,
+   0.441,
+   0.7777,
+   0.6278
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.7381,
+     0.4366,
+     0.767,
+     0.5017,
+     0.237
+    ]
+   ],
+   "ms": 98.1
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 109.1
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.23,
+   "fa": 2,
+   "dets": [
+    [
+     0.7405,
+     0.4415,
+     0.7818,
+     0.5083,
+     0.984
+    ],
+    [
+     0.7404,
+     0.4423,
+     0.7623,
+     0.4991,
+     0.889
+    ]
+   ],
+   "low": [],
+   "ms": 322.6
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.132,
+   "fa": 1,
+   "dets": [
+    [
+     0.7396,
+     0.4406,
+     0.7626,
+     0.5015,
+     0.837
+    ]
+   ],
+   "low": [],
+   "ms": 282.4
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.13,
+   "fa": 1,
+   "dets": [
+    [
+     0.7396,
+     0.44,
+     0.7622,
+     0.5017,
+     0.761
+    ]
+   ],
+   "low": [
+    [
+     0.7391,
+     0.4394,
+     0.7834,
+     0.5084,
+     0.163
+    ]
+   ],
+   "ms": 423.3
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=side&event=delivery&light=day&weather=rain&camera=basic&person=hooded&speed=walk&surfaces=flat&occlusion=car&seed=146616&view=doorbell&t=9",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s027&detector=frcnn-mobilenet"
+ }
+}

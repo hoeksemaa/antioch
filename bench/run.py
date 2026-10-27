@@ -64,12 +64,12 @@ def iou(a: Box, b: Box) -> float:
 def score(frame: Frame, detections: list[tuple[Box, float]]) -> dict:
     """hit is None when the person is out of view (or there is no person),
     else True or False. Every person box that does not match the person is a
-    false alarm."""
+    false alarm. iou is the best overlap of a counted box with the true box."""
     if frame.truth is None:
-        return {"hit": None, "fa": len(detections)}
+        return {"hit": None, "fa": len(detections), "iou": None}
     best = max((iou(frame.truth, box) for box, _ in detections), default=0.0)
     hit = best >= MIN_IOU
-    return {"hit": hit, "fa": len(detections) - int(hit)}
+    return {"hit": hit, "fa": len(detections) - int(hit), "iou": round(best, 3)}
 
 
 def band_name(lo: float, hi: float | None) -> str:
@@ -90,6 +90,7 @@ def summarize(frames: list[dict], fps: float) -> dict:
         "detected": sum(f["hit"] for f in in_view),
         "first_seen_m": round(first["d"], 1) if first else None,
         "false_alarms": sum(f["fa"] for f in frames),
+        "ms_per_frame": round(sum(f["ms"] for f in frames) / len(frames), 1) if frames else 0,  # detector time
         "by_distance": bands,  # band: [detected, in view]
     }
 
@@ -98,6 +99,9 @@ def total(summaries: list[dict]) -> dict:
     """Sums of the counts, for "all scenarios" and for each setting."""
     out = {key: sum(s[key] for s in summaries) for key in ["frames", "in_view", "detected", "false_alarms"]}
     out["seconds"] = round(sum(s["seconds"] for s in summaries), 2)
+    timed = [s for s in summaries if "ms_per_frame" in s]
+    if timed and out["frames"]:
+        out["ms_per_frame"] = round(sum(s["ms_per_frame"] * s["frames"] for s in timed) / sum(s["frames"] for s in timed), 1)
     out["scenarios"] = len(summaries)
     firsts = sorted(s["first_seen_m"] for s in summaries if s["first_seen_m"] is not None)
     out["first_seen_m"] = firsts[len(firsts) // 2] if firsts else None  # median
@@ -158,6 +162,7 @@ def main():
     parser.add_argument("--detectors", nargs="+", default=list(DETECTORS), choices=list(DETECTORS))
     parser.add_argument("--fps", type=float, default=2, help="frames per second of scene time")
     parser.add_argument("--min-score", type=float, default=0.5, help="detector confidence threshold")
+    parser.add_argument("--low-score", type=float, default=0.1, help="also save boxes down to this score (not counted), for other thresholds later")
     parser.add_argument("--device", default="mps" if torch.backends.mps.is_available() else "cpu", help="torch device for the detectors")
     parser.add_argument("--images", action="store_true", help="also write marked-up frames to bench/out/")
     parser.add_argument("--recapture", action="store_true", help="render the frames again, not from bench/frames/")
@@ -170,7 +175,7 @@ def main():
 
     preset = json.loads(SCENARIOS.read_text())["scenarios"]
     chosen = [s for s in preset if not args.scenarios or s["id"] in args.scenarios][: args.limit]
-    detectors = [PersonDetector(d, args.min_score, args.device) for d in args.detectors]
+    detectors = [PersonDetector(d, args.min_score, args.device, floor=args.low_score) for d in args.detectors]
     index_file = RESULTS / "index.json"
     index = json.loads(index_file.read_text()) if index_file.exists() else {"detectors": []}
     started = time.time()
@@ -184,7 +189,11 @@ def main():
             for detector in detectors:
                 records = []
                 for frame in frames:
-                    detections = detector(frame.image)
+                    clock = time.perf_counter()
+                    found = detector(frame.image)
+                    ms = (time.perf_counter() - clock) * 1000
+                    detections = [(box, s) for box, s in found if s >= args.min_score]
+                    low = [(box, s) for box, s in found if s < args.min_score]
                     result = score(frame, detections)
                     records.append({
                         "t": frame.t,
@@ -192,6 +201,8 @@ def main():
                         "d": round(frame.distance, 2) if frame.distance is not None else None,
                         "truth": [round(v, 4) for v in frame.truth] if frame.truth else None,
                         "dets": [[*(round(v, 4) for v in box), round(s, 3)] for box, s in detections],
+                        "low": [[*(round(v, 4) for v in box), round(s, 3)] for box, s in low],  # not counted
+                        "ms": round(ms, 1),
                         **result,
                     })
                     if args.images:
@@ -211,6 +222,12 @@ def main():
                     f"| {len(frames)} frames{' (cached)' if cached else ''}, {time.time() - began:.0f} s, about {minutes(left)} left",
                     flush=True,
                 )
+            if len(detectors) > 1:
+                rates = " · ".join(
+                    f"{d.id} {pct(t['detected'], t['in_view'])}" for d in detectors for t in [total(list(summaries[d.id].values()))]
+                )
+                left = (time.time() - started) / n * (len(chosen) - n)
+                print(f"[{n:3d}/{len(chosen)}] {scenario['id']} done | so far: {rates} | about {minutes(left)} left", flush=True)
 
     # Merge into the index: keep results this run did not touch, for the
     # scenarios in the list; drop the rest.
@@ -232,7 +249,7 @@ def main():
             "id": detector.id,
             "name": detector.name,
             "source": detector.source,
-            "settings": {"min_score": args.min_score, "min_iou": MIN_IOU, "fps": args.fps, "device": args.device},
+            "settings": {"min_score": args.min_score, "low_score": args.low_score, "min_iou": MIN_IOU, "fps": args.fps, "device": args.device},
             "run": index["updated"],
             "results": results,
         })
