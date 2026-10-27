@@ -25,6 +25,10 @@ declare global {
   }
 }
 
+// Around the doorbell image (in the doorbell view, and at the sides of a
+// square inset): the charcoal of the page ink (--ink in style.css).
+const BARS = 0x1c1c1c;
+
 // The largest rectangle with this aspect that fits in w × h, centered.
 function fit(w: number, h: number, aspect: number) {
   const width = Math.min(w, h * aspect);
@@ -210,23 +214,31 @@ export class Viewer {
       r.setScissor(0, 0, size.x, size.y);
       r.render(this.scene, this.overview);
       if (this.inset) {
-        // WebGL counts y from the bottom. The frame is black first, for the
+        // WebGL counts y from the bottom. The frame is charcoal first, for the
         // sides of a square image.
         const { width, height, margin } = this.insetSize();
         const x = size.x - width - margin;
-        r.setScissor(x, margin, width, height);
-        const color = r.getClearColor(new THREE.Color());
-        const alpha = r.getClearAlpha();
-        r.setClearColor(0x000000, 1);
-        r.clear();
-        r.setClearColor(color, alpha);
+        this.fill(x, margin, width, height);
         const image = Math.min(width, height * this.doorbell.aspect);
         this.drawDoorbell({ x: x + (width - image) / 2, y: margin, width: image, height });
       }
     } else {
+      this.fill(0, 0, size.x, size.y); // the bars around the image
       this.drawDoorbell(fit(size.x, size.y, this.doorbell.aspect));
     }
     this.onDraw?.();
+  }
+
+  // Fills a rect (CSS px, from the bottom left) with BARS, the color around
+  // the doorbell image.
+  private fill(x: number, y: number, width: number, height: number) {
+    const r = this.renderer;
+    const color = r.getClearColor(new THREE.Color());
+    const alpha = r.getClearAlpha();
+    r.setScissor(x, y, width, height);
+    r.setClearColor(BARS, 1);
+    r.clear();
+    r.setClearColor(color, alpha);
   }
 
   // The doorbell image in rect (CSS px, from the bottom left). The IR light is
