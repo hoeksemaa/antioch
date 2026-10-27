@@ -163,12 +163,14 @@ a {
   text-decoration: none;
 }
 
-/* A small hatched square: this demo's own mark. */
+/* This demo's mark: the favicon's house, in the ink color, so it follows the
+   theme. public/mark.svg is the mask. */
 .mark {
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--ink);
-  background: repeating-linear-gradient(135deg, var(--ink) 0 2px, transparent 2px 5px);
+  flex: none;
+  width: 22px;
+  height: 22px;
+  background: var(--ink);
+  mask: url(/mark.svg) center / contain no-repeat;
 }
 
 nav {
