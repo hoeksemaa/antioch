@@ -130,9 +130,11 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 - Another seed changes the height (±4%) and tints the clothes.
 - Code: `scene/src/people.ts`. `window.bench` boxes come from the skinned vertices.
 
-## Event (`?event=`)
+## Scene (`?event=`)
 
-| id | Event | Person in view |
+The site calls this axis Scene (what plays out in front of the doorbell); its URL parameter and id stay `event`.
+
+| id | Scene | Person in view |
 |---|---|---|
 | `delivery` | The person carries the package to the door (the baseline) | Yes |
 | `dog` | A dog trots up the walk, sniffs near the steps, and trots back | No |

@@ -7,8 +7,8 @@ import type { AxisId } from "./settings";
 const SHAPES: Record<AxisId, string> = {
   // A house with eaves and a door.
   house: `<path d="M1.75 7.5 8 2.25l6.25 5.25"/><path d="M3.5 6.1v7.4h9V6.1"/><path d="M6.75 13.5V10.25h2.5v3.25"/>`,
-  // Something happens: an activity trace.
-  event: `<path d="M1.5 8.5h2.75l1.75-4.5 3 8.5 1.75-4h3.75"/>`,
+  // The scene that plays out: a play button in a frame.
+  event: `<rect x="1.5" y="3.25" width="13" height="9.5" rx="2.5"/><path d="M6.6 5.9v4.2l3.6-2.1Z" fill="currentColor"/>`,
   // The sun.
   light: `<circle cx="8" cy="8" r="2.75"/><path d="M8 1.25v1.5M8 13.25v1.5M1.25 8h1.5M13.25 8h1.5M3.23 3.23l1.06 1.06M11.71 11.71l1.06 1.06M3.23 12.77l1.06-1.06M11.71 4.29l1.06-1.06"/>`,
   // A cloud with rain.
