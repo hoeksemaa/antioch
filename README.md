@@ -278,6 +278,8 @@ All 5 detectors on the 100 fixed scenarios (24,140 detector frames; 1 h 43 min o
 
 Vercel project `antioch-demo-hoeksema`, with Root Directory `scene`. Vercel detects Vite; the output is `dist/`. GitHub is connected, so each merge to `main` deploys to production. A manual deploy is `vercel deploy --prod --yes` from the repo root.
 
+Visitor tracking: Vercel Web Analytics (page views, no cookies), from `scene/src/analytics.ts` on all three pages. It must be on in the Vercel dashboard (project → Analytics → Enable), and it starts after the next deploy. A browser that a script drives (`navigator.webdriver`: the benchmark's captures, Playwright checks) does not count. The data is in the dashboard under Analytics.
+
 ## Status
 
 v9: three pages (Simulation, Benchmark, Gallery); nine scenario axes; a Python person-detection benchmark with five detectors on 100 fixed scenarios, and 67 notable frames.

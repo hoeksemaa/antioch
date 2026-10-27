@@ -6,6 +6,7 @@
 
 import { startReplay, type Replay } from "./replay";
 import { base, bestDetector, esc, loadIndex } from "./results";
+import "./analytics";
 import "./style.css";
 import "./gallery.css";
 
