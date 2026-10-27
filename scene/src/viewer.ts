@@ -26,8 +26,8 @@ declare global {
 }
 
 // Around the doorbell image (in the doorbell view, and at the sides of a
-// square inset): the charcoal of the page ink (--ink in style.css).
-const BARS = 0x1c1c1c;
+// square inset): black.
+const BARS = 0x000000;
 
 // The largest rectangle with this aspect that fits in w × h, centered.
 function fit(w: number, h: number, aspect: number) {
@@ -214,7 +214,7 @@ export class Viewer {
       r.setScissor(0, 0, size.x, size.y);
       r.render(this.scene, this.overview);
       if (this.inset) {
-        // WebGL counts y from the bottom. The frame is charcoal first, for the
+        // WebGL counts y from the bottom. The frame is black first, for the
         // sides of a square image.
         const { width, height, margin } = this.insetSize();
         const x = size.x - width - margin;
