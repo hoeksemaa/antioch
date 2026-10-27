@@ -43,9 +43,10 @@ npm install
 npm run dev
 ```
 
-Two pages, with the same header (Simulations, Benchmarks, View source, View creator):
+Three pages, with the same header: the title at the left, and one bar with Simulations, Benchmarks, Gallery, View source, and View creator:
 - **Simulations** (http://localhost:5173): the 3D scene. Drag to orbit and scroll to zoom. Click a button in each axis row (the panel at the top right) to change the scenario. Press `1`–`5` to switch houses. Click the doorbell camera inset, or press `V`, for the doorbell camera view; click that view, or press `V` or `Esc`, to go back to the overview.
 - **Benchmarks** (http://localhost:5173/benchmarks.html; live: `/benchmarks`): the detector results (see below).
+- **Gallery** (http://localhost:5173/gallery.html; live: `/gallery`): the notable frames from the benchmark run (see below).
 
 Capture mode (`/?view=doorbell`) shows the doorbell camera alone, in the full window, with no page around it. The Python benchmark uses this mode, for example `?house=stoop&view=doorbell`.
 
