@@ -1,10 +1,12 @@
 // Analysis page entry (TypeScript in the browser, gallery.html).
 // - The replay (replay.ts) of one benchmark run, frame by frame.
+// - The notes on the scores (notes.ts).
 // - The notable frames that bench/gallery.py (Python) picked from the run,
 //   from public/notable/gallery.json: one card for each picture, in groups,
 //   with every setting, each detector's result, a link to the frame, and a
 //   button that loads it in the replay.
 
+import { renderNotes } from "./notes";
 import { startReplay, type Replay } from "./replay";
 import { base, bestDetector, esc, loadIndex } from "./results";
 import { AXES, type AxisId } from "./settings";
@@ -97,9 +99,11 @@ async function start() {
     const t = params.get("t");
     const first = { scenario: params.get("replay") ?? index.scenarios[0].id, detector: params.get("detector") ?? best, t: t !== null ? Number(t) : undefined };
     if (!index.scenarios.some((s) => s.id === first.scenario)) first.scenario = index.scenarios[0].id;
+    renderNotes(index);
     replay = await startReplay(index, first, saveUrl);
   } else {
     $("replay").hidden = true;
+    $("notes").hidden = true;
   }
 
   let g: Gallery | null = null;

@@ -60,6 +60,19 @@ export const perMinute = (s: Summary) => (s.seconds ? (s.false_alarms / s.second
 export const noPerson = (s: Scenario) => s.settings.event !== "delivery";
 export const NO_PERSON_EVENTS = ["dog", "car", "empty"];
 
+// Where each open-source model lives: its page in the library docs.
+export const SOURCES: Record<string, string> = {
+  "frcnn-mobilenet": "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.detection.fasterrcnn_mobilenet_v3_large_fpn.html",
+  ssdlite: "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.detection.ssdlite320_mobilenet_v3_large.html",
+  "frcnn-resnet50": "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.detection.fasterrcnn_resnet50_fpn_v2.html",
+  yolo11x: "https://docs.ultralytics.com/models/yolo11/",
+  "rtdetr-x": "https://docs.ultralytics.com/models/rtdetr/",
+};
+
+// All deliveries, and all scenes with no person, for one detector.
+export const deliveries = (d: Detector) => d.by_setting?.event?.delivery ?? sum([]);
+export const noPersonScenes = (d: Detector) => sum(NO_PERSON_EVENTS.map((e) => d.by_setting?.event?.[e]).filter((s): s is Summary => !!s));
+
 // The detector with the best detection rate over all deliveries.
 export function bestDetector(detectors: Detector[]) {
   const rate = (s?: Summary) => (s && s.in_view ? s.detected / s.in_view : -1);
