@@ -1,5 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 3.5 24 24">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="3.5 4 25 25">
   <!-- The header mark, used as a CSS mask (style.css .mark): the house outline
        of favicon.svg, cropped to the house. -->
-  <path d="M7 14.5 16 6.5l9 8v11H7Z" fill="none" stroke="#000" stroke-width="2.4" stroke-linejoin="round"/>
+  <g fill="none" stroke="currentColor" color="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 16 16 6.5 27 16"/>
+    <path d="M8.5 13v13h15V13"/>
+    <path d="M20.2 10.6V7.6h2.6v5.2Z" fill="currentColor" stroke="none"/>
+  </g>
 </svg>
