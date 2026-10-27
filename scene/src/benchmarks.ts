@@ -4,8 +4,10 @@
 // sentence on the model and its parameter count under it), and one
 // colored row group for each category: the overall detection rate, by the
 // distance of the person, by each setting, the false alarms, and the time to
-// process one frame. The best value in each row is green. The replay is on
-// the Gallery page.
+// process one frame. Only the best value in each row has a color. In the
+// detection rate rows, it is on a scale from red (the lowest best rate of the
+// chart) to green (the highest); in the other rows, it is green. The replay
+// is on the Gallery page.
 
 import { AXES, type AxisId } from "./settings";
 import { base, deliveries, esc, loadIndex, MODELS, NO_PERSON_EVENTS, noPersonScenes, perMinute, type Detector, type Summary } from "./results";
@@ -37,6 +39,7 @@ interface Row {
   show: (v: number) => string;
   higher: boolean; // higher is better
   tips?: string[]; // one for each detector
+  scale?: boolean; // a detection rate: its best value is on the red-to-green scale
 }
 
 interface Group {
@@ -62,7 +65,7 @@ function groups(detectors: Detector[]): Group[] {
       name: "Overall detection rate",
       hue: HUES.rate,
       tip: "The share of frames with the person in view in which the detector found the person.",
-      rows: [{ label: "", tip: `${all[0].in_view.toLocaleString()} frames with the person in view`, values: all.map(rate), show: share, higher: true, tips: all.map(frames) }],
+      rows: [{ label: "", tip: `${all[0].in_view.toLocaleString()} frames with the person in view`, values: all.map(rate), show: share, higher: true, tips: all.map(frames), scale: true }],
     },
     {
       name: "Distance of person",
@@ -79,6 +82,7 @@ function groups(detectors: Detector[]): Group[] {
             show: share,
             higher: true,
             tips: pairs.map(([n, of]) => `${n} of ${of} frames`),
+            scale: true,
           };
         }),
         { label: "First seen", tip: "The median distance of the first hit", values: seen, show: (v) => `${v.toFixed(1)} m`, higher: true },
@@ -91,7 +95,7 @@ function groups(detectors: Detector[]): Group[] {
       .map((v): Row | null => {
         const summaries = detectors.map((d) => d.by_setting?.[axis.id]?.[v.id]);
         if (!summaries[0]?.in_view) return null;
-        return { label: v.label, tip: `${summaries[0].in_view.toLocaleString()} frames with the person in view`, values: summaries.map(rate), show: share, higher: true, tips: summaries.map(frames) };
+        return { label: v.label, tip: `${summaries[0].in_view.toLocaleString()} frames with the person in view`, values: summaries.map(rate), show: share, higher: true, tips: summaries.map(frames), scale: true };
       })
       .filter((r): r is Row => r !== null);
     if (rows.length) out.push({ name: axis.label, unit: DETECTED, hue: HUES[axis.id], tip: `The detection rate for each ${axis.label.toLowerCase()} setting.`, rows });
@@ -139,16 +143,27 @@ function render(detectors: Detector[]) {
   const about = detectors.map((d) => `<th class="about">${esc(MODELS[d.id]?.about ?? "")}</th>`).join("");
   const params = detectors.map((d) => `<th class="params">${MODELS[d.id] ? `${(MODELS[d.id].params / 1e6).toFixed(1)}M parameters` : ""}</th>`).join("");
   const head = `<tr><th class="corner" colspan="2" rowspan="3"></th>${names}</tr><tr>${about}</tr><tr>${params}</tr>`;
-  const body = groups(detectors)
+  // The best value of each row; with one value or none, no best.
+  const top = (r: Row) => {
+    const known = r.values.filter((v): v is number => v !== null);
+    return known.length > 1 ? (r.higher ? Math.max(...known) : Math.min(...known)) : null;
+  };
+  const all = groups(detectors);
+  // The range of the best detection rates over the whole chart: its low end is
+  // red, its high end green.
+  const tops = all.flatMap((g) => g.rows.filter((r) => r.scale).map(top)).filter((v): v is number => v !== null);
+  const [low, high] = [Math.min(...tops), Math.max(...tops)];
+  const body = all
     .map((g) => {
       const rows = g.rows.map((r, i) => {
-        const known = r.values.filter((v): v is number => v !== null);
-        const top = known.length > 1 ? (r.higher ? Math.max(...known) : Math.min(...known)) : null;
+        const best = top(r);
         const cells = r.values
           .map((v, j) => {
             if (v === null) return `<td>–</td>`;
-            const best = v === top;
-            return `<td class="${best ? "best" : ""}" title="${esc((r.tips?.[j] ?? "") + (best ? " · best" : ""))}">${r.show(v)}</td>`;
+            if (v !== best) return `<td title="${esc(r.tips?.[j] ?? "")}">${r.show(v)}</td>`;
+            // --good: how far along the scale, from 0% (red) to 100% (green).
+            const good = r.scale && high > low ? `${Math.round(((v - low) / (high - low)) * 100)}%` : "100%";
+            return `<td class="best" style="--good:${good}" title="${esc((r.tips?.[j] ?? "") + " · best")}">${r.show(v)}</td>`;
           })
           .join("");
         const name = `${esc(g.name)}${g.unit ? `<small>${esc(g.unit)}</small>` : ""}`;

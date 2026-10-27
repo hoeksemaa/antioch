@@ -242,7 +242,7 @@ One sentence on what ran, a picture of one frame with the best detector's box (`
 - **False alarms:** person boxes per minute in each scene with no person (dog, passing car, empty), and all of them.
 - **Time to process one frame:** the mean time for each model to process one frame.
 
-The best value in each row is bright green. Hover a row label for its frame count, and a value for its counts. The replay is on the Gallery page.
+Only the best value in each row has a color. In the detection rate rows (%), the color is on a scale from red (the lowest best rate on the chart: child height, 56%) to bright green (the highest: 0–3 m, 98%), through amber. The other rows (first seen, false alarms, time) show their best value in green. Hover a row label for its frame count, and a value for its counts. The replay is on the Gallery page.
 
 `/results` and `/results.html` (the old results page) redirect to `/benchmarks` (`scene/vercel.json`).
 
