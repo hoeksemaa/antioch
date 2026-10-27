@@ -4,12 +4,15 @@
 
 /* The chart: one table, with one row group (tbody) for each category. Each
    group has its color (--hue, from benchmarks.ts): a block with its name at
-   the left, a light tint on its rows, and data bars behind the rates. */
+   the left, and a light tint on its rows. The best value in a row is green
+   (--best). */
 .chart-card {
   overflow: hidden;
 }
 
 .chart {
+  --best: #16a34a;
+
   min-width: 860px;
   border-collapse: separate;
   border-spacing: 0;
@@ -66,6 +69,17 @@
   cursor: help;
 }
 
+/* The unit under the group name: what the numbers are. */
+.chart th.group small {
+  display: block;
+  margin-top: 2px;
+  color: rgb(255 255 255 / 0.78);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 .chart th.row,
 .chart tbody td {
   height: 34px;
@@ -94,29 +108,22 @@
   background: color-mix(in srgb, var(--hue) 13%, var(--card));
 }
 
-/* A value with its data bar behind it. */
-.chart .v {
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 22px;
-}
-
-.chart .v i {
-  position: absolute;
-  inset: 0 auto 0 0;
-  border-radius: 3px;
-  background: color-mix(in srgb, var(--hue) 26%, transparent);
-}
-
-.chart .v b {
-  position: relative;
-  padding-left: 7px;
-  font-weight: 400;
+.chart tbody td {
   font-variant-numeric: tabular-nums;
 }
 
 /* The best detector in a row. */
-.chart td.best .v b {
-  font-weight: 650;
+.chart td.best {
+  color: var(--best);
+  font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .chart {
+    --best: #4ade80;
+  }
+}
+
+:root[data-theme="dark"] .chart {
+  --best: #4ade80;
 }
