@@ -235,14 +235,14 @@ More data in each frame record: `low` (person boxes from 0.1 up to the threshold
 
 ## Benchmark page
 
-One chart, styled after antioch.com, with no other text. One column for each detector; its name links to the model's page (torchvision or Ultralytics docs). One row group for each category, each with its own color: a block with the category name at the left (hover it for what the numbers mean), a light tint on its rows, and a data bar behind each rate.
-- **Detection rate** (red): all deliveries.
-- **Distance** (orange): the rate at 0–3, 3–6, 6–9, 9–12, and 12+ m, and the median distance of the first hit.
+One chart, styled after antioch.com, with no other text. One column for each detector; its name links to the model's page (torchvision or Ultralytics docs). One row group for each category, each with its own color: a block at the left with the category name and its unit (for example "% detected"; hover it for what the numbers mean), and a light tint on its rows.
+- **Overall detection rate** (red): all deliveries.
+- **Distance of person** (orange): the rate at 0–3, 3–6, 6–9, 9–12, and 12+ m, and the median distance of the first hit.
 - **House, Light, Weather, Camera, Person, Speed, Surfaces, Occlusion:** the rate for each value of the axis.
 - **False alarms:** person boxes per minute in each scene with no person (dog, passing car, empty), and all of them.
-- **Time per frame:** the mean detector time.
+- **Time to process one frame:** the mean time for each model to process one frame.
 
-The best detector in each row is bold. Hover a row label for its frame count, and a value for its counts. The notes (largest differences, scoring notes, data) and the replay are on the Analysis page.
+The best value in each row is bright green. Hover a row label for its frame count, and a value for its counts. The notes (largest differences, scoring notes, data) and the replay are on the Analysis page.
 
 `/results` and `/results.html` (the old results page) redirect to `/benchmarks` (`scene/vercel.json`).
 

@@ -1,8 +1,9 @@
 // Benchmark page entry (TypeScript in the browser): one chart of the scores of
 // the Python benchmark (scene/public/results/index.json, made by bench/run.py).
 // One column for each detector (its name links to the model's page), and one
-// colored row group for each category: the detection rate, by distance, by
-// each setting, the false alarms, and the time per frame. The notes and the
+// colored row group for each category: the overall detection rate, by the
+// distance of the person, by each setting, the false alarms, and the time to
+// process one frame. The best value in each row is green. The notes and the
 // replay are on the Analysis page.
 
 import { AXES } from "./settings";
@@ -28,21 +29,23 @@ const HUES: Record<string, string> = {
 };
 
 interface Row {
-  label: string;
+  label: string; // empty for the one row of a group
   tip: string;
   values: (number | null)[];
   show: (v: number) => string;
   higher: boolean; // higher is better
-  bar?: (v: number) => number; // the data bar, 0 to 1; none where lower is better
   tips?: string[]; // one for each detector
 }
 
 interface Group {
   name: string;
+  unit?: string; // under the name: what the numbers are
   hue: string;
   tip: string;
   rows: Row[];
 }
+
+const DETECTED = "% detected";
 
 const share = (v: number) => `${Math.round(v * 100)}%`;
 const rate = (s?: Summary) => (s && s.in_view ? s.detected / s.in_view : null);
@@ -52,16 +55,16 @@ function groups(detectors: Detector[]): Group[] {
   const all = detectors.map(deliveries);
   const bands = Object.keys(detectors[0].all?.by_distance ?? {});
   const seen = detectors.map((d) => d.all.first_seen_m);
-  const farthest = Math.max(...seen.filter((v): v is number => v !== null), 1);
   const out: Group[] = [
     {
-      name: "Detection rate",
+      name: "Overall detection rate",
       hue: HUES.rate,
       tip: "The share of frames with the person in view in which the detector found the person.",
-      rows: [{ label: "All deliveries", tip: `${all[0].in_view.toLocaleString()} frames with the person in view`, values: all.map(rate), show: share, higher: true, bar: (v) => v, tips: all.map(frames) }],
+      rows: [{ label: "", tip: `${all[0].in_view.toLocaleString()} frames with the person in view`, values: all.map(rate), show: share, higher: true, tips: all.map(frames) }],
     },
     {
-      name: "Distance",
+      name: "Distance of person",
+      unit: DETECTED,
       hue: HUES.distance,
       tip: "The detection rate by the distance from the doorbell to the person. First seen: the median distance of the first hit.",
       rows: [
@@ -73,11 +76,10 @@ function groups(detectors: Detector[]): Group[] {
             values: pairs.map(([n, of]) => (of ? n / of : null)),
             show: share,
             higher: true,
-            bar: (v: number) => v,
             tips: pairs.map(([n, of]) => `${n} of ${of} frames`),
           };
         }),
-        { label: "First seen", tip: "The median distance of the first hit", values: seen, show: (v) => `${v.toFixed(1)} m`, higher: true, bar: (v) => v / farthest },
+        { label: "First seen", tip: "The median distance of the first hit", values: seen, show: (v) => `${v.toFixed(1)} m`, higher: true },
       ],
     },
   ];
@@ -87,10 +89,10 @@ function groups(detectors: Detector[]): Group[] {
       .map((v): Row | null => {
         const summaries = detectors.map((d) => d.by_setting?.[axis.id]?.[v.id]);
         if (!summaries[0]?.in_view) return null;
-        return { label: v.label, tip: `${summaries[0].in_view.toLocaleString()} frames with the person in view`, values: summaries.map(rate), show: share, higher: true, bar: (x) => x, tips: summaries.map(frames) };
+        return { label: v.label, tip: `${summaries[0].in_view.toLocaleString()} frames with the person in view`, values: summaries.map(rate), show: share, higher: true, tips: summaries.map(frames) };
       })
       .filter((r): r is Row => r !== null);
-    if (rows.length) out.push({ name: axis.label, hue: HUES[axis.id], tip: `The detection rate for each ${axis.label.toLowerCase()} setting.`, rows });
+    if (rows.length) out.push({ name: axis.label, unit: DETECTED, hue: HUES[axis.id], tip: `The detection rate for each ${axis.label.toLowerCase()} setting.`, rows });
   }
   const scene = AXES.find((a) => a.id === "event")!;
   const alarms = (summaries: (Summary | undefined)[], label: string): Row => ({
@@ -103,6 +105,7 @@ function groups(detectors: Detector[]): Group[] {
   });
   out.push({
     name: "False alarms",
+    unit: "per minute",
     hue: HUES.alarms,
     tip: "Person boxes per minute in scenes with no person. Lower is better.",
     rows: [
@@ -112,10 +115,10 @@ function groups(detectors: Detector[]): Group[] {
   });
   const device = detectors[0].settings.device;
   out.push({
-    name: "Time per frame",
+    name: "Time to process one frame",
     hue: HUES.time,
-    tip: `The mean detector time for one frame${device ? `, on ${device}` : ""}. Lower is better.`,
-    rows: [{ label: "Detector only", tip: device ? `On ${device}` : "", values: detectors.map((d) => d.all.ms_per_frame ?? null), show: (v) => `${Math.round(v)} ms`, higher: false }],
+    tip: `The mean time for each model to process one frame${device ? `, on ${device}` : ""}. Lower is better.`,
+    rows: [{ label: "", tip: device ? `On ${device}` : "", values: detectors.map((d) => d.all.ms_per_frame ?? null), show: (v) => `${Math.round(v)} ms`, higher: false }],
   });
   return out;
 }
@@ -136,13 +139,17 @@ function render(detectors: Detector[]) {
         const top = known.length > 1 ? (r.higher ? Math.max(...known) : Math.min(...known)) : null;
         const cells = r.values
           .map((v, j) => {
-            if (v === null) return `<td><div class="v"><b>–</b></div></td>`;
-            const bar = r.bar ? `<i style="width:${(Math.max(0, Math.min(1, r.bar(v))) * 100).toFixed(1)}%"></i>` : "";
-            return `<td class="${v === top ? "best" : ""}" title="${esc(r.tips?.[j] ?? "")}"><div class="v">${bar}<b>${r.show(v)}</b></div></td>`;
+            if (v === null) return `<td>–</td>`;
+            const best = v === top;
+            return `<td class="${best ? "best" : ""}" title="${esc((r.tips?.[j] ?? "") + (best ? " · best" : ""))}">${r.show(v)}</td>`;
           })
           .join("");
-        const group = i === 0 ? `<th class="group" rowspan="${g.rows.length}" title="${esc(g.tip)}">${esc(g.name)}</th>` : "";
-        return `<tr>${group}<th class="row" title="${esc(r.tip)}">${esc(r.label)}</th>${cells}</tr>`;
+        // A group of one row with no label: its block covers the label column.
+        const alone = g.rows.length === 1 && !r.label;
+        const name = `${esc(g.name)}${g.unit ? `<small>${esc(g.unit)}</small>` : ""}`;
+        const group = i === 0 ? `<th class="group" ${alone ? 'colspan="2"' : `rowspan="${g.rows.length}"`} title="${esc(g.tip)}">${name}</th>` : "";
+        const label = alone ? "" : `<th class="row" title="${esc(r.tip)}">${esc(r.label)}</th>`;
+        return `<tr>${group}${label}${cells}</tr>`;
       });
       return `<tbody style="--hue:${g.hue}">${rows.join("")}</tbody>`;
     })
