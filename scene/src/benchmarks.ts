@@ -9,6 +9,7 @@
 
 import { AXES, type AxisId } from "./settings";
 import { base, deliveries, esc, loadIndex, MODELS, NO_PERSON_EVENTS, noPersonScenes, perMinute, type Detector, type Summary } from "./results";
+import "./analytics";
 import "./style.css";
 import "./benchmarks.css";
 

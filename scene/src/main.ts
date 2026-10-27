@@ -12,6 +12,7 @@
 import { readSettings } from "./settings";
 import { startSimulations } from "./simulations";
 import { Viewer } from "./viewer";
+import "./analytics";
 import "./style.css";
 
 const params = new URLSearchParams(location.search);
