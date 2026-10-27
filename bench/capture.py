@@ -7,7 +7,9 @@ render that frame and to report the ground truth, then takes a screenshot.
 Frames are cached in bench/frames/<scenario>/ (PNG, as Chromium wrote them),
 so every detector reads the exact same pixels and a second detector does not
 render again. The cache key is the scenario query, the frame rate, the scene
-URL, and the last git commit of scene/; a change to any of them renders again.
+URL, and the last git commit of scene/ (not counting the results and the
+Benchmarks page files, which the capture does not load); a change to any of
+them renders again.
 """
 
 import json
@@ -17,6 +19,7 @@ from io import BytesIO
 from pathlib import Path
 
 from PIL import Image
+from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import sync_playwright
 
 FRAMES = Path(__file__).parent / "frames"
@@ -40,10 +43,16 @@ class Frame:
     distance: float | None  # doorbell to person, on the ground, m; None with no person
 
 
+# Files in scene/ that the capture page does not load.
+NOT_CAPTURE = ["scene/public/results", "scene/benchmarks.html", "scene/src/benchmarks.ts", "scene/src/benchmarks.css"]
+
+
 def scene_version() -> str:
-    """The last git commit that changed scene/ (empty outside git)."""
+    """The last git commit that changed what the capture page loads (empty
+    outside git)."""
     root = Path(__file__).parent.parent
-    out = subprocess.run(["git", "log", "-1", "--format=%H", "--", "scene"], cwd=root, capture_output=True, text=True)
+    paths = ["scene", *(f":(exclude){p}" for p in NOT_CAPTURE)]
+    out = subprocess.run(["git", "log", "-1", "--format=%H", "--", *paths], cwd=root, capture_output=True, text=True)
     return out.stdout.strip()
 
 
@@ -77,6 +86,17 @@ class Scene:
             if cached["key"] == key:
                 return [self._frame(scenario, folder, f) for f in cached["frames"]], True
 
+        # A page that reloads or crashes during a capture (for example the dev
+        # server after a file change) gets one more try.
+        try:
+            records = self._capture(scenario, fps, folder)
+        except PlaywrightError as error:
+            print(f"  {scenario['id']}: capture failed ({str(error).splitlines()[0]}); trying again", flush=True)
+            records = self._capture(scenario, fps, folder)
+        index.write_text(json.dumps({"key": key, "frames": records}))
+        return [self._frame(scenario, folder, f) for f in records], False
+
+    def _capture(self, scenario: dict, fps: float, folder: Path) -> list[dict]:
         width, height = SIZES[scenario["settings"]["camera"]]
         page = self._browser.new_page(viewport={"width": width, "height": height})
         try:
@@ -102,8 +122,7 @@ class Scene:
                 records.append({"file": name, "t": truth["t"], "phase": truth["phase"], "box": truth["box"], "distance": truth["distance"]})
         finally:
             page.close()
-        index.write_text(json.dumps({"key": key, "frames": records}))
-        return [self._frame(scenario, folder, f) for f in records], False
+        return records
 
     @staticmethod
     def _frame(scenario: dict, folder: Path, f: dict) -> Frame:
