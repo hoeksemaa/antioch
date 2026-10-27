@@ -1,0 +1,198 @@
+{
+ "picture": "all-missed-close/001-s081-f0008.jpg",
+ "thumb": "thumbs/all-missed-close/001-s081-f0008.jpg",
+ "focus": null,
+ "category": "all-missed-close",
+ "reason": "all 5 detectors missed at 1.4 m",
+ "scenario": {
+  "id": "s081",
+  "name": "stoop \u00b7 delivery \u00b7 IR \u00b7 wind \u00b7 fisheye \u00b7 child \u00b7 run \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "stoop",
+   "event": "delivery",
+   "light": "ir",
+   "weather": "wind",
+   "camera": "ring",
+   "person": "child",
+   "speed": "run",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 576763,
+  "query": "house=stoop&event=delivery&light=ir&weather=wind&camera=ring&person=child&speed=run&surfaces=flat&occlusion=car&seed=576763"
+ },
+ "frame": {
+  "index": 8,
+  "t": 4,
+  "phase": "approach",
+  "distance_m": 1.43,
+  "truth": [
+   0.2102,
+   0.4212,
+   0.4005,
+   0.7871
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.2481,
+     0.3919,
+     0.4038,
+     0.7893,
+     0.226
+    ]
+   ],
+   "ms": 105.9
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.8302,
+     0.2771,
+     0.9984,
+     0.4783,
+     0.236
+    ],
+    [
+     0.8029,
+     0.3074,
+     0.8177,
+     0.3455,
+     0.119
+    ],
+    [
+     0.7753,
+     0.3237,
+     0.7916,
+     0.3723,
+     0.117
+    ],
+    [
+     0.1883,
+     0.3186,
+     0.2692,
+     0.4455,
+     0.115
+    ],
+    [
+     0.3057,
+     0.4879,
+     0.413,
+     0.7818,
+     0.114
+    ],
+    [
+     0.7757,
+     0.3188,
+     0.7999,
+     0.3845,
+     0.114
+    ],
+    [
+     0.7318,
+     0.2721,
+     0.763,
+     0.3279,
+     0.113
+    ],
+    [
+     0.8245,
+     0.2953,
+     0.8622,
+     0.3844,
+     0.109
+    ],
+    [
+     0.7595,
+     0.3545,
+     0.7827,
+     0.4118,
+     0.108
+    ],
+    [
+     0.4901,
+     0.3671,
+     0.5102,
+     0.4026,
+     0.107
+    ],
+    [
+     0.86,
+     0.3118,
+     0.9947,
+     0.5663,
+     0.107
+    ],
+    [
+     0.4553,
+     0.395,
+     0.4728,
+     0.4289,
+     0.104
+    ],
+    [
+     0.1594,
+     0.3075,
+     0.1964,
+     0.4284,
+     0.101
+    ]
+   ],
+   "ms": 95.0
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 233.8
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 269.9
+  },
+  "rtdetr-x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.2754,
+     0.4181,
+     0.3866,
+     0.7898,
+     0.247
+    ],
+    [
+     0.3205,
+     0.6565,
+     0.3782,
+     0.7888,
+     0.237
+    ]
+   ],
+   "ms": 202.9
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=stoop&event=delivery&light=ir&weather=wind&camera=ring&person=child&speed=run&surfaces=flat&occlusion=car&seed=576763&view=doorbell&t=4",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s081&detector=frcnn-resnet50",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/all-missed-close/001-s081-f0008.jpg"
+ }
+}

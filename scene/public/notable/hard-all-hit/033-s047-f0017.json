@@ -1,0 +1,131 @@
+{
+ "picture": "hard-all-hit/033-s047-f0017.jpg",
+ "thumb": "thumbs/hard-all-hit/033-s047-f0017.jpg",
+ "focus": null,
+ "category": "hard-all-hit",
+ "reason": "every detector hit in low light on the fisheye, at 4.1 m",
+ "scenario": {
+  "id": "s047",
+  "name": "side \u00b7 delivery \u00b7 dusk \u00b7 fog \u00b7 fisheye \u00b7 dark \u00b7 run \u00b7 textured \u00b7 bins",
+  "settings": {
+   "house": "side",
+   "event": "delivery",
+   "light": "dusk",
+   "weather": "fog",
+   "camera": "ring",
+   "person": "dark",
+   "speed": "run",
+   "surfaces": "textured",
+   "occlusion": "bins"
+  },
+  "seed": 443198,
+  "query": "house=side&event=delivery&light=dusk&weather=fog&camera=ring&person=dark&speed=run&surfaces=textured&occlusion=bins&seed=443198"
+ },
+ "frame": {
+  "index": 17,
+  "t": 8.5,
+  "phase": "leave",
+  "distance_m": 4.07,
+  "truth": [
+   0.7303,
+   0.42,
+   0.8482,
+   0.6185
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": true,
+   "iou": 0.792,
+   "fa": 0,
+   "dets": [
+    [
+     0.7405,
+     0.4205,
+     0.849,
+     0.5936,
+     0.998
+    ]
+   ],
+   "low": [],
+   "ms": 75.4
+  },
+  "ssdlite": {
+   "hit": true,
+   "iou": 0.83,
+   "fa": 0,
+   "dets": [
+    [
+     0.736,
+     0.4217,
+     0.8546,
+     0.6035,
+     0.544
+    ]
+   ],
+   "low": [
+    [
+     0.7823,
+     0.4528,
+     0.8496,
+     0.5932,
+     0.112
+    ]
+   ],
+   "ms": 115.3
+  },
+  "frcnn-resnet50": {
+   "hit": true,
+   "iou": 0.934,
+   "fa": 0,
+   "dets": [
+    [
+     0.7293,
+     0.4153,
+     0.8497,
+     0.6138,
+     0.944
+    ]
+   ],
+   "low": [],
+   "ms": 291.1
+  },
+  "yolo11x": {
+   "hit": true,
+   "iou": 0.982,
+   "fa": 0,
+   "dets": [
+    [
+     0.73,
+     0.4186,
+     0.8492,
+     0.6187,
+     0.926
+    ]
+   ],
+   "low": [],
+   "ms": 285.5
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.975,
+   "fa": 0,
+   "dets": [
+    [
+     0.7295,
+     0.4174,
+     0.8488,
+     0.6182,
+     0.952
+    ]
+   ],
+   "low": [],
+   "ms": 225.7
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=side&event=delivery&light=dusk&weather=fog&camera=ring&person=dark&speed=run&surfaces=textured&occlusion=bins&seed=443198&view=doorbell&t=8.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s047&detector=frcnn-resnet50",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/hard-all-hit/033-s047-f0017.jpg"
+ }
+}

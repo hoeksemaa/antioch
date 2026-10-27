@@ -112,7 +112,10 @@ async function start() {
   const shown = () => scenarios.filter((s) => !filter || (s.settings[filter.axis] === filter.value && !(["person", "speed"].includes(filter.axis) && noPerson(s))));
 
   let scenario = byId.get(params.get("scenario") ?? "") ?? scenarios[0];
-  let detector = detectors.find((d) => d.id === params.get("detector"))?.id ?? detectors[0]?.id ?? "";
+  // The default detector is the one with the best detection rate.
+  const rate = (s?: Summary) => (s && s.in_view ? s.detected / s.in_view : -1);
+  const best = [...detectors].sort((a, b) => rate(b.all) - rate(a.all))[0];
+  let detector = detectors.find((d) => d.id === params.get("detector"))?.id ?? best?.id ?? "";
   const viewer = new Viewer();
   // The box overlay covers the doorbell image: the whole 16:9 viewport, or
   // the centered square of the fisheye.
@@ -155,6 +158,75 @@ async function start() {
       ["Frames scored", scored.toLocaleString()],
     ]
       .map(([name, value]) => `<div><span>${name}</span><b>${value}</b></div>`)
+      .join("");
+  }
+
+  // Summary: headline numbers for each detector, the largest differences
+  // within one setting, and the data files. Everything comes from index.json.
+  function renderSummary() {
+    if (!detectors.length) return;
+    const deliveries = detectors.map((d) => sum(scenarios.filter((s) => !noPerson(s) && d.results[s.id]).map((s) => d.results[s.id])));
+    const empty = detectors.map((d) => sum(scenarios.filter((s) => noPerson(s) && d.results[s.id]).map((s) => d.results[s.id])));
+    // One row: values, how to show them, and whether higher is better.
+    const row = (name: string, note: string, values: (number | null)[], show: (v: number) => string, higher: boolean, tip: (i: number) => string = () => "") => {
+      const known = values.filter((v): v is number => v !== null);
+      const top = known.length ? (higher ? Math.max(...known) : Math.min(...known)) : null;
+      const cells = values.map((v, i) => `<td class="${v !== null && v === top && known.length > 1 ? "best" : ""}" title="${tip(i)}">${v === null ? "–" : show(v)}</td>`).join("");
+      return `<tr><td class="name"><span>${name}<small>${note}</small></span></td>${cells}</tr>`;
+    };
+    const share = (v: number) => `${Math.round(v * 100)}%`;
+    const bands = Object.keys(detectors[0].all?.by_distance ?? {});
+    const rows = [
+      row("Detection rate", "deliveries, person in view", deliveries.map((s) => (s.in_view ? s.detected / s.in_view : null)), share, true, (i) => `${deliveries[i].detected} of ${deliveries[i].in_view} frames`),
+      ...bands.map((band) =>
+        row(`At ${band}`, "doorbell to person", detectors.map((d) => { const [n, of] = d.all.by_distance[band]; return of ? n / of : null; }), share, true, (i) => {
+          const [n, of] = detectors[i].all.by_distance[band];
+          return `${n} of ${of} frames`;
+        }),
+      ),
+      row("First seen", "median distance of the first hit", detectors.map((d) => d.all.first_seen_m), (v) => `${v.toFixed(1)} m`, true),
+      row("False alarms", "no-person events, per minute", empty.map((s) => (s.seconds ? perMinute(s) : null)), (v) => `${v.toFixed(1)}/min`, false, (i) => `${empty[i].false_alarms} in ${Math.round(empty[i].seconds)} s`),
+      row("Time per frame", `detector only${detectors[0].settings.device ? ` · ${esc(detectors[0].settings.device)}` : ""}`, detectors.map((d) => d.all.ms_per_frame ?? null), (v) => `${Math.round(v)} ms`, false),
+    ];
+    $("summary").innerHTML = headRow("Detector") + `<tbody>${rows.join("")}</tbody>`;
+    const frames = detectors.reduce((n, d) => n + (d.all?.frames ?? 0), 0);
+    $("summary-sub").textContent = `${scenarios.length} scenarios · ${detectors.length} detectors · ${frames.toLocaleString()} frames scored · updated ${index?.updated.slice(0, 10) ?? ""}`;
+
+    // For the best detector: the axes where the rate changes most from one
+    // value to another.
+    const spreads = AXES.filter((a) => a.id !== "event")
+      .map((a) => {
+        const values = a.values
+          .map((v) => ({ label: v.label, s: best.by_setting?.[a.id]?.[v.id] }))
+          .filter((v) => v.s && v.s.in_view)
+          .map((v) => ({ label: v.label, rate: v.s!.detected / v.s!.in_view }));
+        values.sort((x, y) => y.rate - x.rate);
+        return { axis: a.label, high: values[0], low: values[values.length - 1] };
+      })
+      .filter((x) => x.high && x.low && x.high !== x.low)
+      .sort((x, y) => y.high.rate - y.low.rate - (x.high.rate - x.low.rate));
+    const findings = spreads.slice(0, 4).map(
+      (x) => `<li><b>${esc(x.axis)}:</b> ${esc(x.high.label)} ${share(x.high.rate)} → ${esc(x.low.label)} ${share(x.low.rate)} <small>(${Math.round(x.low.rate * 100) - Math.round(x.high.rate * 100)} points)</small></li>`,
+    );
+    // The no-person event with the most false alarms, over all detectors.
+    const events = NO_PERSON_EVENTS.map((e) => ({ e, s: sum(detectors.map((d) => d.by_setting?.event?.[e]).filter((s): s is Summary => !!s)) }));
+    events.sort((a, b) => perMinute(b.s) - perMinute(a.s));
+    if (events[0]?.s.false_alarms) {
+      const e = events[0].e;
+      const each = detectors.map((d) => { const s = d.by_setting?.event?.[e]; return s ? `${esc(d.id)} ${perMinute(s).toFixed(1)}` : ""; }).filter(Boolean).join(" · ");
+      findings.push(`<li><b>False alarms:</b> the ${esc(label("event", e).toLowerCase())} causes the most <small>(${each} per minute)</small></li>`);
+    }
+    $("findings").innerHTML = `<li class="muted">For ${esc(best.name)}, the best detector:</li>` + findings.join("");
+
+    const example = `${detectors[0].id}/${scenarios[0]?.id}.json`;
+    $("data").innerHTML = [
+      [`${base}results/index.json`, "results/index.json", "every detector × scenario, all scenarios, and by setting"],
+      [`${base}results/${example}`, `results/${example}`, "every frame of one scenario: true box, boxes, scores, low boxes, overlap, time"],
+      [`${base}notable/gallery.json`, "notable/gallery.json", "the notable frames, with every setting (see the Gallery)"],
+      ["https://github.com/hoeksemaa/antioch/blob/main/bench/scenarios.json", "bench/scenarios.json", "the 100 fixed scenarios and their seeds"],
+      ["https://github.com/hoeksemaa/antioch/tree/main/bench", "bench/", "the Python benchmark: capture, detectors, scoring, gallery"],
+    ]
+      .map(([href, name, about]) => `<li><a class="mono" href="${href}">${name}</a> <small>${about}</small></li>`)
       .join("");
   }
 
@@ -291,6 +363,7 @@ async function start() {
   }
 
   function render() {
+    renderSummary();
     renderSettings();
     renderScenarios();
     renderCell();
@@ -336,6 +409,10 @@ async function start() {
       else render();
     }
   });
+  $("summary").addEventListener("click", (event) => {
+    const head = (event.target as HTMLElement).closest<HTMLElement>("th[data-detector]");
+    if (head && scenario) select(scenario.id, head.dataset.detector!);
+  });
   $("filter").addEventListener("click", (event) => {
     if ((event.target as HTMLElement).id !== "clear") return;
     filter = null;
@@ -373,6 +450,7 @@ async function start() {
 
   viewer.onDraw = updateOverlay;
   renderHead();
+  renderSummary();
   if (!detectors.length || !scenario) return;
   await select(scenario.id, detector);
 }

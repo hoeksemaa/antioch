@@ -1,0 +1,131 @@
+{
+ "picture": "farthest-hit/029-s032-f0088.jpg",
+ "thumb": "thumbs/farthest-hit/029-s032-f0088.jpg",
+ "focus": "yolo11x",
+ "category": "farthest-hit",
+ "reason": "yolo11x: one of its farthest hits, at 22.3 m",
+ "scenario": {
+  "id": "s032",
+  "name": "portico \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "portico",
+   "event": "delivery",
+   "light": "night",
+   "weather": "clear",
+   "camera": "basic",
+   "person": "man",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 35605,
+  "query": "house=portico&event=delivery&light=night&weather=clear&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=35605"
+ },
+ "frame": {
+  "index": 88,
+  "t": 44,
+  "phase": "leave",
+  "distance_m": 22.34,
+  "truth": [
+   0.2426,
+   0.3922,
+   0.2576,
+   0.4583
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.2441,
+     0.3916,
+     0.2622,
+     0.4447,
+     0.117
+    ]
+   ],
+   "ms": 114.5
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 198.6
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.2436,
+     0.3905,
+     0.2594,
+     0.4245,
+     0.487
+    ]
+   ],
+   "ms": 383.0
+  },
+  "yolo11x": {
+   "hit": true,
+   "iou": 0.442,
+   "fa": 0,
+   "dets": [
+    [
+     0.2439,
+     0.3912,
+     0.2583,
+     0.4255,
+     0.541
+    ]
+   ],
+   "low": [
+    [
+     0.2439,
+     0.3909,
+     0.2583,
+     0.4576,
+     0.44
+    ]
+   ],
+   "ms": 283.7
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.452,
+   "fa": 0,
+   "dets": [
+    [
+     0.2437,
+     0.3907,
+     0.2584,
+     0.4259,
+     0.558
+    ]
+   ],
+   "low": [
+    [
+     0.2393,
+     0.3901,
+     0.2589,
+     0.4596,
+     0.156
+    ]
+   ],
+   "ms": 419.9
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=portico&event=delivery&light=night&weather=clear&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=35605&view=doorbell&t=44",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s032&detector=yolo11x",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/farthest-hit/029-s032-f0088.jpg"
+ }
+}

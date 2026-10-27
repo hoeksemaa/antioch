@@ -1,5 +1,6 @@
 """Python: picks notable frames from a benchmark run and saves them as
-pictures with all their settings, in bench/gallery/.
+pictures with all their settings, in scene/public/notable/ (the site's
+Gallery page shows them; GitHub shows README.md there).
 
 Run it after bench/run.py (it reads scene/public/results/ and the frame cache
 in bench/frames/):
@@ -10,7 +11,8 @@ counted boxes of every detector (one color each), and a caption band under it:
 why the frame is notable, the scenario, every axis setting, the seed, the
 time, the distance, and each detector's result. Next to each picture, a JSON
 file has the same data, plus links that open the exact frame on the live site.
-gallery.json lists every picture; README.md shows them by category.
+thumbs/ has a 480 px copy of each picture for the page. gallery.json lists
+every picture (and the category titles); README.md shows them by category.
 
 Categories (a frame appears once; a later category takes its next best frame):
 - all-missed-close: the person is in view and near (< 6 m), and every
@@ -38,7 +40,20 @@ from run import iou
 ROOT = Path(__file__).parent
 RESULTS = ROOT.parent / "scene" / "public" / "results"
 FRAMES = ROOT / "frames"
-OUT = ROOT / "gallery"
+OUT = ROOT.parent / "scene" / "public" / "notable"
+THUMB = 480  # px wide
+# Category id: (title, what it shows), in page order.
+CATEGORIES = {
+    "all-missed-close": ("Every detector missed a near person", "The person is in view and less than 6 m away, and no detector finds them. Largest true boxes first."),
+    "only-one-hit": ("Only one detector found the person", "Exactly one detector hits. Farthest first."),
+    "farthest-hit": ("Farthest hits", "Each detector's farthest hits."),
+    "hard-all-hit": ("Low light on the fisheye: every detector hit", "Dusk, night, or IR on the fisheye camera, and all detectors find the person."),
+    "light": ("One pair for each light", "For each light: the farthest frame where most detectors hit, and the nearest frame where all miss."),
+    "child-missed": ("Child height: every detector missed", "The weakest person setting."),
+    "false-alarm-no-person": ("False alarms with no person", "Person boxes in scenes with a dog, a passing car, or nobody. Highest scores first."),
+    "false-alarm-delivery": ("Boxes away from the person", "Counted person boxes that do not match the true box. Some are on the visible part of a partly hidden person (see Scoring notes on the Benchmarks page)."),
+    "best-and-worst": ("Best and worst scenarios", "The scenarios with the highest and lowest mean detection rate (a middle frame)."),
+}
 SITE = "https://antioch-demo-hoeksema.vercel.app"
 MIN_IOU = 0.3
 COLORS = {  # one for each detector
@@ -72,13 +87,13 @@ def load():
 
 
 def pick(index, scenarios, detectors, frames):
-    """[(category, reason, scenario id, frame index)] in category order."""
+    """[(category, reason, scenario id, frame index, focus detector or None)] in category order."""
     chosen, seen = [], set()
 
-    def add(category, reason, sid, i):
+    def add(category, reason, sid, i, focus=None):
         if (sid, i) not in seen:
             seen.add((sid, i))
-            chosen.append((category, reason, sid, i))
+            chosen.append((category, reason, sid, i, focus))
 
     def rows(sid):
         """For each frame: the truth (from the first detector) and each detector's record."""
@@ -91,7 +106,7 @@ def pick(index, scenarios, detectors, frames):
     no_person = [s for s in scenarios.values() if s["settings"]["event"] != "delivery"]
     area = lambda b: (b[2] - b[0]) * (b[3] - b[1])
 
-    def best_per_scenario(test, key, pool, limit, category, reason):
+    def best_per_scenario(test, key, pool, limit, category, reason, focus=None):
         found = []
         for s in pool:
             best = None
@@ -103,7 +118,7 @@ def pick(index, scenarios, detectors, frames):
             if best:
                 found.append((key(*best[1:]), s["id"], best[0], best[1], best[2]))
         for _, sid, i, truth, per in sorted(found, reverse=True)[:limit]:
-            add(category, reason(truth, per), sid, i)
+            add(category, reason(truth, per), sid, i, focus)
 
     hits = lambda per: [d for d in detectors if per[d]["hit"]]
     in_view = lambda truth: truth["truth"] is not None
@@ -114,11 +129,11 @@ def pick(index, scenarios, detectors, frames):
     for d in detectors:
         best_per_scenario(
             lambda s, t, p, d=d: in_view(t) and hits(p) == [d], lambda t, p: t["d"], deliveries, 3,
-            "only-one-hit", lambda t, p, d=d: f"only {d} found the person, at {t['d']:.1f} m")
+            "only-one-hit", lambda t, p, d=d: f"only {d} found the person, at {t['d']:.1f} m", d)
     for d in detectors:
         best_per_scenario(
             lambda s, t, p, d=d: in_view(t) and p[d]["hit"], lambda t, p: t["d"], deliveries, 2,
-            "farthest-hit", lambda t, p, d=d: f"{d}: one of its farthest hits, at {t['d']:.1f} m")
+            "farthest-hit", lambda t, p, d=d: f"{d}: one of its farthest hits, at {t['d']:.1f} m", d)
     hard = [s for s in deliveries if s["settings"]["light"] in ("dusk", "night", "ir") and s["settings"]["camera"] == "ring"]
     best_per_scenario(
         lambda s, t, p: in_view(t) and len(hits(p)) == len(detectors), lambda t, p: t["d"], hard, 6,
@@ -138,7 +153,7 @@ def pick(index, scenarios, detectors, frames):
     for d in detectors:
         best_per_scenario(
             lambda s, t, p, d=d: bool(p[d]["dets"]), lambda t, p, d=d: max(b[4] for b in p[d]["dets"]), no_person, 2,
-            "false-alarm-no-person", lambda t, p, d=d: f"{d}: a person box at {max(b[4] for b in p[d]['dets']):.2f} with no person in the scene")
+            "false-alarm-no-person", lambda t, p, d=d: f"{d}: a person box at {max(b[4] for b in p[d]['dets']):.2f} with no person in the scene", d)
 
     def stray(t, p):
         """The highest score of a counted box away from the person."""
@@ -241,18 +256,25 @@ def main():
     index, scenarios, detectors, frames = load()
     chosen = pick(index, scenarios, detectors, frames)
     OUT.mkdir(exist_ok=True)
-    for old in list(OUT.glob("*/*.jpg")) + list(OUT.glob("*/*.json")):
+    for old in list(OUT.glob("*/*.jpg")) + list(OUT.glob("*/*.json")) + list(OUT.glob("thumbs/*/*.jpg")):
         old.unlink()
+    # The detector a replay opens with, when no detector is the subject.
+    best = max(index["detectors"], key=lambda d: d["all"]["detected"] / max(1, d["all"]["in_view"]))["id"]
     items = []
-    for n, (category, reason, sid, i) in enumerate(chosen, 1):
+    for n, (category, reason, sid, i, focus) in enumerate(chosen, 1):
         scenario = scenarios[sid]
         per = {d: frames[(sid, d)][i] for d in detectors}
         name = f"{n:03d}-{sid}-f{i:04d}"
         (OUT / category).mkdir(exist_ok=True)
-        render(category, reason, scenario, i, per, detectors).save(OUT / category / f"{name}.jpg", quality=88)
+        picture = render(category, reason, scenario, i, per, detectors)
+        picture.save(OUT / category / f"{name}.jpg", quality=88)
+        (OUT / "thumbs" / category).mkdir(parents=True, exist_ok=True)
+        picture.resize((THUMB, round(picture.height * THUMB / picture.width)), Image.LANCZOS).save(OUT / "thumbs" / category / f"{name}.jpg", quality=82)
         f0 = per[detectors[0]]
         item = {
             "picture": f"{category}/{name}.jpg",
+            "thumb": f"thumbs/{category}/{name}.jpg",
+            "focus": focus,
             "category": category,
             "reason": reason,
             "scenario": {k: scenario[k] for k in ("id", "name", "settings", "seed", "query")},
@@ -260,16 +282,18 @@ def main():
             "detectors": {d: {k: per[d].get(k) for k in ("hit", "iou", "fa", "dets", "low", "ms")} for d in detectors},
             "links": {
                 "frame": f"{SITE}/?{scenario['query']}&view=doorbell&t={f0['t']}",
-                "replay": f"{SITE}/benchmarks?scenario={sid}&detector={detectors[0]}",
+                "replay": f"{SITE}/benchmarks?scenario={sid}&detector={focus or best}",
+                "picture": f"{SITE}/notable/{category}/{name}.jpg",
             },
         }
         (OUT / category / f"{name}.json").write_text(json.dumps(item, indent=1))
         items.append(item)
-    (OUT / "gallery.json").write_text(json.dumps({"made_by": "bench/gallery.py", "detectors": detectors, "colors": COLORS, "pictures": items}, indent=1))
+    categories = [{"id": c, "title": t, "about": a} for c, (t, a) in CATEGORIES.items() if any(x["category"] == c for x in items)]
+    (OUT / "gallery.json").write_text(json.dumps({"made_by": "bench/gallery.py", "detectors": detectors, "colors": COLORS, "categories": categories, "pictures": items}, indent=1))
 
     md = ["# Notable frames", "", f"Made by `bench/gallery.py` from the benchmark results ({len(items)} pictures). True box: white, dashed. Detector boxes: " + ", ".join(f"{d} (rgb{COLORS[d]})" for d in detectors if d in COLORS) + ". Each picture has a JSON file with the same name: every setting, the seed, the frame, each detector's boxes, and links to the frame on the live site.", ""]
     for category in dict.fromkeys(i["category"] for i in items):
-        md += [f"## {category}", ""]
+        md += [f"## {CATEGORIES[category][0]}", "", CATEGORIES[category][1], ""]
         for item in (x for x in items if x["category"] == category):
             md += [f"**{item['reason']}**  ", f"`{item['scenario']['id']}` {item['scenario']['name']} · seed {item['scenario']['seed']} · t {item['frame']['t']} s · [frame]({item['links']['frame']}) · [replay]({item['links']['replay']})", "", f"![{item['reason']}]({item['picture']})", ""]
     (OUT / "README.md").write_text("\n".join(md))

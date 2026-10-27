@@ -1,0 +1,107 @@
+{
+ "picture": "only-one-hit/020-s032-f0002.jpg",
+ "thumb": "thumbs/only-one-hit/020-s032-f0002.jpg",
+ "focus": "rtdetr-x",
+ "category": "only-one-hit",
+ "reason": "only rtdetr-x found the person, at 22.1 m",
+ "scenario": {
+  "id": "s032",
+  "name": "portico \u00b7 delivery \u00b7 night \u00b7 clear \u00b7 basic \u00b7 man \u00b7 walk \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "portico",
+   "event": "delivery",
+   "light": "night",
+   "weather": "clear",
+   "camera": "basic",
+   "person": "man",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 35605,
+  "query": "house=portico&event=delivery&light=night&weather=clear&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=35605"
+ },
+ "frame": {
+  "index": 2,
+  "t": 1,
+  "phase": "approach",
+  "distance_m": 22.08,
+  "truth": [
+   0.2486,
+   0.393,
+   0.2683,
+   0.459
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 107.2
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 127.5
+  },
+  "frcnn-resnet50": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.2512,
+     0.3927,
+     0.2641,
+     0.4204,
+     0.182
+    ]
+   ],
+   "ms": 1169.1
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 294.2
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.308,
+   "fa": 0,
+   "dets": [
+    [
+     0.251,
+     0.3916,
+     0.2636,
+     0.4253,
+     0.554
+    ]
+   ],
+   "low": [
+    [
+     0.2507,
+     0.3906,
+     0.2667,
+     0.457,
+     0.17
+    ]
+   ],
+   "ms": 421.0
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=portico&event=delivery&light=night&weather=clear&camera=basic&person=man&speed=walk&surfaces=flat&occlusion=car&seed=35605&view=doorbell&t=1",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s032&detector=rtdetr-x",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/only-one-hit/020-s032-f0002.jpg"
+ }
+}

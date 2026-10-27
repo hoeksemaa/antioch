@@ -7,9 +7,9 @@ render that frame and to report the ground truth, then takes a screenshot.
 Frames are cached in bench/frames/<scenario>/ (PNG, as Chromium wrote them),
 so every detector reads the exact same pixels and a second detector does not
 render again. The cache key is the scenario query, the frame rate, the scene
-URL, and the last git commit of scene/ (not counting the results and the
-Benchmarks page files, which the capture does not load); a change to any of
-them renders again.
+URL, and the last git commit of scene/ (not counting the results, the gallery,
+and the Benchmarks and Gallery page files, which the capture does not load); a
+change to any of them renders again.
 """
 
 import json
@@ -44,7 +44,16 @@ class Frame:
 
 
 # Files in scene/ that the capture page does not load.
-NOT_CAPTURE = ["scene/public/results", "scene/benchmarks.html", "scene/src/benchmarks.ts", "scene/src/benchmarks.css"]
+NOT_CAPTURE = [
+    "scene/public/results",
+    "scene/public/notable",
+    "scene/benchmarks.html",
+    "scene/src/benchmarks.ts",
+    "scene/src/benchmarks.css",
+    "scene/gallery.html",
+    "scene/src/gallery.ts",
+    "scene/src/gallery.css",
+]
 
 
 def scene_version() -> str:

@@ -1,0 +1,152 @@
+{
+ "picture": "best-and-worst/066-s023-f0035.jpg",
+ "thumb": "thumbs/best-and-worst/066-s023-f0035.jpg",
+ "focus": null,
+ "category": "best-and-worst",
+ "reason": "worst scenario: mean detection rate 7% (a middle frame)",
+ "scenario": {
+  "id": "s023",
+  "name": "porch \u00b7 delivery \u00b7 IR \u00b7 rain \u00b7 fisheye \u00b7 child \u00b7 walk \u00b7 flat \u00b7 bins",
+  "settings": {
+   "house": "porch",
+   "event": "delivery",
+   "light": "ir",
+   "weather": "rain",
+   "camera": "ring",
+   "person": "child",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "bins"
+  },
+  "seed": 39387,
+  "query": "house=porch&event=delivery&light=ir&weather=rain&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=bins&seed=39387"
+ },
+ "frame": {
+  "index": 35,
+  "t": 17.5,
+  "phase": "drop",
+  "distance_m": 2.28,
+  "truth": [
+   0.5645,
+   0.5861,
+   0.6492,
+   0.7308
+  ]
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.5617,
+     0.5801,
+     0.6418,
+     0.6796,
+     0.414
+    ]
+   ],
+   "ms": 112.0
+  },
+  "ssdlite": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.5805,
+     0.571,
+     0.6517,
+     0.7081,
+     0.123
+    ],
+    [
+     0.7102,
+     0.485,
+     0.7878,
+     0.628,
+     0.101
+    ]
+   ],
+   "ms": 139.3
+  },
+  "frcnn-resnet50": {
+   "hit": true,
+   "iou": 0.666,
+   "fa": 0,
+   "dets": [
+    [
+     0.5667,
+     0.5841,
+     0.6499,
+     0.6871,
+     0.505
+    ]
+   ],
+   "low": [],
+   "ms": 256.4
+  },
+  "yolo11x": {
+   "hit": false,
+   "iou": 0.0,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.5637,
+     0.5838,
+     0.6501,
+     0.6866,
+     0.105
+    ]
+   ],
+   "ms": 290.8
+  },
+  "rtdetr-x": {
+   "hit": true,
+   "iou": 0.677,
+   "fa": 0,
+   "dets": [
+    [
+     0.5634,
+     0.5836,
+     0.6497,
+     0.6871,
+     0.525
+    ]
+   ],
+   "low": [
+    [
+     0.1779,
+     0.552,
+     0.2885,
+     0.7235,
+     0.16
+    ],
+    [
+     0.85,
+     0.5368,
+     0.9339,
+     0.6738,
+     0.105
+    ],
+    [
+     0.0412,
+     0.2968,
+     0.1546,
+     0.5334,
+     0.103
+    ]
+   ],
+   "ms": 225.4
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=porch&event=delivery&light=ir&weather=rain&camera=ring&person=child&speed=walk&surfaces=flat&occlusion=bins&seed=39387&view=doorbell&t=17.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s023&detector=frcnn-resnet50",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/best-and-worst/066-s023-f0035.jpg"
+ }
+}

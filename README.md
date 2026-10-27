@@ -4,7 +4,7 @@ A doorbell camera on a simulated front porch, in many environments. It benchmark
 
 Unofficial demo by [John Hoeksema](https://johnhoeksema.com) for the Member of Technical Staff, Core Platform role at Antioch. Not affiliated with Antioch. All scenes and results are simulated and uncalibrated.
 
-Live: https://antioch-demo-hoeksema.vercel.app (Simulations) and https://antioch-demo-hoeksema.vercel.app/benchmarks (Benchmarks).
+Live: https://antioch-demo-hoeksema.vercel.app (Simulations), https://antioch-demo-hoeksema.vercel.app/benchmarks (Benchmarks), and https://antioch-demo-hoeksema.vercel.app/gallery (Gallery).
 
 ## Stack: which parts are Three.js and which are Python
 
@@ -18,7 +18,8 @@ Live: https://antioch-demo-hoeksema.vercel.app (Simulations) and https://antioch
 | Frame capture | **Python** | `bench/capture.py` | Opens the scene in headless Chromium (Playwright), calls `window.bench`, takes screenshots, caches them in `bench/frames/` |
 | Detectors | **Python** | `bench/detector.py` | 5 detectors (torchvision and Ultralytics); add one entry to add a detector |
 | Scoring and results | **Python** | `bench/run.py` | Matches detections to the ground truth; writes `scene/public/results/` |
-| Benchmarks page | TypeScript (browser) with the Three.js viewer | `scene/benchmarks.html`, `scene/src/benchmarks.ts` | Detectors × scenarios matrix, and a replay of the selected cell with the boxes on the doorbell camera |
+| Benchmarks page | TypeScript (browser) with the Three.js viewer | `scene/benchmarks.html`, `scene/src/benchmarks.ts` | Summary, results by setting, the scenario list, and a replay of the selected cell with the boxes on the doorbell camera |
+| Gallery page | TypeScript (browser) | `scene/gallery.html`, `scene/src/gallery.ts` | The notable frames from `bench/gallery.py` (`scene/public/notable/`), in groups, with every setting and each detector's result |
 | Hosting | Vercel | `scene/` | Serves the Three.js scene as a static site. Python does not run on Vercel |
 
 ```
@@ -50,7 +51,7 @@ Capture mode (`/?view=doorbell`) shows the doorbell camera alone, in the full wi
 
 URL parameters:
 - One parameter per axis in `scene/src/settings.ts`, for example `?house=<id>` (ids below). On Benchmarks, `?detector=<id>` picks the detector.
-- A missing axis takes a default. On Simulations, it is the axis's showcase value. In capture mode and in the Benchmarks replay, it is the v1 baseline value, so old results still match the scene.
+- A missing axis takes a default. On Simulations, it is the axis's showcase value. In capture mode, it is the baseline value. The benchmark scenarios set every axis, so the Benchmarks replay loads each scenario exactly.
 - `?t=<seconds>` freezes the delivery at that time, for example `?house=porch&view=doorbell&t=16`.
 - `?seed=<n>` seeds every random choice in the scene. Seed 0 (the default) is the canonical scene, with no jitter. Another seed moves the delivery's start point (±2 m) and speed (±10%). Each module takes its own named stream from `scene/src/random.ts`, so a change on one axis does not change the random values of another module.
 - `window.sim.stats()` gives the draw calls and triangles of the last frame (all passes), for the browser budget checks. Static meshes that share a material are merged into one mesh, so a frame costs about 90–110 draw calls.
@@ -198,7 +199,7 @@ Detectors (all trained on COCO, real photos; only "person" boxes with a score of
 - The Ultralytics weights (about 240 MB) download once into `bench/weights/` (not in git). The Ultralytics usage analytics are off.
 - The Ultralytics models run at the frame's own size (no downscale), so far people keep their pixels. The torchvision models use their own resize.
 - Device: MPS (the Mac GPU) when it is there, else the CPU (`--device`). MPS and the CPU gave the same boxes, and two MPS runs gave the same boxes.
-- Speed on an M1 Pro (MPS), for each frame: `ssdlite` 0.1 s, `yolo11x` 0.3 s, `frcnn-mobilenet` and `frcnn-resnet50` 0.33 s, `rtdetr-x` 0.4 s.
+- Detector time per frame on an M1 Pro (MPS), over the full run: `frcnn-mobilenet` 108 ms, `ssdlite` 109 ms, `yolo11x` 307 ms, `frcnn-resnet50` 315 ms, `rtdetr-x` 352 ms.
 
 Scenarios: the fixed list in `bench/scenarios.json`, made by `bench/scenarios.py`. Every detector runs on the same 100 scenarios:
 - 76 deliveries and 24 events with no person (8 dog, 8 passing car, 8 empty). The no-person events measure false alarms.
@@ -225,13 +226,14 @@ Output (in git, so the deployed page shows it):
 
 A run replaces the results for the detectors and scenarios it runs and keeps the others. Results for scenarios that are not in the list are dropped.
 
-Notable frames: after a run, `bench/.venv/bin/python bench/gallery.py` picks frames (every detector missed a near person, only one detector hit, the farthest hits, low light on the fisheye, false alarms, the best and worst scenarios) and saves them in `bench/gallery/`. Each picture shows the true box and every detector's boxes, with a caption band: the reason, the scenario, every setting, the seed, the time, the distance, and each detector's result. A JSON file next to each picture has the same data and links to the frame on the live site. `bench/gallery/README.md` shows them by category.
+Notable frames: after a run, `bench/.venv/bin/python bench/gallery.py` picks frames (every detector missed a near person, only one detector hit, the farthest hits, low light on the fisheye, false alarms, the best and worst scenarios) and saves them in `scene/public/notable/`, with a 480 px copy of each in `thumbs/` for the Gallery page. Each picture shows the true box and every detector's boxes, with a caption band: the reason, the scenario, every setting, the seed, the time, the distance, and each detector's result. A JSON file next to each picture has the same data and links to the frame on the live site. [`scene/public/notable/README.md`](scene/public/notable/README.md) shows them by category on GitHub.
 
 More data in each frame record: `low` (person boxes from 0.1 up to the threshold, not counted, for other thresholds later), `iou` (the best overlap of a counted box with the true box), and `ms` (detector time). With `--images`, marked-up frames also go to `bench/out/<detector>/<scenario>/` (not in git).
 
 ## Benchmarks page
 
 Styled after antioch.com:
+- **Summary:** for each detector, the detection rate, the rate by distance, the median first-seen distance, false alarms per minute with no person, and the time per frame (the best in each row is green); the largest differences within one setting for the best detector; scoring notes; and links to the data files. All of it comes from `results/index.json`.
 - **By setting:** one row for each value of each axis (for example Light: Dusk), one column for each detector. A cell is the detection rate over the scenarios with that value; for the events with no person (dog, passing car, empty) it is false alarms per minute. The best detector in each row is green. Click a row to list only its scenarios.
 - **Scenarios:** the 100 scenarios (or those of the chosen setting) × the detectors. Click a cell to replay that scenario and detector.
 - **Replay:** the Three.js scene itself, with the true box (white, dashed) and the detector's boxes (yellow) on the doorbell camera. The scene is deterministic, so each frame is the same frame that the detector saw.
@@ -240,10 +242,34 @@ Styled after antioch.com:
 
 `/results` and `/results.html` (the old results page) redirect to `/benchmarks` (`scene/vercel.json`).
 
+## Gallery page
+
+The notable frames from `bench/gallery.py`, in groups (filter at the top). Each card has the picture (click for full size), the reason, the scenario, every setting, the seed, the time, the distance, each detector's result, and links: Open frame (the exact frame live, in capture mode) and Replay (the scenario on the Benchmarks page).
+
+## Results (2026-10-27)
+
+All 5 detectors on the 100 fixed scenarios (24,140 detector frames; 1 h 43 min on an M1 Pro from the frame cache).
+
+| | frcnn-resnet50 | rtdetr-x | yolo11x | frcnn-mobilenet | ssdlite |
+|---|---|---|---|---|---|
+| Detection rate (deliveries) | **74%** | 67% | 65% | 48% | 15% |
+| Day / dusk / night / IR | 82 / 78 / 69 / 67% | 72 / 75 / 65 / 58% | 74 / 67 / 63 / 58% | 61 / 50 / 47 / 36% | 19 / 17 / 14 / 13% |
+| Basic / fisheye | 83 / 65% | 71 / 64% | 78 / 53% | 53 / 43% | 17 / 14% |
+| Child height | 56% | 50% | 43% | 30% | 7% |
+| At 12+ m | 62% | 53% | 49% | 15% | 0% |
+| False alarms, no-person events | 3.9/min | 2.5/min | **1.4/min** | 5.7/min | 0.0/min |
+| Time per frame (MPS) | 315 ms | 352 ms | 307 ms | 108 ms | 109 ms |
+
+- The fisheye costs the strong detectors 7–25 points. IR and night are the hardest light; dusk is only a little below day.
+- Child height is the hardest person: the package hides most of the body.
+- The dog causes the most false alarms (scores up to 0.97 for "person").
+- SSDlite makes no false alarms because it finds few people.
+- Scoring limits: the true box covers hidden body parts, and a person behind a tree or mostly outside the frame counts as in view. Both lower every detector's rate.
+
 ## Deploy
 
 Vercel project `antioch-demo-hoeksema`, with Root Directory `scene`. Vercel detects Vite; the output is `dist/`. GitHub is connected, so each merge to `main` deploys to production. A manual deploy is `vercel deploy --prod --yes` from the repo root.
 
 ## Status
 
-v8: two pages (Simulations and Benchmarks); nine scenario axes; a Python person-detection benchmark with five detectors on 100 fixed scenarios.
+v9: three pages (Simulations, Benchmarks, Gallery); nine scenario axes; a Python person-detection benchmark with five detectors on 100 fixed scenarios, and 67 notable frames.

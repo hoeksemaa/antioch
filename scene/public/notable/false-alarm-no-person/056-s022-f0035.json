@@ -1,0 +1,110 @@
+{
+ "picture": "false-alarm-no-person/056-s022-f0035.jpg",
+ "thumb": "thumbs/false-alarm-no-person/056-s022-f0035.jpg",
+ "focus": "rtdetr-x",
+ "category": "false-alarm-no-person",
+ "reason": "rtdetr-x: a person box at 0.86 with no person in the scene",
+ "scenario": {
+  "id": "s022",
+  "name": "portico \u00b7 dog \u00b7 day \u00b7 clear \u00b7 fisheye \u00b7 flat \u00b7 car",
+  "settings": {
+   "house": "portico",
+   "event": "dog",
+   "light": "day",
+   "weather": "clear",
+   "camera": "ring",
+   "person": "man",
+   "speed": "walk",
+   "surfaces": "flat",
+   "occlusion": "car"
+  },
+  "seed": 812286,
+  "query": "house=portico&event=dog&light=day&weather=clear&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=812286"
+ },
+ "frame": {
+  "index": 35,
+  "t": 17.5,
+  "phase": "none",
+  "distance_m": null,
+  "truth": null
+ },
+ "detectors": {
+  "frcnn-mobilenet": {
+   "hit": null,
+   "iou": null,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.4722,
+     0.5981,
+     0.538,
+     0.7049,
+     0.102
+    ]
+   ],
+   "ms": 95.8
+  },
+  "ssdlite": {
+   "hit": null,
+   "iou": null,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 127.2
+  },
+  "frcnn-resnet50": {
+   "hit": null,
+   "iou": null,
+   "fa": 0,
+   "dets": [],
+   "low": [],
+   "ms": 264.7
+  },
+  "yolo11x": {
+   "hit": null,
+   "iou": null,
+   "fa": 0,
+   "dets": [],
+   "low": [
+    [
+     0.4658,
+     0.5997,
+     0.5385,
+     0.7111,
+     0.349
+    ]
+   ],
+   "ms": 289.4
+  },
+  "rtdetr-x": {
+   "hit": null,
+   "iou": null,
+   "fa": 1,
+   "dets": [
+    [
+     0.465,
+     0.5993,
+     0.5388,
+     0.7108,
+     0.864
+    ]
+   ],
+   "low": [
+    [
+     0.468,
+     0.6094,
+     0.5172,
+     0.709,
+     0.101
+    ]
+   ],
+   "ms": 228.7
+  }
+ },
+ "links": {
+  "frame": "https://antioch-demo-hoeksema.vercel.app/?house=portico&event=dog&light=day&weather=clear&camera=ring&person=man&speed=walk&surfaces=flat&occlusion=car&seed=812286&view=doorbell&t=17.5",
+  "replay": "https://antioch-demo-hoeksema.vercel.app/benchmarks?scenario=s022&detector=rtdetr-x",
+  "picture": "https://antioch-demo-hoeksema.vercel.app/notable/false-alarm-no-person/056-s022-f0035.jpg"
+ }
+}
