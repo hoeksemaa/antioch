@@ -114,13 +114,13 @@ Five daytime houses. Each has its own entry, approach path, and doorbell positio
 
 | id | Person | Height |
 |---|---|---|
-| `mannequin` | The v1 capsule figure | 1.78 m |
 | `man` | Shirt and trousers | 1.80 m |
 | `woman` | Shirt and trousers | 1.66 m |
 | `dark` | The man in dark clothes (a hard case at night) | 1.80 m |
 | `hooded` | Outfit with the hood up | 1.80 m |
 | `child` | The woman scaled to child height (the free pack has no child body) | 1.20 m |
 
+- `mannequin` (not a button) is the v1 capsule figure, 1.78 m. Capture mode and Benchmarks use it when `?person=` is missing, because the v1 results were scored on it.
 - Speed: `walk` 1.4 m/s, `run` 4.5 m/s. The run speed matches the stride of the free jog clip, so the feet stay planted.
 - The rigged people are CC0 Quaternius assets, assembled offline into `scene/public/people/` (see `LICENSE.txt` there). The page loads a person's file (1.4–2.3 MB) only when it is on screen.
 - Animation: walk or jog clips matched to the speed, idle at the pauses, and a crouch for the drop. Two-bone IK puts the hands on the package. All of it comes from the delivery time t, so frames repeat.
