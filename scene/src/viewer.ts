@@ -93,13 +93,17 @@ export class Viewer {
     this.renderer.setSize(width, height);
   }
 
-  // Size of the doorbell inset, in CSS px, and its margin from the
-  // bottom-right corner of the canvas. A square inset has about the same area
-  // as a 16:9 one.
+  // Size of the doorbell inset frame, in CSS px, and its margin from the
+  // bottom-right corner of the canvas. The frame is as wide as a 16:9 inset
+  // for both cameras, so it lines up with the panel above it. A square
+  // (fisheye) image is 0.75 as wide, so it has about the same area; it sits in
+  // the middle of the frame, with black at the sides. The frame is at most 40%
+  // of the canvas height, so the panel fits above it.
   insetSize() {
-    const wide = Math.min(480, Math.max(180, this.renderer.getSize(new THREE.Vector2()).x * 0.32));
-    const width = Math.round(this.doorbell.aspect === 1 ? wide * 0.75 : wide);
-    return { width, height: Math.round(width / this.doorbell.aspect), margin: 16 };
+    const size = this.renderer.getSize(new THREE.Vector2());
+    const tall = this.doorbell.aspect === 1 ? 0.75 : 1 / this.doorbell.aspect; // height / width
+    const width = Math.round(Math.min(480, Math.max(180, size.x * 0.32), (0.4 * size.y) / tall));
+    return { width, height: Math.round(width * tall), margin: 16 };
   }
 
   // Loads the files that the settings need (people, textures, the car), then
@@ -206,9 +210,18 @@ export class Viewer {
       r.setScissor(0, 0, size.x, size.y);
       r.render(this.scene, this.overview);
       if (this.inset) {
-        // WebGL counts y from the bottom.
+        // WebGL counts y from the bottom. The frame is black first, for the
+        // sides of a square image.
         const { width, height, margin } = this.insetSize();
-        this.drawDoorbell({ x: size.x - width - margin, y: margin, width, height });
+        const x = size.x - width - margin;
+        r.setScissor(x, margin, width, height);
+        const color = r.getClearColor(new THREE.Color());
+        const alpha = r.getClearAlpha();
+        r.setClearColor(0x000000, 1);
+        r.clear();
+        r.setClearColor(color, alpha);
+        const image = Math.min(width, height * this.doorbell.aspect);
+        this.drawDoorbell({ x: x + (width - image) / 2, y: margin, width: image, height });
       }
     } else {
       this.drawDoorbell(fit(size.x, size.y, this.doorbell.aspect));

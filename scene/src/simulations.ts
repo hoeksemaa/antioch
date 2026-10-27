@@ -1,6 +1,8 @@
 // Simulations page (Three.js viewer plus a few controls): the overview with
 // the doorbell camera inset and the delivery playing. One row of buttons for
-// each axis in settings.ts. Keys 1–5 switch houses, and V switches the view.
+// each axis in settings.ts, in a panel on the right above the inset. Keys 1–5
+// switch houses. A click on the inset (or V) opens the doorbell view, and a
+// click on that view (or V, or Esc) goes back to the overview.
 // The page shows no seed control: a seed from the URL (an Open frame link from
 // the Gallery) stays in the settings, so that frame matches the benchmark.
 
@@ -42,14 +44,15 @@ export async function startSimulations(viewer: Viewer, first: Settings) {
   for (const axis of AXES) {
     const row = document.createElement("div");
     row.className = "axis";
-    row.innerHTML = `<span>${axis.label}</span>`;
+    row.innerHTML = `<span>${axis.label}</span><div class="options"></div>`;
+    const options = row.querySelector(".options")!;
     axis.values.forEach((value, i) => {
       const b = document.createElement("button");
       b.dataset.axis = axis.id;
       b.dataset.value = value.id;
       b.textContent = axis.id === "house" ? `${i + 1} ${value.label}` : value.label;
       b.addEventListener("click", () => set({ [axis.id]: value.id }));
-      row.append(b);
+      options.append(b);
     });
     rows.append(row);
   }
@@ -59,12 +62,20 @@ export async function startSimulations(viewer: Viewer, first: Settings) {
     const house = HOUSES[Number(event.key) - 1];
     if (house) set({ house: house.id });
     else if (event.key.toLowerCase() === "v") setView(viewer.view === "overview" ? "doorbell" : "overview");
+    else if (event.key === "Escape") setView("overview");
   });
 
-  // Keeps the inset's border and label on the inset.
+  inset.addEventListener("click", () => setView("doorbell"));
+  viewer.canvas.addEventListener("click", () => {
+    if (viewer.view === "doorbell") setView("overview");
+  });
+
+  // Keeps the inset's border and label on the inset, and the panel above it.
   viewer.onDraw = () => {
     const { width, height, margin } = viewer.insetSize();
     Object.assign(inset.style, { right: `${margin}px`, bottom: `${margin}px`, width: `${width}px`, height: `${height}px` });
+    stage.style.setProperty("--inset-w", `${width}px`);
+    stage.style.setProperty("--inset-h", `${height}px`);
   };
 
   viewer.inset = true;
