@@ -43,7 +43,7 @@ npm install
 npm run dev
 ```
 
-Three pages, with the same header: the title at the left, and one bar with Simulation, Benchmark, Gallery, View source, and View creator:
+Three pages, with the same header: the title at the left, and one bar with Simulation, Benchmark, Gallery, View source, and View creator. On a narrow screen (760 px or less), the header is two rows: the title with Source and Creator at the right, then Simulation, Benchmark, and Gallery as a segmented control:
 - **Simulation** (http://localhost:5173): the 3D scene. Drag to orbit and scroll to zoom. Click a button in each axis row (the panel at the top right) to change the scenario. On a narrow screen (760 px or less), the panel is a dropdown: tap Porch scenes to open or close it. It starts closed. A symbol names each row; the `?` button opens a panel with the keys and the symbol names. Press `1`–`5` to switch houses. Click the doorbell camera inset, or press `V`, for the doorbell camera view; click that view, or press `V` or `Esc`, to go back to the overview.
 - **Benchmark** (http://localhost:5173/benchmarks.html; live: `/benchmarks`): the detector scores (see below).
 - **Gallery** (http://localhost:5173/gallery.html; live: `/gallery`): the replay of any scene, and the notable frames from the benchmark run (see below).
