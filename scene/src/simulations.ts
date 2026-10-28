@@ -5,6 +5,8 @@
 // the symbol names. Keys 1–5 switch houses. A click on the inset (or V) opens
 // the doorbell view, and a click on that view (or V, or Esc) goes back to the
 // overview.
+// On a narrow screen (style.css), the panel title opens and closes the rows.
+// The rows start closed there, so the scene has the screen.
 // The page shows no seed control: a seed from the URL (an Open frame link from
 // the Gallery) stays in the settings, so that frame matches the benchmark.
 
@@ -59,6 +61,22 @@ export async function startSimulations(viewer: Viewer, first: Settings) {
     });
     rows.append(row);
   }
+
+  // The panel title: a toggle for the rows on a narrow screen, and plain text
+  // (a disabled button) on a wide screen, where the rows always show.
+  const hud = document.getElementById("hud")!;
+  const toggle = document.getElementById("hud-toggle") as HTMLButtonElement;
+  const narrow = matchMedia("(max-width: 760px)");
+  function syncToggle() {
+    toggle.disabled = !narrow.matches;
+    toggle.setAttribute("aria-expanded", String(hud.classList.contains("open") || !narrow.matches));
+  }
+  toggle.addEventListener("click", () => {
+    hud.classList.toggle("open");
+    syncToggle();
+  });
+  narrow.addEventListener("change", syncToggle);
+  syncToggle();
 
   // The help panel: the keys, and the name of each symbol. A click outside it
   // (or Esc) closes it.
