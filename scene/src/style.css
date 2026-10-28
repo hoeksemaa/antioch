@@ -649,6 +649,26 @@ body.doorbell #hud {
   letter-spacing: -0.01em;
 }
 
+/* The title is a button: plain text on a wide screen, and the toggle for the
+   rows on a narrow screen (see the 760px rule below). */
+#hud-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+}
+
+#hud-toggle .chevron {
+  display: none;
+  color: rgb(255 255 255 / 0.6);
+  transition: transform 0.15s;
+}
+
 /* The ? button: opens the help panel. */
 #help {
   display: grid;
@@ -794,6 +814,7 @@ kbd {
 }
 
 #axes button:focus-visible,
+#hud-toggle:focus-visible,
 #inset:focus-visible {
   outline: 2px solid rgb(255 255 255 / 0.7);
   outline-offset: 1px;
@@ -880,6 +901,27 @@ body.doorbell #inset {
     width: auto;
     max-height: calc(100% - var(--inset-h, 0px) - 32px);
     padding: 12px;
+  }
+
+  /* A dropdown: the title opens and closes the rows. The extra padding
+     gives the title a larger tap area. */
+  #hud-toggle {
+    flex: 1;
+    margin: -8px 0;
+    padding: 8px 0;
+    cursor: pointer;
+  }
+
+  #hud-toggle .chevron {
+    display: block;
+  }
+
+  #hud.open #hud-toggle .chevron {
+    transform: rotate(180deg);
+  }
+
+  #hud:not(.open) #axes {
+    display: none;
   }
 
   #help-panel {
