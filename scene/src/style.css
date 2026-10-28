@@ -902,11 +902,13 @@ body.doorbell #inset {
 }
 
 @media (max-width: 760px) {
+  /* At the top right, as wide as its content: closed, only the title row;
+     open, the rows, up to the width of the stage. */
   #hud {
     top: 8px;
     right: 8px;
-    left: 8px;
-    width: auto;
+    width: max-content;
+    max-width: calc(100% - 16px);
     max-height: calc(100% - var(--inset-h, 0px) - 32px);
     padding: 12px;
   }
